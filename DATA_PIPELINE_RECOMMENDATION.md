@@ -27,6 +27,7 @@ Build a data workflow that is reproducible, inspectable, and strict enough to re
 3. Always resample from the finest available timeframe.
 4. Always validate data quality before backtest and again before optimization.
 5. Export reports with timestamps.
+6. Treat high-impact news protection as part of the execution pipeline, not as an optional overlay.
 
 ## Recommended structure
 
@@ -51,6 +52,8 @@ python fx_multi_timeframe_backtester.py prepare-data --download-missing
 python fx_multi_timeframe_backtester.py validate-data --strict-data-quality
 python fx_multi_timeframe_backtester.py run --strict-data-quality
 python fx_multi_timeframe_backtester.py optimize --strict-data-quality --max-combinations 12
+python fx_multi_timeframe_backtester.py screen-pairs --strict-data-quality --max-combinations 12
+python fx_multi_timeframe_backtester.py fetch-news --news-source tradingeconomics --news-min-importance 3 --news-output data/news_events.csv
 ```
 
 ## Recommended free bootstrap flow
@@ -76,7 +79,7 @@ python fx_multi_timeframe_backtester.py validate-data --pairs EURUSD GBPUSD USDJ
 4. Run research:
 
 ```bash
-python fx_multi_timeframe_backtester.py optimize --strict-data-quality --pairs EURUSD GBPUSD USDJPY --start 2020-01-01 --end 2020-12-31 --source local --data-dir data_free_2020/prepared --report-dir reports_free_2020_opt --strategy-family adaptive_session_reversion --optimization-profile consistency --max-combinations 12
+python fx_multi_timeframe_backtester.py optimize --strict-data-quality --pairs EURUSD GBPUSD USDJPY --start 2020-01-01 --end 2020-12-31 --source local --data-dir data_free_2020/prepared --report-dir reports_free_2020_opt --strategy-family adaptive_session_reversion --optimization-profile consistency --max-combinations 12 --news-source csv --news-file data/news_events.csv
 ```
 
 5. For the long free bootstrap:
@@ -95,5 +98,8 @@ If the goal is real robustness, prefer:
 - better and cleaner data
 - walk-forward style validation
 - conservative execution costs
+- calendar blackout plus pre-news flatten
+- hard veto windows for NFP, CPI, FOMC, rate decisions, and similar event names
+- a volatility shock circuit breaker for unscheduled events
 
 That usually beats chasing the prettiest in-sample equity curve.

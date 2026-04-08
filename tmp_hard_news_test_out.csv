@@ -1,0 +1,2 @@
+timestamp,currency,importance,event,country,source,hard_event,event_tier
+2020-01-10 08:30:00-05:00,USD,1,Non Farm Payrolls,,csv,True,hard
