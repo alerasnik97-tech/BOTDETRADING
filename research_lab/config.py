@@ -14,8 +14,9 @@ DEFAULT_DATA_DIRS = (
 DEFAULT_RAW_NEWS_FILE = Path("data/forex_factory_cache.csv")
 DEFAULT_NEWS_FILE = Path("data/news_eurusd_m15_validated.csv")
 DEFAULT_NEWS_AUDIT_FILE = Path("data/news_eurusd_m15_audit.csv")
+DEFAULT_NEWS_SUMMARY_FILE = Path("data/news_eurusd_m15_summary.json")
 DEFAULT_NEWS_ENABLED = False
-DEFAULT_NEWS_SOURCE_APPROVED = False
+DEFAULT_NEWS_SOURCE_APPROVED = True
 DEFAULT_RESULTS_DIR = Path("results") / "research_lab_robust"
 VISIBLE_CHATGPT_ARCHIVE = Path("000_PARA_CHATGPT.zip")
 INITIAL_CAPITAL = 100_000.0
@@ -28,6 +29,9 @@ DEFAULT_INTRABAR_EXIT_PRIORITY = "stop_first"
 DEFAULT_EXECUTION_MODE = "normal_mode"
 DEFAULT_COST_PROFILE = "auto"
 DEFAULT_INTRABAR_POLICY = "auto"
+SUPPORTED_EXECUTION_MODES = ("normal_mode", "conservative_mode", "high_precision_mode")
+SUPPORTED_COST_PROFILES = ("auto", "base", "stress", "precision")
+SUPPORTED_INTRABAR_POLICIES = ("auto", "standard", "conservative")
 DEFAULT_SEED = 42
 DEFAULT_MAX_EVALS_PER_STRATEGY = 8
 DEFAULT_WFA_IS_MONTHS = 24
@@ -104,13 +108,19 @@ class EngineConfig:
     max_spread_pips: float = DEFAULT_SPREAD_PIPS
     commission_per_lot_roundturn_usd: float = DEFAULT_COMMISSION_ROUNDTURN_USD
     slippage_pips: float = DEFAULT_SLIPPAGE_PIPS
+    opening_session_end: str = "13:00"
     late_session_start: str = "17:00"
     high_vol_range_atr: float = 1.0
+    spread_opening_multiplier: float = 1.05
     spread_high_vol_multiplier: float = 1.25
     spread_late_session_multiplier: float = 1.1
+    slippage_opening_multiplier: float = 1.1
     slippage_high_vol_multiplier: float = 1.5
     slippage_stop_multiplier: float = 1.25
+    slippage_target_multiplier: float = 1.0
     slippage_late_session_multiplier: float = 1.15
+    slippage_forced_close_multiplier: float = 1.1
+    slippage_final_close_multiplier: float = 1.05
     stress_spread_multiplier: float = 1.35
     stress_slippage_multiplier: float = 1.6
     ambiguity_slippage_multiplier: float = 1.5
@@ -131,7 +141,11 @@ def time_to_minute(value: str) -> int:
 def resolved_cost_profile(engine_config: EngineConfig) -> str:
     if engine_config.cost_profile != "auto":
         return engine_config.cost_profile
-    return "stress" if engine_config.execution_mode == "conservative_mode" else "base"
+    if engine_config.execution_mode == "conservative_mode":
+        return "stress"
+    if engine_config.execution_mode == "high_precision_mode":
+        return "precision"
+    return "base"
 
 
 def resolved_intrabar_policy(engine_config: EngineConfig) -> str:
@@ -142,12 +156,17 @@ def resolved_intrabar_policy(engine_config: EngineConfig) -> str:
 
 def with_execution_mode(engine_config: EngineConfig, execution_mode: str) -> EngineConfig:
     normalized = execution_mode.strip().lower()
-    if normalized not in {"normal_mode", "conservative_mode"}:
-        raise ValueError(f"Modo de ejecución no soportado: {execution_mode}")
+    if normalized not in SUPPORTED_EXECUTION_MODES:
+        raise ValueError(f"Modo de ejecucion no soportado: {execution_mode}")
     cost_profile = engine_config.cost_profile
     intrabar_policy = engine_config.intrabar_policy
     if cost_profile == "auto":
-        cost_profile = "stress" if normalized == "conservative_mode" else "base"
+        if normalized == "conservative_mode":
+            cost_profile = "stress"
+        elif normalized == "high_precision_mode":
+            cost_profile = "precision"
+        else:
+            cost_profile = "base"
     if intrabar_policy == "auto":
         intrabar_policy = "conservative" if normalized == "conservative_mode" else "standard"
     return replace(

@@ -23,6 +23,9 @@ from research_lab.config import (
     INITIAL_CAPITAL,
     NewsConfig,
     STRATEGY_NAMES,
+    SUPPORTED_COST_PROFILES,
+    SUPPORTED_EXECUTION_MODES,
+    SUPPORTED_INTRABAR_POLICIES,
     time_to_minute,
     resolved_cost_profile,
     resolved_intrabar_policy,
@@ -59,13 +62,19 @@ def costs_payload(engine_config: EngineConfig) -> dict[str, Any]:
         "risk_pct": engine_config.risk_pct,
         "initial_capital": INITIAL_CAPITAL,
         "price_source": engine_config.price_source,
+        "opening_session_end": engine_config.opening_session_end,
         "late_session_start": engine_config.late_session_start,
+        "spread_opening_multiplier": engine_config.spread_opening_multiplier,
         "high_vol_range_atr": engine_config.high_vol_range_atr,
         "spread_high_vol_multiplier": engine_config.spread_high_vol_multiplier,
         "spread_late_session_multiplier": engine_config.spread_late_session_multiplier,
+        "slippage_opening_multiplier": engine_config.slippage_opening_multiplier,
         "slippage_high_vol_multiplier": engine_config.slippage_high_vol_multiplier,
         "slippage_stop_multiplier": engine_config.slippage_stop_multiplier,
+        "slippage_target_multiplier": engine_config.slippage_target_multiplier,
         "slippage_late_session_multiplier": engine_config.slippage_late_session_multiplier,
+        "slippage_forced_close_multiplier": engine_config.slippage_forced_close_multiplier,
+        "slippage_final_close_multiplier": engine_config.slippage_final_close_multiplier,
         "stress_spread_multiplier": engine_config.stress_spread_multiplier,
         "stress_slippage_multiplier": engine_config.stress_slippage_multiplier,
         "ambiguity_slippage_multiplier": engine_config.ambiguity_slippage_multiplier,
@@ -325,9 +334,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--max-spread-pips", type=float, default=1.2)
     parser.add_argument("--slippage-pips", type=float, default=0.2)
     parser.add_argument("--commission-per-lot-roundturn-usd", type=float, default=7.0)
-    parser.add_argument("--execution-mode", choices=["normal_mode", "conservative_mode"], default=DEFAULT_EXECUTION_MODE)
-    parser.add_argument("--cost-profile", choices=["auto", "base", "stress"], default="auto")
-    parser.add_argument("--intrabar-policy", choices=["auto", "standard", "conservative"], default="auto")
+    parser.add_argument("--execution-mode", choices=list(SUPPORTED_EXECUTION_MODES), default=DEFAULT_EXECUTION_MODE)
+    parser.add_argument("--cost-profile", choices=list(SUPPORTED_COST_PROFILES), default="auto")
+    parser.add_argument("--intrabar-policy", choices=list(SUPPORTED_INTRABAR_POLICIES), default="auto")
     parser.add_argument("--seed", type=int, default=DEFAULT_SEED)
     parser.add_argument("--phase0-evals", type=int, default=8)
     parser.add_argument("--phase2-evals", type=int, default=12)
@@ -355,6 +364,7 @@ def main() -> None:
     news_config = NewsConfig(
         enabled=not args.disable_news,
         file_path=Path(args.news_file),
+        source_approved=True,
         pre_minutes=15,
         post_minutes=15,
     )

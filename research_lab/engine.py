@@ -25,6 +25,7 @@ class Position:
     direction: str
     entry_side: str
     signal_time: pd.Timestamp
+    signal_price: float
     fill_time: pd.Timestamp
     entry_time: pd.Timestamp
     entry_price: float
@@ -44,6 +45,7 @@ class Position:
     cost_profile_used: str
     entry_cost_regime: str
     intrabar_policy_used: str
+    price_source_used: str
 
 
 @dataclass
@@ -61,32 +63,13 @@ def quote_to_usd(pair: str, pair_price: float) -> float:
         return 1.0
     if pair == "USDJPY":
         return 1.0 / pair_price if pair_price > 0 else np.nan
-    raise ValueError(f"No hay conversión a USD implementada para {pair}")
+    raise ValueError(f"No hay conversion a USD implementada para {pair}")
 
 
 def configured_spread_pips(engine_config: EngineConfig) -> float:
     if engine_config.assumed_spread_pips is not None:
         return float(engine_config.assumed_spread_pips)
     return float(PAIR_META[engine_config.pair]["default_spread_pips"])
-
-
-def estimate_spread_pips(pair: str, ts_local: pd.Timestamp, range_atr: float, engine_config: EngineConfig) -> float:
-    spread = configured_spread_pips(engine_config)
-    if resolved_cost_profile(engine_config) == "stress":
-        spread *= float(engine_config.stress_spread_multiplier)
-    minute_value = ts_local.hour * 60 + ts_local.minute
-    late_session_minute = time_to_minute(engine_config.late_session_start)
-    if np.isfinite(range_atr) and range_atr >= engine_config.high_vol_range_atr:
-        spread *= float(engine_config.spread_high_vol_multiplier)
-    if minute_value >= late_session_minute:
-        spread *= float(engine_config.spread_late_session_multiplier)
-    return float(spread if spread > 0 else PAIR_META[pair]["default_spread_pips"])
-
-
-def spread_guard_allows(spread_pips: float, engine_config: EngineConfig) -> bool:
-    if engine_config.max_spread_pips <= 0:
-        return True
-    return spread_pips <= float(engine_config.max_spread_pips)
 
 
 def pip_to_price(pair: str, pips: float) -> float:
@@ -97,19 +80,87 @@ def slippage_price(pair: str, slippage_pips: float) -> float:
     return pip_to_price(pair, slippage_pips)
 
 
-def estimate_slippage_pips(ts_local: pd.Timestamp, range_atr: float, engine_config: EngineConfig, *, is_stop_fill: bool) -> float:
-    slippage = float(engine_config.slippage_pips)
-    if resolved_cost_profile(engine_config) == "stress":
-        slippage *= float(engine_config.stress_slippage_multiplier)
+def session_cost_bucket(ts_local: pd.Timestamp, engine_config: EngineConfig) -> str:
     minute_value = ts_local.hour * 60 + ts_local.minute
-    late_session_minute = time_to_minute(engine_config.late_session_start)
-    if np.isfinite(range_atr) and range_atr >= engine_config.high_vol_range_atr:
+    if minute_value < time_to_minute(engine_config.opening_session_end):
+        return "opening"
+    if minute_value >= time_to_minute(engine_config.late_session_start):
+        return "late"
+    return "core"
+
+
+def volatility_cost_bucket(range_atr: float, engine_config: EngineConfig) -> str:
+    return "high_vol" if np.isfinite(range_atr) and range_atr >= engine_config.high_vol_range_atr else "normal_vol"
+
+
+def estimate_spread_pips(
+    pair: str,
+    ts_local: pd.Timestamp,
+    range_atr: float,
+    engine_config: EngineConfig,
+    *,
+    fill_kind: str = "entry",
+) -> float:
+    spread = configured_spread_pips(engine_config)
+    profile = resolved_cost_profile(engine_config)
+    session_bucket = session_cost_bucket(ts_local, engine_config)
+    vol_bucket = volatility_cost_bucket(range_atr, engine_config)
+
+    if profile == "stress":
+        spread *= float(engine_config.stress_spread_multiplier)
+
+    if profile == "precision" and session_bucket == "opening":
+        spread *= float(engine_config.spread_opening_multiplier)
+
+    if vol_bucket == "high_vol":
+        spread *= float(engine_config.spread_high_vol_multiplier)
+
+    if session_bucket == "late":
+        spread *= float(engine_config.spread_late_session_multiplier)
+
+    return float(spread if spread > 0 else PAIR_META[pair]["default_spread_pips"])
+
+
+def spread_guard_allows(spread_pips: float, engine_config: EngineConfig) -> bool:
+    if engine_config.max_spread_pips <= 0:
+        return True
+    return spread_pips <= float(engine_config.max_spread_pips)
+
+
+def estimate_slippage_pips(
+    ts_local: pd.Timestamp,
+    range_atr: float,
+    engine_config: EngineConfig,
+    *,
+    fill_kind: str,
+) -> float:
+    slippage = float(engine_config.slippage_pips)
+    profile = resolved_cost_profile(engine_config)
+    session_bucket = session_cost_bucket(ts_local, engine_config)
+    vol_bucket = volatility_cost_bucket(range_atr, engine_config)
+
+    if profile == "stress":
+        slippage *= float(engine_config.stress_slippage_multiplier)
+
+    if vol_bucket == "high_vol":
         slippage *= float(engine_config.slippage_high_vol_multiplier)
-    if minute_value >= late_session_minute:
+
+    if session_bucket == "late":
         slippage *= float(engine_config.slippage_late_session_multiplier)
-    if is_stop_fill:
+
+    if profile == "precision" and session_bucket == "opening":
+        slippage *= float(engine_config.slippage_opening_multiplier)
+
+    if fill_kind == "stop_loss":
         slippage *= float(engine_config.slippage_stop_multiplier)
-    return slippage
+    elif fill_kind == "take_profit" and profile == "precision":
+        slippage *= float(engine_config.slippage_target_multiplier)
+    elif fill_kind == "forced_session_close" and profile == "precision":
+        slippage *= float(engine_config.slippage_forced_close_multiplier)
+    elif fill_kind == "final_bar_close" and profile == "precision":
+        slippage *= float(engine_config.slippage_final_close_multiplier)
+
+    return float(slippage)
 
 
 def infer_bar_delta(index: pd.DatetimeIndex) -> pd.Timedelta:
@@ -200,14 +251,15 @@ def mark_to_market_execution_price(pair: str, direction: str, bid_close: float, 
     return bid_close + spread_price
 
 
-def execution_regime_label(ts_local: pd.Timestamp, range_atr: float, engine_config: EngineConfig) -> str:
-    labels = [resolved_cost_profile(engine_config)]
-    minute_value = ts_local.hour * 60 + ts_local.minute
-    if np.isfinite(range_atr) and range_atr >= engine_config.high_vol_range_atr:
-        labels.append("high_vol")
-    if minute_value >= time_to_minute(engine_config.late_session_start):
-        labels.append("late_session")
-    return "|".join(labels)
+def execution_regime_label(ts_local: pd.Timestamp, range_atr: float, engine_config: EngineConfig, *, fill_kind: str) -> str:
+    return "|".join(
+        [
+            resolved_cost_profile(engine_config),
+            session_cost_bucket(ts_local, engine_config),
+            volatility_cost_bucket(range_atr, engine_config),
+            fill_kind,
+        ]
+    )
 
 
 def resolve_intrabar_exit(
@@ -299,9 +351,9 @@ def run_backtest(
         session_date = session_dates[i]
 
         if pending_signal is not None and i == pending_signal["signal_index"] + 1:
-            entry_spread_pips = estimate_spread_pips(pair, bar_open_local[i], range_atr[pending_signal["signal_index"]], engine_config)
-            entry_slippage_pips = estimate_slippage_pips(bar_open_local[i], range_atr[pending_signal["signal_index"]], engine_config, is_stop_fill=False)
-            entry_cost_regime = execution_regime_label(bar_open_local[i], range_atr[pending_signal["signal_index"]], engine_config)
+            entry_spread_pips = estimate_spread_pips(pair, bar_open_local[i], range_atr[pending_signal["signal_index"]], engine_config, fill_kind="entry")
+            entry_slippage_pips = estimate_slippage_pips(bar_open_local[i], range_atr[pending_signal["signal_index"]], engine_config, fill_kind="entry")
+            entry_cost_regime = execution_regime_label(bar_open_local[i], range_atr[pending_signal["signal_index"]], engine_config, fill_kind="entry")
             if (
                 fill_allowed[i]
                 and not news_block[i]
@@ -322,7 +374,13 @@ def run_backtest(
                         float(pending_signal["stop_atr"]),
                         atr14[pending_signal["signal_index"]],
                     )
-                stop_execution = exit_execution_price(pair, pending_signal["direction"], sl_trigger, entry_spread_pips, estimate_slippage_pips(bar_open_local[i], range_atr[pending_signal["signal_index"]], engine_config, is_stop_fill=True))
+                stop_execution = exit_execution_price(
+                    pair,
+                    pending_signal["direction"],
+                    sl_trigger,
+                    entry_spread_pips,
+                    estimate_slippage_pips(bar_open_local[i], range_atr[pending_signal["signal_index"]], engine_config, fill_kind="stop_loss"),
+                )
                 stop_distance = abs(entry_price - stop_execution)
 
                 quote_to_usd_rate = quote_to_usd(pair, entry_price)
@@ -351,6 +409,7 @@ def run_backtest(
                             direction=pending_signal["direction"],
                             entry_side="buy" if pending_signal["direction"] == "long" else "sell",
                             signal_time=timestamp_utc[pending_signal["signal_index"]],
+                            signal_price=float(pending_signal.get("signal_price", close[pending_signal["signal_index"]])),
                             fill_time=bar_open_utc[i],
                             entry_time=bar_open_utc[i],
                             entry_price=entry_price,
@@ -370,6 +429,7 @@ def run_backtest(
                             cost_profile_used=resolved_cost_profile(engine_config),
                             entry_cost_regime=entry_cost_regime,
                             intrabar_policy_used=intrabar_policy_used,
+                            price_source_used=engine_config.price_source,
                         )
                         opened_total_by_date[session_date] = opened_total_by_date.get(session_date, 0) + 1
             pending_signal = None
@@ -389,18 +449,16 @@ def run_backtest(
                     position.sl = min(position.sl, close[i] + atr14[i] * position.trail_mult)
 
             exit_reason = None
-            exit_bid_price = None
-            exit_spread_pips = estimate_spread_pips(pair, local_index[i], range_atr[i], engine_config)
-            exit_cost_regime = execution_regime_label(local_index[i], range_atr[i], engine_config)
-            stop_slippage_pips = estimate_slippage_pips(local_index[i], range_atr[i], engine_config, is_stop_fill=True)
-            target_slippage_pips = estimate_slippage_pips(local_index[i], range_atr[i], engine_config, is_stop_fill=False)
-            close_slippage_pips = estimate_slippage_pips(local_index[i], range_atr[i], engine_config, is_stop_fill=False)
+            exit_signal_price = None
+            exit_spread_pips = estimate_spread_pips(pair, local_index[i], range_atr[i], engine_config, fill_kind="mark_to_market")
+            exit_cost_regime = execution_regime_label(local_index[i], range_atr[i], engine_config, fill_kind="mark_to_market")
             intrabar_ambiguity_flag = False
+
             if force_close_mask[i]:
                 exit_reason = "forced_session_close"
-                exit_bid_price = close[i]
+                exit_signal_price = close[i]
             else:
-                exit_reason, exit_bid_price, intrabar_ambiguity_flag = resolve_intrabar_exit(
+                exit_reason, exit_signal_price, intrabar_ambiguity_flag = resolve_intrabar_exit(
                     direction=position.direction,
                     low_price=low[i],
                     high_price=high[i],
@@ -410,11 +468,13 @@ def run_backtest(
                     intrabar_policy=position.intrabar_policy_used,
                 )
 
-            if exit_reason is not None and exit_bid_price is not None:
-                exit_slippage_pips = stop_slippage_pips if exit_reason == "stop_loss" else close_slippage_pips if exit_reason in {"forced_session_close", "final_bar_close"} else target_slippage_pips
+            if exit_reason is not None and exit_signal_price is not None:
+                exit_spread_pips = estimate_spread_pips(pair, local_index[i], range_atr[i], engine_config, fill_kind=exit_reason)
+                exit_slippage_pips = estimate_slippage_pips(local_index[i], range_atr[i], engine_config, fill_kind=exit_reason)
                 if intrabar_ambiguity_flag and position.intrabar_policy_used == "conservative":
                     exit_slippage_pips *= float(engine_config.ambiguity_slippage_multiplier)
-                exit_price = exit_execution_price(pair, position.direction, exit_bid_price, exit_spread_pips, exit_slippage_pips)
+                exit_cost_regime = execution_regime_label(local_index[i], range_atr[i], engine_config, fill_kind=exit_reason)
+                exit_price = exit_execution_price(pair, position.direction, exit_signal_price, exit_spread_pips, exit_slippage_pips)
                 price_delta = exit_price - position.entry_price
                 pnl_quote = price_delta * position.units if position.direction == "long" else -price_delta * position.units
                 pnl_usd = pnl_quote * quote_to_usd(pair, exit_price)
@@ -428,12 +488,16 @@ def run_backtest(
                         "strategy_name": strategy_module.NAME,
                         "entry_side": position.entry_side,
                         "signal_time": position.signal_time,
+                        "signal_price": position.signal_price,
                         "fill_time": position.fill_time,
                         "entry_time": position.entry_time,
                         "exit_time": ts_utc,
                         "direction": position.direction,
                         "entry_price": position.entry_price,
+                        "fill_price": position.entry_price,
                         "exit_price": exit_price,
+                        "exit_signal_price": exit_signal_price,
+                        "exit_fill_price": exit_price,
                         "sl": position.sl,
                         "tp": position.tp,
                         "spread_applied": position.entry_spread_pips + exit_spread_pips,
@@ -443,6 +507,9 @@ def run_backtest(
                         "exit_spread_pips": exit_spread_pips,
                         "entry_slippage_pips": position.entry_slippage_pips,
                         "exit_slippage_pips": exit_slippage_pips,
+                        "entry_commission_usd": position.entry_commission_usd,
+                        "exit_commission_usd": exit_commission_usd,
+                        "price_source_used": position.price_source_used,
                         "pnl_r": pnl_r,
                         "pnl_usd": pnl_usd,
                         "exit_reason": exit_reason,
@@ -470,17 +537,18 @@ def run_backtest(
                 pass
             elif not fill_allowed[i + 1]:
                 pass
-            elif not spread_guard_allows(estimate_spread_pips(pair, bar_open_local[i + 1], range_atr[i], engine_config), engine_config):
+            elif not spread_guard_allows(estimate_spread_pips(pair, bar_open_local[i + 1], range_atr[i], engine_config, fill_kind="entry"), engine_config):
                 pass
             else:
                 signal = strategy_module.signal(frame, i, params)
                 if signal is not None:
                     signal["signal_index"] = i
+                    signal["signal_price"] = float(close[i])
                     pending_signal = signal
 
         mark_equity = cash
         if position is not None:
-            mark_execution = mark_to_market_execution_price(pair, position.direction, close[i], estimate_spread_pips(pair, local_index[i], range_atr[i], engine_config))
+            mark_execution = mark_to_market_execution_price(pair, position.direction, close[i], estimate_spread_pips(pair, local_index[i], range_atr[i], engine_config, fill_kind="mark_to_market"))
             unrealized_quote = (mark_execution - position.entry_price) * position.units if position.direction == "long" else (position.entry_price - mark_execution) * position.units
             unrealized_usd = unrealized_quote * quote_to_usd(pair, mark_execution)
             unrealized_usd -= (engine_config.commission_per_lot_roundturn_usd * position.lots) / 2.0
@@ -490,9 +558,9 @@ def run_backtest(
     if position is not None:
         final_ts = timestamp_utc[-1]
         final_bid = close[-1]
-        final_spread_pips = estimate_spread_pips(pair, local_index[-1], range_atr[-1], engine_config)
-        final_cost_regime = execution_regime_label(local_index[-1], range_atr[-1], engine_config)
-        final_slippage_pips = estimate_slippage_pips(local_index[-1], range_atr[-1], engine_config, is_stop_fill=False)
+        final_spread_pips = estimate_spread_pips(pair, local_index[-1], range_atr[-1], engine_config, fill_kind="final_bar_close")
+        final_cost_regime = execution_regime_label(local_index[-1], range_atr[-1], engine_config, fill_kind="final_bar_close")
+        final_slippage_pips = estimate_slippage_pips(local_index[-1], range_atr[-1], engine_config, fill_kind="final_bar_close")
         final_exit = exit_execution_price(pair, position.direction, final_bid, final_spread_pips, final_slippage_pips)
         pnl_quote = (final_exit - position.entry_price) * position.units if position.direction == "long" else (position.entry_price - final_exit) * position.units
         pnl_usd = pnl_quote * quote_to_usd(pair, final_exit)
@@ -506,12 +574,16 @@ def run_backtest(
                 "strategy_name": strategy_module.NAME,
                 "entry_side": position.entry_side,
                 "signal_time": position.signal_time,
+                "signal_price": position.signal_price,
                 "fill_time": position.fill_time,
                 "entry_time": position.entry_time,
                 "exit_time": final_ts,
                 "direction": position.direction,
                 "entry_price": position.entry_price,
+                "fill_price": position.entry_price,
                 "exit_price": final_exit,
+                "exit_signal_price": final_bid,
+                "exit_fill_price": final_exit,
                 "sl": position.sl,
                 "tp": position.tp,
                 "spread_applied": position.entry_spread_pips + final_spread_pips,
@@ -521,6 +593,9 @@ def run_backtest(
                 "exit_spread_pips": final_spread_pips,
                 "entry_slippage_pips": position.entry_slippage_pips,
                 "exit_slippage_pips": final_slippage_pips,
+                "entry_commission_usd": position.entry_commission_usd,
+                "exit_commission_usd": exit_commission_usd,
+                "price_source_used": position.price_source_used,
                 "pnl_r": pnl_r,
                 "pnl_usd": pnl_usd,
                 "exit_reason": "final_bar_close",

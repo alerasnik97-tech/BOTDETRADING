@@ -10,8 +10,10 @@ import pandas as pd
 
 from research_lab.data_loader import (
     _resample_to_m15,
+    describe_available_price_data,
     fx_market_mask,
     fx_session_date,
+    load_prepared_ohlcv,
     load_price_data,
     parse_prepared_index,
 )
@@ -118,3 +120,34 @@ class DataLoaderTests(unittest.TestCase):
         self.assertAlmostEqual(float(row["low"]), 1.0995)
         self.assertAlmostEqual(float(row["close"]), 1.1009)
         self.assertAlmostEqual(float(row["volume"]), 60.0)
+
+    def test_load_prepared_ohlcv_supports_direct_timeframe_loading(self) -> None:
+        with self._workspace_tempdir() as tmp:
+            data_dir = Path(tmp)
+            frame = pd.DataFrame(
+                [
+                    {"timestamp": "2022-01-03 11:15:00-05:00", "open": 1.1000, "high": 1.1015, "low": 1.0995, "close": 1.1009, "volume": 60.0},
+                ]
+            ).set_index("timestamp")
+            frame.to_csv(data_dir / "EURUSD_M15.csv")
+            loaded = load_prepared_ohlcv("EURUSD", [data_dir], "M15")
+            self.assertEqual(len(loaded), 1)
+            self.assertAlmostEqual(float(loaded.iloc[0]["close"]), 1.1009)
+
+    def test_describe_available_price_data_reports_existing_timeframes(self) -> None:
+        with self._workspace_tempdir() as tmp:
+            data_dir = Path(tmp)
+            self._write_csv(
+                data_dir,
+                [
+                    {"timestamp": "2022-01-03 11:00:00-05:00", "open": 1.13, "high": 1.14, "low": 1.12, "close": 1.135, "volume": 1.0},
+                ],
+            )
+            pd.DataFrame(
+                [
+                    {"timestamp": "2022-01-03 11:15:00-05:00", "open": 1.13, "high": 1.14, "low": 1.12, "close": 1.135, "volume": 1.0},
+                ]
+            ).set_index("timestamp").to_csv(data_dir / "EURUSD_M15.csv")
+            catalog = describe_available_price_data("EURUSD", [data_dir])
+            timeframes = {row["timeframe"] for row in catalog}
+            self.assertEqual(timeframes, {"M5", "M15"})

@@ -5,9 +5,9 @@ from pathlib import Path
 
 import pandas as pd
 
-from research_lab.config import DEFAULT_DATA_DIRS, DEFAULT_NEWS_FILE, DEFAULT_RAW_NEWS_FILE, NewsConfig
+from research_lab.config import DEFAULT_DATA_DIRS, DEFAULT_NEWS_FILE, DEFAULT_NEWS_SUMMARY_FILE, DEFAULT_RAW_NEWS_FILE, NewsConfig
 from research_lab.data_loader import load_price_data
-from research_lab.news_filter import filter_event_family, load_news_events
+from research_lab.news_filter import filter_event_family, load_news_events, load_news_summary
 
 
 class RealProjectIntegrationTests(unittest.TestCase):
@@ -35,6 +35,28 @@ class RealProjectIntegrationTests(unittest.TestCase):
         self.assertFalse(result.enabled)
         self.assertEqual(result.disabled_reason, "source_not_approved")
         self.assertGreater(result.approved_rows, 0)
+
+    def test_current_validated_news_dataset_can_run_when_approved(self) -> None:
+        result = load_news_events(
+            "EURUSD",
+            NewsConfig(
+                enabled=True,
+                file_path=Path(DEFAULT_NEWS_FILE),
+                raw_file_path=Path(DEFAULT_RAW_NEWS_FILE),
+                source_approved=True,
+                pre_minutes=15,
+                post_minutes=15,
+                currencies=("USD", "EUR"),
+            ),
+        )
+        self.assertTrue(result.enabled)
+        self.assertEqual(result.disabled_reason, None)
+        self.assertGreater(result.approved_rows, 0)
+
+    def test_news_summary_marks_operational_dataset_approved(self) -> None:
+        summary = load_news_summary(Path(DEFAULT_NEWS_SUMMARY_FILE))
+        self.assertEqual(summary.get("module_verdict"), "APPROVED_OPERATIONAL")
+        self.assertTrue(bool(summary.get("source_approved")))
 
     def test_gdp_qq_alias_family_has_high_impact_usd_coverage(self) -> None:
         audit = pd.read_csv(Path("data/news_eurusd_m15_audit.csv"), dtype=str, keep_default_na=False)
