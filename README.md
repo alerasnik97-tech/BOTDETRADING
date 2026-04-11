@@ -1,142 +1,141 @@
-# BOTDETRADING
+# BOT DE TRADING
 
-Research-focused FX backtesting workspace for multi-timeframe intraday strategies.
+Flujo principal actual: modelo híbrido simple por régimen para `EURUSD`.
 
-## What is included
+## Arquitectura activa
 
-- `fx_multi_timeframe_backtester.py`
-  - event-driven FX backtester
-  - M5 / M15 / H1 synchronization
-  - Dukascopy cache pipeline
-  - data validation
-  - backtest reporting
-  - parameter optimization
-  - context-aware strategy diagnostics
-  - fixed-risk sizing over initial capital or current equity
-  - layered news protection and experimental strategy families
-  - setup-level summaries for playbook research
-- `candidate_block_lab.py`
-  - optimize and validate a new candidate block by pair
-- `bootstrap_free_dukascopy.ps1`
-  - year-by-year, pair-by-pair free data bootstrap
-- `DATA_PIPELINE_RECOMMENDATION.md`
-  - data workflow guidance
-- `RESEARCH_NOTES_2020.md`
-  - current research findings on real 2020 data
+- [simple_session_bot.py](/C:/Users/alera/Desktop/BOT%20DE%20TRADING/simple_session_bot.py)
+- [config.py](/C:/Users/alera/Desktop/BOT%20DE%20TRADING/config.py)
+- [news_filter.py](/C:/Users/alera/Desktop/BOT%20DE%20TRADING/news_filter.py)
+- [report.py](/C:/Users/alera/Desktop/BOT%20DE%20TRADING/report.py)
 
-## Quick start
+## Lógica actual
 
-Install dependencies:
+- base `M5`
+- contexto `H1` resampleado desde `M5`
+- ventana fija:
+  - entradas `11:00` a `17:30` NY
+  - cierre forzado total `19:00` NY
+- clasificador H1:
+  - `EMA50`
+  - `EMA200`
+  - `ADX14`
+  - progreso de tendencia reciente en múltiplos de `ATR_H1`
+- un solo módulo activo por vez:
+  - `breakout` en `trend_up` / `trend_down`
+  - `range_mr` en `range_weak`
+- `news guard`, `shock guard`, `spread guard`
+- `daily circuit breaker`
+
+## Instalación
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Current default risk model:
+Dependencias activas:
 
-- `1%` risk per trade
-- based on `initial_capital`
+- `python`
+- `pandas`
+- `numpy`
 
-You can override it with:
+## Datos
 
-- `--risk-pct`
-- `--risk-budget-mode initial_capital|equity`
+Por defecto usa:
 
-Populate free Dukascopy cache:
+- `data_free_2020/prepared`
+- `data_candidates_2022_2025/prepared`
 
-```bash
-python fx_multi_timeframe_backtester.py cache-data --download-missing
-```
+Con eso cubre `EURUSD` entre `2020-01-01` y `2025-12-31`.
 
-Build prepared M5 / M15 / H1 files:
-
-```bash
-python fx_multi_timeframe_backtester.py prepare-data --download-missing
-```
-
-Validate data:
+## Backtest
 
 ```bash
-python fx_multi_timeframe_backtester.py validate-data --strict-data-quality
+python simple_session_bot.py run --pair EURUSD --start 2020-01-01 --end 2025-12-31 --data-dirs data_free_2020/prepared data_candidates_2022_2025/prepared
 ```
 
-Run a backtest:
+Ejemplo sin noticias:
 
 ```bash
-python fx_multi_timeframe_backtester.py run --strict-data-quality
+python simple_session_bot.py run --disable-news
 ```
 
-Export or normalize a high-impact news calendar:
+## Optimización compacta
 
 ```bash
-python fx_multi_timeframe_backtester.py fetch-news --news-source tradingeconomics --news-min-importance 3 --news-output data/news_events.csv
+python simple_session_bot.py optimize --pair EURUSD --start 2020-01-01 --end 2025-12-31 --data-dirs data_free_2020/prepared data_candidates_2022_2025/prepared --max-combinations 18
 ```
 
-Run with news guard and volatility circuit breaker enabled:
+La grilla compacta prueba solo packs representativos sobre:
+
+- `model_mode`:
+  - `hybrid`
+  - `range_only`
+  - `breakout_only`
+- `adx_trend_min`
+- `ema200_slope_lookback`
+- `trend_progress_atr_min`
+- `range_rsi_period`
+- `bb_std`
+- `range_rsi_low/high`
+- `range_stop_atr`
+- `range_be_enabled`
+- `breakout_stop_mode`
+- `breakout_stop_atr`
+- `breakout_target_rr`
+- `breakout_be_enabled`
+- `breakout_enabled`
+- `cooldown_bars`
+- `daily_loss_limit_r`
+
+## Parámetros manuales útiles
 
 ```bash
-python fx_multi_timeframe_backtester.py run --strict-data-quality --news-source csv --news-file data/news_events.csv --news-min-importance 3 --news-no-entry-pre-minutes 45 --news-no-entry-post-minutes 30 --news-flatten-minutes-before 15 --news-hard-no-entry-pre-minutes 90 --news-hard-no-entry-post-minutes 60 --news-hard-flatten-minutes-before 30 --shock-no-entry-atr-multiple 2.5 --shock-flatten-atr-multiple 3.0 --shock-cooldown-minutes 30
+python simple_session_bot.py run --model-mode range_only --adx-trend-min 18 --ema200-slope-lookback 5 --trend-progress-atr-min 0.8 --range-rsi-period 9 --bb-std 2.0 --range-rsi-low 35 --range-rsi-high 65 --range-stop-atr 1.0 --range-target-rr 1.2 --range-be-enabled --cooldown-bars 3 --daily-loss-limit-r 1.5
 ```
-
-Run a grid search:
 
 ```bash
-python fx_multi_timeframe_backtester.py optimize --strict-data-quality --max-combinations 12
+python simple_session_bot.py run --model-mode breakout_only --compression-bars 6 --compression-atr-mult 1.0 --breakout-candle-atr-max 1.2 --breakout-stop-mode compression_stop --breakout-stop-atr 1.0 --breakout-target-rr 1.8 --breakout-be-enabled
 ```
 
-Screen pairs independently:
+## CSV de noticias
 
-```bash
-python fx_multi_timeframe_backtester.py screen-pairs --strict-data-quality --strategy-family adaptive_session_reversion --optimization-profile consistency --max-combinations 12
-```
+Por defecto usa:
 
-Compare unprotected vs calendar-only vs layered news protection:
+- `data/forex_factory_cache.csv`
 
-```bash
-python compare_news_guard.py --summary-json reports_free_2020_2021_opt_usdjpy_winrate/20260408_090129_optimize/summary.json --pair USDJPY --start 2020-01-01 --end 2021-12-31 --source local --data-dir data_free_2020/prepared --news-file data/forex_factory_cache.csv --report-dir reports_usdjpy_news_guard_ab --strict-data-quality
-```
+Columnas mínimas:
 
-Run the setup lab for the USDJPY playbook:
+- `DateTime`
+- `Currency`
+- `Impact`
+- `Event`
 
-```bash
-python playbook_setup_lab.py --pair USDJPY --design-start 2020-01-01 --design-end 2021-12-31 --design-data-dir data_free_2020/prepared --oos-start 2022-01-01 --oos-end 2025-12-31 --oos-data-dir data_usdjpy_2022_2025/prepared --source local --news-file data/forex_factory_cache.csv --optimization-profile consistency --max-combinations 24 --report-dir reports_playbook_setup_lab --strict-data-quality --disable-shock-guard
-```
+Ejemplo:
 
-Run the context whitelist lab for the surviving `core_reversion` setup:
+- [news_example.csv](/C:/Users/alera/Desktop/BOT%20DE%20TRADING/news_example.csv)
 
-```bash
-python core_reversion_context_lab.py --pair USDJPY --base-summary reports_playbook_setup_lab/core_reversion/design/summary.json --design-start 2020-01-01 --design-end 2021-12-31 --design-data-dir data_free_2020/prepared --oos-start 2022-01-01 --oos-end 2025-12-31 --oos-data-dir data_usdjpy_2022_2025/prepared --source local --news-file data/forex_factory_cache.csv --report-dir reports_core_reversion_context_lab --strict-data-quality --disable-shock-guard
-```
+## Salidas para ChatGPT
 
-The same context whitelist flags are also available in the main CLI:
+La carpeta visible para subir a ChatGPT es:
 
-- `--context-whitelist-weekdays`
-- `--context-whitelist-times`
-- `--context-whitelist-regimes`
-- `--context-whitelist-extensions`
-- `--context-whitelist-directions`
+- [000_PARA_CHATGPT](/C:/Users/alera/Desktop/BOT%20DE%20TRADING/000_PARA_CHATGPT)
 
-Stress test the surviving line under tougher execution assumptions:
+Aviso directo:
 
-```bash
-python survivor_stress_test.py --pair USDJPY --base-summary reports_playbook_setup_lab/core_reversion/design/summary.json --design-start 2016-01-01 --design-end 2021-12-31 --design-data-dir data_usdjpy_2016_2021/prepared --oos-start 2022-01-01 --oos-end 2025-12-31 --oos-data-dir data_usdjpy_2022_2025/prepared --source local --news-file data/forex_factory_cache.csv --report-dir reports_survivor_stress_test --strict-data-quality
-```
+- [ABRIR_000_PARA_CHATGPT.txt](/C:/Users/alera/Desktop/BOT%20DE%20TRADING/ABRIR_000_PARA_CHATGPT.txt)
 
-Screen candidate pairs by transplanting the same surviving line:
+Cada corrida exporta:
 
-```bash
-python survivor_pair_screen.py --pairs USDJPY EURUSD USDCAD USDCHF --base-summary reports_playbook_setup_lab/core_reversion/design/summary.json --design-start 2020-01-01 --design-end 2021-12-31 --design-data-dir data_free_2020/prepared --oos-start 2022-01-01 --oos-end 2025-12-31 --oos-data-dir data_candidates_2022_2025/prepared --source local --news-file data/forex_factory_cache.csv --report-dir reports_survivor_pair_screen --strict-data-quality
-```
+- `trades.csv`
+- `monthly_stats.csv`
+- `yearly_stats.csv`
+- `hourly_stats.csv`
+- `weekday_stats.csv`
+- `summary.json`
+- `equity_curve.csv`
+- `optimization_results.csv`
 
-Optimize and validate a second candidate block:
+## Estado actual
 
-```bash
-python candidate_block_lab.py --strategy-family session_trend_reclaim --pairs USDJPY EURUSD --design-start 2020-01-01 --design-end 2021-12-31 --design-data-dir data_free_2020/prepared --oos-start 2022-01-01 --oos-end 2025-12-31 --oos-data-dir data_candidates_2022_2025/prepared --source local --news-file data/forex_factory_cache.csv --report-dir reports_candidate_block_lab_trend_reclaim --strict-data-quality --optimization-profile consistency --max-combinations 24
-```
-
-## Notes
-
-- Large raw datasets and generated reports are intentionally ignored in version control.
-- The current research direction favors robustness, conservative execution costs, and walk-forward style validation over aggressive in-sample tuning.
-- The safest execution path is layered: economic calendar blackout, pre-news forced flatten, post-news cooldown, and a volatility shock circuit breaker for unscheduled events.
-- Hard-news veto is enabled by default for event names such as NFP, CPI, FOMC, rate decisions, and other central-bank style releases, even if the provider labels them below the minimum impact threshold.
+La v2 híbrida refinó la arquitectura y dejó el proyecto simple de iterar, pero no mejoró el edge frente al híbrido anterior. La evidencia actual favorece seguir usando este framework como base de research, no como sistema listo para producción.
