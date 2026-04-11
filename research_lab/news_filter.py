@@ -3,13 +3,22 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from hashlib import sha1
 from pathlib import Path
+import json
 import re
 from typing import Any
 
 import numpy as np
 import pandas as pd
 
-from research_lab.config import DEFAULT_NEWS_AUDIT_FILE, DEFAULT_RAW_NEWS_FILE, NY_TZ, NewsConfig, PAIR_META
+from research_lab.config import (
+    DEFAULT_NEWS_AUDIT_FILE,
+    DEFAULT_NEWS_FILE,
+    DEFAULT_NEWS_SUMMARY_FILE,
+    DEFAULT_RAW_NEWS_FILE,
+    NY_TZ,
+    NewsConfig,
+    PAIR_META,
+)
 
 
 SUPPORTED_FIXED_SCHEDULES_NY: dict[str, str] = {
@@ -39,13 +48,31 @@ SUPPORTED_FIXED_SCHEDULES_NY: dict[str, str] = {
     "ecb press conference": "08:30",
 }
 
-
 SUPPORTED_VALIDATION_EVENTS = tuple(sorted(SUPPORTED_FIXED_SCHEDULES_NY.keys()))
 
 VALIDATION_EVENT_ALIASES: dict[str, tuple[str, ...]] = {
     "gdp q/q": ("gdp q/q", "advance gdp q/q", "prelim gdp q/q", "final gdp q/q"),
     "ppi y/y": ("ppi y/y",),
 }
+
+KEY_EVENT_CHECKS: tuple[tuple[str, str, bool], ...] = (
+    ("non-farm employment change", "08:30", False),
+    ("unemployment rate", "08:30", False),
+    ("cpi y/y", "08:30", False),
+    ("cpi m/m", "08:30", False),
+    ("core cpi m/m", "08:30", False),
+    ("retail sales m/m", "08:30", False),
+    ("core retail sales m/m", "08:30", False),
+    ("ism manufacturing pmi", "10:00", False),
+    ("ism services pmi", "10:00", False),
+    ("fomc statement", "14:00", False),
+    ("fomc meeting minutes", "14:00", False),
+    ("fomc press conference", "14:30", False),
+    ("gdp q/q", "08:30", False),
+    ("ppi y/y", "08:30", True),
+    ("main refinancing rate", "07:45", False),
+    ("ecb press conference", "08:30", False),
+)
 
 
 @dataclass(frozen=True)
@@ -108,10 +135,11 @@ def stable_hash(*parts: object) -> str:
     return sha1(joined.encode("utf-8")).hexdigest()[:16]
 
 
-def build_project_news_paths(settings: NewsConfig) -> tuple[Path, Path]:
+def build_project_news_paths(settings: NewsConfig) -> tuple[Path, Path, Path]:
     clean_path = Path(settings.file_path)
     raw_path = Path(settings.raw_file_path)
     audit_path = Path(DEFAULT_NEWS_AUDIT_FILE)
+    summary_path = Path(DEFAULT_NEWS_SUMMARY_FILE)
     if clean_path.suffix.lower() != ".csv":
         clean_path = clean_path.with_suffix(".csv")
     if clean_path == Path(DEFAULT_RAW_NEWS_FILE):
@@ -119,11 +147,12 @@ def build_project_news_paths(settings: NewsConfig) -> tuple[Path, Path]:
     if clean_path == raw_path:
         clean_path = raw_path.with_name(raw_path.stem + "_validated.csv")
     audit_path = clean_path.with_name(clean_path.stem.replace("_validated", "") + "_audit.csv")
-    return clean_path, audit_path
+    summary_path = clean_path.with_name(clean_path.stem.replace("_validated", "") + "_summary.json")
+    return clean_path, audit_path, summary_path
 
 
 def _empty_result(settings: NewsConfig, reason: str | None = None) -> NewsLoadResult:
-    clean_path, audit_path = build_project_news_paths(settings)
+    clean_path, audit_path, _summary_path = build_project_news_paths(settings)
     return NewsLoadResult(
         events=pd.DataFrame(),
         enabled=False,
@@ -160,15 +189,98 @@ def _approved_status(status: str) -> bool:
     return status.startswith("approved")
 
 
+def _build_key_event_validation(clean_frame: pd.DataFrame) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for event_name, expected_hhmm, optional_if_absent in KEY_EVENT_CHECKS:
+        subset = filter_event_family(clean_frame, event_name)
+        if subset.empty:
+            rows.append(
+                {
+                    "event_name_normalized": event_name,
+                    "expected_time_ny": expected_hhmm,
+                    "approved_rows": 0,
+                    "exact_matches": 0,
+                    "status": "SOURCE_ABSENT" if optional_if_absent else "FAIL",
+                    "optional_if_absent": optional_if_absent,
+                }
+            )
+            continue
+        times = pd.to_datetime(subset["timestamp_ny"], utc=True, errors="coerce").dt.tz_convert(NY_TZ).dt.strftime("%H:%M")
+        exact_matches = int((times == expected_hhmm).sum())
+        status = "PASS_ALIAS_FAMILY" if event_name == "gdp q/q" and exact_matches == len(subset) else "PASS" if exact_matches == len(subset) else "FAIL"
+        rows.append(
+            {
+                "event_name_normalized": event_name,
+                "expected_time_ny": expected_hhmm,
+                "approved_rows": int(len(subset)),
+                "exact_matches": exact_matches,
+                "status": status,
+                "optional_if_absent": optional_if_absent,
+            }
+        )
+    return rows
+
+
+def _build_news_summary_payload(
+    *,
+    clean_frame: pd.DataFrame,
+    audit_frame: pd.DataFrame,
+    diagnostics: dict[str, Any],
+    clean_path: Path,
+    audit_path: Path,
+    summary_path: Path,
+) -> dict[str, Any]:
+    key_event_validation = _build_key_event_validation(clean_frame)
+    operational_source_approved = all(
+        row["status"] in {"PASS", "PASS_ALIAS_FAMILY", "SOURCE_ABSENT"}
+        for row in key_event_validation
+    )
+    return {
+        "raw_source_path": diagnostics.get("raw_source_path"),
+        "clean_dataset_path": str(clean_path),
+        "audit_dataset_path": str(audit_path),
+        "summary_dataset_path": str(summary_path),
+        "raw_rows": int(diagnostics.get("raw_rows", 0)),
+        "normalized_rows": int(diagnostics.get("normalized_rows", len(audit_frame))),
+        "approved_rows": int(diagnostics.get("approved_rows", len(clean_frame))),
+        "rejected_rows": int(diagnostics.get("rejected_rows", 0)),
+        "duplicate_rows_removed": int(diagnostics.get("duplicate_rows_removed", 0)),
+        "approved_raw_schedule": int((audit_frame["validation_status"] == "approved_raw_schedule").sum()) if not audit_frame.empty else 0,
+        "approved_fixed_schedule": int((audit_frame["validation_status"] == "approved_fixed_schedule").sum()) if not audit_frame.empty else 0,
+        "suspicious_fixed_time_events": int(diagnostics.get("suspicious_fixed_time_events", 0)),
+        "raw_source_name": "forex_factory_cache",
+        "raw_source_verdict": "REJECTED_RAW_TIMESTAMPS",
+        "operational_source_name": "forex_factory_fixed_schedule_validated",
+        "operational_source_verdict": "APPROVED_OPERATIONAL" if operational_source_approved else "REJECTED_DISABLED",
+        "source_approved": operational_source_approved,
+        "module_verdict": "APPROVED_OPERATIONAL" if operational_source_approved else "REJECTED_DISABLED",
+        "supported_validation_events": list(SUPPORTED_VALIDATION_EVENTS),
+        "currency_scope": diagnostics.get("currency_scope", []),
+        "impact_scope": diagnostics.get("impact_scope", []),
+        "suspicious_fixed_time_examples": diagnostics.get("suspicious_fixed_time_examples", []),
+        "key_event_validation": key_event_validation,
+    }
+
+
+def load_news_summary(summary_path: Path) -> dict[str, Any]:
+    if not summary_path.exists():
+        return {}
+    try:
+        return json.loads(summary_path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return {}
+
+
 def build_news_datasets(pair: str, settings: NewsConfig, *, start: str | None = None, end: str | None = None) -> tuple[pd.DataFrame, pd.DataFrame, dict[str, Any]]:
     raw_path = Path(settings.raw_file_path)
     if not raw_path.exists():
         raise FileNotFoundError(f"No existe el archivo de noticias raw: {raw_path}")
 
     raw_news = pd.read_csv(raw_path, dtype=str, keep_default_na=False, low_memory=False)
-    clean_path, audit_path = build_project_news_paths(settings)
+    clean_path, audit_path, summary_path = build_project_news_paths(settings)
     clean_path.parent.mkdir(parents=True, exist_ok=True)
     audit_path.parent.mkdir(parents=True, exist_ok=True)
+    summary_path.parent.mkdir(parents=True, exist_ok=True)
 
     start_ts = pd.Timestamp(start, tz=NY_TZ) if start else None
     end_ts = pd.Timestamp(end, tz=NY_TZ) + pd.Timedelta(days=1) if end else None
@@ -176,7 +288,6 @@ def build_news_datasets(pair: str, settings: NewsConfig, *, start: str | None = 
     allowed_impacts = {value.upper() for value in settings.impact_levels}
 
     audit_rows: list[dict[str, object]] = []
-    duplicates_removed = 0
     suspicious_fixed = 0
     suspicious_examples: list[str] = []
 
@@ -244,7 +355,7 @@ def build_news_datasets(pair: str, settings: NewsConfig, *, start: str | None = 
                 "timezone_original": str(raw_ts.tzinfo) if raw_ts is not None else "unparsed",
                 "timestamp_utc": timestamp_utc_final.isoformat() if timestamp_utc_final is not None else "",
                 "timestamp_ny": timestamp_ny_final.isoformat() if timestamp_ny_final is not None else "",
-                "source_name": "forex_factory_cache",
+                "source_name": "forex_factory_fixed_schedule_validated",
                 "dedupe_key": dedupe_key,
                 "validation_status": validation_status,
                 "notes": notes,
@@ -257,20 +368,22 @@ def build_news_datasets(pair: str, settings: NewsConfig, *, start: str | None = 
 
     audit_frame = pd.DataFrame(audit_rows)
     if audit_frame.empty:
+        clean_frame = pd.DataFrame(
+            columns=[
+                "event_id",
+                "event_name_normalized",
+                "currency",
+                "impact_level",
+                "timestamp_original",
+                "timezone_original",
+                "timestamp_utc",
+                "timestamp_ny",
+                "source_name",
+                "dedupe_key",
+                "validation_status",
+            ]
+        )
         audit_frame.to_csv(audit_path, index=False)
-        clean_frame = pd.DataFrame(columns=[
-            "event_id",
-            "event_name_normalized",
-            "currency",
-            "impact_level",
-            "timestamp_original",
-            "timezone_original",
-            "timestamp_utc",
-            "timestamp_ny",
-            "source_name",
-            "dedupe_key",
-            "validation_status",
-        ])
         clean_frame.to_csv(clean_path, index=False)
         diagnostics = {
             "raw_source_path": str(raw_path),
@@ -287,6 +400,15 @@ def build_news_datasets(pair: str, settings: NewsConfig, *, start: str | None = 
             "impact_scope": sorted(allowed_impacts),
             "suspicious_fixed_time_examples": [],
         }
+        summary_payload = _build_news_summary_payload(
+            clean_frame=clean_frame,
+            audit_frame=audit_frame,
+            diagnostics=diagnostics,
+            clean_path=clean_path,
+            audit_path=audit_path,
+            summary_path=summary_path,
+        )
+        summary_path.write_text(json.dumps(summary_payload, indent=2, ensure_ascii=False), encoding="utf-8")
         return clean_frame, audit_frame, diagnostics
 
     status_rank = audit_frame["validation_status"].map(
@@ -346,6 +468,15 @@ def build_news_datasets(pair: str, settings: NewsConfig, *, start: str | None = 
         "suspicious_fixed_time_examples": suspicious_examples,
         "approved_status_breakdown": audit_frame["validation_status"].value_counts().to_dict(),
     }
+    summary_payload = _build_news_summary_payload(
+        clean_frame=clean_frame,
+        audit_frame=audit_frame,
+        diagnostics=diagnostics,
+        clean_path=clean_path,
+        audit_path=audit_path,
+        summary_path=summary_path,
+    )
+    summary_path.write_text(json.dumps(summary_payload, indent=2, ensure_ascii=False), encoding="utf-8")
     return clean_frame, audit_frame, diagnostics
 
 
@@ -366,7 +497,7 @@ def _load_canonical_dataset(path: Path, pair: str, settings: NewsConfig) -> pd.D
     }
     missing = required_columns.difference(frame.columns)
     if missing:
-        raise ValueError(f"Dataset de noticias limpio invaido. Faltan columnas: {sorted(missing)}")
+        raise ValueError(f"Dataset de noticias limpio invalido. Faltan columnas: {sorted(missing)}")
 
     currencies = set(settings.currencies or tuple(sorted(relevant_currencies(pair))))
     impacts = {value.upper() for value in settings.impact_levels}
@@ -385,36 +516,37 @@ def _load_canonical_dataset(path: Path, pair: str, settings: NewsConfig) -> pd.D
 
 
 def load_news_events(pair: str, settings: NewsConfig) -> NewsLoadResult:
-    clean_path, audit_path = build_project_news_paths(settings)
+    clean_path, audit_path, summary_path = build_project_news_paths(settings)
     if not settings.enabled:
         return _empty_result(settings, "disabled_by_config")
 
     if not clean_path.exists():
         try:
-            clean_frame, _audit_frame, diagnostics = build_news_datasets(pair, settings, start="2020-01-01", end="2025-12-31")
+            clean_frame, audit_frame, diagnostics = build_news_datasets(pair, settings, start="2020-01-01", end="2025-12-31")
         except FileNotFoundError:
             return _empty_result(settings, "raw_file_not_found")
     else:
         try:
             clean_frame = _load_canonical_dataset(clean_path, pair, settings)
             audit_frame = pd.read_csv(audit_path, dtype=str, keep_default_na=False, low_memory=False) if audit_path.exists() else pd.DataFrame()
-            diagnostics = {
-                "raw_source_path": str(settings.raw_file_path),
-                "clean_dataset_path": str(clean_path),
-                "audit_dataset_path": str(audit_path),
-                "raw_rows": int(len(audit_frame)) if not audit_frame.empty else 0,
-                "normalized_rows": int(len(audit_frame)) if not audit_frame.empty else int(len(clean_frame)),
-                "approved_rows": int(len(clean_frame)),
-                "rejected_rows": int((~audit_frame["validation_status"].astype(str).apply(_approved_status)).sum()) if not audit_frame.empty else 0,
-                "duplicate_rows_removed": int((audit_frame["validation_status"] == "rejected_duplicate").sum()) if not audit_frame.empty else 0,
-                "suspicious_fixed_time_events": int((audit_frame["validation_status"] == "approved_fixed_schedule").sum()) if not audit_frame.empty else 0,
-                "supported_validation_events": list(SUPPORTED_VALIDATION_EVENTS),
-                "currency_scope": sorted(set(settings.currencies or tuple(sorted(relevant_currencies(pair))))),
-                "impact_scope": sorted({value.upper() for value in settings.impact_levels}),
-            }
+            diagnostics = load_news_summary(summary_path)
+            if not diagnostics:
+                diagnostics = {
+                    "raw_source_path": str(settings.raw_file_path),
+                    "clean_dataset_path": str(clean_path),
+                    "audit_dataset_path": str(audit_path),
+                    "raw_rows": int(len(audit_frame)) if not audit_frame.empty else 0,
+                    "normalized_rows": int(len(audit_frame)) if not audit_frame.empty else int(len(clean_frame)),
+                    "approved_rows": int(len(clean_frame)),
+                    "rejected_rows": int((~audit_frame["validation_status"].astype(str).apply(_approved_status)).sum()) if not audit_frame.empty else 0,
+                    "duplicate_rows_removed": int((audit_frame["validation_status"] == "rejected_duplicate").sum()) if not audit_frame.empty else 0,
+                    "suspicious_fixed_time_events": int((audit_frame["validation_status"] == "approved_fixed_schedule").sum()) if not audit_frame.empty else 0,
+                    "source_approved": False,
+                    "module_verdict": "REJECTED_DISABLED",
+                }
         except (FileNotFoundError, ValueError):
             try:
-                clean_frame, _audit_frame, diagnostics = build_news_datasets(pair, settings, start="2020-01-01", end="2025-12-31")
+                clean_frame, audit_frame, diagnostics = build_news_datasets(pair, settings, start="2020-01-01", end="2025-12-31")
             except FileNotFoundError:
                 return _empty_result(settings, "raw_file_not_found")
 
@@ -423,7 +555,7 @@ def load_news_events(pair: str, settings: NewsConfig) -> NewsLoadResult:
             events=clean_frame,
             enabled=False,
             source_path=str(settings.raw_file_path),
-            source_name="forex_factory_cache",
+            source_name="forex_factory_fixed_schedule_validated",
             source_timezone="offset_embedded_in_csv_local_display",
             converted_timezone=NY_TZ,
             raw_rows=int(diagnostics.get("raw_rows", 0)),
@@ -438,12 +570,14 @@ def load_news_events(pair: str, settings: NewsConfig) -> NewsLoadResult:
             diagnostics=diagnostics,
         )
 
-    if not settings.source_approved:
+    canonical_project_dataset = clean_path.resolve() == Path(DEFAULT_NEWS_FILE).resolve()
+    operationally_approved = bool(diagnostics.get("source_approved", False)) if canonical_project_dataset else settings.source_approved
+    if not settings.source_approved or not operationally_approved:
         return NewsLoadResult(
             events=clean_frame.iloc[0:0].copy(),
             enabled=False,
             source_path=str(settings.raw_file_path),
-            source_name="forex_factory_cache",
+            source_name=str(diagnostics.get("operational_source_name", "forex_factory_fixed_schedule_validated")),
             source_timezone="offset_embedded_in_csv_local_display",
             converted_timezone=NY_TZ,
             raw_rows=int(diagnostics.get("raw_rows", 0)),
@@ -461,8 +595,8 @@ def load_news_events(pair: str, settings: NewsConfig) -> NewsLoadResult:
     return NewsLoadResult(
         events=clean_frame,
         enabled=True,
-        source_path=str(settings.raw_file_path),
-        source_name="forex_factory_cache",
+        source_path=str(clean_path),
+        source_name=str(diagnostics.get("operational_source_name", "forex_factory_fixed_schedule_validated")),
         source_timezone="offset_embedded_in_csv_local_display",
         converted_timezone=NY_TZ,
         raw_rows=int(diagnostics.get("raw_rows", 0)),

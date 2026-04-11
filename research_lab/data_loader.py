@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+import json
 import warnings
+from dataclasses import asdict, dataclass
 from pathlib import Path
+from typing import Any
 
 import numpy as np
 import pandas as pd
@@ -13,6 +16,22 @@ warnings.simplefilter("ignore", PerformanceWarning)
 
 FX_REOPEN_MINUTE_NY = 17 * 60
 FX_CLOSE_MINUTE_NY = 17 * 60
+OHLCV_COLUMNS = ["open", "high", "low", "close", "volume"]
+SUPPORTED_PREPARED_TIMEFRAMES = ("M1", "M5", "M15", "H1")
+
+
+@dataclass(frozen=True)
+class PreparedDatasetInfo:
+    path: str
+    timeframe: str
+    rows: int
+    index_timezone: str
+    explicit_timezone: bool
+    first_timestamp_ny: str
+    last_timestamp_ny: str
+    manifest_source: str | None
+    manifest_price_type: str | None
+    manifest_granularity: str | None
 
 
 def has_explicit_timezone(index: pd.Index) -> bool:
@@ -24,7 +43,7 @@ def has_explicit_timezone(index: pd.Index) -> bool:
 
 def parse_prepared_index(index: pd.Index) -> pd.DatetimeIndex:
     if not has_explicit_timezone(index):
-        raise ValueError("El índice del CSV preparado no tiene offset timezone explícito; el loader no acepta timestamps naive.")
+        raise ValueError("El indice del CSV preparado no tiene offset timezone explicito; el loader no acepta timestamps naive.")
     return pd.to_datetime(index.astype(str), utc=True, errors="raise").tz_convert(NY_TZ)
 
 
@@ -48,14 +67,83 @@ def fx_session_date(index: pd.DatetimeIndex) -> pd.Series:
 
 def validate_price_frame(frame: pd.DataFrame) -> None:
     if frame.empty:
-        raise ValueError("El dataset quedó vacío después de cargarlo.")
+        raise ValueError("El dataset quedo vacio despues de cargarlo.")
     if frame.index.duplicated().any():
-        raise ValueError("El dataset contiene timestamps duplicados después de cargarlo.")
+        raise ValueError("El dataset contiene timestamps duplicados despues de cargarlo.")
     if not frame.index.is_monotonic_increasing:
-        raise ValueError("El índice de precios no está ordenado crecientemente.")
+        raise ValueError("El indice de precios no esta ordenado crecientemente.")
     invalid_ohlc = (frame["high"] < frame[["open", "close", "low"]].max(axis=1)) | (frame["low"] > frame[["open", "close", "high"]].min(axis=1))
     if bool(invalid_ohlc.any()):
-        raise ValueError("Se detectaron velas OHLC inválidas después de cargar el dataset.")
+        raise ValueError("Se detectaron velas OHLC invalidas despues de cargar el dataset.")
+
+
+def _load_manifest_info(data_dir: Path) -> dict[str, Any]:
+    manifest_path = data_dir / "prepared_data_manifest.json"
+    if not manifest_path.exists():
+        return {}
+    try:
+        return json.loads(manifest_path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return {}
+
+
+def _manifest_entry_for_pair(manifest: dict[str, Any], pair: str) -> dict[str, Any]:
+    pairs = manifest.get("pairs")
+    if isinstance(pairs, dict):
+        value = pairs.get(pair)
+        if isinstance(value, dict):
+            return value
+    return {}
+
+
+def load_prepared_ohlcv(pair: str, data_dirs: list[Path], timeframe: str) -> pd.DataFrame:
+    frames: list[pd.DataFrame] = []
+    for data_dir in data_dirs:
+        path = data_dir / f"{pair}_{timeframe}.csv"
+        if not path.exists():
+            continue
+        frame = pd.read_csv(path, index_col=0)
+        frame.index = parse_prepared_index(frame.index)
+        frame = frame[OHLCV_COLUMNS].copy()
+        frames.append(frame)
+
+    if not frames:
+        raise FileNotFoundError(f"No encontre datos preparados para {pair} {timeframe} en {data_dirs}")
+
+    merged = pd.concat(frames).sort_index()
+    merged = merged[~merged.index.duplicated(keep="last")]
+    validate_price_frame(merged)
+    return merged
+
+
+def describe_available_price_data(pair: str, data_dirs: list[Path]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for data_dir in data_dirs:
+        manifest = _load_manifest_info(data_dir)
+        pair_manifest = _manifest_entry_for_pair(manifest, pair)
+        for timeframe in SUPPORTED_PREPARED_TIMEFRAMES:
+            path = data_dir / f"{pair}_{timeframe}.csv"
+            if not path.exists():
+                continue
+            index_frame = pd.read_csv(path, index_col=0, usecols=[0])
+            parsed_index = parse_prepared_index(index_frame.index)
+            rows.append(
+                asdict(
+                    PreparedDatasetInfo(
+                        path=str(path),
+                        timeframe=timeframe,
+                        rows=int(len(index_frame)),
+                        index_timezone=str(parsed_index.tz),
+                        explicit_timezone=has_explicit_timezone(index_frame.index),
+                        first_timestamp_ny=str(parsed_index.min()) if len(parsed_index) else "",
+                        last_timestamp_ny=str(parsed_index.max()) if len(parsed_index) else "",
+                        manifest_source=str(manifest.get("run_config", {}).get("source")) if manifest else None,
+                        manifest_price_type=str(pair_manifest.get("price_type")) if pair_manifest else None,
+                        manifest_granularity=str(pair_manifest.get("granularity")) if pair_manifest else None,
+                    )
+                )
+            )
+    return rows
 
 
 def ema(series: pd.Series, period: int) -> pd.Series:
@@ -156,21 +244,7 @@ def supertrend(frame: pd.DataFrame, atr_period: int, multiplier: float) -> tuple
 
 
 def load_price_data(pair: str, data_dirs: list[Path], start: str, end: str) -> pd.DataFrame:
-    frames: list[pd.DataFrame] = []
-    for data_dir in data_dirs:
-        path = data_dir / f"{pair}_M5.csv"
-        if not path.exists():
-            continue
-        frame = pd.read_csv(path, index_col=0, parse_dates=True)
-        frame.index = parse_prepared_index(frame.index)
-        frame = frame[["open", "high", "low", "close", "volume"]].copy()
-        frames.append(frame)
-
-    if not frames:
-        raise FileNotFoundError(f"No encontré datos preparados para {pair} en {data_dirs}")
-
-    merged = pd.concat(frames).sort_index()
-    merged = merged[~merged.index.duplicated(keep="last")]
+    merged = load_prepared_ohlcv(pair, data_dirs, "M5")
     merged = merged[fx_market_mask(merged.index)].copy()
     start_ts = pd.Timestamp(start, tz=NY_TZ)
     end_ts = pd.Timestamp(end, tz=NY_TZ) + pd.Timedelta(days=1) - pd.Timedelta(minutes=5)
