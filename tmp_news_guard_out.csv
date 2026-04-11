@@ -1,4 +1,0 @@
-timestamp,currency,importance,event,country,source
-2020-01-08 09:15:00-05:00,USD,3,FOMC Minutes,,csv
-2020-01-10 08:30:00-05:00,USD,3,NFP,,csv
-2020-01-10 08:30:00-05:00,JPY,3,BoJ Statement,,csv
