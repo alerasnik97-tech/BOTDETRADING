@@ -196,6 +196,29 @@ class StrategyParameters:
     csr_target_atr_buffer: float = 0.0
     csr_take_profit_rr_cap: float = 0.6
     csr_max_hold_bars: int = 5
+    scr_entry_start: str = "11:15"
+    scr_entry_end: str = "14:45"
+    scr_h1_adx_min: float = 18.0
+    scr_h1_distance_atr_max: float = 1.25
+    scr_m15_compression_atr_max: float = 0.70
+    scr_m15_max_current_range_atr: float = 1.40
+    scr_m5_trigger_range_atr_min: float = 0.60
+    scr_take_profit_rr_cap: float = 0.8
+    scr_max_hold_bars: int = 5
+    pemr_entry_start: str = "11:00"
+    pemr_entry_end: str = "16:45"
+    pemr_h1_adx_max: float = 22.0
+    pemr_h1_distance_atr_max: float = 1.5
+    pemr_expansion_atr_min: float = 1.5
+    pemr_displacement_atr_min: float = 0.9
+    pemr_m5_reclaim_rsi_long: float = 35.0
+    pemr_m5_reclaim_rsi_short: float = 65.0
+    pemr_m5_trigger_range_atr_max: float = 1.8
+    pemr_target_mode: str = "nearest_mean"
+    pemr_take_profit_rr_cap: float = 1.1
+    pemr_max_hold_bars: int = 8
+    pemr_cooldown_minutes: int = 20
+    pemr_max_closed_trades_per_day: int = 2
     str_entry_start: str = "11:30"
     str_entry_end: str = "15:30"
     str_h1_adx_min: float = 18.0
@@ -815,6 +838,8 @@ def prepare_pair_features(m5: pd.DataFrame, params: StrategyParameters) -> pd.Da
     m5 = m5.copy().sort_index()
     m15 = resample_ohlcv(m5, "15min")
     h1 = resample_ohlcv(m5, "1h")
+    local_index = m5.index.tz_convert(NY_TZ) if m5.index.tz is not None else m5.index.tz_localize(UTC).tz_convert(NY_TZ)
+    session_keys = pd.Index(local_index.date, name="session_date")
 
     m5["m5_rsi"] = rsi(m5["close"], params.m5_rsi_period)
     m5["m5_atr"] = atr(m5, params.m5_atr_period)
@@ -825,11 +850,21 @@ def prepare_pair_features(m5: pd.DataFrame, params: StrategyParameters) -> pd.Da
     m5["m5_ema_slow"] = ema(m5["close"], 21)
     m5["m5_roll_high_3"] = m5["high"].rolling(3).max().shift(1)
     m5["m5_roll_low_3"] = m5["low"].rolling(3).min().shift(1)
+    typical_price = (m5["high"] + m5["low"] + m5["close"]) / 3.0
+    effective_volume = m5["volume"].where(m5["volume"] > 0, 1.0)
+    m5["m5_session_vwap"] = (
+        (typical_price * effective_volume).groupby(session_keys).cumsum()
+        / effective_volume.groupby(session_keys).cumsum()
+    )
 
     m15_features = pd.DataFrame(index=m15.index)
     m15_features["m15_close"] = m15["close"]
     m15_features["m15_high"] = m15["high"]
     m15_features["m15_low"] = m15["low"]
+    m15_features["m15_prev_open"] = m15["open"].shift(1)
+    m15_features["m15_prev_close"] = m15["close"].shift(1)
+    m15_features["m15_prev_high"] = m15["high"].shift(1)
+    m15_features["m15_prev_low"] = m15["low"].shift(1)
     m15_features["m15_ema"] = ema(m15["close"], params.m15_ema_period)
     m15_features["m15_ema_slope"] = m15_features["m15_ema"].diff()
     m15_features["m15_rsi"] = rsi(m15["close"], params.m15_rsi_period)
@@ -854,6 +889,11 @@ def prepare_pair_features(m5: pd.DataFrame, params: StrategyParameters) -> pd.Da
         "m5_ema_slow",
         "m5_roll_high_3",
         "m5_roll_low_3",
+        "m5_session_vwap",
+        "m15_prev_open",
+        "m15_prev_close",
+        "m15_prev_high",
+        "m15_prev_low",
         "m15_ema",
         "m15_ema_slope",
         "m15_rsi",
@@ -1220,6 +1260,8 @@ class MultiTimeframeFXBacktester:
         self.trades: list[dict[str, Any]] = []
         self.equity_points: list[dict[str, Any]] = []
         self.daily_direction_book: dict[str, dict[date, set[str]]] = defaultdict(lambda: defaultdict(set))
+        self.daily_closed_trade_book: dict[str, dict[date, int]] = defaultdict(lambda: defaultdict(int))
+        self.cooldown_until: dict[str, pd.Timestamp] = {}
         self.context_stats: dict[str, dict[str, float]] = defaultdict(
             lambda: {"trades": 0.0, "wins": 0.0, "losses": 0.0, "r_sum": 0.0, "pnl_sum": 0.0}
         )
@@ -1244,6 +1286,31 @@ class MultiTimeframeFXBacktester:
             for pair in normalized:
                 pair_to_groups[pair].append(normalized)
         self.pair_to_groups = dict(pair_to_groups)
+
+    def _daily_entry_limit_reached(self, pair: str, local_date: date) -> bool:
+        if self.params.strategy_family != "post_expansion_mean_reversion":
+            return False
+        limit = max(int(self.params.pemr_max_closed_trades_per_day), 0)
+        if limit == 0:
+            return False
+        return self.daily_closed_trade_book[pair][local_date] >= limit
+
+    def _direction_is_available(self, pair: str, direction: str, local_date: date) -> bool:
+        if self.params.strategy_family == "post_expansion_mean_reversion":
+            return True
+        return direction not in self.daily_direction_book[pair][local_date]
+
+    def _pair_is_on_cooldown(self, pair: str, entry_time: pd.Timestamp) -> bool:
+        cooldown_until = self.cooldown_until.get(pair)
+        return cooldown_until is not None and entry_time < cooldown_until
+
+    def _set_pair_cooldown(self, pair: str, exit_time: pd.Timestamp) -> None:
+        if self.params.strategy_family != "post_expansion_mean_reversion":
+            return
+        cooldown_minutes = max(int(self.params.pemr_cooldown_minutes), 0)
+        if cooldown_minutes <= 0:
+            return
+        self.cooldown_until[pair] = exit_time + timedelta(minutes=cooldown_minutes)
 
     def run(self) -> BacktestResult:
         for pos, timestamp in enumerate(self.master_index):
@@ -1289,6 +1356,9 @@ class MultiTimeframeFXBacktester:
                     "exit_time",
                     "entry_price",
                     "exit_price",
+                    "stop_price",
+                    "take_profit_price",
+                    "initial_risk_usd",
                     "units",
                     "gross_pnl_usd",
                     "net_pnl_usd",
@@ -1341,6 +1411,8 @@ class MultiTimeframeFXBacktester:
         session_time = entry_time.time()
         if not (self.broker.session_start_time <= session_time < self.broker.session_end_time):
             return
+        if self._pair_is_on_cooldown(pair, entry_time) or self._daily_entry_limit_reached(pair, local_date):
+            return
         if (
             self.news_masks[pair]["block"][pos]
             or self.news_masks[pair]["block"][next_pos]
@@ -1352,9 +1424,9 @@ class MultiTimeframeFXBacktester:
         long_pending = self._build_pending_entry(pair, "long", pos, prev_pos, next_pos, entry_time)
         short_pending = self._build_pending_entry(pair, "short", pos, prev_pos, next_pos, entry_time)
 
-        if long_pending is not None and "long" not in self.daily_direction_book[pair][local_date]:
+        if long_pending is not None and self._direction_is_available(pair, "long", local_date):
             self.pending[pair] = long_pending
-        elif short_pending is not None and "short" not in self.daily_direction_book[pair][local_date]:
+        elif short_pending is not None and self._direction_is_available(pair, "short", local_date):
             self.pending[pair] = short_pending
 
     def _build_pending_entry(
@@ -1368,6 +1440,10 @@ class MultiTimeframeFXBacktester:
     ) -> PendingEntry | None:
         if self.params.strategy_family == "usdjp_session_playbook":
             return self._build_usdjpy_session_playbook_entry(pair, direction, pos, prev_pos, next_pos, entry_time)
+        if self.params.strategy_family == "post_expansion_mean_reversion":
+            return self._build_post_expansion_mean_reversion_entry(pair, direction, pos, prev_pos, next_pos, entry_time)
+        if self.params.strategy_family == "session_compression_release":
+            return self._build_session_compression_release_entry(pair, direction, pos, prev_pos, next_pos, entry_time)
         if self.params.strategy_family == "session_trend_reclaim":
             return self._build_session_trend_reclaim_entry(pair, direction, pos, prev_pos, next_pos, entry_time)
         if self.params.strategy_family == "core_session_reversion":
@@ -1661,6 +1737,212 @@ class MultiTimeframeFXBacktester:
             take_profit_price=target_price,
             take_profit_rr_cap=self.params.csr_take_profit_rr_cap,
             max_hold_bars=self.params.csr_max_hold_bars,
+            context_key=context_key,
+            context_trades_before=int(context_snapshot["trades"]),
+            context_win_rate_before=float(context_snapshot["win_rate"]),
+            context_expectancy_before=float(context_snapshot["expectancy_r"]),
+        )
+
+    def _resolve_post_expansion_target(self, pair: str, direction: str, pos: int) -> float | None:
+        arrays = self.views[pair].arrays
+        signal_close = arrays["close"][pos]
+        if self.params.pemr_target_mode == "vwap_only":
+            candidate_levels = [arrays["m5_session_vwap"][pos]]
+        elif self.params.pemr_target_mode == "ema_only":
+            candidate_levels = [arrays["m15_ema"][pos]]
+        else:
+            candidate_levels = [arrays["m15_ema"][pos], arrays["m5_session_vwap"][pos]]
+        if direction == "long":
+            valid = [level for level in candidate_levels if np.isfinite(level) and level > signal_close]
+            return min(valid) if valid else None
+        valid = [level for level in candidate_levels if np.isfinite(level) and level < signal_close]
+        return max(valid) if valid else None
+
+    def _build_post_expansion_mean_reversion_entry(
+        self,
+        pair: str,
+        direction: str,
+        pos: int,
+        prev_pos: int,
+        next_pos: int,
+        entry_time: pd.Timestamp,
+    ) -> PendingEntry | None:
+        entry_clock = entry_time.time()
+        if not (time.fromisoformat(self.params.pemr_entry_start) <= entry_clock < time.fromisoformat(self.params.pemr_entry_end)):
+            return None
+
+        arrays = self.views[pair].arrays
+        m5_atr_value = arrays["m5_atr"][pos]
+        m15_atr_value = arrays["m15_atr"][pos]
+        h1_atr_value = arrays["h1_atr"][pos]
+        prev_m15_range = arrays["m15_prev_range"][pos]
+        prev_m15_atr = arrays["m15_prev_atr"][pos]
+        prev_m15_high = arrays["m15_prev_high"][pos]
+        prev_m15_low = arrays["m15_prev_low"][pos]
+        prev_m15_close = arrays["m15_prev_close"][pos]
+        if (
+            not np.isfinite(m5_atr_value)
+            or not np.isfinite(m15_atr_value)
+            or not np.isfinite(h1_atr_value)
+            or not np.isfinite(prev_m15_range)
+            or not np.isfinite(prev_m15_atr)
+            or not np.isfinite(prev_m15_high)
+            or not np.isfinite(prev_m15_low)
+            or not np.isfinite(prev_m15_close)
+            or m5_atr_value <= 0
+            or m15_atr_value <= 0
+            or h1_atr_value <= 0
+            or prev_m15_atr <= 0
+            or prev_m15_range <= 0
+        ):
+            return None
+
+        if not self._context_static_allows(pair, direction, pos, entry_time):
+            return None
+
+        h1_distance_atr = abs(arrays["close"][pos] - arrays["h1_ema_fast"][pos]) / h1_atr_value
+        if arrays["h1_adx"][pos] > self.params.pemr_h1_adx_max or h1_distance_atr > self.params.pemr_h1_distance_atr_max:
+            return None
+
+        prev_close_location = (prev_m15_close - prev_m15_low) / prev_m15_range
+        if prev_m15_range < self.params.pemr_expansion_atr_min * prev_m15_atr:
+            return None
+
+        target_price = self._resolve_post_expansion_target(pair, direction, pos)
+        if target_price is None:
+            return None
+
+        target_distance_atr = abs(target_price - arrays["close"][pos]) / m15_atr_value
+        current_range_atr = arrays["m5_range"][pos] / m5_atr_value
+        if (
+            target_distance_atr < self.params.pemr_displacement_atr_min
+            or current_range_atr > self.params.pemr_m5_trigger_range_atr_max
+        ):
+            return None
+
+        if direction == "long":
+            setup_ok = prev_close_location <= 0.25
+            trigger_ok = (
+                arrays["close"][prev_pos] <= arrays["m5_ema_fast"][prev_pos]
+                and arrays["close"][pos] > arrays["m5_ema_fast"][pos]
+                and arrays["m5_rsi"][prev_pos] <= self.params.pemr_m5_reclaim_rsi_long
+                and arrays["m5_rsi"][pos] > self.params.pemr_m5_reclaim_rsi_long
+            )
+        else:
+            setup_ok = prev_close_location >= 0.75
+            trigger_ok = (
+                arrays["close"][prev_pos] >= arrays["m5_ema_fast"][prev_pos]
+                and arrays["close"][pos] < arrays["m5_ema_fast"][pos]
+                and arrays["m5_rsi"][prev_pos] >= self.params.pemr_m5_reclaim_rsi_short
+                and arrays["m5_rsi"][pos] < self.params.pemr_m5_reclaim_rsi_short
+            )
+
+        if not (setup_ok and trigger_ok):
+            return None
+
+        return PendingEntry(
+            pair=pair,
+            direction=direction,
+            signal_pos=pos,
+            execute_pos=next_pos,
+            planned_entry_time=entry_time,
+            signal_atr=m5_atr_value,
+            stop_distance=m5_atr_value * self.params.stop_atr_multiple,
+            take_profit_price=target_price,
+            take_profit_rr_cap=self.params.pemr_take_profit_rr_cap,
+            max_hold_bars=self.params.pemr_max_hold_bars,
+            setup_tag="post_expansion_mean_reversion",
+        )
+
+    def _build_session_compression_release_entry(
+        self,
+        pair: str,
+        direction: str,
+        pos: int,
+        prev_pos: int,
+        next_pos: int,
+        entry_time: pd.Timestamp,
+    ) -> PendingEntry | None:
+        entry_clock = entry_time.time()
+        if not (time.fromisoformat(self.params.scr_entry_start) <= entry_clock < time.fromisoformat(self.params.scr_entry_end)):
+            return None
+
+        arrays = self.views[pair].arrays
+        m5_atr_value = arrays["m5_atr"][pos]
+        m15_atr_value = arrays["m15_atr"][pos]
+        h1_atr_value = arrays["h1_atr"][pos]
+        if (
+            not np.isfinite(m5_atr_value)
+            or not np.isfinite(m15_atr_value)
+            or not np.isfinite(h1_atr_value)
+            or m5_atr_value <= 0
+            or m15_atr_value <= 0
+            or h1_atr_value <= 0
+        ):
+            return None
+
+        if not self._context_static_allows(pair, direction, pos, entry_time):
+            return None
+
+        h1_distance_atr = abs(arrays["close"][pos] - arrays["h1_ema_fast"][pos]) / h1_atr_value
+        current_m15_range_atr = (arrays["m15_high"][pos] - arrays["m15_low"][pos]) / max(m15_atr_value, 1e-9)
+        common_setup = (
+            arrays["m15_prev_range"][pos] <= self.params.scr_m15_compression_atr_max * arrays["m15_prev_atr"][pos]
+            and current_m15_range_atr <= self.params.scr_m15_max_current_range_atr
+            and arrays["m5_range"][pos] >= self.params.scr_m5_trigger_range_atr_min * m5_atr_value
+            and h1_distance_atr <= self.params.scr_h1_distance_atr_max
+        )
+        if not common_setup:
+            return None
+
+        if direction == "long":
+            regime_ok = (
+                arrays["h1_ema_fast"][pos] > arrays["h1_ema_slow"][pos]
+                and arrays["h1_ema_slow_slope"][pos] > 0
+                and arrays["h1_adx"][pos] >= self.params.scr_h1_adx_min
+                and arrays["m15_ema_slope"][pos] >= 0
+                and arrays["m15_close"][pos] >= arrays["m15_ema"][pos]
+            )
+            trigger_ok = (
+                arrays["close"][pos] > arrays["m5_roll_high_3"][pos]
+                and arrays["m5_ema_fast"][pos] >= arrays["m5_ema_slow"][pos]
+                and arrays["m5_rsi"][pos] >= 55.0
+                and arrays["close"][pos] > arrays["open"][pos]
+            )
+        else:
+            regime_ok = (
+                arrays["h1_ema_fast"][pos] < arrays["h1_ema_slow"][pos]
+                and arrays["h1_ema_slow_slope"][pos] < 0
+                and arrays["h1_adx"][pos] >= self.params.scr_h1_adx_min
+                and arrays["m15_ema_slope"][pos] <= 0
+                and arrays["m15_close"][pos] <= arrays["m15_ema"][pos]
+            )
+            trigger_ok = (
+                arrays["close"][pos] < arrays["m5_roll_low_3"][pos]
+                and arrays["m5_ema_fast"][pos] <= arrays["m5_ema_slow"][pos]
+                and arrays["m5_rsi"][pos] <= 45.0
+                and arrays["close"][pos] < arrays["open"][pos]
+            )
+
+        if not (regime_ok and trigger_ok):
+            return None
+
+        context_key = self._build_context_key(pair, direction, pos, entry_time)
+        context_allowed, context_snapshot = self._context_allows_trade(context_key)
+        if not context_allowed:
+            return None
+
+        return PendingEntry(
+            pair=pair,
+            direction=direction,
+            signal_pos=pos,
+            execute_pos=next_pos,
+            planned_entry_time=entry_time,
+            signal_atr=m5_atr_value,
+            stop_distance=m5_atr_value * self.params.stop_atr_multiple,
+            take_profit_price=None,
+            take_profit_rr_cap=self.params.scr_take_profit_rr_cap,
+            max_hold_bars=self.params.scr_max_hold_bars,
             context_key=context_key,
             context_trades_before=int(context_snapshot["trades"]),
             context_win_rate_before=float(context_snapshot["win_rate"]),
@@ -2055,7 +2337,8 @@ class MultiTimeframeFXBacktester:
             context_win_rate_before=pending.context_win_rate_before,
             context_expectancy_before=pending.context_expectancy_before,
         )
-        self.daily_direction_book[pair][pending.planned_entry_time.date()].add(pending.direction)
+        if self.params.strategy_family != "post_expansion_mean_reversion":
+            self.daily_direction_book[pair][pending.planned_entry_time.date()].add(pending.direction)
 
     def _process_position_bar(self, pair: str, pos: int) -> None:
         position = self.positions[pair]
@@ -2133,6 +2416,9 @@ class MultiTimeframeFXBacktester:
                 "exit_time": self.master_index[pos].tz_convert(UTC),
                 "entry_price": position.entry_price,
                 "exit_price": exit_price,
+                "stop_price": position.stop_price,
+                "take_profit_price": position.take_profit_price,
+                "initial_risk_usd": position.initial_risk_usd,
                 "units": position.units,
                 "gross_pnl_usd": gross_pnl_usd,
                 "net_pnl_usd": net_pnl_usd,
@@ -2147,6 +2433,9 @@ class MultiTimeframeFXBacktester:
                 "context_expectancy_before": position.context_expectancy_before,
             }
         )
+        exit_time = self.master_index[pos]
+        self.daily_closed_trade_book[pair][exit_time.date()] += 1
+        self._set_pair_cooldown(pair, exit_time)
 
     def _portfolio_equity(self, pos: int) -> float:
         equity = self.cash
@@ -2480,8 +2769,13 @@ def summarize_portfolio(trades: pd.DataFrame, equity_curve: pd.DataFrame, initia
             "break_even_trades": 0,
             "win_rate_pct": 0.0,
             "trades_per_month": 0.0,
+            "trades_per_active_month": 0.0,
+            "calendar_months": 0,
+            "active_months": 0,
             "profit_month_ratio": 0.0,
+            "profit_calendar_month_ratio": 0.0,
             "avg_monthly_net_pnl_usd": 0.0,
+            "avg_calendar_monthly_net_pnl_usd": 0.0,
             "expectancy_usd": 0.0,
             "avg_trade_minutes": 0.0,
             "median_trade_minutes": 0.0,
@@ -2511,14 +2805,35 @@ def summarize_portfolio(trades: pd.DataFrame, equity_curve: pd.DataFrame, initia
 
     monthly_totals = pd.Series(dtype=float)
     profit_month_ratio = 0.0
+    profit_calendar_month_ratio = 0.0
     avg_monthly_net_pnl_usd = 0.0
+    avg_calendar_monthly_net_pnl_usd = 0.0
     trades_per_month = 0.0
+    trades_per_active_month = 0.0
+    active_months = 0
+    calendar_months = 0
+
+    timestamp_series = equity_curve["timestamp"].dt.tz_localize(None)
+    if not timestamp_series.empty:
+        start_period = timestamp_series.min().to_period("M")
+        end_period = timestamp_series.max().to_period("M")
+        calendar_months = len(pd.period_range(start=start_period, end=end_period, freq="M"))
+
     if not trades.empty:
         month_keys = trades["entry_time"].dt.tz_localize(None).dt.to_period("M").astype(str)
         monthly_totals = trades.groupby(month_keys)["net_pnl_usd"].sum()
-        avg_monthly_net_pnl_usd = float(monthly_totals.mean()) if len(monthly_totals) else 0.0
-        profit_month_ratio = float((monthly_totals > 0).mean()) if len(monthly_totals) else 0.0
-        trades_per_month = total_trades / max(len(monthly_totals), 1)
+        active_months = len(monthly_totals)
+        avg_monthly_net_pnl_usd = float(monthly_totals.mean()) if active_months else 0.0
+        profit_month_ratio = float((monthly_totals > 0).mean()) if active_months else 0.0
+        trades_per_active_month = total_trades / max(active_months, 1)
+        if calendar_months:
+            trades_per_month = total_trades / calendar_months
+            profit_calendar_month_ratio = float((monthly_totals > 0).sum() / calendar_months)
+            avg_calendar_monthly_net_pnl_usd = float(monthly_totals.sum() / calendar_months)
+        else:
+            trades_per_month = trades_per_active_month
+            profit_calendar_month_ratio = profit_month_ratio
+            avg_calendar_monthly_net_pnl_usd = avg_monthly_net_pnl_usd
 
     expectancy_usd = float(trades["net_pnl_usd"].mean()) if not trades.empty else 0.0
     trade_minutes = pd.Series(dtype=float)
@@ -2543,14 +2858,223 @@ def summarize_portfolio(trades: pd.DataFrame, equity_curve: pd.DataFrame, initia
         "break_even_trades": break_even_trades,
         "win_rate_pct": win_rate_pct,
         "trades_per_month": trades_per_month,
+        "trades_per_active_month": trades_per_active_month,
+        "calendar_months": calendar_months,
+        "active_months": active_months,
         "profit_month_ratio": profit_month_ratio,
+        "profit_calendar_month_ratio": profit_calendar_month_ratio,
         "avg_monthly_net_pnl_usd": avg_monthly_net_pnl_usd,
+        "avg_calendar_monthly_net_pnl_usd": avg_calendar_monthly_net_pnl_usd,
         "expectancy_usd": expectancy_usd,
         "avg_trade_minutes": avg_trade_minutes,
         "median_trade_minutes": median_trade_minutes,
         "max_consecutive_wins": max_consecutive_wins,
         "max_consecutive_losses": max_consecutive_losses,
     }
+
+
+def build_analysis_trades(trades: pd.DataFrame) -> pd.DataFrame:
+    columns = [
+        "pair",
+        "entry_time_ny",
+        "exit_time_ny",
+        "direction",
+        "entry_price",
+        "exit_price",
+        "sl",
+        "tp",
+        "risk_r",
+        "pnl_r",
+        "pnl_usd",
+        "result",
+        "exit_reason",
+        "session_date",
+    ]
+    if trades.empty:
+        return pd.DataFrame(columns=columns)
+
+    frame = trades.copy()
+    entry_time = pd.to_datetime(frame["entry_time"], utc=True).dt.tz_convert(NY_TZ)
+    exit_time = pd.to_datetime(frame["exit_time"], utc=True).dt.tz_convert(NY_TZ)
+    pnl_usd = frame["net_pnl_usd"].astype(float)
+    result = np.where(pnl_usd > 0.0, "win", np.where(pnl_usd < 0.0, "loss", "breakeven"))
+    exported = pd.DataFrame(
+        {
+            "pair": frame["pair"],
+            "entry_time_ny": entry_time.dt.strftime("%Y-%m-%d %H:%M:%S"),
+            "exit_time_ny": exit_time.dt.strftime("%Y-%m-%d %H:%M:%S"),
+            "direction": frame["direction"],
+            "entry_price": frame["entry_price"].astype(float),
+            "exit_price": frame["exit_price"].astype(float),
+            "sl": pd.to_numeric(frame.get("stop_price"), errors="coerce"),
+            "tp": pd.to_numeric(frame.get("take_profit_price"), errors="coerce"),
+            "risk_r": 1.0,
+            "pnl_r": pd.to_numeric(frame.get("r_multiple"), errors="coerce"),
+            "pnl_usd": pnl_usd,
+            "result": result,
+            "exit_reason": frame["exit_reason"],
+            "session_date": entry_time.dt.strftime("%Y-%m-%d"),
+        }
+    )
+    return exported[columns]
+
+
+def _period_drawdown_pct(chunk: pd.DataFrame, initial_capital: float) -> float:
+    if chunk.empty:
+        return 0.0
+    equity = initial_capital + chunk["net_pnl_usd"].astype(float).cumsum()
+    peak = equity.cummax()
+    drawdown = (equity - peak) / peak.replace(0.0, np.nan)
+    return float(abs(drawdown.min()) * 100) if len(drawdown) else 0.0
+
+
+def build_analysis_period_stats(trades: pd.DataFrame, freq: str, initial_capital: float) -> pd.DataFrame:
+    label = "year" if freq == "Y" else "month"
+    columns = [
+        "pair",
+        label,
+        "trades",
+        "wins",
+        "losses",
+        "win_rate",
+        "total_pnl_r",
+        "total_pnl_usd",
+        "avg_pnl_r",
+        "max_drawdown_pct",
+        "profit_factor",
+    ]
+    if trades.empty:
+        return pd.DataFrame(columns=columns)
+
+    frame = trades.copy()
+    entry_time = pd.to_datetime(frame["entry_time"], utc=True).dt.tz_convert(NY_TZ)
+    frame[label] = entry_time.dt.tz_localize(None).dt.to_period(freq).astype(str)
+    rows: list[dict[str, Any]] = []
+    for (pair, bucket), chunk in frame.groupby(["pair", label], sort=True):
+        pnl_usd = chunk["net_pnl_usd"].astype(float)
+        pnl_r = pd.to_numeric(chunk.get("r_multiple"), errors="coerce")
+        wins = int((pnl_usd > 0).sum())
+        losses = int((pnl_usd < 0).sum())
+        gross_profit = pnl_usd[pnl_usd > 0].sum()
+        gross_loss = pnl_usd[pnl_usd < 0].sum()
+        profit_factor = gross_profit / abs(gross_loss) if gross_loss < 0 else np.inf
+        rows.append(
+            {
+                "pair": pair,
+                label: bucket,
+                "trades": int(len(chunk)),
+                "wins": wins,
+                "losses": losses,
+                "win_rate": (wins / len(chunk)) * 100 if len(chunk) else 0.0,
+                "total_pnl_r": float(pnl_r.sum()) if not pnl_r.empty else 0.0,
+                "total_pnl_usd": float(pnl_usd.sum()),
+                "avg_pnl_r": float(pnl_r.mean()) if not pnl_r.empty else 0.0,
+                "max_drawdown_pct": _period_drawdown_pct(chunk, initial_capital),
+                "profit_factor": float(profit_factor),
+            }
+        )
+    return pd.DataFrame(rows)[columns].sort_values(["pair", label]).reset_index(drop=True)
+
+
+def build_analysis_equity_curve(equity_curve: pd.DataFrame) -> pd.DataFrame:
+    columns = ["datetime_ny", "equity", "drawdown_pct"]
+    if equity_curve.empty:
+        return pd.DataFrame(columns=columns)
+
+    frame = equity_curve.copy()
+    timestamp = pd.to_datetime(frame["timestamp"], utc=True).dt.tz_convert(NY_TZ)
+    equity = frame["equity"].astype(float)
+    peak = equity.cummax()
+    drawdown_pct = ((equity - peak) / peak.replace(0.0, np.nan)) * 100
+    exported = pd.DataFrame(
+        {
+            "datetime_ny": timestamp.dt.strftime("%Y-%m-%d %H:%M:%S"),
+            "equity": equity,
+            "drawdown_pct": drawdown_pct.fillna(0.0),
+        }
+    )
+    return exported[columns]
+
+
+def build_analysis_summary(
+    trades: pd.DataFrame,
+    portfolio_summary: dict[str, Any],
+    monthly_stats: pd.DataFrame,
+    yearly_stats: pd.DataFrame,
+) -> dict[str, Any]:
+    monthly_total = monthly_stats.groupby("month")["total_pnl_usd"].sum() if not monthly_stats.empty else pd.Series(dtype=float)
+    yearly_total = yearly_stats.groupby("year")["total_pnl_usd"].sum() if not yearly_stats.empty else pd.Series(dtype=float)
+    expectancy_r = float(trades["r_multiple"].mean()) if not trades.empty and "r_multiple" in trades.columns else 0.0
+    return {
+        "total_trades": int(portfolio_summary.get("total_trades", 0)),
+        "win_rate": float(portfolio_summary.get("win_rate_pct", 0.0)),
+        "profit_factor": float(portfolio_summary.get("profit_factor", 0.0)),
+        "expectancy": float(portfolio_summary.get("expectancy_usd", 0.0)),
+        "expectancy_r": expectancy_r,
+        "max_drawdown": float(portfolio_summary.get("max_drawdown_pct", 0.0)),
+        "return_total": float(portfolio_summary.get("total_return_pct", 0.0)),
+        "avg_trades_per_month": float(portfolio_summary.get("trades_per_month", 0.0)),
+        "negative_months": int((monthly_total < 0).sum()),
+        "negative_years": int((yearly_total < 0).sum()),
+    }
+
+
+def export_analysis_bundle(
+    output_dir: Path,
+    *,
+    trades: pd.DataFrame,
+    equity_curve: pd.DataFrame,
+    initial_capital: float,
+    portfolio_summary: dict[str, Any],
+    parameters: dict[str, Any],
+    best_score: float | None = None,
+    walkforward_rows: list[dict[str, Any]] | None = None,
+) -> None:
+    output_dir.mkdir(parents=True, exist_ok=True)
+    chatgpt_dir = output_dir / "PARA CHATGPT"
+    chatgpt_dir.mkdir(parents=True, exist_ok=True)
+    trades_export = build_analysis_trades(trades)
+    monthly_stats = build_analysis_period_stats(trades, "M", initial_capital)
+    yearly_stats = build_analysis_period_stats(trades, "Y", initial_capital)
+    summary_payload = build_analysis_summary(trades, portfolio_summary, monthly_stats, yearly_stats)
+    equity_export = build_analysis_equity_curve(equity_curve)
+
+    trades_export.to_csv(chatgpt_dir / "trades.csv", index=False)
+    monthly_stats.to_csv(chatgpt_dir / "monthly_stats.csv", index=False)
+    yearly_stats.to_csv(chatgpt_dir / "yearly_stats.csv", index=False)
+    equity_export.to_csv(chatgpt_dir / "equity_curve.csv", index=False)
+    (chatgpt_dir / "summary.json").write_text(json.dumps(sanitize_for_json(summary_payload), indent=2), encoding="utf-8")
+    (chatgpt_dir / "best_params.json").write_text(
+        json.dumps(
+            sanitize_for_json(
+                {
+                    "best_params": parameters,
+                    "score": best_score,
+                }
+            ),
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+
+    walkforward_frame = pd.DataFrame(
+        walkforward_rows
+        if walkforward_rows is not None
+        else [
+            {
+                "train_period": "",
+                "test_period": "",
+                "params_used": json.dumps(sanitize_for_json(parameters), ensure_ascii=True),
+                "trades": int(portfolio_summary.get("total_trades", 0)),
+                "win_rate": float(portfolio_summary.get("win_rate_pct", 0.0)),
+                "pnl_r": float(trades["r_multiple"].sum()) if not trades.empty and "r_multiple" in trades.columns else 0.0,
+                "pnl_usd": float(trades["net_pnl_usd"].sum()) if not trades.empty and "net_pnl_usd" in trades.columns else 0.0,
+                "max_drawdown_pct": float(portfolio_summary.get("max_drawdown_pct", 0.0)),
+                "profit_factor": float(portfolio_summary.get("profit_factor", 0.0)),
+            }
+        ]
+    )
+    walkforward_frame.to_csv(chatgpt_dir / "walkforward_summary.csv", index=False)
 
 
 def compute_robustness_score(portfolio_summary: dict[str, Any], yearly_summary: pd.DataFrame, monthly_summary: pd.DataFrame) -> float:
@@ -2668,6 +3192,15 @@ def export_result(result: BacktestResult, output_dir: Path) -> None:
         "robustness_score": sanitize_for_json(result.robustness_score),
     }
     (output_dir / "summary.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    export_analysis_bundle(
+        output_dir,
+        trades=result.trades,
+        equity_curve=result.equity_curve,
+        initial_capital=float(result.broker.get("initial_capital", 0.0)),
+        portfolio_summary=result.portfolio_summary,
+        parameters=result.parameters,
+        best_score=result.robustness_score,
+    )
 
     if plt is not None and not result.equity_curve.empty:
         plot_equity_and_drawdown(result.equity_curve, output_dir / "equity_drawdown.png")
@@ -2738,11 +3271,15 @@ def print_run_summary(result: BacktestResult) -> None:
         "profit_factor",
         "total_trades",
         "trades_per_month",
+        "trades_per_active_month",
+        "calendar_months",
+        "active_months",
         "wins",
         "losses",
         "break_even_trades",
         "win_rate_pct",
         "profit_month_ratio",
+        "profit_calendar_month_ratio",
         "expectancy_usd",
         "avg_trade_minutes",
         "median_trade_minutes",
@@ -2789,6 +3326,37 @@ def default_parameter_grid(
     profile: str = "consistency",
     params: StrategyParameters | None = None,
 ) -> dict[str, list[Any]]:
+    if strategy_family == "post_expansion_mean_reversion":
+        return {
+            "pemr_h1_adx_max": [18.0, 22.0],
+            "pemr_expansion_atr_min": [1.2, 1.5, 1.8],
+            "pemr_displacement_atr_min": [0.6, 0.9],
+            "stop_atr_multiple": [0.7, 0.9],
+            "pemr_take_profit_rr_cap": [0.8, 1.1],
+        }
+
+    if strategy_family == "session_compression_release":
+        if profile == "frequency":
+            return {
+                "scr_h1_adx_min": [18.0, 22.0],
+                "scr_m15_compression_atr_max": [0.55, 0.70, 0.85],
+                "stop_atr_multiple": [0.6, 0.8],
+                "scr_take_profit_rr_cap": [0.6, 0.8],
+            }
+        if profile == "winrate":
+            return {
+                "scr_h1_adx_min": [18.0, 22.0],
+                "scr_m15_compression_atr_max": [0.55, 0.70, 0.85],
+                "stop_atr_multiple": [0.6, 0.8],
+                "scr_take_profit_rr_cap": [0.6, 0.8],
+            }
+        return {
+            "scr_h1_adx_min": [18.0, 22.0],
+            "scr_m15_compression_atr_max": [0.55, 0.70, 0.85],
+            "stop_atr_multiple": [0.6, 0.8],
+            "scr_take_profit_rr_cap": [0.6, 0.8],
+        }
+
     if strategy_family == "session_trend_reclaim":
         if profile == "frequency":
             return {
@@ -3395,7 +3963,7 @@ def parse_arguments() -> argparse.Namespace:
         target.add_argument("--pairs", nargs="+", default=list(DEFAULT_PAIRS))
         target.add_argument("--data-dir", default="data")
         target.add_argument("--report-dir", default="reports")
-        target.add_argument("--strategy-family", choices=["trend_pullback", "session_mean_reversion", "adaptive_session_reversion", "core_session_reversion", "session_trend_reclaim", "usdjp_session_playbook"], default="trend_pullback")
+        target.add_argument("--strategy-family", choices=["trend_pullback", "session_mean_reversion", "adaptive_session_reversion", "core_session_reversion", "post_expansion_mean_reversion", "session_trend_reclaim", "session_compression_release", "usdjp_session_playbook"], default="trend_pullback")
         target.add_argument("--source", choices=["auto", "local", "dukascopy"], default="auto")
         target.add_argument("--download-missing", action="store_true")
         target.add_argument("--force-download", action="store_true")
