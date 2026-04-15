@@ -1,65 +1,104 @@
+# ============================================================
+# .gitignore — BOT DE TRADING (Canonical Version)
+# ============================================================
+
+# --- Python bytecode ---
 __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
 .Python
+
+# --- Virtual environments ---
+.venv/
+.venv_fixed/
+venv/
+env/
+
+# --- Caches de herramientas ---
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
 .ipynb_checkpoints/
-.venv/
 .mplconfig/
 .pkg/
 .tmp/
-venv/
-env/
-.env
-.env.*
+.tmp.driveupload/
+
+# --- IDE y OS ---
 .idea/
 .vscode/
+.DS_Store
+Thumbs.db
 
-# Data: ignore everything by default, then allow only the minimum cloud dataset.
+# --- Vendors internos (binarios descargados, no código) ---
+.vendor_duka/
+.vendor_duka2/
+
+# --- Data: ignorar todo; solo incluir datasets mínimos versionados ---
 data/
 data_free_*/
-data_candidates_*/
-data_usdjpy_*/
 !data_free_2020/
 data_free_2020/*
 !data_free_2020/prepared/
 data_free_2020/prepared/*
 !data_free_2020/prepared/EURUSD_M5.csv
+
+data_candidates_*/
 !data_candidates_2022_2025/
 data_candidates_2022_2025/*
 !data_candidates_2022_2025/prepared/
 data_candidates_2022_2025/prepared/*
 !data_candidates_2022_2025/prepared/EURUSD_M5.csv
 
-# Generated reports and results.
+# Data USDJPY: no versionada aún
+data_usdjpy_*/
+
+# Data de alta precisión (archivos tick, M1 BID/ASK — cientos de MB)
+data_precision/
+data_precision_raw/
+
+# --- Resultados generados (regenerables) ---
+results/
+results_*/
 reports/
 reports_*/
-reports_sim_*/
-reports_fast_*/
-reports_exp_*/
-results/*
-!results/.gitkeep
-results_*/
 
-# Large outputs and local artifacts.
-*.csv
+# --- Legacy y archivos archivados ---
+legacy_archive_2026/
+bls_html_samples/
+
+# --- Archivos pesados regenerables ---
 *.csv.gz
 *.parquet
 *.jsonl
-*.png
 *.log
 *.tmp
-*.zip
+*.png
+*.pdf
+
+# Excepciones: datasets de ejemplo en docs
 !docs/examples/news_example.csv
 
-000_PARA_CHATGPT/
-000_PARA_CHATGPT.zip
-ABRIR_000_PARA_CHATGPT.txt
-ARCHIVE_MANIFEST.md
-tmp*.csv
+# --- CSVs: excluir outputs pero no código de ejemplo ---
+*.csv
+!docs/examples/*.csv
+!results/baselines/*.csv
 
-.DS_Store
-Thumbs.db
+# --- ZIP y handoff ---
+*.zip
+handoff/
+# El ZIP de handoff se regenera, no se versiona
+000_PARA_CHATGPT.zip
+000_PARA_CHATGPT/
+
+# --- Archivos de sesión/comparación one-off ---
+comparison_report.csv
+ABRIR_000_PARA_CHATGPT.txt
+tmp*.csv
+tmp*.py
+
+# --- Manifests antiguos de migración (ya ejecutados, no activos) ---
+ARCHIVE_MANIFEST.md
+MIGRATION_MANIFEST_W2.md
+LEGACY_CONFINEMENT_REPORT_W2.md

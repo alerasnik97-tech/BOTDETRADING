@@ -17,10 +17,11 @@ from research_lab.config import (
     ALT_WFA_IS_MONTHS,
     ALT_WFA_OOS_MONTHS,
     DEFAULT_DATA_DIRS,
-    DEFAULT_EXECUTION_MODE,
     DEFAULT_MAX_EVALS_PER_STRATEGY,
-    DEFAULT_NEWS_FILE,
+    DEFAULT_NEWS_V2_UTC_FILE,
     DEFAULT_PAIR,
+    DEFAULT_EXECUTION_MODE,
+    DEFAULT_COST_PROFILE,
     DEFAULT_RESULTS_DIR,
     DEFAULT_SEED,
     DEFAULT_WFA_IS_MONTHS,
@@ -38,7 +39,7 @@ from research_lab.config import (
     resolved_intrabar_policy,
     with_execution_mode,
 )
-from research_lab.data_loader import load_price_data, prepare_common_frame
+from research_lab.data_loader import load_backtest_data_bundle
 from research_lab.engine import entry_open_index, run_backtest
 from research_lab.news_filter import build_entry_block, load_news_events, news_result_payload
 from research_lab.plotting import (
@@ -53,9 +54,8 @@ from research_lab.plotting import (
 from research_lab.report import export_root_tables, export_strategy_bundle, summarize_result, sync_visible_chatgpt
 from research_lab.scorer import compute_final_score, score_is_summary
 from research_lab.strategies import STRATEGY_REGISTRY
-from research_lab.validation import parameter_combinations, run_default_and_alt_wfa
-
-
+from research_lab.validation import parameter_combinations, run_default_and_alt_wfa, WFAResult
+from research_lab.rejection_protocol import evaluate_is_rejection, evaluate_oos_rejection, HARD_REJECT, SOFT_REJECT, PASS_MINIMUM, STRONG_CANDIDATE
 def build_output_root(results_dir: Path, label: str) -> Path:
     timestamp = pd.Timestamp.now(tz="America/New_York").strftime("%Y%m%d_%H%M%S")
     path = results_dir / f"{timestamp}_{label}"
@@ -176,18 +176,78 @@ def evaluate_strategy(
     output_root: Path,
     max_evals: int,
     seed: int,
+    precision_package: dict[str, pd.DataFrame] | None = None,
+    data_source_used: str | None = None,
+    timeframe: str = "M15",
 ) -> dict[str, Any]:
     strategy_module = STRATEGY_REGISTRY[strategy_name]
     combos = parameter_combinations(strategy_module, max_evals=max_evals, seed=seed)
     news_result = load_news_events(engine_config.pair, news_config)
     news_filter_used = news_result.enabled
     news_block = build_entry_block(entry_open_index(frame.index), news_result.events, news_config)
+    strategy_dir = output_root / strategy_name
+    strategy_dir.mkdir(parents=True, exist_ok=True)
+    
+    # ---------------------------------------------
+    # METADATA & LINAJE CANONICO OBLIGATORIO
+    # ---------------------------------------------
+    import datetime
+    lineage_metadata = {
+        "strategy_name": strategy_name,
+        "runner_used": "main.py (Research Lab F1)",
+        "timestamp_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        "engine_config": {
+            "pair": engine_config.pair,
+            "execution_mode": engine_config.execution_mode,
+            "cost_profile": engine_config.cost_profile,
+            "intrabar_policy": engine_config.intrabar_policy,
+            "risk_pct": engine_config.risk_pct
+        },
+        "dataset_used": data_source_used,
+        "is_months": combos[0].get("wfa_is_months", 24) if combos else 24,
+        "oos_months": combos[0].get("wfa_oos_months", 6) if combos else 6,
+        "news_filter_enabled": news_config.enabled,
+        "versions": {}
+    }
+    
+    try:
+        from research_lab.version import LAB_VERSION, CANONICAL_CONTRACT_VERSION, REJECTION_PROTOCOL_VERSION, COST_MODEL_VERSION, STRATEGY_PROMOTION_POLICY_VERSION
+        lineage_metadata["versions"] = {
+            "lab": LAB_VERSION,
+            "contract": CANONICAL_CONTRACT_VERSION,
+            "rejection_protocol": REJECTION_PROTOCOL_VERSION,
+            "cost_model": COST_MODEL_VERSION,
+            "promotion_policy": STRATEGY_PROMOTION_POLICY_VERSION
+        }
+    except ImportError:
+        pass
+        
+    # GUARDRAIL EXPLÍCITO DE MODO DE EJECUCION
+    if engine_config.execution_mode == "normal":
+        lineage_metadata["guardrail_warning"] = "NORMAL_MODE_ACTIVE: Los fills asumen el mejor de los casos (cruzando High/Low de M5). Vulnerable a espejismos intradiarios. NO USAR para Capital Real sin validar con 'stress' o intrabar_policy='worst_case'."
+    elif engine_config.execution_mode == "stress":
+        lineage_metadata["guardrail_warning"] = "STRESS_MODE_ACTIVE: Fills pesimistas activados. Resultados pueden ser confiables si el edge sobrevive, pero el modo 'precision' es preferible si la estrategia es de scalp (RR < 1.0)."
+    elif engine_config.execution_mode == "precision":
+        lineage_metadata["guardrail_warning"] = "PRECISION_MODE_ACTIVE: Tick-level simulation on Bid/Ask spreads. Highest fidelity execution. Resultados tomados como SERIOS."
+        
+    with open(strategy_dir / "lineage_metadata.json", "w", encoding="utf-8") as f:
+        json.dump(lineage_metadata, f, indent=4)
+        
     optimization_rows: list[dict[str, Any]] = []
     best_support_score = -float("inf")
     best_payload: dict[str, Any] | None = None
 
     for params in combos:
-        result = run_backtest(strategy_module, frame, params, engine_config, news_block, news_filter_used)
+        result = run_backtest(
+            strategy_module,
+            frame,
+            params,
+            engine_config,
+            news_block,
+            news_filter_used,
+            precision_package=precision_package,
+            data_source_used=data_source_used,
+        )
         summary, trades_export, monthly_stats, yearly_stats, equity_export = summarize_result(
             strategy_name,
             result.trades,
@@ -197,7 +257,7 @@ def evaluate_strategy(
             INITIAL_CAPITAL,
             None,
             costs_payload(engine_config),
-            "M15",
+            timeframe,
             schedule_from_params(params),
             params.get("break_even_at_r"),
         )
@@ -226,6 +286,30 @@ def evaluate_strategy(
         raise RuntimeError(f"No pude evaluar {strategy_name}")
 
     optimization_df = pd.DataFrame(optimization_rows).sort_values("support_score", ascending=False).reset_index(drop=True)
+    
+    # NEW HARNESS: REJECTION PROTOCOL (IN-SAMPLE SHORT-CIRCUIT)
+    best_is_summary = optimization_df.iloc[0].to_dict() if not optimization_df.empty else {}
+    is_rejected, is_level, is_reason = evaluate_is_rejection(best_is_summary)
+    
+    # Update lineage with IS decision
+    lineage_metadata["is_rejection_level"] = is_level
+    lineage_metadata["is_rejection_reason"] = is_reason
+    lineage_metadata["final_promotion_status"] = is_level if is_rejected else "PENDING_OOS"
+    
+    with open(strategy_dir / "lineage_metadata.json", "w", encoding="utf-8") as f:
+        json.dump(lineage_metadata, f, indent=4)
+        
+    if is_rejected:
+        print(f"[{strategy_name}] ABORTADO IN-SAMPLE: {is_reason} ({is_level})")
+        with open(strategy_dir / "REJECTION_REPORT.md", "w", encoding="utf-8") as f:
+            f.write(f"# ESTRATEGIA RECHAZADA TEMPRANAMENTE\nNivel: {is_level}\nFase: IN-SAMPLE\nMotivo: {is_reason}\n\nNo se ejecutó WFA para ahorrar CPU. El mejor IS Profit Factor fue {best_is_summary.get('profit_factor', 0)} y Expectancy_R {best_is_summary.get('expectancy_r', 0)}.")
+        return {
+            "strategy_name": strategy_name,
+            "status": is_level,
+            "rejection_reason": is_reason,
+            "row": {"strategy_name": strategy_name, "insufficient_sample": True, "selected_score": -9999, "pf_oos": 0, "expectancy_oos": 0, "dd_oos": 0, "trades_mes_oos": 0, "return_oos": 0, "years_positive_oos": 0, "parameter_set_used": "{}"}
+        }
+
     default_wfa, alt_wfa = run_default_and_alt_wfa(
         strategy_name=strategy_name,
         strategy_module=strategy_module,
@@ -233,6 +317,8 @@ def evaluate_strategy(
         combos=combos,
         engine_config=engine_config,
         news_config=news_config,
+        precision_package=precision_package,
+        data_source_used=data_source_used,
     )
 
     plateau_index, top10_gap = plateau_metrics(optimization_df)
@@ -301,8 +387,24 @@ def evaluate_strategy(
     plot_yearly_pnl(best_payload["yearly_stats"], strategy_dir / "PARA CHATGPT" / "yearly_pnl_r_bar.png", f"{strategy_name} yearly pnl_r")
     plot_heatmap(optimization_df, strategy_dir / "PARA CHATGPT" / "parameter_sensitivity_heatmaps.png", f"{strategy_name} sensitivity")
 
+    # NEW HARNESS: OOS REJECTION
+    oos_rejected, oos_level, oos_reason = evaluate_oos_rejection(default_wfa.oos_summary, bool(summary.get("insufficient_sample", False)))
+    if oos_rejected:
+        print(f"[{strategy_name}] DESCARTADA POST-WFA OOS: {oos_reason} ({oos_level})")
+        with open(strategy_dir / "REJECTION_REPORT.md", "w", encoding="utf-8") as f:
+            f.write(f"# ESTRATEGIA RECHAZADA OOS\nNivel: {oos_level}\nFase: OUT-OF-SAMPLE WFA\nMotivo: {oos_reason}\n\nEsta estrategia completó WFA pero falló los umbrales mínimos de robustez.")
+    # Update lineage with OOS decision & final canonical promotion mapping
+    lineage_metadata["oos_rejection_level"] = oos_level
+    lineage_metadata["oos_rejection_reason"] = oos_reason
+    lineage_metadata["final_promotion_status"] = oos_level
+    
+    with open(strategy_dir / "lineage_metadata.json", "w", encoding="utf-8") as f:
+        json.dump(lineage_metadata, f, indent=4)
+        
     return {
         "strategy_name": strategy_name,
+        "status": oos_level,
+        "rejection_reason": oos_reason,
         "summary": summary,
         "optimization_df": optimization_df,
         "default_wfa": default_wfa,
@@ -383,7 +485,7 @@ def build_parser() -> argparse.ArgumentParser:
         target.add_argument("--end", default="2025-12-31")
         target.add_argument("--data-dirs", nargs="+", default=[str(path) for path in DEFAULT_DATA_DIRS])
         target.add_argument("--results-dir", default=str(DEFAULT_RESULTS_DIR))
-        target.add_argument("--news-file", default=str(DEFAULT_NEWS_FILE))
+        target.add_argument("--news-file", default=str(DEFAULT_NEWS_V2_UTC_FILE))
         target.add_argument("--disable-news", action="store_true")
         target.add_argument("--news-pre-minutes", type=int, default=15)
         target.add_argument("--news-post-minutes", type=int, default=15)
@@ -398,6 +500,7 @@ def build_parser() -> argparse.ArgumentParser:
         target.add_argument("--intrabar-policy", choices=list(SUPPORTED_INTRABAR_POLICIES), default="auto")
         target.add_argument("--max-evals", type=int, default=DEFAULT_MAX_EVALS_PER_STRATEGY)
         target.add_argument("--seed", type=int, default=DEFAULT_SEED)
+        target.add_argument("--max-trades-per-day", type=int, default=2)
 
     run_parser = subparsers.add_parser("run", help="Corre una estrategia con parámetros por defecto.")
     add_common(run_parser)
@@ -409,6 +512,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     all_parser = subparsers.add_parser("run-all", help="Corre todas las estrategias y genera ranking.")
     add_common(all_parser)
+    parser.add_argument("--timeframe", type=str, choices=["M5", "M15"], default="M15", help="Timeframe de resolución para el laboratorio.")
     return parser
 
 
@@ -425,6 +529,7 @@ def build_configs(args: argparse.Namespace) -> tuple[EngineConfig, NewsConfig]:
         execution_mode=args.execution_mode,
         cost_profile=args.cost_profile,
         intrabar_policy=args.intrabar_policy,
+        max_trades_per_day=args.max_trades_per_day,
         ),
         args.execution_mode,
     )
@@ -451,8 +556,15 @@ def main() -> None:
     parser = build_parser()
     args = parser.parse_args()
     engine_config, news_config = build_configs(args)
-    raw_frame = load_price_data(engine_config.pair, [Path(item) for item in args.data_dirs], args.start, args.end)
-    frame = prepare_common_frame(raw_frame)
+    data_bundle = load_backtest_data_bundle(
+        engine_config.pair,
+        [Path(item) for item in args.data_dirs],
+        args.start,
+        args.end,
+        engine_config.execution_mode,
+        target_timeframe=args.timeframe,
+    )
+    frame = data_bundle.frame
     output_root = build_output_root(Path(args.results_dir), "robust_lab")
     start_time = time.time()
 
@@ -462,7 +574,18 @@ def main() -> None:
         strategy_names = list(STRATEGY_NAMES)
 
     evaluations = [
-        evaluate_strategy(strategy_name, frame, engine_config, news_config, output_root, args.max_evals, args.seed)
+        evaluate_strategy(
+            strategy_name,
+            frame,
+            engine_config,
+            news_config,
+            output_root,
+            args.max_evals,
+            args.seed,
+            precision_package=data_bundle.precision_package,
+            data_source_used=data_bundle.data_source_used,
+            timeframe=args.timeframe,
+        )
         for strategy_name in strategy_names
     ]
 
@@ -488,6 +611,8 @@ def main() -> None:
     top3_yearly = {}
     for _, row in ranking.head(3).iterrows():
         item = next(entry for entry in evaluations if entry["strategy_name"] == row["strategy_name"])
+        if "default_wfa" not in item:
+            continue
         _, _, _, yearly_stats_oos, equity_export_oos = summarize_result(
             item["strategy_name"],
             item["default_wfa"].oos_trades,
@@ -503,6 +628,14 @@ def main() -> None:
     plot_overlay_equity(top3_curves, output_root / "equity_curves_overlay_top3.png", "Top3 OOS equity")
     plot_overlay_drawdown(top3_curves, output_root / "drawdown_overlay_top3.png", "Top3 OOS drawdown")
     plot_overlay_yearly(top3_yearly, output_root / "yearly_pnl_overlay_top3.png", "Top3 OOS yearly pnl_r")
+
+    # Collect rejection stats for main report
+    rejection_log = []
+    for item in evaluations:
+        status = item.get("status", "N/A")
+        reason = item.get("rejection_reason", "N/A")
+        rejection_log.append({ "strategy_name": item["strategy_name"], "status": status, "reason": reason })
+    pd.DataFrame(rejection_log).to_csv(output_root / "rejection_summary_log.csv", index=False)
 
     export_root_tables(
         output_root,

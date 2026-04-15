@@ -4,7 +4,12 @@ import argparse
 import json
 from pathlib import Path
 
-from research_lab.config import DEFAULT_NEWS_FILE, DEFAULT_PAIR, DEFAULT_RAW_NEWS_FILE, NewsConfig
+from research_lab.config import (
+    DEFAULT_NEWS_V2_UTC_FILE,
+    DEFAULT_PAIR,
+    DEFAULT_RAW_NEWS_FILE_OBSOLETE,
+    NewsConfig,
+)
 from research_lab.news_filter import build_news_datasets, load_news_events, news_result_payload
 
 

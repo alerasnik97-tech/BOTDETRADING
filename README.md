@@ -1,65 +1,98 @@
-# BOT DE TRADING
+# BOT DE TRADING — Laboratorio de Research Cuantitativo
 
-Repositorio de research cuantitativo para forex intradia. La base actual y vigente del proyecto vive en [research_lab](C:/Users/alera/Desktop/BOT%20DE%20TRADING/research_lab).
+> **Fuente oficial del proyecto:** `C:\BOT DE TRADING`
+> **Runner oficial:** `run_canonical.py`
+> **Rama estable Git:** `main`
+> **Remote:** `https://github.com/alerasnik97-tech/bottrading.git`
 
-## Estructura activa
+---
 
-- [research_lab](C:/Users/alera/Desktop/BOT%20DE%20TRADING/research_lab)
-  Motor, estrategias, validacion, auditorias y runners actuales.
-- [requirements.txt](C:/Users/alera/Desktop/BOT%20DE%20TRADING/requirements.txt)
-  Dependencias minimas del laboratorio.
-- [scripts/bootstrap_free_dukascopy.ps1](C:/Users/alera/Desktop/BOT%20DE%20TRADING/scripts/bootstrap_free_dukascopy.ps1)
-  Bootstrap opcional para preparar data.
-- `data_free_2020/prepared/EURUSD_M5.csv`
-- `data_candidates_2022_2025/prepared/EURUSD_M5.csv`
-  Dataset minimo versionado para corridas cloud.
+## Reglas de trabajo (NO NEGOCIABLES)
 
-## Estructura archivada
+| Regla | Descripción |
+|---|---|
+| **Fuente de verdad** | Solo `C:\BOT DE TRADING`. No trabajar desde copias del escritorio. |
+| **Git es la fuente de sincronización** | Antes de pasar trabajo importante a la nube: `git commit && git push`. |
+| **El ZIP no es el repo** | `handoff/000_PARA_CHATGPT.zip` es un snapshot de handoff para ChatGPT, no la fuente principal. |
+| **No editar en paralelo** | No editar en local y en la nube al mismo tiempo sin push/pull previo. |
+| **Backup es solo lectura** | `D:\BACKUPS\BOT DE TRADING` es solo seguridad, nunca fuente activa de trabajo. |
 
-- [legacy](C:/Users/alera/Desktop/BOT%20DE%20TRADING/legacy)
-  Scripts y prototipos anteriores preservados fuera del flujo actual.
-- [docs/archive](C:/Users/alera/Desktop/BOT%20DE%20TRADING/docs/archive)
-  Notas y documentacion historica.
-- [docs/examples](C:/Users/alera/Desktop/BOT%20DE%20TRADING/docs/examples)
-  Ejemplos auxiliares, como el CSV minimo de noticias.
+---
+
+## Estructura del proyecto
+
+```
+C:\BOT DE TRADING\
+├── research_lab/           ← Motor oficial, estrategias, validación, tests
+│   ├── main.py             ← Orquestador canónico
+│   ├── engine.py           ← Motor de backtesting
+│   ├── validation.py       ← WFA y harness OOS
+│   ├── rejection_protocol.py ← Protocolo de rechazo IS/OOS
+│   ├── strategies/         ← Estrategias activas
+│   ├── tests/              ← Tests críticos de infraestructura
+│   └── version.py          ← Versionado del laboratorio
+├── run_canonical.py        ← Único entrypoint autorizado
+├── data_free_2020/prepared/EURUSD_M5.csv    ← Dataset IS 2020-2021
+├── data_candidates_2022_2025/prepared/EURUSD_M5.csv ← Dataset OOS 2022-2025
+├── handoff/                ← ZIP de intercambio ChatGPT (no fuente)
+├── docs/                   ← Documentación técnica
+├── legacy/                 ← Código archivado (no activo)
+├── requirements.txt
+├── STRATEGY_PROMOTION_POLICY.md
+├── OOS_REJECTION_PROTOCOL.md
+├── CANONICAL_EXECUTION_CONTRACT.md
+├── COMPARABILITY_2020_2025_NOTE.md
+├── INFRASTRUCTURE_STATUS_FINAL.md
+└── CLOUD_WORKFLOW.md
+```
+
+---
 
 ## Quick start
 
-Instalacion:
-
+**Instalar entorno:**
 ```bash
 pip install -r requirements.txt
 ```
 
-Backtest de una estrategia:
-
+**Correr una estrategia (entrypoint canónico):**
 ```bash
-python -m research_lab.main run --strategy ema_trend_pullback
+python run_canonical.py <strategy_name> <mode>
+# Ejemplo:
+python run_canonical.py ny_br_ema normal
 ```
 
-Corrida completa del laboratorio:
-
+**Correr tests de infraestructura críticos:**
 ```bash
-python -m research_lab.main run-all --pair EURUSD --start 2020-01-01 --end 2025-12-31 --data-dirs data_free_2020/prepared data_candidates_2022_2025/prepared --results-dir results/research_lab_robust --max-evals 8 --seed 42
+python -m pytest research_lab/tests/test_rejection_harness.py research_lab/tests/test_e2e_canonical_flow.py -v
 ```
 
-Corrida ligera por tandas:
+---
 
-```bash
-python -m research_lab.light_runner --strategies donchian_breakout_regime bollinger_mean_reversion_adx_low --pair EURUSD --start 2020-01-01 --end 2025-12-31 --data-dirs data_free_2020/prepared data_candidates_2022_2025/prepared --results-dir results/research_lab_light --phase1-evals 6 --phase2-evals 10 --seed 42
-```
+## Parámetros operativos
 
-## Reglas operativas actuales
+| Parámetro | Valor |
+|---|---|
+| Par | EURUSD |
+| Timeframe motor | M15 (datos M5 fuente) |
+| Horario operativo | 11:00–19:00 America/New_York |
+| Noticias | OFF FORZADO (fail-closed pendiente pipeline UTC) |
+| Modo de ejecución | `normal_mode` (default) |
+| Capital inicial (simulado) | USD 100.000 |
 
-- instrumento principal: `EURUSD`
-- timeframe principal: `M15`
-- horario operativo: `11:00` a `19:00` America/New_York
-- `main` es la rama estable
-- nuevas tareas deben salir desde una rama nueva
-- noticias actualmente: `OFF`
+---
 
-## Referencias utiles
+## Estado actual de infraestructura
 
-- [research_lab/README.md](C:/Users/alera/Desktop/BOT%20DE%20TRADING/research_lab/README.md)
-- [research_lab/BASELINE_LEVEL1.md](C:/Users/alera/Desktop/BOT%20DE%20TRADING/research_lab/BASELINE_LEVEL1.md)
-- [docs/examples/news_example.csv](C:/Users/alera/Desktop/BOT%20DE%20TRADING/docs/examples/news_example.csv)
+Ver [`INFRASTRUCTURE_STATUS_FINAL.md`](INFRASTRUCTURE_STATUS_FINAL.md) para el estado sellado de la infraestructura.
+Ver [`STRATEGY_PROMOTION_POLICY.md`](STRATEGY_PROMOTION_POLICY.md) para la taxonomía de promoción de estrategias.
+
+---
+
+## Referencias internas
+
+- [`research_lab/README.md`](research_lab/README.md) — Documentación interna del motor
+- [`CANONICAL_EXECUTION_CONTRACT.md`](CANONICAL_EXECUTION_CONTRACT.md) — Contrato de ejecución
+- [`OOS_REJECTION_PROTOCOL.md`](OOS_REJECTION_PROTOCOL.md) — Protocolo OOS
+- [`CLOUD_WORKFLOW.md`](CLOUD_WORKFLOW.md) — Flujo local → Git → Nube
+- [`docs/examples/news_example.csv`](docs/examples/news_example.csv) — Ejemplo mínimo de noticias
