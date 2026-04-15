@@ -8,6 +8,16 @@ from research_lab.strategies import (
     keltner_volatility_expansion_simple,
     keltner_squeeze_breakout,
     supertrend_ema_filter,
+    strategy_smr,
+    strategy_ls_sr,
+    strategy_src,
+    strategy_vse,
+    strategy_ny_br_pure,
+    strategy_ny_br_ema,
+    strategy_ny_br_mom,
+    strategy_sp2_base,
+    strategy_sp2_htf_ema,
+    strategy_sp2_htf_adx,
 )
 
 
@@ -19,4 +29,14 @@ STRATEGY_REGISTRY = {
     keltner_volatility_expansion_simple.NAME: keltner_volatility_expansion_simple,
     keltner_squeeze_breakout.NAME: keltner_squeeze_breakout,
     supertrend_ema_filter.NAME: supertrend_ema_filter,
+    strategy_smr.NAME: strategy_smr,
+    strategy_ls_sr.NAME: strategy_ls_sr,
+    strategy_src.NAME: strategy_src,
+    strategy_vse.NAME: strategy_vse,
+    strategy_ny_br_pure.NAME: strategy_ny_br_pure,
+    strategy_ny_br_ema.NAME: strategy_ny_br_ema,
+    strategy_ny_br_mom.NAME: strategy_ny_br_mom,
+    strategy_sp2_base.NAME: strategy_sp2_base,
+    strategy_sp2_htf_ema.NAME: strategy_sp2_htf_ema,
+    strategy_sp2_htf_adx.NAME: strategy_sp2_htf_adx,
 }

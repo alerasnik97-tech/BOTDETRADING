@@ -10,7 +10,7 @@ import numpy as np
 import pandas as pd
 from pandas.errors import PerformanceWarning
 
-from research_lab.config import NY_TZ
+from research_lab.config import DEFAULT_HIGH_PRECISION_PREPARED_DIR, NY_TZ
 
 warnings.simplefilter("ignore", PerformanceWarning)
 
@@ -32,6 +32,13 @@ class PreparedDatasetInfo:
     manifest_source: str | None
     manifest_price_type: str | None
     manifest_granularity: str | None
+
+
+@dataclass(frozen=True)
+class BacktestDataBundle:
+    frame: pd.DataFrame
+    data_source_used: str
+    precision_package: dict[str, pd.DataFrame] | None = None
 
 
 def has_explicit_timezone(index: pd.Index) -> bool:
@@ -77,6 +84,16 @@ def validate_price_frame(frame: pd.DataFrame) -> None:
         raise ValueError("Se detectaron velas OHLC invalidas despues de cargar el dataset.")
 
 
+def _infer_index_delta(index: pd.DatetimeIndex) -> pd.Timedelta:
+    if len(index) < 2:
+        return pd.Timedelta(minutes=15)
+    deltas = pd.Series(index[1:] - index[:-1])
+    mode = deltas.mode()
+    if mode.empty:
+        return pd.Timedelta(minutes=15)
+    return pd.Timedelta(mode.iloc[0])
+
+
 def _load_manifest_info(data_dir: Path) -> dict[str, Any]:
     manifest_path = data_dir / "prepared_data_manifest.json"
     if not manifest_path.exists():
@@ -114,6 +131,25 @@ def load_prepared_ohlcv(pair: str, data_dirs: list[Path], timeframe: str) -> pd.
     merged = merged[~merged.index.duplicated(keep="last")]
     validate_price_frame(merged)
     return merged
+
+
+def load_high_precision_package(pair: str, data_dir: Path) -> dict[str, pd.DataFrame]:
+    package: dict[str, pd.DataFrame] = {}
+    for side in ("BID", "ASK", "MID"):
+        path = data_dir / f"{pair}_M1_{side}.csv"
+        if not path.exists():
+            continue
+        frame = pd.read_csv(path, index_col=0)
+        frame.index = parse_prepared_index(frame.index)
+        missing = [column for column in OHLCV_COLUMNS if column not in frame.columns]
+        if missing:
+            raise ValueError(f"{path} no contiene columnas OHLCV requeridas: {missing}")
+        frame = frame[OHLCV_COLUMNS].astype(float)
+        validate_price_frame(frame)
+        package[side.lower()] = frame
+    if not package:
+        raise FileNotFoundError(f"No encontre paquete de alta precision M1 para {pair} en {data_dir}")
+    return package
 
 
 def describe_available_price_data(pair: str, data_dirs: list[Path]) -> list[dict[str, Any]]:
@@ -253,6 +289,81 @@ def load_price_data(pair: str, data_dirs: list[Path], start: str, end: str) -> p
     return merged
 
 
+def slice_high_precision_package_to_frame(
+    package: dict[str, pd.DataFrame] | None,
+    frame_index: pd.DatetimeIndex,
+) -> dict[str, pd.DataFrame] | None:
+    if package is None or frame_index.empty:
+        return None
+
+    bar_delta = _infer_index_delta(frame_index)
+    m15_start = frame_index.min()
+    m15_end = frame_index.max()
+    m1_start = m15_start - bar_delta
+
+    sliced: dict[str, pd.DataFrame] = {}
+    for key, value in package.items():
+        if key.endswith("_m1"):
+            sliced[key] = value.loc[(value.index >= m1_start) & (value.index <= m15_end)].copy()
+        elif key.endswith("_m15"):
+            sliced[key] = value.loc[(value.index >= m15_start) & (value.index <= m15_end)].copy()
+        else:
+            sliced[key] = value.copy()
+    return sliced
+
+
+def load_backtest_data_bundle(
+    pair: str,
+    data_dirs: list[Path],
+    start: str,
+    end: str,
+    execution_mode: str,
+    *,
+    high_precision_dir: Path = DEFAULT_HIGH_PRECISION_PREPARED_DIR,
+    target_timeframe: str = "M15",
+) -> BacktestDataBundle:
+    normalized_mode = execution_mode.strip().lower()
+    if normalized_mode != "high_precision_mode":
+        raw_frame = load_price_data(pair, data_dirs, start, end)
+        return BacktestDataBundle(
+            frame=prepare_common_frame(raw_frame, target_timeframe=target_timeframe),
+            data_source_used="prepared_m5_bid",
+            precision_package=None,
+        )
+
+    package = load_high_precision_package(pair, high_precision_dir)
+    start_ts = pd.Timestamp(start, tz=NY_TZ)
+    end_ts = pd.Timestamp(end, tz=NY_TZ) + pd.Timedelta(days=1) - pd.Timedelta(minutes=1)
+
+    filtered_m1: dict[str, pd.DataFrame] = {}
+    for side, source in package.items():
+        frame = source.loc[(source.index >= start_ts) & (source.index <= end_ts)].copy()
+        frame = frame[fx_market_mask(frame.index)].copy()
+        validate_price_frame(frame)
+        filtered_m1[f"{side}_m1"] = frame
+
+    mid_frame = filtered_m1["mid_m1"]
+    strategy_frame = prepare_common_frame(mid_frame)
+    bid_m15 = _resample_to_m15(filtered_m1["bid_m1"])
+    ask_m15 = _resample_to_m15(filtered_m1["ask_m1"])
+    mid_m15 = _resample_to_m15(filtered_m1["mid_m1"])
+    common_index = strategy_frame.index.intersection(bid_m15.index).intersection(ask_m15.index).intersection(mid_m15.index)
+    if common_index.empty:
+        raise ValueError("La fuente M1 BID/ASK no pudo alinearse con el frame M15 del laboratorio.")
+
+    aligned_package = {
+        **filtered_m1,
+        "bid_m15": bid_m15.loc[common_index].copy(),
+        "ask_m15": ask_m15.loc[common_index].copy(),
+        "mid_m15": mid_m15.loc[common_index].copy(),
+    }
+    return BacktestDataBundle(
+        frame=strategy_frame.loc[common_index].copy(),
+        data_source_used="dukascopy_m1_bid_ask_full",
+        precision_package=aligned_package,
+    )
+
+
 def _resample_to_m15(frame: pd.DataFrame) -> pd.DataFrame:
     return (
         frame.resample("15min", label="right", closed="right")
@@ -306,8 +417,11 @@ def _fill_fixed_range_columns(frame: pd.DataFrame, start_hhmm: str, end_hhmm: st
     return frame
 
 
-def prepare_common_frame(raw_frame: pd.DataFrame) -> pd.DataFrame:
-    frame = _resample_to_m15(raw_frame).copy()
+def prepare_common_frame(raw_frame: pd.DataFrame, target_timeframe: str = "M15") -> pd.DataFrame:
+    if target_timeframe == "M15":
+        frame = _resample_to_m15(raw_frame).copy()
+    else:
+        frame = raw_frame.copy()
     frame["prev_close"] = frame["close"].shift(1)
     frame["prev_high"] = frame["high"].shift(1)
     frame["prev_low"] = frame["low"].shift(1)
@@ -395,5 +509,8 @@ def prepare_common_frame(raw_frame: pd.DataFrame) -> pd.DataFrame:
         "day_range_m15_atr",
         "day_range_h1_atr",
     ]
+    # Inyeccion de AM Range (07:00 - 11:00 NY) para LS-SR
+    frame = _fill_fixed_range_columns(frame, "07:00", "11:00")
+    
     frame = frame.dropna(subset=required_columns).copy()
     return frame.copy()

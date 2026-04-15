@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 
 from research_lab.config import ALT_WFA_IS_MONTHS, ALT_WFA_OOS_MONTHS, DEFAULT_MAX_EVALS_PER_STRATEGY, DEFAULT_SEED, DEFAULT_WFA_IS_MONTHS, DEFAULT_WFA_OOS_MONTHS, INITIAL_CAPITAL, NewsConfig
+from research_lab.data_loader import slice_high_precision_package_to_frame
 from research_lab.engine import entry_open_index, run_backtest
 from research_lab.news_filter import build_entry_block, load_news_events
 from research_lab.report import summarize_result
@@ -81,6 +82,8 @@ def run_walkforward(
     news_config: NewsConfig,
     is_months: int,
     oos_months: int,
+    precision_package: dict[str, pd.DataFrame] | None = None,
+    data_source_used: str | None = None,
 ) -> WFAResult:
     news_result = load_news_events(engine_config.pair, news_config)
     news_events = news_result.events
@@ -92,6 +95,8 @@ def run_walkforward(
     for train_start, train_end, test_start, test_end in folds:
         train_frame = _slice_frame(frame, train_start, train_end)
         test_frame = _slice_frame(frame, test_start, test_end)
+        train_precision_package = slice_high_precision_package_to_frame(precision_package, train_frame.index)
+        test_precision_package = slice_high_precision_package_to_frame(precision_package, test_frame.index)
         if len(train_frame) <= strategy_module.WARMUP_BARS + 2 or len(test_frame) <= strategy_module.WARMUP_BARS + 2:
             continue
 
@@ -101,7 +106,16 @@ def run_walkforward(
         best_params: dict[str, Any] | None = None
 
         for params in combos:
-            result = run_backtest(strategy_module, train_frame, params, engine_config, train_block, news_filter_used)
+            result = run_backtest(
+                strategy_module,
+                train_frame,
+                params,
+                engine_config,
+                train_block,
+                news_filter_used,
+                precision_package=train_precision_package,
+                data_source_used=data_source_used,
+            )
             summary, *_ = summarize_result(strategy_name, result.trades, result.equity_curve, params, news_filter_used, INITIAL_CAPITAL, None)
             score = score_is_summary(summary)
             if score > best_score:
@@ -111,7 +125,16 @@ def run_walkforward(
         if best_params is None:
             continue
 
-        oos_result = run_backtest(strategy_module, test_frame, best_params, engine_config, test_block, news_filter_used)
+        oos_result = run_backtest(
+            strategy_module,
+            test_frame,
+            best_params,
+            engine_config,
+            test_block,
+            news_filter_used,
+            precision_package=test_precision_package,
+            data_source_used=data_source_used,
+        )
         oos_summary, *_ = summarize_result(strategy_name, oos_result.trades, oos_result.equity_curve, best_params, news_filter_used, INITIAL_CAPITAL, None)
         fold_rows.append(
             {
@@ -143,6 +166,8 @@ def run_default_and_alt_wfa(
     combos: list[dict],
     engine_config: Any,
     news_config: NewsConfig,
+    precision_package: dict[str, pd.DataFrame] | None = None,
+    data_source_used: str | None = None,
 ) -> tuple[WFAResult, WFAResult]:
     default_result = run_walkforward(
         strategy_name=strategy_name,
@@ -153,6 +178,8 @@ def run_default_and_alt_wfa(
         news_config=news_config,
         is_months=DEFAULT_WFA_IS_MONTHS,
         oos_months=DEFAULT_WFA_OOS_MONTHS,
+        precision_package=precision_package,
+        data_source_used=data_source_used,
     )
     alt_result = run_walkforward(
         strategy_name=strategy_name,
@@ -163,5 +190,7 @@ def run_default_and_alt_wfa(
         news_config=news_config,
         is_months=ALT_WFA_IS_MONTHS,
         oos_months=ALT_WFA_OOS_MONTHS,
+        precision_package=precision_package,
+        data_source_used=data_source_used,
     )
     return default_result, alt_result

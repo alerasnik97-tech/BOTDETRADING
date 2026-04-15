@@ -11,12 +11,14 @@ DEFAULT_DATA_DIRS = (
     Path("data_free_2020/prepared"),
     Path("data_candidates_2022_2025/prepared"),
 )
-DEFAULT_RAW_NEWS_FILE = Path("data/forex_factory_cache.csv")
-DEFAULT_NEWS_FILE = Path("data/news_eurusd_m15_validated.csv")
-DEFAULT_NEWS_AUDIT_FILE = Path("data/news_eurusd_m15_audit.csv")
-DEFAULT_NEWS_SUMMARY_FILE = Path("data/news_eurusd_m15_summary.json")
-DEFAULT_NEWS_ENABLED = False
-DEFAULT_NEWS_SOURCE_APPROVED = True
+DEFAULT_HIGH_PRECISION_RAW_DIR = Path("data_precision_raw") / "dukascopy"
+DEFAULT_HIGH_PRECISION_PREPARED_DIR = Path("data_precision") / "dukascopy"
+DEFAULT_TRADING_ECONOMICS_IMPORT_DIR = Path("data") / "news_imports"
+DEFAULT_RAW_NEWS_FILE_OBSOLETE = Path("data/forex_factory_cache.csv")
+DEFAULT_NEWS_FILE_OBSOLETE = Path("data/news_eurusd_m15_validated.csv")
+DEFAULT_NEWS_V2_UTC_FILE = Path("data/news_eurusd_v2_utc.csv")
+DEFAULT_NEWS_ENABLED = False  # FAIL-CLOSED: Reconstruyendo frente News Reliability V2.
+DEFAULT_NEWS_SOURCE_APPROVED = False  # RECHAZADO: Usar exclusivamente fuentes UTC validas (Fase 2+).
 DEFAULT_RESULTS_DIR = Path("results") / "research_lab_robust"
 VISIBLE_CHATGPT_ARCHIVE = Path("000_PARA_CHATGPT.zip")
 INITIAL_CAPITAL = 100_000.0
@@ -68,6 +70,16 @@ STRATEGY_NAMES: tuple[str, ...] = (
     "keltner_volatility_expansion_simple",
     "keltner_squeeze_breakout",
     "supertrend_ema_filter",
+    "strategy_smr",
+    "strategy_ls_sr",
+    "strategy_src",
+    "strategy_vse",
+    "ny_br_pure",
+    "ny_br_ema",
+    "ny_br_mom",
+    "sp2_base",
+    "sp2_htf_ema",
+    "sp2_htf_adx",
 )
 
 
@@ -89,9 +101,10 @@ class SessionConfig:
 @dataclass(frozen=True)
 class NewsConfig:
     enabled: bool = DEFAULT_NEWS_ENABLED
-    file_path: Path = DEFAULT_NEWS_FILE
-    raw_file_path: Path = DEFAULT_RAW_NEWS_FILE
+    file_path: Path = DEFAULT_NEWS_V2_UTC_FILE
+    raw_file_path: Path = DEFAULT_RAW_NEWS_FILE_OBSOLETE
     source_approved: bool = DEFAULT_NEWS_SOURCE_APPROVED
+    utc_canonical: bool = True
     pre_minutes: int = 15
     post_minutes: int = 15
     currencies: tuple[str, ...] | None = None
@@ -113,12 +126,12 @@ class EngineConfig:
     high_vol_range_atr: float = 1.0
     spread_opening_multiplier: float = 1.05
     spread_high_vol_multiplier: float = 1.25
-    spread_late_session_multiplier: float = 1.1
+    spread_late_session_multiplier: float = 3.0  # HARDENED: 1.1 era un fill irrealista para rollover (17:00 NY)
     slippage_opening_multiplier: float = 1.1
     slippage_high_vol_multiplier: float = 1.5
     slippage_stop_multiplier: float = 1.25
     slippage_target_multiplier: float = 1.0
-    slippage_late_session_multiplier: float = 1.15
+    slippage_late_session_multiplier: float = 2.0 # HARDENED: penalizar más fuerte rollover slippage
     slippage_forced_close_multiplier: float = 1.1
     slippage_final_close_multiplier: float = 1.05
     stress_spread_multiplier: float = 1.35

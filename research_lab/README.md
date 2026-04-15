@@ -58,8 +58,9 @@ Si esas variables no estan definidas, el entorno puede volver a fallar por App C
 - Fuente raw auditada: `data/forex_factory_cache.csv`
 - Dataset limpio derivado: `data/news_eurusd_m15_validated.csv`
 - Dataset de auditoria: `data/news_eurusd_m15_audit.csv`
-- Estado operativo actual: `source_approved=false`
-- Consecuencia: el modulo de noticias queda deshabilitado explicitamente y no bloquea entradas.
+- Estado operativo actual: `source_approved=true` para el dataset validado derivado
+- La fuente raw original sigue rechazada por timestamps defectuosos
+- Si se quiere subir de nivel, el siguiente candidato serio es Trading Economics con export/API en UTC y validacion contra horarios oficiales
 
 ## Modos de ejecucion
 
@@ -128,3 +129,20 @@ En la raiz del resultado:
 El ultimo resultado completo queda siempre en:
 
 - [000_PARA_CHATGPT.zip](/C:/Users/alera/Desktop/BOT%20DE%20TRADING/000_PARA_CHATGPT.zip)
+
+## Adquisicion de mejores fuentes
+
+Precios:
+
+- auditoria local de fuentes: `python -m research_lab.price_source_audit --pair EURUSD`
+- recomendacion principal: Dukascopy con `tick bid+ask` o `M1 bid+ask`
+- validacion secundaria recomendada: TrueFX para contrastar spreads y timestamps
+- descarga automatica de `M1 bid+ask`: `python -m research_lab.dukascopy_m1_download --pair EURUSD --start 2024-10-01 --end 2025-03-31 --output-dir data_precision_raw/dukascopy`
+- integracion de fuente real de alta precision: `python -m research_lab.high_precision_import --source-type dukascopy_m1_bid_ask --print-schema`
+
+Noticias:
+
+- importador Trading Economics: `python -m research_lab.news_tradingeconomics --input data/tradingeconomics_calendar.json --output data/news_te_validated.csv --audit data/news_te_audit.csv --summary data/news_te_summary.json`
+- el importador asume el campo `Date` en UTC, alineado con la documentacion oficial de Trading Economics
+- el dataset generado queda en el formato canonico que ya entiende `research_lab.news_filter`
+- guia operativa completa: [docs/SOURCE_INTEGRATION.md](/C:/Users/alera/Desktop/BOT%20DE%20TRADING/docs/SOURCE_INTEGRATION.md)

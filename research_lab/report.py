@@ -45,6 +45,7 @@ def build_trades_export(trades: pd.DataFrame) -> pd.DataFrame:
         "entry_commission_usd",
         "exit_commission_usd",
         "price_source_used",
+        "data_source_used",
         "pnl_r",
         "pnl_usd",
         "result",
@@ -60,6 +61,8 @@ def build_trades_export(trades: pd.DataFrame) -> pd.DataFrame:
         "blocking_event_name",
         "blocking_event_time_ny",
         "blocking_rule_used",
+        "gap_exit_flag",
+        "gap_exit_type",
         "date",
     ]
     if trades.empty:
@@ -98,6 +101,7 @@ def build_trades_export(trades: pd.DataFrame) -> pd.DataFrame:
             "entry_commission_usd": trades.get("entry_commission_usd", pd.Series(0.0, index=trades.index)).astype(float),
             "exit_commission_usd": trades.get("exit_commission_usd", pd.Series(0.0, index=trades.index)).astype(float),
             "price_source_used": trades.get("price_source_used", pd.Series("bid", index=trades.index)).astype(str),
+            "data_source_used": trades.get("data_source_used", pd.Series("", index=trades.index)).astype(str),
             "pnl_r": trades["pnl_r"].astype(float),
             "pnl_usd": pnl_usd,
             "result": result,
@@ -113,6 +117,8 @@ def build_trades_export(trades: pd.DataFrame) -> pd.DataFrame:
             "blocking_event_name": trades.get("blocking_event_name", pd.Series("", index=trades.index)).astype(str),
             "blocking_event_time_ny": trades.get("blocking_event_time_ny", pd.Series("", index=trades.index)).astype(str),
             "blocking_rule_used": trades.get("blocking_rule_used", pd.Series("", index=trades.index)).astype(str),
+            "gap_exit_flag": trades.get("gap_exit_flag", pd.Series(False, index=trades.index)).astype(bool),
+            "gap_exit_type": trades.get("gap_exit_type", pd.Series("no_gap", index=trades.index)).astype(str),
             "date": entry_time.dt.strftime("%Y-%m-%d"),
         }
     )

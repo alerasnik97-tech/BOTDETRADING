@@ -11,10 +11,8 @@ import numpy as np
 import pandas as pd
 
 from research_lab.config import (
-    DEFAULT_NEWS_AUDIT_FILE,
-    DEFAULT_NEWS_FILE,
-    DEFAULT_NEWS_SUMMARY_FILE,
-    DEFAULT_RAW_NEWS_FILE,
+    DEFAULT_NEWS_V2_UTC_FILE,
+    DEFAULT_RAW_NEWS_FILE_OBSOLETE,
     NY_TZ,
     NewsConfig,
     PAIR_META,
@@ -134,20 +132,10 @@ def stable_hash(*parts: object) -> str:
     joined = "|".join("" if part is None else str(part) for part in parts)
     return sha1(joined.encode("utf-8")).hexdigest()[:16]
 
-
 def build_project_news_paths(settings: NewsConfig) -> tuple[Path, Path, Path]:
     clean_path = Path(settings.file_path)
-    raw_path = Path(settings.raw_file_path)
-    audit_path = Path(DEFAULT_NEWS_AUDIT_FILE)
-    summary_path = Path(DEFAULT_NEWS_SUMMARY_FILE)
-    if clean_path.suffix.lower() != ".csv":
-        clean_path = clean_path.with_suffix(".csv")
-    if clean_path == Path(DEFAULT_RAW_NEWS_FILE):
-        clean_path = Path("data/news_eurusd_m15_validated.csv")
-    if clean_path == raw_path:
-        clean_path = raw_path.with_name(raw_path.stem + "_validated.csv")
-    audit_path = clean_path.with_name(clean_path.stem.replace("_validated", "") + "_audit.csv")
-    summary_path = clean_path.with_name(clean_path.stem.replace("_validated", "") + "_summary.json")
+    audit_path = clean_path.with_name(clean_path.stem + "_audit.csv")
+    summary_path = clean_path.with_name(clean_path.stem + "_summary.json")
     return clean_path, audit_path, summary_path
 
 
@@ -246,7 +234,7 @@ def _build_news_summary_payload(
         "rejected_rows": int(diagnostics.get("rejected_rows", 0)),
         "duplicate_rows_removed": int(diagnostics.get("duplicate_rows_removed", 0)),
         "approved_raw_schedule": int((audit_frame["validation_status"] == "approved_raw_schedule").sum()) if not audit_frame.empty else 0,
-        "approved_fixed_schedule": int((audit_frame["validation_status"] == "approved_fixed_schedule").sum()) if not audit_frame.empty else 0,
+        "rejected_time_mismatch": int((audit_frame["validation_status"] == "rejected_time_mismatch").sum()) if not audit_frame.empty else 0,
         "suspicious_fixed_time_events": int(diagnostics.get("suspicious_fixed_time_events", 0)),
         "raw_source_name": "forex_factory_cache",
         "raw_source_verdict": "REJECTED_RAW_TIMESTAMPS",
@@ -333,13 +321,11 @@ def build_news_datasets(pair: str, settings: NewsConfig, *, start: str | None = 
                 validation_status = "approved_raw_schedule"
                 notes = "raw_timestamp_matches_expected_schedule"
             else:
-                timestamp_ny_final = expected_ny
-                timestamp_utc_final = expected_ny.tz_convert("UTC")
-                validation_status = "approved_fixed_schedule"
-                notes = f"corrected_from_{timestamp_ny_raw.strftime('%Y-%m-%d %H:%M:%S %z')}"
+                validation_status = "rejected_time_mismatch"
+                notes = f"time_mismatch_with_fixed_anchor: {actual_hhmm} vs {expected_hhmm}"
                 suspicious_fixed += 1
                 if len(suspicious_examples) < 10:
-                    suspicious_examples.append(f"{event_name}: {timestamp_ny_raw.strftime('%H:%M')} -> {expected_hhmm}")
+                    suspicious_examples.append(f"{event_name}: {actual_hhmm} -> {expected_hhmm}")
 
         timestamp_ny_str = timestamp_ny_final.strftime("%Y-%m-%d %H:%M:%S%z") if timestamp_ny_final is not None else ""
         dedupe_key = stable_hash(currency, event_name_normalized, timestamp_ny_str, impact_level)
@@ -414,8 +400,8 @@ def build_news_datasets(pair: str, settings: NewsConfig, *, start: str | None = 
     status_rank = audit_frame["validation_status"].map(
         {
             "approved_raw_schedule": 0,
-            "approved_fixed_schedule": 1,
-            "rejected_unsupported_event": 2,
+            "rejected_unsupported_event": 1,
+            "rejected_time_mismatch": 2,
             "rejected_impact_level": 3,
             "rejected_irrelevant_currency": 4,
             "rejected_outside_period": 5,
@@ -515,6 +501,44 @@ def _load_canonical_dataset(path: Path, pair: str, settings: NewsConfig) -> pd.D
     return frame
 
 
+def _fallback_diagnostics_from_clean_dataset(
+    *,
+    clean_frame: pd.DataFrame,
+    clean_path: Path,
+    audit_path: Path,
+    settings: NewsConfig,
+    summary_path: Path,
+) -> dict[str, Any]:
+    source_name = "canonical_external_news_dataset"
+    source_timezone = "unknown"
+    if not clean_frame.empty:
+        source_name = str(clean_frame.get("source_name", pd.Series(["canonical_external_news_dataset"])).iloc[0] or source_name)
+        source_timezone = str(clean_frame.get("timezone_original", pd.Series(["unknown"])).iloc[0] or source_timezone)
+    diagnostics: dict[str, Any] = {
+        "raw_source_path": str(settings.raw_file_path),
+        "clean_dataset_path": str(clean_path),
+        "audit_dataset_path": str(audit_path),
+        "summary_dataset_path": str(summary_path),
+        "raw_rows": int(len(clean_frame)),
+        "normalized_rows": int(len(clean_frame)),
+        "approved_rows": int(len(clean_frame)),
+        "rejected_rows": 0,
+        "duplicate_rows_removed": 0,
+        "suspicious_fixed_time_events": int((clean_frame.get("validation_status", pd.Series(dtype=str)).astype(str) == "rejected_time_mismatch").sum()),
+        "raw_source_name": source_name,
+        "raw_source_verdict": "UNKNOWN_EXTERNAL_SOURCE",
+        "operational_source_name": source_name,
+        "operational_source_verdict": "APPROVED_OPERATIONAL" if settings.source_approved else "REJECTED_DISABLED",
+        "source_approved": bool(settings.source_approved),
+        "module_verdict": "APPROVED_OPERATIONAL" if settings.source_approved else "REJECTED_DISABLED",
+        "source_timezone_original": source_timezone,
+        "currency_scope": sorted(set(clean_frame.get("currency", pd.Series(dtype=str)).astype(str).str.upper().tolist())),
+        "impact_scope": sorted(set(clean_frame.get("impact_level", pd.Series(dtype=str)).astype(str).str.upper().tolist())),
+    }
+    diagnostics["key_event_validation"] = _build_key_event_validation(clean_frame)
+    return diagnostics
+
+
 def load_news_events(pair: str, settings: NewsConfig) -> NewsLoadResult:
     clean_path, audit_path, summary_path = build_project_news_paths(settings)
     if not settings.enabled:
@@ -531,19 +555,13 @@ def load_news_events(pair: str, settings: NewsConfig) -> NewsLoadResult:
             audit_frame = pd.read_csv(audit_path, dtype=str, keep_default_na=False, low_memory=False) if audit_path.exists() else pd.DataFrame()
             diagnostics = load_news_summary(summary_path)
             if not diagnostics:
-                diagnostics = {
-                    "raw_source_path": str(settings.raw_file_path),
-                    "clean_dataset_path": str(clean_path),
-                    "audit_dataset_path": str(audit_path),
-                    "raw_rows": int(len(audit_frame)) if not audit_frame.empty else 0,
-                    "normalized_rows": int(len(audit_frame)) if not audit_frame.empty else int(len(clean_frame)),
-                    "approved_rows": int(len(clean_frame)),
-                    "rejected_rows": int((~audit_frame["validation_status"].astype(str).apply(_approved_status)).sum()) if not audit_frame.empty else 0,
-                    "duplicate_rows_removed": int((audit_frame["validation_status"] == "rejected_duplicate").sum()) if not audit_frame.empty else 0,
-                    "suspicious_fixed_time_events": int((audit_frame["validation_status"] == "approved_fixed_schedule").sum()) if not audit_frame.empty else 0,
-                    "source_approved": False,
-                    "module_verdict": "REJECTED_DISABLED",
-                }
+                diagnostics = _fallback_diagnostics_from_clean_dataset(
+                    clean_frame=clean_frame,
+                    clean_path=clean_path,
+                    audit_path=audit_path,
+                    settings=settings,
+                    summary_path=summary_path,
+                )
         except (FileNotFoundError, ValueError):
             try:
                 clean_frame, audit_frame, diagnostics = build_news_datasets(pair, settings, start="2020-01-01", end="2025-12-31")
@@ -570,7 +588,7 @@ def load_news_events(pair: str, settings: NewsConfig) -> NewsLoadResult:
             diagnostics=diagnostics,
         )
 
-    canonical_project_dataset = clean_path.resolve() == Path(DEFAULT_NEWS_FILE).resolve()
+    canonical_project_dataset = clean_path.resolve() == Path(DEFAULT_NEWS_V2_UTC_FILE).resolve()
     operationally_approved = bool(diagnostics.get("source_approved", False)) if canonical_project_dataset else settings.source_approved
     if not settings.source_approved or not operationally_approved:
         return NewsLoadResult(

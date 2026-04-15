@@ -31,7 +31,7 @@ from research_lab.config import (
     resolved_intrabar_policy,
     with_execution_mode,
 )
-from research_lab.data_loader import load_price_data, prepare_common_frame
+from research_lab.data_loader import load_backtest_data_bundle
 from research_lab.engine import entry_open_index, estimate_spread_pips, run_backtest
 from research_lab.news_filter import build_entry_block, load_news_events
 from research_lab.report import export_strategy_bundle, summarize_result, sync_visible_chatgpt
@@ -302,8 +302,19 @@ def evaluate_combo(
     news_filter_used: bool,
     params: dict[str, Any],
     selected_score: float | None = None,
+    precision_package: dict[str, pd.DataFrame] | None = None,
+    data_source_used: str | None = None,
 ) -> tuple[dict[str, Any], pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    result = run_backtest(strategy_module, frame, params, engine_config, news_block, news_filter_used)
+    result = run_backtest(
+        strategy_module,
+        frame,
+        params,
+        engine_config,
+        news_block,
+        news_filter_used,
+        precision_package=precision_package,
+        data_source_used=data_source_used,
+    )
     return summarize_result(
         strategy_name,
         result.trades,
@@ -370,8 +381,14 @@ def main() -> None:
     )
 
     start_time = time.time()
-    raw_frame = load_price_data(engine_config.pair, [Path(item) for item in args.data_dirs], args.start, args.end)
-    frame = prepare_common_frame(raw_frame)
+    data_bundle = load_backtest_data_bundle(
+        engine_config.pair,
+        [Path(item) for item in args.data_dirs],
+        args.start,
+        args.end,
+        engine_config.execution_mode,
+    )
+    frame = data_bundle.frame
     output_root = build_output_root(Path(args.results_dir), "light_batch")
     news_result = load_news_events(engine_config.pair, news_config)
     news_filter_used = news_result.enabled
@@ -411,7 +428,15 @@ def main() -> None:
 
         for params in passing_phase0:
             summary, trades_export, monthly_stats, yearly_stats, equity_export = evaluate_combo(
-                strategy_name, strategy_module, frame, engine_config, news_block, news_filter_used, params
+                strategy_name,
+                strategy_module,
+                frame,
+                engine_config,
+                news_block,
+                news_filter_used,
+                params,
+                precision_package=data_bundle.precision_package,
+                data_source_used=data_bundle.data_source_used,
             )
             reasons, share = discard_reasons(summary, yearly_stats)
             score = phase1_score(summary, yearly_stats)
@@ -487,7 +512,15 @@ def main() -> None:
 
             for params in refine_grid:
                 summary, trades_export, monthly_stats, yearly_stats, equity_export = evaluate_combo(
-                    strategy_name, strategy_module, frame, engine_config, news_block, news_filter_used, params
+                    strategy_name,
+                    strategy_module,
+                    frame,
+                    engine_config,
+                    news_block,
+                    news_filter_used,
+                    params,
+                    precision_package=data_bundle.precision_package,
+                    data_source_used=data_bundle.data_source_used,
                 )
                 reasons, share = discard_reasons(summary, yearly_stats)
                 score = phase1_score(summary, yearly_stats)
@@ -525,6 +558,8 @@ def main() -> None:
                 news_config=news_config,
                 is_months=24,
                 oos_months=6,
+                precision_package=data_bundle.precision_package,
+                data_source_used=data_bundle.data_source_used,
             )
             summary = dict(best_payload["summary"])
             summary["phase"] = "phase2"
