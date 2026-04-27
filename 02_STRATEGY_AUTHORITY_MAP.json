@@ -20,10 +20,15 @@
         "frequency": "medium"
       }
     ],
+    "vps_readiness": {
+      "status": "VPS_READY",
+      "purpose": "forward_demo_validation"
+    },
     "rejected_phases": [
       { "id": "Phase9", "reason": "edge_destruction_by_frequency" },
       { "id": "Phase10", "reason": "insufficient_edge_at_high_frequency" },
-      { "id": "Phase11", "reason": "no_improvement_over_baseline" }
+      { "id": "Phase11", "reason": "no_improvement_over_baseline" },
+      { "id": "Phase12", "reason": "invalidated_by_hallucination_and_bug" }
     ]
   },
   "lab_status": {

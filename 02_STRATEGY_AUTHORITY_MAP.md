@@ -37,6 +37,11 @@ Las siguientes fases han sido descartadas tras pruebas exhaustivas:
 - **Engine Safety Suite:** **APROBADO**. El motor de simulación ha superado 16 tests de integridad (Bid/Ask, Math, Lookahead).
 - **Autoridad Técnica:** No se aceptan métricas de laboratorio sin reporte `ENGINE_SAFETY_GATE_PASSED`.
 
+## 7. Preparación para Despliegue (VPS Readiness)
+- **Estado:** **VPS-READY**. Infraestructura documentada y validada para forward testing.
+- **Entorno:** VPS Windows (Demo Only).
+- **Gate de Control:** Forward Gate Plan activo para Phase 7 y Phase 8.
+
 ## 7. Regla de Oro
 Ninguna estrategia fuera de esta lista tiene autoridad operativa. Los reportes obsoletos en `ARCHIVE_SUPERSEDED\` no deben ser usados para tomar decisiones.
 
