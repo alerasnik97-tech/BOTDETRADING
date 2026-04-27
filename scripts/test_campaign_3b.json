@@ -1,0 +1,14 @@
+{
+  "name": "REPLICA CAMPAIGN 3B",
+  "is_programmable": true,
+  "has_news_fortress": true,
+  "is_not_rejected_family": false,
+  "friction_resistant": true,
+  "has_material_differentiation": false,
+  "programmability_score": 25,
+  "differentiation_score": 0,
+  "temporal_selectivity_score": 10,
+  "austerity_score": 15,
+  "htf_confluence_score": 0,
+  "base_evidence_score": 0
+}

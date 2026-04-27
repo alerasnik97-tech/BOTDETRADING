@@ -1,0 +1,14 @@
+{
+  "name": "COMPLEX CASCADING CONFLUENCES",
+  "spec_clarity_score": 15,
+  "technical_austerity_score": 10,
+  "fast_falsifiability_score": 10,
+  "compute_budget_score": 10,
+  "signal_purity_score": 5,
+  "is_fully_specified": true,
+  "has_defined_kill_conditions": true,
+  "has_low_variants_bloat": false,
+  "dataset_is_ready": true,
+  "stage1_sample_size": 20,
+  "stage1_kill_drawdown": -5.0
+}

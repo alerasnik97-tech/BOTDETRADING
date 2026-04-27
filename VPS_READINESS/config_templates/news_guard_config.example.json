@@ -1,0 +1,6 @@
+{
+  "block_before_mins": 30,
+  "block_after_mins": 30,
+  "impact_levels": ["HIGH"],
+  "currencies": ["USD", "EUR"]
+}

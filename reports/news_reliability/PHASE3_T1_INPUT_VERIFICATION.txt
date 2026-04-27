@@ -1,0 +1,9 @@
+PHASE3 T1 - Verificacion de input TE
+Ruta esperada (default): C:\Users\alera\Desktop\BOT DE TRADING CURSOR\data\news_imports\tradingeconomics_calendar.json
+Existe: False
+
+Candidatos *.json bajo el proyecto con nombre calendar/trading/economics:
+results\source_integration_audit\20260411_111336_source_upgrade\tradingeconomics_integration_notes.json
+
+Contenido actual data/news_imports/:
+  README_TE_INPUT.txt  (509 bytes)

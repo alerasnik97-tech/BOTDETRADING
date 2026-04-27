@@ -1,0 +1,12 @@
+{
+  "run_date": "2026-04-24T02:09:16.449668Z",
+  "runner_status": "DRY_RUN_NO_DATA",
+  "tribunal_status": "SHADOW_INCUBATING",
+  "stack_status": "SHADOW_STACK_OK",
+  "checkpoint_status": "CHECKPOINT_NOT_REACHED",
+  "overall_status": "SHADOW_AUTOPILOT_OK",
+  "target_date": "2026-04-24",
+  "trade_count": 0,
+  "cumulative_R": 0.0,
+  "alert_count": 0
+}

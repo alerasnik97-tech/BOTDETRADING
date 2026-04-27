@@ -1,0 +1,10 @@
+{
+  "best_params": {
+    "label": "trend_ema_rsi7__trend_active__early__balanced",
+    "style": "trend_ema_rsi7",
+    "variant": "balanced",
+    "regime": "trend_active",
+    "session": "early"
+  },
+  "score": null
+}

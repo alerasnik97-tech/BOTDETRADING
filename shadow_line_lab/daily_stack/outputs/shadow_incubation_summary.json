@@ -1,0 +1,29 @@
+{
+  "timestamp": "2026-04-24T02:09:16.521339Z",
+  "total_shadow_runs": 1,
+  "total_shadow_trades": 0,
+  "current_tribunal_verdict": "SHADOW_INCUBATING",
+  "cumulative_R": 0.0,
+  "max_drawdown_R": 0.0,
+  "escalating_or_not": false,
+  "recommendation": "Continuar incubaci\u00f3n para recolectar muestra (N=20).",
+  "metrics": {
+    "total_shadow_runs": 17,
+    "total_shadow_trades": 0,
+    "unique_shadow_dates": 2,
+    "cumulative_R": 0.0,
+    "avg_R": 0.0,
+    "median_R": 0.0,
+    "win_rate": 0.0,
+    "pf": 0.0,
+    "expectancy_R": 0.0,
+    "max_drawdown_R": 0.0,
+    "timeout_rate": 0.0,
+    "news_block_rate": 0.0,
+    "trade_frequency": 0.0,
+    "current_streak_positive_or_flat": 0,
+    "current_streak_negative": 0,
+    "current_streak_no_execution": 17
+  },
+  "alert_history_count": 0
+}

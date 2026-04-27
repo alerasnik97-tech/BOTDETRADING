@@ -42,7 +42,7 @@ def signal(frame: pd.DataFrame, i: int, params: dict) -> dict | None:
     
     # 1. Recuperar niveles AM (07:00 - 11:00)
     # Estos estan inyectados por data_loader en cada fila despues de las 11:00
-    suffix = "11_00"
+    suffix = "07_00_11_00"
     max_am = frame[f"session_range_high_{suffix}"].iat[i]
     min_am = frame[f"session_range_low_{suffix}"].iat[i]
     am_complete = frame[f"session_range_complete_{suffix}"].iat[i]

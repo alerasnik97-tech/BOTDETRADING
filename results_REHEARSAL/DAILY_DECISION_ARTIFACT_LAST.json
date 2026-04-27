@@ -1,0 +1,11 @@
+{
+  "target_date": "2026-05-01",
+  "valid_day": false,
+  "block_reason": "Insufficient data coverage or validator pre-block.",
+  "steps_completed": [
+    "project_boundary_preflight",
+    "data_coverage_check"
+  ],
+  "final_verdict": "DAILY_DATA_TO_DECISION_CHAIN_NOT_READY",
+  "next_action": "Check logs and fix blockers."
+}

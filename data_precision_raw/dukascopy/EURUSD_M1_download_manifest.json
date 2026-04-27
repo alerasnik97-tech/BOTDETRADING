@@ -1,0 +1,2203 @@
+{
+  "provider": "dukascopy",
+  "instrument": "EUR/USD",
+  "pair": "EURUSD",
+  "granularity": "M1",
+  "sides": [
+    "BID",
+    "ASK"
+  ],
+  "requested_start_utc": "2020-01-01T00:00:00+00:00",
+  "requested_end_utc_inclusive": "2025-12-31T23:59:00+00:00",
+  "expected_months": [
+    {
+      "start": "2020-01-01",
+      "end_inclusive": "2020-01-31"
+    },
+    {
+      "start": "2020-02-01",
+      "end_inclusive": "2020-02-29"
+    },
+    {
+      "start": "2020-03-01",
+      "end_inclusive": "2020-03-31"
+    },
+    {
+      "start": "2020-04-01",
+      "end_inclusive": "2020-04-30"
+    },
+    {
+      "start": "2020-05-01",
+      "end_inclusive": "2020-05-31"
+    },
+    {
+      "start": "2020-06-01",
+      "end_inclusive": "2020-06-30"
+    },
+    {
+      "start": "2020-07-01",
+      "end_inclusive": "2020-07-31"
+    },
+    {
+      "start": "2020-08-01",
+      "end_inclusive": "2020-08-31"
+    },
+    {
+      "start": "2020-09-01",
+      "end_inclusive": "2020-09-30"
+    },
+    {
+      "start": "2020-10-01",
+      "end_inclusive": "2020-10-31"
+    },
+    {
+      "start": "2020-11-01",
+      "end_inclusive": "2020-11-30"
+    },
+    {
+      "start": "2020-12-01",
+      "end_inclusive": "2020-12-31"
+    },
+    {
+      "start": "2021-01-01",
+      "end_inclusive": "2021-01-31"
+    },
+    {
+      "start": "2021-02-01",
+      "end_inclusive": "2021-02-28"
+    },
+    {
+      "start": "2021-03-01",
+      "end_inclusive": "2021-03-31"
+    },
+    {
+      "start": "2021-04-01",
+      "end_inclusive": "2021-04-30"
+    },
+    {
+      "start": "2021-05-01",
+      "end_inclusive": "2021-05-31"
+    },
+    {
+      "start": "2021-06-01",
+      "end_inclusive": "2021-06-30"
+    },
+    {
+      "start": "2021-07-01",
+      "end_inclusive": "2021-07-31"
+    },
+    {
+      "start": "2021-08-01",
+      "end_inclusive": "2021-08-31"
+    },
+    {
+      "start": "2021-09-01",
+      "end_inclusive": "2021-09-30"
+    },
+    {
+      "start": "2021-10-01",
+      "end_inclusive": "2021-10-31"
+    },
+    {
+      "start": "2021-11-01",
+      "end_inclusive": "2021-11-30"
+    },
+    {
+      "start": "2021-12-01",
+      "end_inclusive": "2021-12-31"
+    },
+    {
+      "start": "2022-01-01",
+      "end_inclusive": "2022-01-31"
+    },
+    {
+      "start": "2022-02-01",
+      "end_inclusive": "2022-02-28"
+    },
+    {
+      "start": "2022-03-01",
+      "end_inclusive": "2022-03-31"
+    },
+    {
+      "start": "2022-04-01",
+      "end_inclusive": "2022-04-30"
+    },
+    {
+      "start": "2022-05-01",
+      "end_inclusive": "2022-05-31"
+    },
+    {
+      "start": "2022-06-01",
+      "end_inclusive": "2022-06-30"
+    },
+    {
+      "start": "2022-07-01",
+      "end_inclusive": "2022-07-31"
+    },
+    {
+      "start": "2022-08-01",
+      "end_inclusive": "2022-08-31"
+    },
+    {
+      "start": "2022-09-01",
+      "end_inclusive": "2022-09-30"
+    },
+    {
+      "start": "2022-10-01",
+      "end_inclusive": "2022-10-31"
+    },
+    {
+      "start": "2022-11-01",
+      "end_inclusive": "2022-11-30"
+    },
+    {
+      "start": "2022-12-01",
+      "end_inclusive": "2022-12-31"
+    },
+    {
+      "start": "2023-01-01",
+      "end_inclusive": "2023-01-31"
+    },
+    {
+      "start": "2023-02-01",
+      "end_inclusive": "2023-02-28"
+    },
+    {
+      "start": "2023-03-01",
+      "end_inclusive": "2023-03-31"
+    },
+    {
+      "start": "2023-04-01",
+      "end_inclusive": "2023-04-30"
+    },
+    {
+      "start": "2023-05-01",
+      "end_inclusive": "2023-05-31"
+    },
+    {
+      "start": "2023-06-01",
+      "end_inclusive": "2023-06-30"
+    },
+    {
+      "start": "2023-07-01",
+      "end_inclusive": "2023-07-31"
+    },
+    {
+      "start": "2023-08-01",
+      "end_inclusive": "2023-08-31"
+    },
+    {
+      "start": "2023-09-01",
+      "end_inclusive": "2023-09-30"
+    },
+    {
+      "start": "2023-10-01",
+      "end_inclusive": "2023-10-31"
+    },
+    {
+      "start": "2023-11-01",
+      "end_inclusive": "2023-11-30"
+    },
+    {
+      "start": "2023-12-01",
+      "end_inclusive": "2023-12-31"
+    },
+    {
+      "start": "2024-01-01",
+      "end_inclusive": "2024-01-31"
+    },
+    {
+      "start": "2024-02-01",
+      "end_inclusive": "2024-02-29"
+    },
+    {
+      "start": "2024-03-01",
+      "end_inclusive": "2024-03-31"
+    },
+    {
+      "start": "2024-04-01",
+      "end_inclusive": "2024-04-30"
+    },
+    {
+      "start": "2024-05-01",
+      "end_inclusive": "2024-05-31"
+    },
+    {
+      "start": "2024-06-01",
+      "end_inclusive": "2024-06-30"
+    },
+    {
+      "start": "2024-07-01",
+      "end_inclusive": "2024-07-31"
+    },
+    {
+      "start": "2024-08-01",
+      "end_inclusive": "2024-08-31"
+    },
+    {
+      "start": "2024-09-01",
+      "end_inclusive": "2024-09-30"
+    },
+    {
+      "start": "2024-10-01",
+      "end_inclusive": "2024-10-31"
+    },
+    {
+      "start": "2024-11-01",
+      "end_inclusive": "2024-11-30"
+    },
+    {
+      "start": "2024-12-01",
+      "end_inclusive": "2024-12-31"
+    },
+    {
+      "start": "2025-01-01",
+      "end_inclusive": "2025-01-31"
+    },
+    {
+      "start": "2025-02-01",
+      "end_inclusive": "2025-02-28"
+    },
+    {
+      "start": "2025-03-01",
+      "end_inclusive": "2025-03-31"
+    },
+    {
+      "start": "2025-04-01",
+      "end_inclusive": "2025-04-30"
+    },
+    {
+      "start": "2025-05-01",
+      "end_inclusive": "2025-05-31"
+    },
+    {
+      "start": "2025-06-01",
+      "end_inclusive": "2025-06-30"
+    },
+    {
+      "start": "2025-07-01",
+      "end_inclusive": "2025-07-31"
+    },
+    {
+      "start": "2025-08-01",
+      "end_inclusive": "2025-08-31"
+    },
+    {
+      "start": "2025-09-01",
+      "end_inclusive": "2025-09-30"
+    },
+    {
+      "start": "2025-10-01",
+      "end_inclusive": "2025-10-31"
+    },
+    {
+      "start": "2025-11-01",
+      "end_inclusive": "2025-11-30"
+    },
+    {
+      "start": "2025-12-01",
+      "end_inclusive": "2025-12-31"
+    }
+  ],
+  "successful_chunks": [
+    {
+      "side": "BID",
+      "start": "2020-01-01",
+      "end_inclusive": "2020-01-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31653,
+      "first_timestamp_utc": "2020-01-01T22:00:00+00:00",
+      "last_timestamp_utc": "2020-01-31T21:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2020-02-01",
+      "end_inclusive": "2020-02-29",
+      "status": "success",
+      "attempts": 1,
+      "rows": 28704,
+      "first_timestamp_utc": "2020-02-02T22:00:00+00:00",
+      "last_timestamp_utc": "2020-02-28T21:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2020-03-01",
+      "end_inclusive": "2020-03-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31825,
+      "first_timestamp_utc": "2020-03-01T22:00:00+00:00",
+      "last_timestamp_utc": "2020-03-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2020-04-01",
+      "end_inclusive": "2020-04-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31614,
+      "first_timestamp_utc": "2020-04-01T00:00:00+00:00",
+      "last_timestamp_utc": "2020-04-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2020-05-01",
+      "end_inclusive": "2020-05-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30166,
+      "first_timestamp_utc": "2020-05-01T00:00:00+00:00",
+      "last_timestamp_utc": "2020-05-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2020-06-01",
+      "end_inclusive": "2020-06-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31585,
+      "first_timestamp_utc": "2020-06-01T00:00:00+00:00",
+      "last_timestamp_utc": "2020-06-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2020-07-01",
+      "end_inclusive": "2020-07-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 32790,
+      "first_timestamp_utc": "2020-07-01T00:00:00+00:00",
+      "last_timestamp_utc": "2020-07-31T20:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2020-08-01",
+      "end_inclusive": "2020-08-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30233,
+      "first_timestamp_utc": "2020-08-02T21:00:00+00:00",
+      "last_timestamp_utc": "2020-08-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2020-09-01",
+      "end_inclusive": "2020-09-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31419,
+      "first_timestamp_utc": "2020-09-01T00:00:00+00:00",
+      "last_timestamp_utc": "2020-09-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2020-10-01",
+      "end_inclusive": "2020-10-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31334,
+      "first_timestamp_utc": "2020-10-01T00:00:00+00:00",
+      "last_timestamp_utc": "2020-10-30T20:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2020-11-01",
+      "end_inclusive": "2020-11-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30228,
+      "first_timestamp_utc": "2020-11-01T22:00:00+00:00",
+      "last_timestamp_utc": "2020-11-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2020-12-01",
+      "end_inclusive": "2020-12-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31915,
+      "first_timestamp_utc": "2020-12-01T00:00:00+00:00",
+      "last_timestamp_utc": "2020-12-31T21:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2021-01-01",
+      "end_inclusive": "2021-01-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 28775,
+      "first_timestamp_utc": "2021-01-03T22:00:00+00:00",
+      "last_timestamp_utc": "2021-01-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2021-02-01",
+      "end_inclusive": "2021-02-28",
+      "status": "success",
+      "attempts": 1,
+      "rows": 28613,
+      "first_timestamp_utc": "2021-02-01T00:00:00+00:00",
+      "last_timestamp_utc": "2021-02-28T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2021-03-01",
+      "end_inclusive": "2021-03-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 32990,
+      "first_timestamp_utc": "2021-03-01T00:00:00+00:00",
+      "last_timestamp_utc": "2021-03-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2021-04-01",
+      "end_inclusive": "2021-04-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31077,
+      "first_timestamp_utc": "2021-04-01T00:00:00+00:00",
+      "last_timestamp_utc": "2021-04-30T20:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2021-05-01",
+      "end_inclusive": "2021-05-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30053,
+      "first_timestamp_utc": "2021-05-02T21:00:00+00:00",
+      "last_timestamp_utc": "2021-05-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2021-06-01",
+      "end_inclusive": "2021-06-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31309,
+      "first_timestamp_utc": "2021-06-01T00:00:00+00:00",
+      "last_timestamp_utc": "2021-06-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2021-07-01",
+      "end_inclusive": "2021-07-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31223,
+      "first_timestamp_utc": "2021-07-01T00:00:00+00:00",
+      "last_timestamp_utc": "2021-07-30T20:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2021-08-01",
+      "end_inclusive": "2021-08-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31268,
+      "first_timestamp_utc": "2021-08-01T21:04:00+00:00",
+      "last_timestamp_utc": "2021-08-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2021-09-01",
+      "end_inclusive": "2021-09-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31274,
+      "first_timestamp_utc": "2021-09-01T00:00:00+00:00",
+      "last_timestamp_utc": "2021-09-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2021-10-01",
+      "end_inclusive": "2021-10-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 29888,
+      "first_timestamp_utc": "2021-10-01T00:00:00+00:00",
+      "last_timestamp_utc": "2021-10-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2021-11-01",
+      "end_inclusive": "2021-11-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31466,
+      "first_timestamp_utc": "2021-11-01T00:00:00+00:00",
+      "last_timestamp_utc": "2021-11-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2021-12-01",
+      "end_inclusive": "2021-12-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 32745,
+      "first_timestamp_utc": "2021-12-01T00:00:00+00:00",
+      "last_timestamp_utc": "2021-12-31T21:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2022-01-01",
+      "end_inclusive": "2022-01-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30172,
+      "first_timestamp_utc": "2022-01-02T22:03:00+00:00",
+      "last_timestamp_utc": "2022-01-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2022-02-01",
+      "end_inclusive": "2022-02-28",
+      "status": "success",
+      "attempts": 1,
+      "rows": 28690,
+      "first_timestamp_utc": "2022-02-01T00:00:00+00:00",
+      "last_timestamp_utc": "2022-02-28T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2022-03-01",
+      "end_inclusive": "2022-03-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 33094,
+      "first_timestamp_utc": "2022-03-01T00:00:00+00:00",
+      "last_timestamp_utc": "2022-03-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2022-04-01",
+      "end_inclusive": "2022-04-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 29948,
+      "first_timestamp_utc": "2022-04-01T00:00:00+00:00",
+      "last_timestamp_utc": "2022-04-29T20:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2022-05-01",
+      "end_inclusive": "2022-05-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31690,
+      "first_timestamp_utc": "2022-05-01T21:04:00+00:00",
+      "last_timestamp_utc": "2022-05-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2022-06-01",
+      "end_inclusive": "2022-06-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31528,
+      "first_timestamp_utc": "2022-06-01T00:00:00+00:00",
+      "last_timestamp_utc": "2022-06-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2022-07-01",
+      "end_inclusive": "2022-07-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30124,
+      "first_timestamp_utc": "2022-07-01T00:00:00+00:00",
+      "last_timestamp_utc": "2022-07-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2022-08-01",
+      "end_inclusive": "2022-08-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 33036,
+      "first_timestamp_utc": "2022-08-01T00:00:00+00:00",
+      "last_timestamp_utc": "2022-08-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2022-09-01",
+      "end_inclusive": "2022-09-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31418,
+      "first_timestamp_utc": "2022-09-01T00:00:00+00:00",
+      "last_timestamp_utc": "2022-09-30T20:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2022-10-01",
+      "end_inclusive": "2022-10-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30268,
+      "first_timestamp_utc": "2022-10-02T21:04:00+00:00",
+      "last_timestamp_utc": "2022-10-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2022-11-01",
+      "end_inclusive": "2022-11-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31543,
+      "first_timestamp_utc": "2022-11-01T00:00:00+00:00",
+      "last_timestamp_utc": "2022-11-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2022-12-01",
+      "end_inclusive": "2022-12-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31368,
+      "first_timestamp_utc": "2022-12-01T00:00:00+00:00",
+      "last_timestamp_utc": "2022-12-30T21:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2023-01-01",
+      "end_inclusive": "2023-01-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31583,
+      "first_timestamp_utc": "2023-01-01T22:04:00+00:00",
+      "last_timestamp_utc": "2023-01-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2023-02-01",
+      "end_inclusive": "2023-02-28",
+      "status": "success",
+      "attempts": 1,
+      "rows": 28656,
+      "first_timestamp_utc": "2023-02-01T00:00:00+00:00",
+      "last_timestamp_utc": "2023-02-28T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2023-03-01",
+      "end_inclusive": "2023-03-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 32727,
+      "first_timestamp_utc": "2023-03-01T00:00:00+00:00",
+      "last_timestamp_utc": "2023-03-31T20:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2023-04-01",
+      "end_inclusive": "2023-04-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 28732,
+      "first_timestamp_utc": "2023-04-02T21:00:00+00:00",
+      "last_timestamp_utc": "2023-04-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2023-05-01",
+      "end_inclusive": "2023-05-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 32856,
+      "first_timestamp_utc": "2023-05-01T00:00:00+00:00",
+      "last_timestamp_utc": "2023-05-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2023-06-01",
+      "end_inclusive": "2023-06-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31282,
+      "first_timestamp_utc": "2023-06-01T00:00:00+00:00",
+      "last_timestamp_utc": "2023-06-30T20:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2023-07-01",
+      "end_inclusive": "2023-07-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30245,
+      "first_timestamp_utc": "2023-07-02T21:00:00+00:00",
+      "last_timestamp_utc": "2023-07-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2023-08-01",
+      "end_inclusive": "2023-08-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 32987,
+      "first_timestamp_utc": "2023-08-01T00:00:00+00:00",
+      "last_timestamp_utc": "2023-08-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2023-09-01",
+      "end_inclusive": "2023-09-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 29862,
+      "first_timestamp_utc": "2023-09-01T00:00:00+00:00",
+      "last_timestamp_utc": "2023-09-29T20:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2023-10-01",
+      "end_inclusive": "2023-10-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31762,
+      "first_timestamp_utc": "2023-10-01T21:00:00+00:00",
+      "last_timestamp_utc": "2023-10-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2023-11-01",
+      "end_inclusive": "2023-11-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31481,
+      "first_timestamp_utc": "2023-11-01T00:00:00+00:00",
+      "last_timestamp_utc": "2023-11-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2023-12-01",
+      "end_inclusive": "2023-12-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 28932,
+      "first_timestamp_utc": "2023-12-01T00:00:00+00:00",
+      "last_timestamp_utc": "2023-12-29T21:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2024-01-01",
+      "end_inclusive": "2024-01-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31688,
+      "first_timestamp_utc": "2024-01-01T22:00:00+00:00",
+      "last_timestamp_utc": "2024-01-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2024-02-01",
+      "end_inclusive": "2024-02-29",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30144,
+      "first_timestamp_utc": "2024-02-01T00:00:00+00:00",
+      "last_timestamp_utc": "2024-02-29T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2024-03-01",
+      "end_inclusive": "2024-03-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30143,
+      "first_timestamp_utc": "2024-03-01T00:00:00+00:00",
+      "last_timestamp_utc": "2024-03-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2024-04-01",
+      "end_inclusive": "2024-04-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31511,
+      "first_timestamp_utc": "2024-04-01T00:00:00+00:00",
+      "last_timestamp_utc": "2024-04-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2024-05-01",
+      "end_inclusive": "2024-05-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 32658,
+      "first_timestamp_utc": "2024-05-01T00:00:00+00:00",
+      "last_timestamp_utc": "2024-05-31T20:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2024-06-01",
+      "end_inclusive": "2024-06-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 28714,
+      "first_timestamp_utc": "2024-06-02T21:00:00+00:00",
+      "last_timestamp_utc": "2024-06-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2024-07-01",
+      "end_inclusive": "2024-07-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 32843,
+      "first_timestamp_utc": "2024-07-01T00:00:00+00:00",
+      "last_timestamp_utc": "2024-07-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2024-08-01",
+      "end_inclusive": "2024-08-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31396,
+      "first_timestamp_utc": "2024-08-01T00:00:00+00:00",
+      "last_timestamp_utc": "2024-08-30T20:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2024-09-01",
+      "end_inclusive": "2024-09-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30248,
+      "first_timestamp_utc": "2024-09-01T21:00:00+00:00",
+      "last_timestamp_utc": "2024-09-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2024-10-01",
+      "end_inclusive": "2024-10-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 32998,
+      "first_timestamp_utc": "2024-10-01T00:00:00+00:00",
+      "last_timestamp_utc": "2024-10-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2024-11-01",
+      "end_inclusive": "2024-11-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30007,
+      "first_timestamp_utc": "2024-11-01T00:00:00+00:00",
+      "last_timestamp_utc": "2024-11-29T21:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2024-12-01",
+      "end_inclusive": "2024-12-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30448,
+      "first_timestamp_utc": "2024-12-01T22:00:00+00:00",
+      "last_timestamp_utc": "2024-12-31T21:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2025-01-01",
+      "end_inclusive": "2025-01-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31604,
+      "first_timestamp_utc": "2025-01-01T22:00:00+00:00",
+      "last_timestamp_utc": "2025-01-31T21:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2025-02-01",
+      "end_inclusive": "2025-02-28",
+      "status": "success",
+      "attempts": 1,
+      "rows": 28732,
+      "first_timestamp_utc": "2025-02-02T22:00:00+00:00",
+      "last_timestamp_utc": "2025-02-28T21:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2025-03-01",
+      "end_inclusive": "2025-03-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30353,
+      "first_timestamp_utc": "2025-03-02T22:00:00+00:00",
+      "last_timestamp_utc": "2025-03-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2025-04-01",
+      "end_inclusive": "2025-04-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31615,
+      "first_timestamp_utc": "2025-04-01T00:00:00+00:00",
+      "last_timestamp_utc": "2025-04-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2025-05-01",
+      "end_inclusive": "2025-05-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31456,
+      "first_timestamp_utc": "2025-05-01T00:00:00+00:00",
+      "last_timestamp_utc": "2025-05-30T20:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2025-06-01",
+      "end_inclusive": "2025-06-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30347,
+      "first_timestamp_utc": "2025-06-01T21:03:00+00:00",
+      "last_timestamp_utc": "2025-06-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2025-07-01",
+      "end_inclusive": "2025-07-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 33038,
+      "first_timestamp_utc": "2025-07-01T00:00:00+00:00",
+      "last_timestamp_utc": "2025-07-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2025-08-01",
+      "end_inclusive": "2025-08-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30136,
+      "first_timestamp_utc": "2025-08-01T00:00:00+00:00",
+      "last_timestamp_utc": "2025-08-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2025-09-01",
+      "end_inclusive": "2025-09-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31542,
+      "first_timestamp_utc": "2025-09-01T00:00:00+00:00",
+      "last_timestamp_utc": "2025-09-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2025-10-01",
+      "end_inclusive": "2025-10-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 32833,
+      "first_timestamp_utc": "2025-10-01T00:00:00+00:00",
+      "last_timestamp_utc": "2025-10-31T20:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2025-11-01",
+      "end_inclusive": "2025-11-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 28787,
+      "first_timestamp_utc": "2025-11-02T22:00:00+00:00",
+      "last_timestamp_utc": "2025-11-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "BID",
+      "start": "2025-12-01",
+      "end_inclusive": "2025-12-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31650,
+      "first_timestamp_utc": "2025-12-01T00:00:00+00:00",
+      "last_timestamp_utc": "2025-12-31T21:58:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2020-01-01",
+      "end_inclusive": "2020-01-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31653,
+      "first_timestamp_utc": "2020-01-01T22:00:00+00:00",
+      "last_timestamp_utc": "2020-01-31T21:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2020-02-01",
+      "end_inclusive": "2020-02-29",
+      "status": "success",
+      "attempts": 1,
+      "rows": 28704,
+      "first_timestamp_utc": "2020-02-02T22:00:00+00:00",
+      "last_timestamp_utc": "2020-02-28T21:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2020-03-01",
+      "end_inclusive": "2020-03-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31825,
+      "first_timestamp_utc": "2020-03-01T22:00:00+00:00",
+      "last_timestamp_utc": "2020-03-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2020-04-01",
+      "end_inclusive": "2020-04-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31614,
+      "first_timestamp_utc": "2020-04-01T00:00:00+00:00",
+      "last_timestamp_utc": "2020-04-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2020-05-01",
+      "end_inclusive": "2020-05-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30166,
+      "first_timestamp_utc": "2020-05-01T00:00:00+00:00",
+      "last_timestamp_utc": "2020-05-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2020-06-01",
+      "end_inclusive": "2020-06-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31585,
+      "first_timestamp_utc": "2020-06-01T00:00:00+00:00",
+      "last_timestamp_utc": "2020-06-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2020-07-01",
+      "end_inclusive": "2020-07-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 32790,
+      "first_timestamp_utc": "2020-07-01T00:00:00+00:00",
+      "last_timestamp_utc": "2020-07-31T20:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2020-08-01",
+      "end_inclusive": "2020-08-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30233,
+      "first_timestamp_utc": "2020-08-02T21:00:00+00:00",
+      "last_timestamp_utc": "2020-08-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2020-09-01",
+      "end_inclusive": "2020-09-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31419,
+      "first_timestamp_utc": "2020-09-01T00:00:00+00:00",
+      "last_timestamp_utc": "2020-09-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2020-10-01",
+      "end_inclusive": "2020-10-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31334,
+      "first_timestamp_utc": "2020-10-01T00:00:00+00:00",
+      "last_timestamp_utc": "2020-10-30T20:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2020-11-01",
+      "end_inclusive": "2020-11-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30228,
+      "first_timestamp_utc": "2020-11-01T22:00:00+00:00",
+      "last_timestamp_utc": "2020-11-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2020-12-01",
+      "end_inclusive": "2020-12-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31915,
+      "first_timestamp_utc": "2020-12-01T00:00:00+00:00",
+      "last_timestamp_utc": "2020-12-31T21:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2021-01-01",
+      "end_inclusive": "2021-01-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 28775,
+      "first_timestamp_utc": "2021-01-03T22:00:00+00:00",
+      "last_timestamp_utc": "2021-01-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2021-02-01",
+      "end_inclusive": "2021-02-28",
+      "status": "success",
+      "attempts": 1,
+      "rows": 28613,
+      "first_timestamp_utc": "2021-02-01T00:00:00+00:00",
+      "last_timestamp_utc": "2021-02-28T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2021-03-01",
+      "end_inclusive": "2021-03-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 32990,
+      "first_timestamp_utc": "2021-03-01T00:00:00+00:00",
+      "last_timestamp_utc": "2021-03-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2021-04-01",
+      "end_inclusive": "2021-04-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31077,
+      "first_timestamp_utc": "2021-04-01T00:00:00+00:00",
+      "last_timestamp_utc": "2021-04-30T20:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2021-05-01",
+      "end_inclusive": "2021-05-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30053,
+      "first_timestamp_utc": "2021-05-02T21:00:00+00:00",
+      "last_timestamp_utc": "2021-05-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2021-06-01",
+      "end_inclusive": "2021-06-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31309,
+      "first_timestamp_utc": "2021-06-01T00:00:00+00:00",
+      "last_timestamp_utc": "2021-06-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2021-07-01",
+      "end_inclusive": "2021-07-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31223,
+      "first_timestamp_utc": "2021-07-01T00:00:00+00:00",
+      "last_timestamp_utc": "2021-07-30T20:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2021-08-01",
+      "end_inclusive": "2021-08-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31268,
+      "first_timestamp_utc": "2021-08-01T21:04:00+00:00",
+      "last_timestamp_utc": "2021-08-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2021-09-01",
+      "end_inclusive": "2021-09-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31274,
+      "first_timestamp_utc": "2021-09-01T00:00:00+00:00",
+      "last_timestamp_utc": "2021-09-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2021-10-01",
+      "end_inclusive": "2021-10-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 29888,
+      "first_timestamp_utc": "2021-10-01T00:00:00+00:00",
+      "last_timestamp_utc": "2021-10-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2021-11-01",
+      "end_inclusive": "2021-11-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31466,
+      "first_timestamp_utc": "2021-11-01T00:00:00+00:00",
+      "last_timestamp_utc": "2021-11-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2021-12-01",
+      "end_inclusive": "2021-12-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 32745,
+      "first_timestamp_utc": "2021-12-01T00:00:00+00:00",
+      "last_timestamp_utc": "2021-12-31T21:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2022-01-01",
+      "end_inclusive": "2022-01-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30172,
+      "first_timestamp_utc": "2022-01-02T22:03:00+00:00",
+      "last_timestamp_utc": "2022-01-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2022-02-01",
+      "end_inclusive": "2022-02-28",
+      "status": "success",
+      "attempts": 1,
+      "rows": 28690,
+      "first_timestamp_utc": "2022-02-01T00:00:00+00:00",
+      "last_timestamp_utc": "2022-02-28T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2022-03-01",
+      "end_inclusive": "2022-03-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 33094,
+      "first_timestamp_utc": "2022-03-01T00:00:00+00:00",
+      "last_timestamp_utc": "2022-03-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2022-04-01",
+      "end_inclusive": "2022-04-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 29948,
+      "first_timestamp_utc": "2022-04-01T00:00:00+00:00",
+      "last_timestamp_utc": "2022-04-29T20:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2022-05-01",
+      "end_inclusive": "2022-05-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31690,
+      "first_timestamp_utc": "2022-05-01T21:04:00+00:00",
+      "last_timestamp_utc": "2022-05-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2022-06-01",
+      "end_inclusive": "2022-06-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31528,
+      "first_timestamp_utc": "2022-06-01T00:00:00+00:00",
+      "last_timestamp_utc": "2022-06-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2022-07-01",
+      "end_inclusive": "2022-07-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30124,
+      "first_timestamp_utc": "2022-07-01T00:00:00+00:00",
+      "last_timestamp_utc": "2022-07-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2022-08-01",
+      "end_inclusive": "2022-08-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 33036,
+      "first_timestamp_utc": "2022-08-01T00:00:00+00:00",
+      "last_timestamp_utc": "2022-08-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2022-09-01",
+      "end_inclusive": "2022-09-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31418,
+      "first_timestamp_utc": "2022-09-01T00:00:00+00:00",
+      "last_timestamp_utc": "2022-09-30T20:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2022-10-01",
+      "end_inclusive": "2022-10-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30268,
+      "first_timestamp_utc": "2022-10-02T21:04:00+00:00",
+      "last_timestamp_utc": "2022-10-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2022-11-01",
+      "end_inclusive": "2022-11-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31543,
+      "first_timestamp_utc": "2022-11-01T00:00:00+00:00",
+      "last_timestamp_utc": "2022-11-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2022-12-01",
+      "end_inclusive": "2022-12-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31368,
+      "first_timestamp_utc": "2022-12-01T00:00:00+00:00",
+      "last_timestamp_utc": "2022-12-30T21:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2023-01-01",
+      "end_inclusive": "2023-01-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31583,
+      "first_timestamp_utc": "2023-01-01T22:04:00+00:00",
+      "last_timestamp_utc": "2023-01-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2023-02-01",
+      "end_inclusive": "2023-02-28",
+      "status": "success",
+      "attempts": 1,
+      "rows": 28656,
+      "first_timestamp_utc": "2023-02-01T00:00:00+00:00",
+      "last_timestamp_utc": "2023-02-28T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2023-03-01",
+      "end_inclusive": "2023-03-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 32727,
+      "first_timestamp_utc": "2023-03-01T00:00:00+00:00",
+      "last_timestamp_utc": "2023-03-31T20:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2023-04-01",
+      "end_inclusive": "2023-04-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 28732,
+      "first_timestamp_utc": "2023-04-02T21:00:00+00:00",
+      "last_timestamp_utc": "2023-04-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2023-05-01",
+      "end_inclusive": "2023-05-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 32856,
+      "first_timestamp_utc": "2023-05-01T00:00:00+00:00",
+      "last_timestamp_utc": "2023-05-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2023-06-01",
+      "end_inclusive": "2023-06-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31282,
+      "first_timestamp_utc": "2023-06-01T00:00:00+00:00",
+      "last_timestamp_utc": "2023-06-30T20:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2023-07-01",
+      "end_inclusive": "2023-07-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30245,
+      "first_timestamp_utc": "2023-07-02T21:00:00+00:00",
+      "last_timestamp_utc": "2023-07-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2023-08-01",
+      "end_inclusive": "2023-08-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 32987,
+      "first_timestamp_utc": "2023-08-01T00:00:00+00:00",
+      "last_timestamp_utc": "2023-08-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2023-09-01",
+      "end_inclusive": "2023-09-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 29862,
+      "first_timestamp_utc": "2023-09-01T00:00:00+00:00",
+      "last_timestamp_utc": "2023-09-29T20:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2023-10-01",
+      "end_inclusive": "2023-10-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31762,
+      "first_timestamp_utc": "2023-10-01T21:00:00+00:00",
+      "last_timestamp_utc": "2023-10-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2023-11-01",
+      "end_inclusive": "2023-11-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31481,
+      "first_timestamp_utc": "2023-11-01T00:00:00+00:00",
+      "last_timestamp_utc": "2023-11-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2023-12-01",
+      "end_inclusive": "2023-12-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 28932,
+      "first_timestamp_utc": "2023-12-01T00:00:00+00:00",
+      "last_timestamp_utc": "2023-12-29T21:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2024-01-01",
+      "end_inclusive": "2024-01-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31688,
+      "first_timestamp_utc": "2024-01-01T22:00:00+00:00",
+      "last_timestamp_utc": "2024-01-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2024-02-01",
+      "end_inclusive": "2024-02-29",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30144,
+      "first_timestamp_utc": "2024-02-01T00:00:00+00:00",
+      "last_timestamp_utc": "2024-02-29T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2024-03-01",
+      "end_inclusive": "2024-03-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30143,
+      "first_timestamp_utc": "2024-03-01T00:00:00+00:00",
+      "last_timestamp_utc": "2024-03-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2024-04-01",
+      "end_inclusive": "2024-04-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31511,
+      "first_timestamp_utc": "2024-04-01T00:00:00+00:00",
+      "last_timestamp_utc": "2024-04-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2024-05-01",
+      "end_inclusive": "2024-05-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 32658,
+      "first_timestamp_utc": "2024-05-01T00:00:00+00:00",
+      "last_timestamp_utc": "2024-05-31T20:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2024-06-01",
+      "end_inclusive": "2024-06-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 28714,
+      "first_timestamp_utc": "2024-06-02T21:00:00+00:00",
+      "last_timestamp_utc": "2024-06-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2024-07-01",
+      "end_inclusive": "2024-07-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 32843,
+      "first_timestamp_utc": "2024-07-01T00:00:00+00:00",
+      "last_timestamp_utc": "2024-07-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2024-08-01",
+      "end_inclusive": "2024-08-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31396,
+      "first_timestamp_utc": "2024-08-01T00:00:00+00:00",
+      "last_timestamp_utc": "2024-08-30T20:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2024-09-01",
+      "end_inclusive": "2024-09-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30248,
+      "first_timestamp_utc": "2024-09-01T21:00:00+00:00",
+      "last_timestamp_utc": "2024-09-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2024-10-01",
+      "end_inclusive": "2024-10-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 32998,
+      "first_timestamp_utc": "2024-10-01T00:00:00+00:00",
+      "last_timestamp_utc": "2024-10-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2024-11-01",
+      "end_inclusive": "2024-11-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30007,
+      "first_timestamp_utc": "2024-11-01T00:00:00+00:00",
+      "last_timestamp_utc": "2024-11-29T21:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2024-12-01",
+      "end_inclusive": "2024-12-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30448,
+      "first_timestamp_utc": "2024-12-01T22:00:00+00:00",
+      "last_timestamp_utc": "2024-12-31T21:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2025-01-01",
+      "end_inclusive": "2025-01-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31604,
+      "first_timestamp_utc": "2025-01-01T22:00:00+00:00",
+      "last_timestamp_utc": "2025-01-31T21:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2025-02-01",
+      "end_inclusive": "2025-02-28",
+      "status": "success",
+      "attempts": 1,
+      "rows": 28732,
+      "first_timestamp_utc": "2025-02-02T22:00:00+00:00",
+      "last_timestamp_utc": "2025-02-28T21:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2025-03-01",
+      "end_inclusive": "2025-03-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30353,
+      "first_timestamp_utc": "2025-03-02T22:00:00+00:00",
+      "last_timestamp_utc": "2025-03-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2025-04-01",
+      "end_inclusive": "2025-04-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31615,
+      "first_timestamp_utc": "2025-04-01T00:00:00+00:00",
+      "last_timestamp_utc": "2025-04-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2025-05-01",
+      "end_inclusive": "2025-05-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31456,
+      "first_timestamp_utc": "2025-05-01T00:00:00+00:00",
+      "last_timestamp_utc": "2025-05-30T20:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2025-06-01",
+      "end_inclusive": "2025-06-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30347,
+      "first_timestamp_utc": "2025-06-01T21:03:00+00:00",
+      "last_timestamp_utc": "2025-06-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2025-07-01",
+      "end_inclusive": "2025-07-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 33038,
+      "first_timestamp_utc": "2025-07-01T00:00:00+00:00",
+      "last_timestamp_utc": "2025-07-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2025-08-01",
+      "end_inclusive": "2025-08-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 30136,
+      "first_timestamp_utc": "2025-08-01T00:00:00+00:00",
+      "last_timestamp_utc": "2025-08-31T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2025-09-01",
+      "end_inclusive": "2025-09-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31542,
+      "first_timestamp_utc": "2025-09-01T00:00:00+00:00",
+      "last_timestamp_utc": "2025-09-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2025-10-01",
+      "end_inclusive": "2025-10-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 32833,
+      "first_timestamp_utc": "2025-10-01T00:00:00+00:00",
+      "last_timestamp_utc": "2025-10-31T20:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2025-11-01",
+      "end_inclusive": "2025-11-30",
+      "status": "success",
+      "attempts": 1,
+      "rows": 28787,
+      "first_timestamp_utc": "2025-11-02T22:00:00+00:00",
+      "last_timestamp_utc": "2025-11-30T23:59:00+00:00",
+      "error": null
+    },
+    {
+      "side": "ASK",
+      "start": "2025-12-01",
+      "end_inclusive": "2025-12-31",
+      "status": "success",
+      "attempts": 1,
+      "rows": 31650,
+      "first_timestamp_utc": "2025-12-01T00:00:00+00:00",
+      "last_timestamp_utc": "2025-12-31T21:58:00+00:00",
+      "error": null
+    }
+  ],
+  "failed_chunks": [],
+  "downloaded_months": [
+    {
+      "start": "2020-01-01",
+      "end_inclusive": "2020-01-31"
+    },
+    {
+      "start": "2020-02-01",
+      "end_inclusive": "2020-02-29"
+    },
+    {
+      "start": "2020-03-01",
+      "end_inclusive": "2020-03-31"
+    },
+    {
+      "start": "2020-04-01",
+      "end_inclusive": "2020-04-30"
+    },
+    {
+      "start": "2020-05-01",
+      "end_inclusive": "2020-05-31"
+    },
+    {
+      "start": "2020-06-01",
+      "end_inclusive": "2020-06-30"
+    },
+    {
+      "start": "2020-07-01",
+      "end_inclusive": "2020-07-31"
+    },
+    {
+      "start": "2020-08-01",
+      "end_inclusive": "2020-08-31"
+    },
+    {
+      "start": "2020-09-01",
+      "end_inclusive": "2020-09-30"
+    },
+    {
+      "start": "2020-10-01",
+      "end_inclusive": "2020-10-31"
+    },
+    {
+      "start": "2020-11-01",
+      "end_inclusive": "2020-11-30"
+    },
+    {
+      "start": "2020-12-01",
+      "end_inclusive": "2020-12-31"
+    },
+    {
+      "start": "2021-01-01",
+      "end_inclusive": "2021-01-31"
+    },
+    {
+      "start": "2021-02-01",
+      "end_inclusive": "2021-02-28"
+    },
+    {
+      "start": "2021-03-01",
+      "end_inclusive": "2021-03-31"
+    },
+    {
+      "start": "2021-04-01",
+      "end_inclusive": "2021-04-30"
+    },
+    {
+      "start": "2021-05-01",
+      "end_inclusive": "2021-05-31"
+    },
+    {
+      "start": "2021-06-01",
+      "end_inclusive": "2021-06-30"
+    },
+    {
+      "start": "2021-07-01",
+      "end_inclusive": "2021-07-31"
+    },
+    {
+      "start": "2021-08-01",
+      "end_inclusive": "2021-08-31"
+    },
+    {
+      "start": "2021-09-01",
+      "end_inclusive": "2021-09-30"
+    },
+    {
+      "start": "2021-10-01",
+      "end_inclusive": "2021-10-31"
+    },
+    {
+      "start": "2021-11-01",
+      "end_inclusive": "2021-11-30"
+    },
+    {
+      "start": "2021-12-01",
+      "end_inclusive": "2021-12-31"
+    },
+    {
+      "start": "2022-01-01",
+      "end_inclusive": "2022-01-31"
+    },
+    {
+      "start": "2022-02-01",
+      "end_inclusive": "2022-02-28"
+    },
+    {
+      "start": "2022-03-01",
+      "end_inclusive": "2022-03-31"
+    },
+    {
+      "start": "2022-04-01",
+      "end_inclusive": "2022-04-30"
+    },
+    {
+      "start": "2022-05-01",
+      "end_inclusive": "2022-05-31"
+    },
+    {
+      "start": "2022-06-01",
+      "end_inclusive": "2022-06-30"
+    },
+    {
+      "start": "2022-07-01",
+      "end_inclusive": "2022-07-31"
+    },
+    {
+      "start": "2022-08-01",
+      "end_inclusive": "2022-08-31"
+    },
+    {
+      "start": "2022-09-01",
+      "end_inclusive": "2022-09-30"
+    },
+    {
+      "start": "2022-10-01",
+      "end_inclusive": "2022-10-31"
+    },
+    {
+      "start": "2022-11-01",
+      "end_inclusive": "2022-11-30"
+    },
+    {
+      "start": "2022-12-01",
+      "end_inclusive": "2022-12-31"
+    },
+    {
+      "start": "2023-01-01",
+      "end_inclusive": "2023-01-31"
+    },
+    {
+      "start": "2023-02-01",
+      "end_inclusive": "2023-02-28"
+    },
+    {
+      "start": "2023-03-01",
+      "end_inclusive": "2023-03-31"
+    },
+    {
+      "start": "2023-04-01",
+      "end_inclusive": "2023-04-30"
+    },
+    {
+      "start": "2023-05-01",
+      "end_inclusive": "2023-05-31"
+    },
+    {
+      "start": "2023-06-01",
+      "end_inclusive": "2023-06-30"
+    },
+    {
+      "start": "2023-07-01",
+      "end_inclusive": "2023-07-31"
+    },
+    {
+      "start": "2023-08-01",
+      "end_inclusive": "2023-08-31"
+    },
+    {
+      "start": "2023-09-01",
+      "end_inclusive": "2023-09-30"
+    },
+    {
+      "start": "2023-10-01",
+      "end_inclusive": "2023-10-31"
+    },
+    {
+      "start": "2023-11-01",
+      "end_inclusive": "2023-11-30"
+    },
+    {
+      "start": "2023-12-01",
+      "end_inclusive": "2023-12-31"
+    },
+    {
+      "start": "2024-01-01",
+      "end_inclusive": "2024-01-31"
+    },
+    {
+      "start": "2024-02-01",
+      "end_inclusive": "2024-02-29"
+    },
+    {
+      "start": "2024-03-01",
+      "end_inclusive": "2024-03-31"
+    },
+    {
+      "start": "2024-04-01",
+      "end_inclusive": "2024-04-30"
+    },
+    {
+      "start": "2024-05-01",
+      "end_inclusive": "2024-05-31"
+    },
+    {
+      "start": "2024-06-01",
+      "end_inclusive": "2024-06-30"
+    },
+    {
+      "start": "2024-07-01",
+      "end_inclusive": "2024-07-31"
+    },
+    {
+      "start": "2024-08-01",
+      "end_inclusive": "2024-08-31"
+    },
+    {
+      "start": "2024-09-01",
+      "end_inclusive": "2024-09-30"
+    },
+    {
+      "start": "2024-10-01",
+      "end_inclusive": "2024-10-31"
+    },
+    {
+      "start": "2024-11-01",
+      "end_inclusive": "2024-11-30"
+    },
+    {
+      "start": "2024-12-01",
+      "end_inclusive": "2024-12-31"
+    },
+    {
+      "start": "2025-01-01",
+      "end_inclusive": "2025-01-31"
+    },
+    {
+      "start": "2025-02-01",
+      "end_inclusive": "2025-02-28"
+    },
+    {
+      "start": "2025-03-01",
+      "end_inclusive": "2025-03-31"
+    },
+    {
+      "start": "2025-04-01",
+      "end_inclusive": "2025-04-30"
+    },
+    {
+      "start": "2025-05-01",
+      "end_inclusive": "2025-05-31"
+    },
+    {
+      "start": "2025-06-01",
+      "end_inclusive": "2025-06-30"
+    },
+    {
+      "start": "2025-07-01",
+      "end_inclusive": "2025-07-31"
+    },
+    {
+      "start": "2025-08-01",
+      "end_inclusive": "2025-08-31"
+    },
+    {
+      "start": "2025-09-01",
+      "end_inclusive": "2025-09-30"
+    },
+    {
+      "start": "2025-10-01",
+      "end_inclusive": "2025-10-31"
+    },
+    {
+      "start": "2025-11-01",
+      "end_inclusive": "2025-11-30"
+    },
+    {
+      "start": "2025-12-01",
+      "end_inclusive": "2025-12-31"
+    }
+  ],
+  "failed_months": [],
+  "months_downloaded": 72,
+  "months_failed": 0,
+  "generated_files": {
+    "bid": "data_precision_raw\\dukascopy\\EURUSD_M1_BID.csv",
+    "ask": "data_precision_raw\\dukascopy\\EURUSD_M1_ASK.csv"
+  },
+  "rows": {
+    "bid": 2233022,
+    "ask": 2233022
+  },
+  "first_timestamp_utc": "2020-01-01T22:00:00+00:00",
+  "last_timestamp_utc": "2025-12-31T21:58:00+00:00",
+  "bid_ask_alignment": {
+    "common_rows": 2233022,
+    "dropped_bid_rows_to_align": 0,
+    "dropped_ask_rows_to_align": 0,
+    "fully_aligned": true
+  },
+  "notes": [
+    "descarga automatica via dukascopy_python usando instrument=EUR/USD para EURUSD",
+    "las variables de proxy del entorno se limpian dentro del script para evitar el proxy roto local",
+    "los CSV quedan crudos en UTC con timezone explicita y listos para high_precision_import"
+  ]
+}

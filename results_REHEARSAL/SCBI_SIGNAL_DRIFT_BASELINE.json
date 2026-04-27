@@ -1,0 +1,220 @@
+{
+  "generated_at_utc": "2026-04-22T20:18:06.154316+00:00",
+  "baseline_version": "POST_HARDENING_SIGNAL_DRIFT_V1",
+  "lines": {
+    "SCBI_M5_GLOBAL": {
+      "line": "SCBI_M5_GLOBAL",
+      "source": {
+        "historical_path": "results\\SCBI_2020_2025_DURABILITY\\trades_baseline.csv",
+        "historical_hash": "D20D392C8D1DEA4BE7AC9605E4892FE839A78B523C80E23568AF99E17E8393F9",
+        "historical_rows": 1610,
+        "timezone_model": "AMERICA_NEW_YORK_DSTAWARE_MIXED_OFFSETS",
+        "historical_cost_model": "INSTITUTIONAL_0P4_PROXY_FROM_0P3_BASELINE",
+        "historical_cost_note": "Se aplica delta fijo de 0.1 pips sobre trades historicos de 0.3 pips para rebaselinar bajo costo institucional vigente.",
+        "historical_time_note": "Los timestamps historicos muestran offsets mixtos -05:00/-04:00, confirmando awareness DST en los CSV recalculados.",
+        "forward_cost_note": "Ledger forward expone spread aplicado por trade, pero no slippage granular por fill; la comparacion de ejecucion queda parcial."
+      },
+      "historical_dimension_fidelity": {
+        "A_SIGNAL_FREQUENCY_DRIFT": "FULL",
+        "B_SESSION_COMPOSITION_DRIFT": "FULL",
+        "C_DIRECTIONAL_DRIFT": "FULL",
+        "D_LIQUIDITY_SOURCE_OR_TRIGGER_DRIFT": "FULL",
+        "E_PERFORMANCE_DISTRIBUTION_DRIFT": "FULL",
+        "F_BLOCKING_PROFILE_DRIFT": "PARTIAL",
+        "G_EXECUTION_PROFILE_DRIFT": "PARTIAL"
+      },
+      "dimensions": {
+        "frequency": {
+          "avg_weekly": 5.1274,
+          "std_weekly": 0.578,
+          "weeks_observed": 314,
+          "min_weekly": 2,
+          "max_weekly": 6
+        },
+        "session_composition": {
+          "london": 0.3248,
+          "asia": 0.2901,
+          "prev_day": 0.3851,
+          "unknown": 0.0
+        },
+        "directional": {
+          "long": 0.5255,
+          "short": 0.4745,
+          "unknown": 0.0
+        },
+        "liquidity_source": {
+          "london_l": 0.1745,
+          "london_h": 0.1503,
+          "asia_l": 0.1466,
+          "asia_h": 0.1435,
+          "pdl": 0.2043,
+          "pdh": 0.1807,
+          "unknown": 0.0
+        },
+        "performance_distribution": {
+          "n": 1610,
+          "expectancy": 0.4082,
+          "std_pnl": 1.0224,
+          "pf": 2.4217,
+          "win_rate": 0.6273,
+          "max_dd": -8.4577,
+          "q10": -1.0118,
+          "q25": -0.6203,
+          "q50": 0.4583,
+          "q75": 1.4865,
+          "q90": 1.4918
+        },
+        "blocking_profile": {
+          "news_affected_rate": 0.0528
+        },
+        "execution_profile": {
+          "avg_risk_pips": 16.3998,
+          "median_risk_pips": 12.45,
+          "risk_bucket_mix": {
+            "tight": 0.1112,
+            "medium": 0.2571,
+            "wide": 0.6317,
+            "unknown": 0.0
+          },
+          "avg_cost_delta_pips": 0.1,
+          "avg_cost_delta_r": 0.0105
+        },
+        "last_activity_ny": "2025-12-31 04:40:00-05:00"
+      },
+      "validation_windows": {
+        "20": {
+          "window": 20,
+          "count": 1591,
+          "expectancy_p05": -0.0147,
+          "expectancy_p50": 0.4185,
+          "expectancy_p95": 0.7611,
+          "pf_p05": 0.971,
+          "pf_p50": 2.5533,
+          "pf_p95": 6.5388,
+          "max_dd_p05": -5.5916,
+          "long_share_p05": 0.35,
+          "long_share_p95": 0.7
+        },
+        "40": {
+          "window": 40,
+          "count": 1571,
+          "expectancy_p05": 0.1065,
+          "expectancy_p50": 0.4254,
+          "expectancy_p95": 0.6792,
+          "pf_p05": 1.2465,
+          "pf_p50": 2.5301,
+          "pf_p95": 4.6913,
+          "max_dd_p05": -7.1397,
+          "long_share_p05": 0.4,
+          "long_share_p95": 0.65
+        }
+      }
+    },
+    "SCBI_CORE": {
+      "line": "SCBI_CORE",
+      "source": {
+        "historical_path": "results\\SCBI_CORE_STAGE2\\core_stage2_trades.csv",
+        "historical_hash": "8B43820140E27771DC60D0B21CD3FA163130AA49D16030051732815B4D332285",
+        "historical_rows": 990,
+        "timezone_model": "AMERICA_NEW_YORK_DSTAWARE_MIXED_OFFSETS",
+        "historical_cost_model": "STAGE2_DYNAMIC_EXECUTION_HARDENED",
+        "historical_cost_note": "Se usa pnl_r_dynamic del Stage-2 para absorber el slippage endurecido disponible en la serie historica CORE.",
+        "historical_time_note": "Los timestamps historicos muestran offsets mixtos -05:00/-04:00, confirmando awareness DST en los CSV recalculados.",
+        "forward_cost_note": "Ledger forward CORE no expone spread/slippage por fill; la comparacion de ejecucion queda parcial y solo usa proxies de riesgo."
+      },
+      "historical_dimension_fidelity": {
+        "A_SIGNAL_FREQUENCY_DRIFT": "FULL",
+        "B_SESSION_COMPOSITION_DRIFT": "FULL",
+        "C_DIRECTIONAL_DRIFT": "FULL",
+        "D_LIQUIDITY_SOURCE_OR_TRIGGER_DRIFT": "FULL",
+        "E_PERFORMANCE_DISTRIBUTION_DRIFT": "FULL",
+        "F_BLOCKING_PROFILE_DRIFT": "PARTIAL",
+        "G_EXECUTION_PROFILE_DRIFT": "FULL"
+      },
+      "dimensions": {
+        "frequency": {
+          "avg_weekly": 3.1833,
+          "std_weekly": 1.0341,
+          "weeks_observed": 311,
+          "min_weekly": 1,
+          "max_weekly": 5
+        },
+        "session_composition": {
+          "london": 0.5283,
+          "asia": 0.4717,
+          "prev_day": 0.0,
+          "unknown": 0.0
+        },
+        "directional": {
+          "long": 0.5222,
+          "short": 0.4778,
+          "unknown": 0.0
+        },
+        "liquidity_source": {
+          "london_l": 0.2838,
+          "london_h": 0.2444,
+          "asia_l": 0.2384,
+          "asia_h": 0.2333,
+          "unknown": 0.0
+        },
+        "performance_distribution": {
+          "n": 990,
+          "expectancy": 0.6053,
+          "std_pnl": 0.9584,
+          "pf": 3.9334,
+          "win_rate": 0.7101,
+          "max_dd": -5.5005,
+          "q10": -1.0133,
+          "q25": -0.2012,
+          "q50": 1.0095,
+          "q75": 1.4654,
+          "q90": 1.4841
+        },
+        "blocking_profile": {
+          "news_affected_rate": 0.0626
+        },
+        "execution_profile": {
+          "avg_risk_pips": 15.7347,
+          "median_risk_pips": 11.9,
+          "risk_bucket_mix": {
+            "tight": 0.1,
+            "medium": 0.2717,
+            "wide": 0.6283,
+            "unknown": 0.0
+          },
+          "avg_cost_delta_pips": 0.1672,
+          "avg_cost_delta_r": 0.0254
+        },
+        "last_activity_ny": "2025-12-31 04:40:00-05:00"
+      },
+      "validation_windows": {
+        "20": {
+          "window": 20,
+          "count": 971,
+          "expectancy_p05": 0.2067,
+          "expectancy_p50": 0.6293,
+          "expectancy_p95": 0.931,
+          "pf_p05": 1.5152,
+          "pf_p50": 4.3416,
+          "pf_p95": 12.6458,
+          "max_dd_p05": -3.555,
+          "long_share_p05": 0.35,
+          "long_share_p95": 0.7
+        },
+        "40": {
+          "window": 40,
+          "count": 951,
+          "expectancy_p05": 0.3392,
+          "expectancy_p50": 0.6132,
+          "expectancy_p95": 0.8401,
+          "pf_p05": 2.0958,
+          "pf_p50": 4.0038,
+          "pf_p95": 8.415,
+          "max_dd_p05": -4.6159,
+          "long_share_p05": 0.4,
+          "long_share_p95": 0.65
+        }
+      }
+    }
+  }
+}

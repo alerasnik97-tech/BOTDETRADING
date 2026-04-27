@@ -1,0 +1,28 @@
+{
+  "metrics": [
+    "sample_size",
+    "win_rate",
+    "PF",
+    "expectancy_R",
+    "max_drawdown_R",
+    "trades_per_month"
+  ],
+  "2015_2019": {
+    "sample_size": 1440,
+    "win_rate": 0.6652777777777777,
+    "PF": 2.99543625288591,
+    "expectancy_R": 0.5443896527777778,
+    "max_drawdown_R": -6.712400000000002,
+    "trades_per_month": 24.0,
+    "yearly_positive_ratio": 1.0
+  },
+  "2020_2025": {
+    "sample_size": 1606,
+    "win_rate": 0.6202,
+    "PF": 2.408,
+    "expectancy_R": 0.4149,
+    "max_drawdown_R": -8.3268,
+    "trades_per_month": 22.3056,
+    "yearly_positive_ratio": 1.0
+  }
+}

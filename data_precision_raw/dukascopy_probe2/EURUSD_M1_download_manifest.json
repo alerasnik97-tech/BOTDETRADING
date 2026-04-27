@@ -1,0 +1,33 @@
+{
+  "provider": "dukascopy",
+  "instrument": "EUR/USD",
+  "pair": "EURUSD",
+  "granularity": "M1",
+  "sides": [
+    "BID",
+    "ASK"
+  ],
+  "requested_start_utc": "2024-10-01T00:00:00+00:00",
+  "requested_end_utc_inclusive": "2024-10-02T23:59:00+00:00",
+  "chunks": [
+    {
+      "start": "2024-10-01",
+      "end_inclusive": "2024-10-02"
+    }
+  ],
+  "generated_files": {
+    "bid": "data_precision_raw\\dukascopy_probe2\\EURUSD_M1_BID.csv",
+    "ask": "data_precision_raw\\dukascopy_probe2\\EURUSD_M1_ASK.csv"
+  },
+  "rows": {
+    "bid": 2873,
+    "ask": 2873
+  },
+  "first_timestamp_utc": "2024-10-01T00:00:00+00:00",
+  "last_timestamp_utc": "2024-10-02T23:59:00+00:00",
+  "notes": [
+    "descarga automatica via dukascopy_python usando instrument=EUR/USD para EURUSD",
+    "las variables de proxy del entorno se limpian dentro del script para evitar el proxy roto local",
+    "los CSV quedan crudos en UTC con timezone explicita y listos para high_precision_import"
+  ]
+}

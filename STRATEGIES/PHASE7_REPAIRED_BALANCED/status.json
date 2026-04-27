@@ -1,0 +1,8 @@
+{
+  "strategy_id": "PHASE7_REPAIRED_BALANCED",
+  "status": "FORWARD_CANDIDATE_NOT_LIVE",
+  "pf_approx": 1.50,
+  "frequency": "medium",
+  "next_step": "forward_testing_demo",
+  "last_update": "2026-04-27"
+}

@@ -1,0 +1,25 @@
+{
+  "phase": "PHASE_8_IMPROVEMENT_LAB",
+  "best_candidate": "CANDIDATE_B_F_BODY60",
+  "rules": {
+    "base": "Phase7_Repaired",
+    "added_filters": [
+      "Exclude_Friday",
+      "Min_CHoCH_Body_60pct"
+    ]
+  },
+  "metrics": {
+    "pf": 2.094,
+    "sample": 165,
+    "expectancy": 0.318,
+    "max_loss_streak": 3,
+    "win_rate": 0.406
+  },
+  "comparison_vs_baseline": {
+    "pf_gain": "+39%",
+    "expectancy_gain": "+73%",
+    "streak_reduction": "-72%"
+  },
+  "verdict": "PHASE8_STRONG_IMPROVEMENT_VALIDATED",
+  "next_step": "Forward Testing with Candidate B"
+}

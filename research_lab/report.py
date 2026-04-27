@@ -18,6 +18,14 @@ def _profit_factor(pnl_usd: pd.Series) -> float:
     return gross_profit / abs(gross_loss) if gross_loss < 0 else float("inf")
 
 
+def _robust_tz_convert(series, target_tz=NY_TZ):
+    """Convierte una serie de timestamps (potencialmente con offsets mixtos) a una zona horaria destino."""
+    if series.empty:
+        return pd.Series(dtype="datetime64[ns, " + target_tz + "]")
+    # Procesamiento individual SIN usar .dt para evitar validacion de offsets mixtos
+    return pd.Series([pd.Timestamp(t).tz_convert(target_tz) if pd.notnull(t) else pd.NaT for t in series], index=series.index)
+
+
 def build_trades_export(trades: pd.DataFrame) -> pd.DataFrame:
     columns = [
         "pair",
@@ -68,21 +76,22 @@ def build_trades_export(trades: pd.DataFrame) -> pd.DataFrame:
     if trades.empty:
         return pd.DataFrame(columns=columns)
 
-    entry_time = pd.to_datetime(trades["entry_time"], utc=True).dt.tz_convert(NY_TZ)
-    exit_time = pd.to_datetime(trades["exit_time"], utc=True).dt.tz_convert(NY_TZ)
-    signal_time = pd.to_datetime(trades.get("signal_time", trades["entry_time"]), utc=True).dt.tz_convert(NY_TZ)
-    fill_time = pd.to_datetime(trades.get("fill_time", trades["entry_time"]), utc=True).dt.tz_convert(NY_TZ)
+    entry_time = _robust_tz_convert(trades["entry_time"])
+    exit_time = _robust_tz_convert(trades["exit_time"])
+    signal_time = _robust_tz_convert(trades.get("signal_time", trades["entry_time"]))
+    fill_time = _robust_tz_convert(trades.get("fill_time", trades["entry_time"]))
+    
     pnl_usd = trades["pnl_usd"].astype(float)
     result = np.where(pnl_usd > 0.0, "win", np.where(pnl_usd < 0.0, "loss", "breakeven"))
     exported = pd.DataFrame(
         {
             "pair": trades["pair"],
-            "entry_time_ny": entry_time.dt.strftime("%Y-%m-%d %H:%M:%S"),
-            "exit_time_ny": exit_time.dt.strftime("%Y-%m-%d %H:%M:%S"),
+            "entry_time_ny": [t.strftime("%Y-%m-%d %H:%M:%S") if pd.notnull(t) else "" for t in entry_time],
+            "exit_time_ny": [t.strftime("%Y-%m-%d %H:%M:%S") if pd.notnull(t) else "" for t in exit_time],
             "direction": trades["direction"],
             "entry_side": trades.get("entry_side", pd.Series("", index=trades.index)).astype(str),
-            "signal_time_ny": signal_time.dt.strftime("%Y-%m-%d %H:%M:%S"),
-            "fill_time_ny": fill_time.dt.strftime("%Y-%m-%d %H:%M:%S"),
+            "signal_time_ny": [t.strftime("%Y-%m-%d %H:%M:%S") if pd.notnull(t) else "" for t in signal_time],
+            "fill_time_ny": [t.strftime("%Y-%m-%d %H:%M:%S") if pd.notnull(t) else "" for t in fill_time],
             "signal_price": trades.get("signal_price", trades["entry_price"]).astype(float),
             "fill_price": trades.get("fill_price", trades["entry_price"]).astype(float),
             "entry_price": trades["entry_price"].astype(float),
@@ -119,7 +128,7 @@ def build_trades_export(trades: pd.DataFrame) -> pd.DataFrame:
             "blocking_rule_used": trades.get("blocking_rule_used", pd.Series("", index=trades.index)).astype(str),
             "gap_exit_flag": trades.get("gap_exit_flag", pd.Series(False, index=trades.index)).astype(bool),
             "gap_exit_type": trades.get("gap_exit_type", pd.Series("no_gap", index=trades.index)).astype(str),
-            "date": entry_time.dt.strftime("%Y-%m-%d"),
+            "date": [t.strftime("%Y-%m-%d") if pd.notnull(t) else "" for t in entry_time],
         }
     )
     return exported[columns]
@@ -145,6 +154,7 @@ def build_period_stats(trades_export: pd.DataFrame, freq: str, initial_capital: 
         return pd.DataFrame(columns=columns)
 
     frame = trades_export.copy()
+    # entry_time_ny are strings like %Y-%m-%d %H:%M:%S. Parsing as naive is safe.
     entry_time = pd.to_datetime(frame["entry_time_ny"])
     frame[label] = entry_time.dt.to_period(freq).astype(str)
     rows: list[dict[str, Any]] = []
@@ -182,13 +192,13 @@ def build_equity_curve_export(equity_curve: pd.DataFrame) -> pd.DataFrame:
         return pd.DataFrame(columns=columns)
 
     frame = equity_curve.copy()
-    timestamp = pd.to_datetime(frame["timestamp"], utc=True).dt.tz_convert(NY_TZ)
+    timestamp = _robust_tz_convert(frame["timestamp"])
     equity = frame["equity"].astype(float)
     peak = equity.cummax()
     drawdown_pct = ((equity - peak) / peak.replace(0.0, np.nan)) * 100
     return pd.DataFrame(
         {
-            "datetime_ny": timestamp.dt.strftime("%Y-%m-%d %H:%M:%S"),
+            "datetime_ny": [t.strftime("%Y-%m-%d %H:%M:%S") if pd.notnull(t) else "" for t in timestamp],
             "equity": equity,
             "drawdown_pct": drawdown_pct.fillna(0.0),
         }
@@ -231,6 +241,7 @@ def build_summary(
 
     negative_months = int((monthly_stats.groupby("month")["total_pnl_usd"].sum() < 0).sum()) if not monthly_stats.empty else 0
     negative_years = int((yearly_stats.groupby("year")["total_pnl_usd"].sum() < 0).sum()) if not yearly_stats.empty else 0
+    positive_years = int((yearly_stats.groupby("year")["total_pnl_usd"].sum() > 0).sum()) if not yearly_stats.empty else 0
     avg_trades_per_month = 0.0
     if not equity_export.empty:
         dt_index = pd.to_datetime(equity_export["datetime_ny"])
@@ -253,6 +264,8 @@ def build_summary(
         "max_drawdown_pct": max_drawdown_pct,
         "negative_months": negative_months,
         "negative_years": negative_years,
+        "positive_years": positive_years,
+        "years_positive": positive_years,
         "parameter_set_used": params,
         "insufficient_sample": bool(insufficient_sample),
         "sample_penalty_applied": bool(sample_penalty_applied),

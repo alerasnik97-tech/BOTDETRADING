@@ -1,0 +1,18 @@
+{
+  "gate_id": "ENGINE_SAFETY_GATE_20260427",
+  "verdict": "ENGINE_SAFETY_GATE_PASSED",
+  "test_summary": {
+    "total": 16,
+    "passed": 16,
+    "failed": 0,
+    "errors": 0
+  },
+  "protected_against": [
+    "sign_flip_bug",
+    "unpaid_spread",
+    "lookahead_indicators",
+    "same_bar_bias",
+    "rollover_errors"
+  ],
+  "status": "VALIDATED"
+}

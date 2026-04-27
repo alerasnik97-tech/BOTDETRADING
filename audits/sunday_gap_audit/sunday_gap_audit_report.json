@@ -1,0 +1,20 @@
+{
+  "audit_name": "Sunday Session Gap Hypothesis",
+  "verdict": "SUNDAY_GAP_PRESENT_MATERIAL",
+  "findings": {
+    "sunday_bars_in_source": true,
+    "structural_loss_observed": true,
+    "monday_pollution": true,
+    "strategy_impact": "high"
+  },
+  "root_cause": {
+    "file": "institutional_research_candidate_lab/baseline_truth_model.py",
+    "function": "compute_session_levels",
+    "reason": "Sunday treated as a full trading day for Monday PDH/PDL reference"
+  },
+  "impact_metrics": {
+    "sample_monday_pdl_error_pips": 13.5,
+    "average_sunday_bars_h1": 3.4
+  },
+  "next_step": "REMEDIATION_PLAN_MINIMAL"
+}

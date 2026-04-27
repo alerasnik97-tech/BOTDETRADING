@@ -1,0 +1,22 @@
+{
+    "REJECTION_WICK_M5": {
+        "N": 24,
+        "wins": 9,
+        "losses": 15,
+        "pf": 0.9,
+        "expectancy": -0.062,
+        "max_drawdown": -5.5,
+        "win_rate": 0.375,
+        "decision": "REJECT_EARLY"
+    },
+    "SWEEP_CLOSE_BACK_INSIDE_M5": {
+        "N": 22,
+        "wins": 11,
+        "losses": 11,
+        "pf": 1.5,
+        "expectancy": 0.25,
+        "max_drawdown": -3.0,
+        "win_rate": 0.5,
+        "decision": "ELIGIBLE_FOR_STAGE2"
+    }
+}
