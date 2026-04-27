@@ -1,6 +1,6 @@
 # ZIP CONTENTS MANIFEST
 
-**Fecha de Reconstrucción:** 2026-04-27 (POST-PHASE 13)
+**Fecha de Reconstrucción:** 2026-04-27 (POST-PHASE 18)
 **Estado:** **CANÓNICO MAESTRO SANEADO**
 
 ## 1. Contenido Incluido
@@ -15,8 +15,9 @@
 
 ### Estructura de Autoridad
 - `BOT_V2_DAYTIME_LAB\`: Laboratorio de investigación diurna.
-- `BOT_V2_DAYTIME_LAB\reports\PHASE13_TWO_PRACTICAL_ENTRIES_REPORT.md`: Reporte del nuevo candidato estrella.
-- `STRATEGIES\`: Fases de estrategias 7 a 13 con estatus actualizado.
+- `BOT_V2_DAYTIME_LAB\reports\PHASE18_H1_FRACTAL_SWEEP_ALIGNMENT_REPORT.md`: Reporte del éxito de la alineación manual.
+- `BOT_V2_DAYTIME_LAB\src\phase18_h1_fractal_sweep.py`: Motor de fractales dinámicos.
+- `STRATEGIES\`: Fases de estrategias 7 a 18 con estatus actualizado.
 - `REPORTS\engine_safety\`: Certificación del Engine Safety Gate.
 - `VPS_READINESS\`: Infraestructura y guías para despliegue en VPS.
 
@@ -27,4 +28,4 @@
 - Credenciales y configuraciones locales reales.
 
 ## 3. Veredicto
-Este ZIP representa el **Estado del Arte** del proyecto tras el éxito de la Phase 13. Incluye el modelo **London Reclaim Dual Bias**, certificado con PF 1.62.
+Este ZIP representa el **Estado del Arte** tras cerrar la brecha manual/bot. Incluye el modelo **H1 Fractal Sweep + First 3M CHoCH**, certificado con PF 1.63 y alineado con el historial manual del usuario.
