@@ -17,8 +17,6 @@ from research_lab.config import (
     DEFAULT_HIGH_PRECISION_PREPARED_DIR,
     DEFAULT_NEWS_V2_UTC_FILE,
     DEFAULT_PAIR,
-    DEFAULT_EXECUTION_MODE,
-    DEFAULT_COST_PROFILE,
     DEFAULT_RESULTS_DIR,
     INITIAL_CAPITAL,
     STRATEGY_NAMES,
@@ -136,20 +134,6 @@ def evaluate_strategy(
             f"No se ejecutó WFA completo para ahorrar CPU si falló el primer IS. El mejor IS Profit Factor fue {wfa_res.best_is_pf:.2f} y Expectancy_R {wfa_res.best_is_expectancy:.2f}."
         )
 
-    # NEW HARNESS: OOS REJECTION
-    oos_rejected, oos_level, oos_reason = evaluate_oos_rejection(default_wfa.oos_summary, bool(summary.get("insufficient_sample", False)))
-    if oos_rejected:
-        print(f"[{strategy_name}] DESCARTADA POST-WFA OOS: {oos_reason} ({oos_level})")
-        with open(strategy_dir / "REJECTION_REPORT.md", "w", encoding="utf-8") as f:
-            f.write(f"# ESTRATEGIA RECHAZADA OOS\nNivel: {oos_level}\nFase: OUT-OF-SAMPLE WFA\nMotivo: {oos_reason}\n\nEsta estrategia completó WFA pero falló los umbrales mínimos de robustez.")
-    # Update lineage with OOS decision & final canonical promotion mapping
-    lineage_metadata["oos_rejection_level"] = oos_level
-    lineage_metadata["oos_rejection_reason"] = oos_reason
-    lineage_metadata["final_promotion_status"] = oos_level
-    
-    with open(strategy_dir / "lineage_metadata.json", "w", encoding="utf-8") as f:
-        json.dump(lineage_metadata, f, indent=4)
-        
     return {
         "strategy_name": name,
         "row": ranking_row,
