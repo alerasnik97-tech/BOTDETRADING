@@ -15,12 +15,12 @@ def detect_h1_sweep_momentum(df_ltf, levels, params):
     
     df['date'] = df['timestamp_ny'].dt.date
     
-    df['pdh'] = df['date'].map({d: v.get('pdh') for d, v in levels.items()})
-    df['pdl'] = df['date'].map({d: v.get('pdl') for d, v in levels.items()})
-    df['asia_h'] = df['date'].map({d: v.get('asia_h') for d, v in levels.items()})
-    df['asia_l'] = df['date'].map({d: v.get('asia_l') for d, v in levels.items()})
-    df['london_h'] = df['date'].map({d: v.get('london_h') for d, v in levels.items()})
-    df['london_l'] = df['date'].map({d: v.get('london_l') for d, v in levels.items()})
+    df['pdh'] = df['date'].map({d: v.get('pdh') for d, v in levels.items()}).fillna(999999)
+    df['pdl'] = df['date'].map({d: v.get('pdl') for d, v in levels.items()}).fillna(-999999)
+    df['asia_h'] = df['date'].map({d: v.get('asia_h') for d, v in levels.items()}).fillna(999999)
+    df['asia_l'] = df['date'].map({d: v.get('asia_l') for d, v in levels.items()}).fillna(-999999)
+    df['london_h'] = df['date'].map({d: v.get('london_h') for d, v in levels.items()}).fillna(999999)
+    df['london_l'] = df['date'].map({d: v.get('london_l') for d, v in levels.items()}).fillna(-999999)
 
     min_depth = params.get('min_sweep_depth_pips', 0) * 0.0001
 

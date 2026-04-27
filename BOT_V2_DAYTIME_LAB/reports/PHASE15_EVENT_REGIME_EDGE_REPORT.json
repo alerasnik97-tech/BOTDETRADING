@@ -1,0 +1,23 @@
+{
+  "phase": 15,
+  "verdict": "STRONG_CANDIDATE_PHASE15",
+  "best_strategy": "S1_POST_NEWS_CONTINUATION",
+  "metrics": {
+    "pf": 1.95,
+    "expectancy": 0.477,
+    "sample": 56,
+    "win_rate": 0.5,
+    "resilience_1_pip_slippage": 1.51
+  },
+  "params": {
+    "news_families": ["CPI", "NFP", "RETAIL", "ECB"],
+    "wait_block_mins": 60,
+    "range_detect_mins": 15,
+    "tp_r": 2.0
+  },
+  "operational_constraints": {
+    "window": "07:00-20:00 NY",
+    "rollover_block": "17:00-19:00 NY",
+    "news_guard": "PASSED"
+  }
+}
