@@ -1,0 +1,21 @@
+{
+  "phase": 13,
+  "top_candidate": "London Reclaim Dual Bias",
+  "metrics_2020_2026": {
+    "sample": 524,
+    "pf": 1.62,
+    "expectancy": 0.297,
+    "win_rate": 0.454,
+    "trades_per_month": 7.5
+  },
+  "robustness": {
+    "pf_2015_2019": 1.30,
+    "sample_2015_2019": 397
+  },
+  "cost_sensitivity": {
+    "pf_base": 1.62,
+    "pf_stress_1_pip": 1.41
+  },
+  "verdict": "STRONG_CANDIDATE_PHASE13",
+  "status": "SUCCESS"
+}

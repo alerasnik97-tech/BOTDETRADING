@@ -8,6 +8,12 @@
     },
     "daytime_candidates": [
       {
+        "id": "Phase13_London_Reclaim",
+        "pf": 1.62,
+        "status": "strong_candidate",
+        "frequency": "medium_high"
+      },
+      {
         "id": "Phase8_High_Precision",
         "pf": 2.09,
         "status": "forward_candidate",
