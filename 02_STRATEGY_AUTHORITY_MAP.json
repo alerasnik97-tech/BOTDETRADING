@@ -9,21 +9,16 @@
     "daytime_candidates": [
       {
         "id": "Phase13_London_Reclaim",
-        "pf": 1.62,
-        "status": "strong_candidate",
-        "frequency": "medium_high"
+        "pf_london": 7.57,
+        "pf_ny": 0.90,
+        "status": "strong_candidate_restricted",
+        "restriction": "Only valid 03:00-07:00 NY"
       },
       {
         "id": "Phase8_High_Precision",
         "pf": 2.09,
         "status": "forward_candidate",
         "frequency": "low"
-      },
-      {
-        "id": "Phase7_Repaired",
-        "pf": 1.50,
-        "status": "forward_candidate",
-        "frequency": "medium"
       }
     ],
     "vps_readiness": {
@@ -31,9 +26,7 @@
       "purpose": "forward_demo_validation"
     },
     "rejected_phases": [
-      { "id": "Phase9", "reason": "edge_destruction_by_frequency" },
-      { "id": "Phase10", "reason": "insufficient_edge_at_high_frequency" },
-      { "id": "Phase11", "reason": "no_improvement_over_baseline" },
+      { "id": "Phase14", "reason": "negative_pf_in_ny_window" },
       { "id": "Phase12", "reason": "invalidated_by_hallucination_and_bug" }
     ]
   },
