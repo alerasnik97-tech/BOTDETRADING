@@ -1,0 +1,21 @@
+{
+  "test_date": "2026-04-27",
+  "verdict": "SMOKE_TEST_PASSED",
+  "environment": {
+    "python_version": "3.14.3",
+    "pandas_version": "3.0.2",
+    "numpy_version": "2.4.4",
+    "pytz_status": "ok"
+  },
+  "compilation": {
+    "scope": "BOT_V2_DAYTIME_LAB/src",
+    "status": "success"
+  },
+  "path_audit": {
+    "obsolete_references_found": 0
+  },
+  "zip_integrity": {
+    "status": "clean_and_verified",
+    "exclusions_met": true
+  }
+}

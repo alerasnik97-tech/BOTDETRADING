@@ -1,0 +1,14 @@
+{
+  "updated_at_utc": "2026-04-22T11:55:52.331174+00:00",
+  "processed_sweeps": 12176,
+  "last_sweep_time": "2025-12-31 17:00:00-05:00",
+  "counters": {
+    "sweeps_total": 12176,
+    "trades_executed": 1610,
+    "daily_limit_skips": 10291,
+    "news_blocked_candidates": 55,
+    "no_scbi_found": 206,
+    "invalid_risk": 14,
+    "news_forceflat_exits": 85
+  }
+}

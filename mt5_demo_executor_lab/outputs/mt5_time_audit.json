@@ -1,0 +1,14 @@
+{
+    "timestamp_utc": "2026-04-24T19:47:24.295351+00:00",
+    "ny_time": "2026-04-24T15:47:24.295351-04:00",
+    "mt5_server_time_utc": "N/A",
+    "offset_server_to_ny_hours": "N/A",
+    "runtime_config": {
+        "start": "07:00 NY",
+        "stop": "20:30 NY"
+    },
+    "sanity_check": {
+        "ny_timezone_correct": true,
+        "mt5_connection_ok": false
+    }
+}

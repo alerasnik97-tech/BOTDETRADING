@@ -1,0 +1,15 @@
+{
+  "target_date": "2026-04-21",
+  "run_id": "dual_chain_2026-04-21",
+  "timestamp": "2026-04-23T10:07:45.612491",
+  "args": {
+    "run": true,
+    "date": "2026-04-21",
+    "force": false
+  },
+  "results": {
+    "global": "SUCCESS",
+    "core": "FAILED",
+    "scoreboard": "SUCCESS"
+  }
+}

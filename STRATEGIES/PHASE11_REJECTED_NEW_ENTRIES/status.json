@@ -1,0 +1,6 @@
+{
+  "strategy_id": "PHASE11_REJECTED_NEW_ENTRIES",
+  "status": "REJECTED",
+  "reason": "no_improvement_over_baseline_phases",
+  "last_update": "2026-04-27"
+}

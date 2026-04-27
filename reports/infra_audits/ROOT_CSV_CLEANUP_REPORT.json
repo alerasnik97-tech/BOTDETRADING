@@ -1,0 +1,6 @@
+{
+  "cleanup_date": "2026-04-27",
+  "status": "SUCCESS",
+  "moved_csv_count": 25,
+  "destination": "ARCHIVE_SUPERSEDED/old_root_csvs"
+}

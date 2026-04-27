@@ -1,0 +1,12 @@
+{
+  "phase": 12,
+  "status": "PENDING_FORENSIC_AUDIT",
+  "quarantine_date": "2026-04-27",
+  "reason": "Extreme PF discrepancy (11.71 vs historical 1.3) and Phase 7/8 authority conflict",
+  "restrictions": {
+    "forward_testing": false,
+    "paper_trading": false,
+    "real_trading": false
+  },
+  "affected_strategies": ["Selective Fakeout V2", "Phase 7", "Phase 8"]
+}

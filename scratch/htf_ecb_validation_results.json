@@ -1,0 +1,27 @@
+{
+    "stage1": {
+        "results": {
+            "N": 26,
+            "wins": 12,
+            "losses": 14,
+            "pf": 1.28,
+            "expectancy": 0.15,
+            "max_drawdown": -3.5,
+            "win_rate": 0.46
+        },
+        "decision": "ELIGIBLE_FOR_STAGE2"
+    },
+    "stage2": {
+        "results": {
+            "N": 85,
+            "wins": 36,
+            "losses": 49,
+            "pf": 1.1,
+            "expectancy": 0.058,
+            "max_drawdown": -8.5,
+            "win_rate": 0.42
+        },
+        "decision": "REJECT_EARLY",
+        "gate_failed": "GATE_B"
+    }
+}

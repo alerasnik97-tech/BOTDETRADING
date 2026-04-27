@@ -1,0 +1,274 @@
+{
+  "test": "SCBI_M5_FULL_CAMPAIGN_FORMALIZATION",
+  "runner": "scratch/run_scbi_full_campaign.py",
+  "source": "scratch/real_htf_filter_ab_results.json (Rama A)",
+  "n_total": 1080,
+  "segments": {
+    "development": [
+      "2022-01-01",
+      "2023-06-30"
+    ],
+    "validation": [
+      "2023-07-01",
+      "2024-06-30"
+    ],
+    "holdout": [
+      "2024-07-01",
+      "2025-12-31"
+    ]
+  },
+  "global_metrics": {
+    "N": 1080,
+    "wins": 671,
+    "losses": 409,
+    "pf": 2.444,
+    "expectancy": 0.4297,
+    "max_drawdown": -9.6,
+    "win_rate": 0.621,
+    "total_r": 464.04
+  },
+  "segment_metrics": {
+    "development": {
+      "N": 407,
+      "wins": 249,
+      "losses": 158,
+      "pf": 2.353,
+      "expectancy": 0.4428,
+      "max_drawdown": -9.6,
+      "win_rate": 0.612,
+      "total_r": 180.21
+    },
+    "validation": {
+      "N": 264,
+      "wins": 162,
+      "losses": 102,
+      "pf": 2.248,
+      "expectancy": 0.3749,
+      "max_drawdown": -8.32,
+      "win_rate": 0.614,
+      "total_r": 98.96
+    },
+    "holdout": {
+      "N": 409,
+      "wins": 260,
+      "losses": 149,
+      "pf": 2.699,
+      "expectancy": 0.452,
+      "max_drawdown": -6.16,
+      "win_rate": 0.636,
+      "total_r": 184.87
+    }
+  },
+  "yearly_metrics": {
+    "2022": {
+      "N": 269,
+      "wins": 162,
+      "losses": 107,
+      "pf": 2.34,
+      "expectancy": 0.4372,
+      "max_drawdown": -9.6,
+      "win_rate": 0.602,
+      "total_r": 117.61
+    },
+    "2023": {
+      "N": 270,
+      "wins": 159,
+      "losses": 111,
+      "pf": 2.023,
+      "expectancy": 0.3473,
+      "max_drawdown": -8.32,
+      "win_rate": 0.589,
+      "total_r": 93.77
+    },
+    "2024": {
+      "N": 270,
+      "wins": 184,
+      "losses": 86,
+      "pf": 3.432,
+      "expectancy": 0.5572,
+      "max_drawdown": -4.7,
+      "win_rate": 0.681,
+      "total_r": 150.44
+    },
+    "2025": {
+      "N": 271,
+      "wins": 166,
+      "losses": 105,
+      "pf": 2.279,
+      "expectancy": 0.3772,
+      "max_drawdown": -6.16,
+      "win_rate": 0.613,
+      "total_r": 102.22
+    }
+  },
+  "monthly_pnl": {
+    "2022-01": 10.88,
+    "2022-02": 14.05,
+    "2022-03": 0.17,
+    "2022-04": 5.96,
+    "2022-05": 14.46,
+    "2022-06": 4.0,
+    "2022-07": 14.87,
+    "2022-08": 15.21,
+    "2022-09": 1.64,
+    "2022-10": 6.16,
+    "2022-11": 19.08,
+    "2022-12": 11.13,
+    "2023-01": 0.94,
+    "2023-02": 10.81,
+    "2023-03": 10.55,
+    "2023-04": 16.86,
+    "2023-05": 13.25,
+    "2023-06": 10.19,
+    "2023-07": 4.04,
+    "2023-08": 3.16,
+    "2023-09": 4.21,
+    "2023-10": 10.35,
+    "2023-11": -0.12,
+    "2023-12": 9.53,
+    "2024-01": 3.05,
+    "2024-02": 16.1,
+    "2024-03": 13.28,
+    "2024-04": 17.52,
+    "2024-05": 4.99,
+    "2024-06": 12.86,
+    "2024-07": 18.07,
+    "2024-08": 5.76,
+    "2024-09": 14.55,
+    "2024-10": 10.14,
+    "2024-11": 16.77,
+    "2024-12": 17.36,
+    "2025-01": 6.03,
+    "2025-02": 13.9,
+    "2025-03": 12.08,
+    "2025-04": 8.7,
+    "2025-05": 7.07,
+    "2025-06": 7.91,
+    "2025-07": 8.72,
+    "2025-08": 11.31,
+    "2025-09": 11.07,
+    "2025-10": 1.81,
+    "2025-11": 2.7,
+    "2025-12": 10.91
+  },
+  "months_positive": 47,
+  "months_negative": 1,
+  "max_neg_in_12mo_window": 1,
+  "stress_global": {
+    "N": 1080,
+    "wins": 661,
+    "losses": 419,
+    "pf": 2.007,
+    "expectancy": 0.3352,
+    "max_drawdown": -12.42,
+    "win_rate": 0.612,
+    "total_r": 361.98
+  },
+  "stress_segment": {
+    "development": {
+      "N": 407,
+      "wins": 244,
+      "losses": 163,
+      "pf": 1.995,
+      "expectancy": 0.3572,
+      "max_drawdown": -12.42,
+      "win_rate": 0.6,
+      "total_r": 145.39
+    },
+    "validation": {
+      "N": 264,
+      "wins": 157,
+      "losses": 107,
+      "pf": 1.788,
+      "expectancy": 0.2705,
+      "max_drawdown": -9.57,
+      "win_rate": 0.595,
+      "total_r": 71.42
+    },
+    "holdout": {
+      "N": 409,
+      "wins": 260,
+      "losses": 149,
+      "pf": 2.181,
+      "expectancy": 0.3549,
+      "max_drawdown": -8.38,
+      "win_rate": 0.636,
+      "total_r": 145.16
+    }
+  },
+  "concentration": {
+    "top_10pct_share": 0.206,
+    "top_20pct_share": 0.413,
+    "max_losing_streak": 8,
+    "total_profit_r": 785.29
+  },
+  "yearly_profit_share": {
+    "2022": {
+      "profit_r": 117.61,
+      "share": 0.253
+    },
+    "2023": {
+      "profit_r": 93.77,
+      "share": 0.202
+    },
+    "2024": {
+      "profit_r": 150.44,
+      "share": 0.324
+    },
+    "2025": {
+      "profit_r": 102.23,
+      "share": 0.22
+    }
+  },
+  "sensitivity_without_pdx": {
+    "N": 665,
+    "wins": 464,
+    "losses": 201,
+    "pf": 4.02,
+    "expectancy": 0.655,
+    "max_drawdown": -4.51,
+    "win_rate": 0.698,
+    "total_r": 435.54
+  },
+  "criteria": {
+    "A_global": {
+      "pass": true,
+      "pf": true,
+      "exp": true,
+      "dd": true,
+      "n": true
+    },
+    "B_block_stability": {
+      "pass": true,
+      "all_pf_gt_1": true,
+      "all_exp_gt_0": true,
+      "holdout_pf_gte_120": true
+    },
+    "C_temporal": {
+      "pass": true,
+      "years_pf_gt_1": 4,
+      "max_neg_12mo": 1
+    },
+    "D_cost": {
+      "pass": true,
+      "stress_pf_gt_1": true,
+      "stress_exp_gt_0": true,
+      "holdout_stress_pf_gt_090": true
+    },
+    "E_concentration": {
+      "pass": true,
+      "top20_lte_080": true,
+      "max_year_lte_050": true
+    }
+  },
+  "decision": "FULL_CAMPAIGN_RESEARCH_APPROVED",
+  "reason": "5/5 criteria passed",
+  "integrity_checks": {
+    "DATA_SOURCE": "PASS",
+    "TRADES_COUNT": "PASS (N=1080)",
+    "TIMESTAMPS": "PASS",
+    "NO_HARDCODED": "PASS",
+    "NO_FALLBACK": "PASS",
+    "CHRONOLOGICAL": "PASS"
+  }
+}

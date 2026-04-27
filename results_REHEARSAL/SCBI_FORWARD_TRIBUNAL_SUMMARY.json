@@ -1,0 +1,38 @@
+{
+  "timestamp": "2026-04-23T13:07:46.508242+00:00",
+  "drift_integration_mode": "TRIBUNAL_SAFE_TO_USE",
+  "drift_validation_status": "DRIFT_MONITOR_STILL_VALID",
+  "telemetry_trace_path": "results\\SCBI_FORWARD_TELEMETRY_TRACE.csv",
+  "verdicts": [
+    {
+      "line": "SCBI_M5_GLOBAL",
+      "verdict": "PAPER_ONLY (Gathering Sample)",
+      "n": 1,
+      "pf": 999.0,
+      "dd": 0.0,
+      "drift_label": "NO_DRIFT",
+      "drift_r": 0.0,
+      "drift_gate_applied": false,
+      "telemetry_execution_fidelity": "FULL",
+      "telemetry_blocking_fidelity": "FULL",
+      "telemetry_last_guard_status": "PASS",
+      "telemetry_last_incident": NaN,
+      "telemetry_lineage_coverage": 0.9412
+    },
+    {
+      "line": "SCBI_CORE",
+      "verdict": "PAPER_ONLY (Gathering Sample)",
+      "n": 1,
+      "pf": 999.0,
+      "dd": 0.0,
+      "drift_label": "NO_DRIFT",
+      "drift_r": 0.0,
+      "drift_gate_applied": false,
+      "telemetry_execution_fidelity": "UNAVAILABLE",
+      "telemetry_blocking_fidelity": "UNAVAILABLE",
+      "telemetry_last_guard_status": "WARNING",
+      "telemetry_last_incident": "CONCENTRATION",
+      "telemetry_lineage_coverage": 1.0
+    }
+  ]
+}

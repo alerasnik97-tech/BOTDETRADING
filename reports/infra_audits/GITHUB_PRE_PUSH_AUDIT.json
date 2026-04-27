@@ -1,0 +1,12 @@
+{
+  "audit_type": "GITHUB_PRE_PUSH",
+  "verdict": "AUDIT_WARNING_STAGING_REQUIRED",
+  "git_status": {
+    "branch": "main",
+    "remote": "https://github.com/alerasnik97-tech/bottrading.git",
+    "ahead_commits": 1
+  },
+  "large_files_detected": true,
+  "secrets_risk": "HIGH (mt5_local_config.json detected)",
+  "recommended_action": "Branch cleanup sync"
+}

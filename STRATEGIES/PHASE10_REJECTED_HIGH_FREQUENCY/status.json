@@ -1,0 +1,6 @@
+{
+  "strategy_id": "PHASE10_REJECTED_HIGH_FREQUENCY",
+  "status": "REJECTED",
+  "reason": "insufficient_edge_at_high_frequency",
+  "last_update": "2026-04-27"
+}

@@ -1,0 +1,34 @@
+REPORTE DE ANALITICA OPERATIVA
+Generado UTC: 2026-04-23T20:02:19Z
+Fuente: C:\Users\alera\Desktop\Bot\operational_logs\daily_operational_log.csv
+
+1. CARGA Y LIMPIEZA
+- Rows loaded: 1
+- Rows retained: 1
+- Rows dropped invalid date: 0
+- Duplicate dates: NONE
+- Missing values filled: {}
+
+2. METRICAS AVANZADAS
+- total_runs: 1
+- unique_dates: 1
+- success_rate_operational: 100.0%
+- error_rate_real: 0.0%
+- fail_closed_rate: 0.0%
+- canonical_overlap_rate: 100.0%
+- coverage_ready_rate: 100.0%
+- daily_operable_rate: 100.0%
+
+3. STREAKS
+- longest_streak_without_real_errors: 1
+- current_streak_without_real_errors: 1
+- fail_closed_streak: 0
+- full_operation_streak: 0
+
+4. PATRONES
+- repetitive_blockers: 0
+- anomalous_sequences: 0
+- behavior_changes: 0
+
+5. ALERTAS
+- NONE

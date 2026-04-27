@@ -1,0 +1,1 @@
+{"generated_at_utc": "2026-04-23T00:00:00Z", "baseline_version": "POST_HARDENING_SIGNAL_DRIFT_V1", "monitor_validation_verdict": "DRIFT_MONITOR_STILL_VALID", "tribunal_integration_mode": "TRIBUNAL_SAFE_TO_USE", "lines": {"SCBI_M5_GLOBAL": {"verdict": "NO_DRIFT", "drift_r": 0.0}, "SCBI_CORE": {"verdict": "NO_DRIFT", "drift_r": 0.0}}}

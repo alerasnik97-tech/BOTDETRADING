@@ -1,0 +1,93 @@
+{
+  "parameters": {
+    "h1_ema_fast": 50,
+    "h1_ema_slow": 200,
+    "h1_adx_period": 14,
+    "h1_adx_threshold": 18.0,
+    "m15_ema_period": 20,
+    "m15_rsi_period": 7,
+    "m15_rsi_pullback_long": 45.0,
+    "m15_rsi_pullback_short": 55.0,
+    "m15_atr_period": 14,
+    "m15_max_prev_range_atr": 1.5,
+    "m5_rsi_period": 7,
+    "m5_atr_period": 14,
+    "m5_trigger_rsi_midpoint": 50.0,
+    "stop_atr_multiple": 1.2,
+    "take_profit_rr": 1.8
+  },
+  "broker": {
+    "initial_capital": 100000.0,
+    "risk_fraction": 0.0075,
+    "commission_rate": 2e-05,
+    "slippage_pips": 0.2,
+    "use_spread_model": 1,
+    "max_leverage": 20.0,
+    "lot_step": 1000,
+    "session_start": "11:00",
+    "session_end": "18:45"
+  },
+  "data_quality": [
+    {
+      "pair": "GBPUSD",
+      "bars": 75455,
+      "coverage_ratio": 1.0,
+      "missing_bars": 0,
+      "max_missing_streak_bars": 0,
+      "duplicate_timestamps": 0,
+      "unexpected_schedule_bars": 0,
+      "weekend_bars": 0,
+      "zero_range_bars": 527,
+      "nonpositive_prices": 0,
+      "invalid_hilo_bars": 0,
+      "outlier_return_bars": 28,
+      "quality_score": 95.96499999999999,
+      "quality_status": "warn"
+    },
+    {
+      "pair": "EURUSD",
+      "bars": 75455,
+      "coverage_ratio": 1.0,
+      "missing_bars": 0,
+      "max_missing_streak_bars": 0,
+      "duplicate_timestamps": 0,
+      "unexpected_schedule_bars": 0,
+      "weekend_bars": 0,
+      "zero_range_bars": 537,
+      "nonpositive_prices": 0,
+      "invalid_hilo_bars": 0,
+      "outlier_return_bars": 28,
+      "quality_score": 95.91499999999999,
+      "quality_status": "warn"
+    },
+    {
+      "pair": "USDJPY",
+      "bars": 75455,
+      "coverage_ratio": 1.0,
+      "missing_bars": 0,
+      "max_missing_streak_bars": 0,
+      "duplicate_timestamps": 0,
+      "unexpected_schedule_bars": 0,
+      "weekend_bars": 0,
+      "zero_range_bars": 525,
+      "nonpositive_prices": 0,
+      "invalid_hilo_bars": 0,
+      "outlier_return_bars": 44,
+      "quality_score": 95.175,
+      "quality_status": "warn"
+    }
+  ],
+  "portfolio_summary": {
+    "initial_capital": 100000.0,
+    "final_equity": 39362.54402060682,
+    "total_return_pct": -60.63745597939318,
+    "max_drawdown_pct": 61.73574074029907,
+    "sharpe_ratio": -4.657385779213263,
+    "profit_factor": 0.5819057775609878,
+    "total_trades": 420,
+    "wins": 136,
+    "losses": 284,
+    "win_rate_pct": 32.38095238095238
+  },
+  "robustness_score": 0.0826126627720687
+}

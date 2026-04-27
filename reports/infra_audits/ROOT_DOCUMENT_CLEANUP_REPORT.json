@@ -1,0 +1,7 @@
+{
+  "cleanup_date": "2026-04-27",
+  "status": "SUCCESS",
+  "moved_files_count": 150,
+  "destination": "ARCHIVE_SUPERSEDED/old_root_documents",
+  "preserved_files": ["00", "01", "02", "03", "ZIP_MANIFEST", "000_PARA_CHATGPT.zip", ".gitignore"]
+}

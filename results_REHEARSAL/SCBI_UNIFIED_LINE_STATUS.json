@@ -1,0 +1,284 @@
+{
+  "generated_at_utc": "2026-04-23T13:07:47+00:00",
+  "engine": "UNIFIED_LINE_STATUS_ENGINE_V1",
+  "benchmark_reference": {
+    "strategy": "H6_SILVER_BULLET_HYBRID",
+    "role": "Benchmark conceptual congelado"
+  },
+  "taxonomy_outcome": {
+    "line_status": "LINE_STATUS_CLEAR",
+    "surface_status": "DECISION_SURFACE_CANONICAL",
+    "automation_status": "AUTOMATION_SAFE"
+  },
+  "integration_decision": {
+    "chosen_shape": "STATUS_FILE_AUTONOMO_PLUS_THIN_TABLE",
+    "kept_existing_scoreboard": true,
+    "reason": "El scoreboard vigente conserva la capa cuantitativa; la nueva superficie agrega lectura institucional sin romper consumidores existentes."
+  },
+  "sequential_evidence_status": {
+    "available": false,
+    "integrated_in_surface": false,
+    "validator_decision": "UNAVAILABLE",
+    "trace_path": "",
+    "daily_path": "",
+    "validator_summary_available": false,
+    "integration_posture": "UNAVAILABLE"
+  },
+  "lab_summary": {
+    "GLOBAL": "PAPER_ONLY (Gathering Sample)",
+    "CORE": "PAPER_ONLY (Gathering Sample)",
+    "meaning": "El laboratorio queda legible por linea en una sola vista derivada: arquitectura fuerte, evidencia forward corta y sin permiso de promocion.",
+    "what_can_do": [
+      "Seguir paper oficial y generar lectura institucional diaria/semanal.",
+      "Reejecutar la superficie sin tocar alpha ni lineas activas.",
+      "Usar la vista unificada como tablero de decision y no como sustituto de los ledgers."
+    ],
+    "what_cannot_do": [
+      "No promover GLOBAL ni CORE a demo o real con la muestra vigente.",
+      "No forzar conclusiones de drift estructural con N aun corta.",
+      "No contradecir tribunal, readiness ni ledgers desde la vista derivada."
+    ],
+    "next_action": "Acumular evidencia forward oficial y reconstruir la superficie unificada en cada corte semanal del tribunal."
+  },
+  "source_precedence": [
+    "Ledgers y outputs oficiales en results/",
+    "Status json vigentes",
+    "Documentos protocol/results/decision",
+    "Artefactos historicos de freeze solo como contexto puntual"
+  ],
+  "trace_summary": {
+    "trace_path": "results\\SCBI_FORWARD_TELEMETRY_TRACE.csv",
+    "trace_hash": "07226DC1F6C4C94248D0DE1D5A99F42540D7D7DCBD5487235D95952AF9A704E4",
+    "trace_rows": 24
+  },
+  "telemetry_status": {
+    "decision": "FORWARD_TELEMETRY_HARDENING_CONFIRMED",
+    "status": "CONFIRMED"
+  },
+  "tribunal_status": {
+    "decision": "FORWARD_TRIBUNAL_READY",
+    "status": "READY"
+  },
+  "readiness_status": {
+    "decision": "REAL_READINESS_GATE_READY",
+    "status": "READY"
+  },
+  "prop_risk_status": {
+    "decision": "PROP_FIRM_RISK_LAYER_READY",
+    "status": "READY"
+  },
+  "validation": {
+    "status": "PASS",
+    "scoreboard_vs_ledgers": {
+      "SCBI_M5_GLOBAL": "PASS",
+      "SCBI_CORE": "PASS"
+    },
+    "tribunal_vs_scoreboard": {
+      "SCBI_M5_GLOBAL": "PASS",
+      "SCBI_CORE": "PASS"
+    },
+    "telemetry_vs_live_trace": {
+      "SCBI_M5_GLOBAL": "PASS",
+      "SCBI_CORE": "PASS"
+    },
+    "readiness_snapshot": {
+      "SCBI_M5_GLOBAL": "PAPER_ONLY",
+      "SCBI_CORE": "PAPER_ONLY"
+    }
+  },
+  "lines": [
+    {
+      "source_line": "SCBI_M5_GLOBAL",
+      "line_status_clarity": "LINE_STATUS_CLEAR",
+      "institutional_operating_state": "PAPER_ONLY (Gathering Sample)",
+      "surface_relation_to_truth": "DECISION_SURFACE_CANONICAL",
+      "automation_posture": "AUTOMATION_SAFE",
+      "OFFICIAL_SAMPLE_STATE": {
+        "sample_n": 1,
+        "sample_checkpoint": "BELOW_ENVELOPE_MINIMUM",
+        "last_activity_ny": "2026-04-21 09:30:00-04:00",
+        "official_ledger_source": "results\\SCBI_FORWARD_LEDGER.csv",
+        "forward_evidence_read_surface": "results\\SCBI_FORWARD_TELEMETRY_TRACE.csv"
+      },
+      "PERFORMANCE_STATE": {
+        "pf_forward": 999.0,
+        "expectancy_r": 1.5,
+        "max_dd_r": 0.0,
+        "scoreboard_pointer": "results/SCBI_DUAL_LINE_SCOREBOARD.csv#SCBI_M5_GLOBAL"
+      },
+      "DRIFT_STATE": {
+        "drift_label": "NO_DRIFT",
+        "drift_r": 0.0,
+        "drift_governance_mode": "TRIBUNAL_SAFE_TO_USE",
+        "drift_validation_status": "DRIFT_MONITOR_STILL_VALID",
+        "drift_gate_applied": false
+      },
+      "EARLY_EXPECTATION_STATE": {
+        "expectation_label": "EXPECTATION_MODEL_NOT_RELIABLE",
+        "note": "La capa de expectation no pudo emitir una lectura confiable.",
+        "envelope_source": "results/SCBI_EARLY_FORWARD_EXPECTATION_ENVELOPES.json#SCBI_M5_GLOBAL"
+      },
+      "TELEMETRY_STATE": {
+        "trace_path": "results\\SCBI_FORWARD_TELEMETRY_TRACE.csv",
+        "trace_hash": "07226DC1F6C4C94248D0DE1D5A99F42540D7D7DCBD5487235D95952AF9A704E4",
+        "trace_rows": 24,
+        "execution_fidelity": "FULL",
+        "blocking_fidelity": "FULL",
+        "lineage_coverage": 0.9412,
+        "official_event_count_live": 19,
+        "official_trade_events": 1,
+        "block_events": 5
+      },
+      "F_GUARD_AND_INCIDENT_STATE": {
+        "guard_status": "PASS",
+        "guard_reason": "No positive profit concentration to evaluate.",
+        "incident_code": "",
+        "prop_risk_decision": "PROP_FIRM_RISK_LAYER_READY"
+      },
+      "READINESS_STATE": {
+        "readiness_decision": "REAL_READINESS_GATE_READY",
+        "readiness_status": "READY",
+        "current_promotion_state": "PAPER_ONLY",
+        "gate_rules": {
+          "paper_to_demo": "N >= 20",
+          "demo_to_real": "N >= 40 total",
+          "drift_limit": 0.35,
+          "severity_block": "HIGH"
+        }
+      },
+      "PROMOTION_STATE": {
+        "promotion_state": "PAPER_ONLY",
+        "promotion_reason": "La readiness gate sigue cerrada por muestra oficial menor a 20 trades.",
+        "tribunal_rules": {
+          "demo_eligibility": "N>=20 & PF>2.2",
+          "real_eligibility": "N>=40 & PF>1.8",
+          "fail_closed": "DD<=-6.0 or Risk_Fail",
+          "drift_gate": "disabled while drift_gate_applied remains false"
+        }
+      },
+      "NEXT_ACTION_STATE": {
+        "next_action": "Acumular evidencia forward oficial hasta alcanzar N=5 y volver a reconstruir la superficie unificada."
+      },
+      "summary": "SCBI_M5_GLOBAL queda en PAPER_ONLY (Gathering Sample). La muestra oficial sigue demasiado corta para una lectura estadistica fuerte.",
+      "active_risks": [
+        "Muestra oficial menor a 5 trades: no hay lectura de expectation envelope."
+      ],
+      "what_can_do": [
+        "Seguir acumulando evidencia paper oficial dentro del stack vigente.",
+        "Reejecutar scoreboard, tribunal y superficie unificada sin tocar alpha.",
+        "Usar la superficie solo como lectura institucional y no como override manual."
+      ],
+      "what_cannot_do": [
+        "No promocionar manualmente la linea a demo ni a real.",
+        "No vender la linea como lista para real.",
+        "No reinterpretar N/PF/Exp/DD fuera de los ledgers canonicamente reconciliados.",
+        "No concluir drift estructural serio con la muestra actual."
+      ],
+      "canonical_source_pointers": [
+        "results/SCBI_DUAL_LINE_SCOREBOARD.csv#SCBI_M5_GLOBAL",
+        "results/SCBI_FORWARD_TRIBUNAL_SUMMARY.json#SCBI_M5_GLOBAL",
+        "results/SCBI_SIGNAL_DRIFT_REPORT.json#SCBI_M5_GLOBAL",
+        "results/SCBI_EARLY_FORWARD_EXPECTATION_ENVELOPES.json#SCBI_M5_GLOBAL",
+        "results/SCBI_FORWARD_TELEMETRY_TRACE.csv#line=SCBI_M5_GLOBAL",
+        "REAL_READINESS_GATE_STATUS.json#SCBI_M5_GLOBAL"
+      ]
+    },
+    {
+      "source_line": "SCBI_CORE",
+      "line_status_clarity": "LINE_STATUS_CLEAR",
+      "institutional_operating_state": "PAPER_ONLY (Gathering Sample)",
+      "surface_relation_to_truth": "DECISION_SURFACE_CANONICAL",
+      "automation_posture": "AUTOMATION_SAFE",
+      "OFFICIAL_SAMPLE_STATE": {
+        "sample_n": 1,
+        "sample_checkpoint": "BELOW_ENVELOPE_MINIMUM",
+        "last_activity_ny": "2026-04-20 17:00:00-04:00",
+        "official_ledger_source": "results\\SCBI_CORE_PHASE1\\core_phase1_ledger.csv",
+        "forward_evidence_read_surface": "results\\SCBI_CORE_PHASE1\\core_phase1_ledger.csv"
+      },
+      "PERFORMANCE_STATE": {
+        "pf_forward": 999.0,
+        "expectancy_r": 1.5,
+        "max_dd_r": 0.0,
+        "scoreboard_pointer": "results/SCBI_DUAL_LINE_SCOREBOARD.csv#SCBI_CORE"
+      },
+      "DRIFT_STATE": {
+        "drift_label": "NO_DRIFT",
+        "drift_r": 0.0,
+        "drift_governance_mode": "TRIBUNAL_SAFE_TO_USE",
+        "drift_validation_status": "DRIFT_MONITOR_STILL_VALID",
+        "drift_gate_applied": false
+      },
+      "EARLY_EXPECTATION_STATE": {
+        "expectation_label": "EXPECTATION_MODEL_NOT_RELIABLE",
+        "note": "La capa de expectation no pudo emitir una lectura confiable.",
+        "envelope_source": "results/SCBI_EARLY_FORWARD_EXPECTATION_ENVELOPES.json#SCBI_CORE"
+      },
+      "TELEMETRY_STATE": {
+        "trace_path": "results\\SCBI_FORWARD_TELEMETRY_TRACE.csv",
+        "trace_hash": "07226DC1F6C4C94248D0DE1D5A99F42540D7D7DCBD5487235D95952AF9A704E4",
+        "trace_rows": 24,
+        "execution_fidelity": "UNAVAILABLE",
+        "blocking_fidelity": "UNAVAILABLE",
+        "lineage_coverage": 1.0,
+        "official_event_count_live": 5,
+        "official_trade_events": 0,
+        "block_events": 0
+      },
+      "F_GUARD_AND_INCIDENT_STATE": {
+        "guard_status": "WARNING",
+        "guard_reason": "Profit concentration 1.000 exceeds 0.35",
+        "incident_code": "CONCENTRATION",
+        "prop_risk_decision": "PROP_FIRM_RISK_LAYER_READY"
+      },
+      "READINESS_STATE": {
+        "readiness_decision": "REAL_READINESS_GATE_READY",
+        "readiness_status": "READY",
+        "current_promotion_state": "PAPER_ONLY",
+        "gate_rules": {
+          "paper_to_demo": "N >= 20",
+          "demo_to_real": "N >= 40 total",
+          "drift_limit": 0.35,
+          "severity_block": "HIGH"
+        }
+      },
+      "PROMOTION_STATE": {
+        "promotion_state": "PAPER_ONLY",
+        "promotion_reason": "La readiness gate sigue cerrada por muestra oficial menor a 20 trades.",
+        "tribunal_rules": {
+          "demo_eligibility": "N>=20 & PF>2.2",
+          "real_eligibility": "N>=40 & PF>1.8",
+          "fail_closed": "DD<=-6.0 or Risk_Fail",
+          "drift_gate": "disabled while drift_gate_applied remains false"
+        }
+      },
+      "NEXT_ACTION_STATE": {
+        "next_action": "Acumular evidencia forward oficial hasta alcanzar N=5 y volver a reconstruir la superficie unificada."
+      },
+      "summary": "SCBI_CORE queda en PAPER_ONLY (Gathering Sample). La muestra oficial sigue demasiado corta para una lectura estadistica fuerte. Existe una advertencia operativa activa en guards. El ultimo incidente relevante es CONCENTRATION.",
+      "active_risks": [
+        "Muestra oficial menor a 5 trades: no hay lectura de expectation envelope.",
+        "Guard activo: Profit concentration 1.000 exceeds 0.35"
+      ],
+      "what_can_do": [
+        "Seguir acumulando evidencia paper oficial dentro del stack vigente.",
+        "Reejecutar scoreboard, tribunal y superficie unificada sin tocar alpha.",
+        "Usar la superficie solo como lectura institucional y no como override manual."
+      ],
+      "what_cannot_do": [
+        "No promocionar manualmente la linea a demo ni a real.",
+        "No vender la linea como lista para real.",
+        "No reinterpretar N/PF/Exp/DD fuera de los ledgers canonicamente reconciliados.",
+        "No concluir drift estructural serio con la muestra actual."
+      ],
+      "canonical_source_pointers": [
+        "results/SCBI_DUAL_LINE_SCOREBOARD.csv#SCBI_CORE",
+        "results/SCBI_FORWARD_TRIBUNAL_SUMMARY.json#SCBI_CORE",
+        "results/SCBI_SIGNAL_DRIFT_REPORT.json#SCBI_CORE",
+        "results/SCBI_EARLY_FORWARD_EXPECTATION_ENVELOPES.json#SCBI_CORE",
+        "results/SCBI_FORWARD_TELEMETRY_TRACE.csv#line=SCBI_CORE",
+        "REAL_READINESS_GATE_STATUS.json#SCBI_CORE"
+      ]
+    }
+  ]
+}

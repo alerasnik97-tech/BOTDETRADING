@@ -11,12 +11,14 @@ DEFAULT_DATA_DIRS = (
     Path("data_free_2020/prepared"),
     Path("data_candidates_2022_2025/prepared"),
 )
-DEFAULT_RAW_NEWS_FILE = Path("data/forex_factory_cache.csv")
-DEFAULT_NEWS_FILE = Path("data/news_eurusd_m15_validated.csv")
-DEFAULT_NEWS_AUDIT_FILE = Path("data/news_eurusd_m15_audit.csv")
-DEFAULT_NEWS_SUMMARY_FILE = Path("data/news_eurusd_m15_summary.json")
-DEFAULT_NEWS_ENABLED = False
-DEFAULT_NEWS_SOURCE_APPROVED = True
+DEFAULT_HIGH_PRECISION_RAW_DIR = Path("data_precision_raw") / "dukascopy"
+DEFAULT_HIGH_PRECISION_PREPARED_DIR = Path("data_precision") / "dukascopy"
+DEFAULT_TRADING_ECONOMICS_IMPORT_DIR = Path("data") / "news_imports"
+DEFAULT_RAW_NEWS_FILE_OBSOLETE = Path("data/forex_factory_cache.csv")
+DEFAULT_NEWS_FILE_OBSOLETE = Path("data/news_eurusd_m15_validated.csv")
+DEFAULT_NEWS_V2_UTC_FILE = Path("data/news_eurusd_v2_utc.csv")
+DEFAULT_NEWS_ENABLED = True  # ENABLED for research phase
+DEFAULT_NEWS_SOURCE_APPROVED = True  # APPROVED for UTC-based sources
 DEFAULT_RESULTS_DIR = Path("results") / "research_lab_robust"
 VISIBLE_CHATGPT_ARCHIVE = Path("000_PARA_CHATGPT.zip")
 INITIAL_CAPITAL = 100_000.0
@@ -38,10 +40,10 @@ DEFAULT_WFA_IS_MONTHS = 24
 DEFAULT_WFA_OOS_MONTHS = 6
 ALT_WFA_IS_MONTHS = 36
 ALT_WFA_OOS_MONTHS = 6
-MIN_TOTAL_TRADES = 600
-MIN_TRADES_PER_MONTH = 1.0
-TARGET_TRADES_PER_MONTH_MIN = 15.0
-TARGET_TRADES_PER_MONTH_MAX = 25.0
+MIN_TOTAL_TRADES = 100  # Relajado para fase de descubrimiento PM
+MIN_TRADES_PER_MONTH = 0.5  # Minimo 1 trade cada 2 meses para investigacion
+TARGET_TRADES_PER_MONTH_MIN = 3.0
+TARGET_TRADES_PER_MONTH_MAX = 15.0
 
 PAIR_META: dict[str, dict[str, Any]] = {
     "EURUSD": {
@@ -60,22 +62,92 @@ PAIR_META: dict[str, dict[str, Any]] = {
     },
 }
 
-STRATEGY_NAMES: tuple[str, ...] = (
-    "bollinger_mean_reversion_simple",
-    "ema_trend_pullback",
-    "bollinger_mean_reversion_adx_low",
-    "donchian_breakout_regime",
-    "keltner_volatility_expansion_simple",
-    "keltner_squeeze_breakout",
-    "supertrend_ema_filter",
-)
+PAIR_CANONICAL_DATA_DIRS: dict[str, tuple[Path, ...]] = {
+    "EURUSD": DEFAULT_DATA_DIRS,
+    "USDJPY": (
+        Path("data_usdjpy_2016_2021") / "prepared",
+        Path("data_usdjpy_2022_2025") / "prepared",
+    ),
+}
 
+PAIR_CANONICAL_NEWS_FILES: dict[str, Path] = {
+    "EURUSD": Path("data") / "news_eurusd_am_fortress_v3.csv",
+    "USDJPY": Path("data") / "news_usdjpy_fortress_v1.csv",
+}
+
+PAIR_CANONICAL_NEWS_SUMMARY_FILES: dict[str, Path] = {
+    "EURUSD": Path("data") / "news_eurusd_am_fortress_v3_summary.json",
+    "USDJPY": Path("data") / "news_usdjpy_fortress_v1_summary.json",
+}
+
+PAIR_DEFAULT_NEWS_IMPACTS: dict[str, tuple[str, ...]] = {
+    "EURUSD": ("HIGH",),
+    "USDJPY": ("HIGH",),
+}
+
+PAIR_FIRST_FAMILY_HIGH_PRECISION_REQUIRED: dict[str, bool] = {
+    "EURUSD": True,
+    "USDJPY": False,
+}
+
+STRATEGY_NAMES: tuple[str, ...] = (
+    "prev_day_sweep_reversion_pm",
+    "asia_london_sweep_reversion_pm",
+    "midday_false_break_range",
+    "midday_range_breakout_continuation",
+    "h1_trend_pullback_pm",
+    "adr_exhaustion_fade",
+    "h1_inside_bar_break_pm",
+    "daily_open_mean_reversion_pm",
+    "ict_silver_bullet_pm",
+    "zscore_mean_reversion_pm",
+    "donchian_intraday_breakout",
+    "adx_momentum_breakout",
+    "turtle_soup_fade",
+    "nr7_breakout",
+    "triple_macd_filter",
+    "ema_alignment_9_21_50",
+    "larry_connors_rsi2",
+    "ict_fvg_liquidity_gap",
+    "h1_aligned_fvg",
+    "h1_trend_pullback_v2",
+    "h1_gated_zscore",
+    "london_sweep_reversion_pm",
+    "asia_sweep_reversion_pm",
+    "prev_day_extrema_sweep",
+    "am_silver_bullet_ny",
+    "eurusd_h1_liquidity_sweep_m15",
+    "eurusd_am_post_news_external_liquidity_shift",
+    "campaign3_extended_session_sweep",
+    "campaign3_midday_daily_reclaim",
+    "campaign3_post_news_continuation",
+    "campaign3_afternoon_compression_breakout",
+    "campaign3_london_ny_hybrid",
+    "campaign3_late_session_momentum",
+    "campaign3_mtf_alignment",
+    "campaign3b_midday_reclaim",
+    "campaign3b_compression_breakout",
+    "campaign3b_post_news_continuation",
+    "campaign3b_session_expansion",
+)
 
 SESSION_VARIANTS: dict[str, tuple[str, str]] = {
     "all_day": ("00:00", "23:45"),
     "london_ny": ("03:00", "17:00"),
     "ny_open": ("07:00", "11:00"),
+    "research_08_1630": ("08:00", "16:30"),
     "light_fixed": ("11:00", "19:00"),
+    "pm_11_12": ("11:00", "12:00"),
+    "pm_12_1330": ("12:00", "13:30"),
+    "pm_1330_16": ("13:30", "16:00"),
+    "pm_1630_19": ("16:30", "19:00"),
+    "pm_11_1630": ("11:00", "16:30"),
+    "pm_silver_bullet": ("14:00", "15:00"),
+    "pm_11_16": ("11:00", "16:00"),
+    "pm_11_17": ("11:00", "17:00"),
+    "am_08_11": ("08:00", "11:00"),
+    "asia_19_03": ("19:00", "03:00"),
+    "london_03_07": ("03:00", "07:00"),
 }
 
 
@@ -89,23 +161,28 @@ class SessionConfig:
 @dataclass(frozen=True)
 class NewsConfig:
     enabled: bool = DEFAULT_NEWS_ENABLED
-    file_path: Path = DEFAULT_NEWS_FILE
-    raw_file_path: Path = DEFAULT_RAW_NEWS_FILE
+    file_path: Path = DEFAULT_NEWS_V2_UTC_FILE
+    raw_file_path: Path = DEFAULT_RAW_NEWS_FILE_OBSOLETE
     source_approved: bool = DEFAULT_NEWS_SOURCE_APPROVED
-    pre_minutes: int = 15
-    post_minutes: int = 15
+    utc_canonical: bool = True
+    pre_minutes: int = 30
+    post_minutes: int = 60
     currencies: tuple[str, ...] | None = None
     impact_levels: tuple[str, ...] = ("HIGH",)
-    block_new_entries_only: bool = True
+    block_new_entries_only: bool = False  # FORTRESS: Default to full block
+    fomc_only: bool = False
+    forced_exit_pre_news: bool = True     # FORTRESS: Kill positions before impact
+    cancel_pending_pre_news: bool = True  # FORTRESS: Kill signals before impact
+    pre_news_exit_minutes: int = 10       # 10m buffer for liquidity exit
 
 
 @dataclass(frozen=True)
 class EngineConfig:
     pair: str = DEFAULT_PAIR
     risk_pct: float = DEFAULT_RISK_PCT
-    shock_candle_atr_max: float = 2.2
+    shock_candle_atr_max: float = 4.0
     assumed_spread_pips: float | None = None
-    max_spread_pips: float = DEFAULT_SPREAD_PIPS
+    max_spread_pips: float = 3.0
     commission_per_lot_roundturn_usd: float = DEFAULT_COMMISSION_ROUNDTURN_USD
     slippage_pips: float = DEFAULT_SLIPPAGE_PIPS
     opening_session_end: str = "13:00"
@@ -113,12 +190,13 @@ class EngineConfig:
     high_vol_range_atr: float = 1.0
     spread_opening_multiplier: float = 1.05
     spread_high_vol_multiplier: float = 1.25
-    spread_late_session_multiplier: float = 1.1
+    spread_late_session_multiplier: float = 3.0  # HARDENED: 1.1 era un fill irrealista para rollover (17:00 NY)
     slippage_opening_multiplier: float = 1.1
     slippage_high_vol_multiplier: float = 1.5
-    slippage_stop_multiplier: float = 1.25
+    slippage_stop_multiplier: float = 1.5       # HARDENED: 1.25 -> 1.5 (Stop Loss slippage)
+    slippage_stop_entry_multiplier: float = 1.5 # HARDENED: NEW (Stop Entry/Breakout slippage)
     slippage_target_multiplier: float = 1.0
-    slippage_late_session_multiplier: float = 1.15
+    slippage_late_session_multiplier: float = 2.0 # HARDENED: penalizar más fuerte rollover slippage
     slippage_forced_close_multiplier: float = 1.1
     slippage_final_close_multiplier: float = 1.05
     stress_spread_multiplier: float = 1.35
@@ -131,6 +209,73 @@ class EngineConfig:
     execution_mode: str = DEFAULT_EXECUTION_MODE
     cost_profile: str = DEFAULT_COST_PROFILE
     intrabar_policy: str = DEFAULT_INTRABAR_POLICY
+    session_cutoff: str | None = None
+    enforce_hard_stop: bool = True        # FORTRESS: Reject signals without SL
+
+
+def pair_currencies(pair: str) -> tuple[str, str]:
+    meta = PAIR_META[pair]
+    return str(meta["base"]), str(meta["quote"])
+
+
+def canonical_prepared_data_dirs(pair: str) -> tuple[Path, ...]:
+    try:
+        return PAIR_CANONICAL_DATA_DIRS[pair]
+    except KeyError as exc:
+        raise ValueError(f"No hay contrato canonico de datos para {pair}") from exc
+
+
+def canonical_news_file(pair: str) -> Path:
+    try:
+        return PAIR_CANONICAL_NEWS_FILES[pair]
+    except KeyError as exc:
+        raise ValueError(f"No hay dataset canonico de noticias para {pair}") from exc
+
+
+def canonical_news_summary_file(pair: str) -> Path:
+    try:
+        return PAIR_CANONICAL_NEWS_SUMMARY_FILES[pair]
+    except KeyError as exc:
+        raise ValueError(f"No hay summary canonico de noticias para {pair}") from exc
+
+
+def default_news_impacts(pair: str) -> tuple[str, ...]:
+    try:
+        return PAIR_DEFAULT_NEWS_IMPACTS[pair]
+    except KeyError as exc:
+        raise ValueError(f"No hay contrato de impactos por defecto para {pair}") from exc
+
+
+def first_family_requires_high_precision(pair: str) -> bool:
+    try:
+        return bool(PAIR_FIRST_FAMILY_HIGH_PRECISION_REQUIRED[pair])
+    except KeyError as exc:
+        raise ValueError(f"No hay politica de precision declarada para {pair}") from exc
+
+
+def canonical_news_config(
+    pair: str,
+    *,
+    enabled: bool = True,
+    pre_minutes: int = 30,
+    post_minutes: int = 60,
+    forced_exit_pre_news: bool = True,
+    cancel_pending_pre_news: bool = True,
+    pre_news_exit_minutes: int = 10,
+) -> NewsConfig:
+    return NewsConfig(
+        enabled=enabled,
+        file_path=canonical_news_file(pair),
+        raw_file_path=DEFAULT_RAW_NEWS_FILE_OBSOLETE,
+        source_approved=True,
+        currencies=tuple(sorted(pair_currencies(pair))),
+        impact_levels=default_news_impacts(pair),
+        pre_minutes=pre_minutes,
+        post_minutes=post_minutes,
+        forced_exit_pre_news=forced_exit_pre_news,
+        cancel_pending_pre_news=cancel_pending_pre_news,
+        pre_news_exit_minutes=pre_news_exit_minutes,
+    )
 
 
 def time_to_minute(value: str) -> int:

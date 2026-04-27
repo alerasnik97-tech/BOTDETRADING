@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-04-24T02:09:16.500848Z",
+  "variant_id": "tp_1p50_timeout_4h_sl_1p0_longbuf_0p3_win_0_1_mode_close_reclaim_pick_first_levels_all_levels_news_sweep_plus_minus_30m",
+  "verdict": "SHADOW_INCUBATING",
+  "metrics": {
+    "total_shadow_runs": 17,
+    "total_shadow_trades": 0,
+    "unique_shadow_dates": 2,
+    "cumulative_R": 0.0,
+    "avg_R": 0.0,
+    "median_R": 0.0,
+    "win_rate": 0.0,
+    "pf": 0.0,
+    "expectancy_R": 0.0,
+    "max_drawdown_R": 0.0,
+    "timeout_rate": 0.0,
+    "news_block_rate": 0.0,
+    "trade_frequency": 0.0,
+    "current_streak_positive_or_flat": 0,
+    "current_streak_negative": 0,
+    "current_streak_no_execution": 17
+  },
+  "alerts": [],
+  "status": "OPERATIONAL"
+}

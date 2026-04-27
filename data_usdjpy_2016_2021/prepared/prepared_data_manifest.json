@@ -1,0 +1,15 @@
+﻿{
+    "strategy_parameters":  {
+
+                            },
+    "run_config":  {
+                       "report_dir":  "reports_usdjpy_2016_2021_merge",
+                       "source":  "local",
+                       "start":  "2016-01-01",
+                       "end":  "2021-12-31",
+                       "pairs":  [
+                                     "USDJPY"
+                                 ],
+                       "data_dir":  "data_usdjpy_2016_2021"
+                   }
+}
