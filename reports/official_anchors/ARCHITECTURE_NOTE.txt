@@ -1,0 +1,14 @@
+Official Anchor Events Pipeline (FREE) — notas de arquitectura
+
+Capas:
+1) Connectors — research_lab/official_anchors/connectors/
+2) IntermediateEvent — schema.py (normalización previa)
+3) Builder — builder.py (UTC canónico, NY derivado IANA, dedupe, status técnico vs operational_eligible)
+4) Salida — data/official_anchors/out/canonical_anchor_events.csv
+5) Reporte — reports/official_anchors/pipeline_run_report.json
+
+Ejecución:
+  python -m research_lab.official_anchors.run_pipeline
+  python -m research_lab.official_anchors.run_pipeline --start 2024-01-01 --end 2026-12-31
+
+No activa noticias en el motor. source_approved por defecto false (--source-approved solo para pruebas auditadas).

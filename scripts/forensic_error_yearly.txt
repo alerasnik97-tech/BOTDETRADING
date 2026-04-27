@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\scripts\final_forensic_backtest.py", line 306, in <module>
+    run_forensic()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\scripts\final_forensic_backtest.py", line 258, in run_forensic
+    "pnl": s["total_pnl_r"],
+           ~^^^^^^^^^^^^^^^
+KeyError: 'total_pnl_r'

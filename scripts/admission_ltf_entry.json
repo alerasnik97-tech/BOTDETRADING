@@ -1,0 +1,17 @@
+{
+  "name": "EURUSD_LTF_OBJECTIVE_ENTRY_REPLACEMENT",
+  "is_programmable": true,
+  "has_news_fortress": true,
+  "is_not_rejected_family": true,
+  "friction_resistant": true,
+  "has_material_differentiation": true,
+  "programmability_score": 25,
+  "differentiation_score": 20,
+  "temporal_selectivity_score": 15,
+  "austerity_score": 20,
+  "htf_confluence_score": 10,
+  "base_evidence_score": 5,
+  "penalty_excess_confirmation": false,
+  "penalty_wide_time_domain": false,
+  "penalty_no_fixed_sl": false
+}

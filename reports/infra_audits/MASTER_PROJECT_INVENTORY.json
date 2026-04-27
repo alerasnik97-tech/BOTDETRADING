@@ -1,0 +1,16 @@
+{
+  "inventory_date": "2026-04-27",
+  "root_official": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo",
+  "directories": {
+    "BOT_V2_DAYTIME_LAB": { "status": "active", "file_count": 276, "role": "daytime_lab" },
+    "STRATEGIES": { "status": "active", "file_count": 10, "role": "strategy_storage" },
+    "REPORTS": { "status": "active", "file_count": 162, "role": "audits_and_results" },
+    "DATA": { "status": "active", "file_count": 76, "role": "consolidated_datasets" },
+    "ARCHIVE_SUPERSEDED": { "status": "archive", "file_count": 351, "role": "historical_evidence" }
+  },
+  "findings": {
+    "duplicate_zips": ["root/000_PARA_CHATGPT.zip", "BOT_V2_DAYTIME_LAB/000_PARA_CHATGPT.zip"],
+    "authority_docs": ["00_READ_THIS_FIRST.md", "01_CURRENT_PROJECT_STATUS.md", "02_STRATEGY_AUTHORITY_MAP.md", "03_OBSOLETE_AND_SUPERSEDED_INDEX.md"]
+  },
+  "verdict": "STRUCTURE_VALIDATED"
+}

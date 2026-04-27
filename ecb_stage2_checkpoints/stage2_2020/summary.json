@@ -1,0 +1,36 @@
+{
+  "strategy_name": "eurusd_ltf_objective_entry_replacement_ecb",
+  "total_trades": 45,
+  "avg_trades_per_month": 3.75,
+  "win_rate": 40.0,
+  "breakeven_rate": 0.0,
+  "profit_factor": 0.9223494520409181,
+  "expectancy_r": -0.042162502525379314,
+  "total_return_pct": -2.1057407351909974,
+  "max_drawdown_pct": 3.425028474699808,
+  "negative_months": 7,
+  "negative_years": 1,
+  "positive_years": 0,
+  "years_positive": 0,
+  "parameter_set_used": {
+    "variant_label": "ecb_fixed_stage2_v1",
+    "session_name": "all_day",
+    "target_rr": 1.5
+  },
+  "insufficient_sample": true,
+  "sample_penalty_applied": true,
+  "selected_score": null,
+  "news_filter_used": true,
+  "costs_used": {
+    "execution_mode": "high_precision_mode",
+    "cost_profile": "precision"
+  },
+  "timeframe": "M3",
+  "schedule_used": {
+    "sweep_frame": "H1",
+    "entry_frame": "M3",
+    "entry_mode": "stop",
+    "target_rr": "1.5"
+  },
+  "break_even_setting": null
+}

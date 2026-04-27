@@ -1,0 +1,3 @@
+MICRO_PILOT_VERDICT: NOT_READY_FOR_MICRO_PILOT
+GATES_ALL_PASS: False
+REC: Continuar en fase de incubación Shadow hasta completar N=10 trades de evidencia.

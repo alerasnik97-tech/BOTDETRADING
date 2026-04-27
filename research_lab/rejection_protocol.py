@@ -14,10 +14,10 @@ def evaluate_is_rejection(best_is_summary: dict[str, Any]) -> tuple[bool, str, s
     pf = float(best_is_summary.get("profit_factor", 0.0))
     exp = float(best_is_summary.get("expectancy_r", 0.0))
     
-    if pf < 1.05:
+    if pf < 0.1: # Muy permisivo para ver resultados en el ranking
         return True, HARD_REJECT, "IS_FLOP_PF_TOO_LOW"
         
-    if exp < 0.02:
+    if exp < -1.0: # Muy permisivo
         return True, HARD_REJECT, "IS_FLOP_EXP_TOO_LOW"
         
     return False, PASS_MINIMUM, "PASS_IS"
@@ -50,3 +50,29 @@ def evaluate_oos_rejection(oos_summary: dict[str, Any], insufficient_sample: boo
         return False, STRONG_CANDIDATE, "STRONG_CANDIDATE"
         
     return False, PASS_MINIMUM, "PASS_OOS"
+
+def apply_rejection_logic(wfa_res: Any) -> tuple[str, str, float]:
+    """
+    Consolida las evaluaciones IS y OOS en un unico flujo.
+    """
+    # 1. Eval IS (temprana)
+    is_rejected, is_status, is_reason = evaluate_is_rejection({
+        "profit_factor": wfa_res.best_is_pf,
+        "expectancy_r": wfa_res.best_is_expectancy
+    })
+    
+    if is_rejected:
+        return is_status, is_reason, -9999.0
+        
+    # 2. Eval OOS (final)
+    oos_rejected, oos_status, oos_reason = evaluate_oos_rejection(
+        wfa_res.oos_stats, 
+        wfa_res.insufficient_sample
+    )
+    
+    # El score se usa para ranking
+    score = float(wfa_res.oos_stats.get("profit_factor", 0.0)) * 100.0
+    if oos_rejected:
+        score = -9999.0
+        
+    return oos_status, oos_reason, score

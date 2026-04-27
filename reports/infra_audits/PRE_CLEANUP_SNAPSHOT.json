@@ -1,0 +1,15 @@
+{
+  "snapshot_date": "2026-04-27",
+  "root_items": {
+    "total_md_json_loose": 150,
+    "total_csv_loose": 25,
+    "temp_folders": ["temp_zip_staging", "_staging_final", "_zip_clean_1032631789"]
+  },
+  "path_pollution": {
+    "target_old_path": "C:\\Users\\alera\\Desktop\\Bot\\Bot V2",
+    "target_new_path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB",
+    "estimated_replacements": 150
+  },
+  "duplicate_zips": ["root/000_PARA_CHATGPT.zip", "BOT_V2_DAYTIME_LAB/000_PARA_CHATGPT.zip"],
+  "status": "READY_FOR_CLEANUP"
+}

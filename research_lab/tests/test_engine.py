@@ -1,12 +1,14 @@
 from __future__ import annotations
 
 import unittest
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
-from research_lab.config import EngineConfig, NY_TZ
+from research_lab.config import EngineConfig, NewsConfig, NY_TZ
 from research_lab.engine import entry_open_index, run_backtest
+from research_lab.news_filter import build_entry_block
 
 
 def make_frame(rows: list[dict[str, float | str]]) -> pd.DataFrame:
@@ -46,7 +48,41 @@ class LongSignalStrategy:
         return None
 
 
+class MissingStopStrategy:
+    NAME = "missing_stop"
+    WARMUP_BARS = 0
+
+    @staticmethod
+    def signal(frame: pd.DataFrame, i: int, params: dict) -> dict | None:
+        if frame.index[i].strftime("%H:%M") == "11:00":
+            return {
+                "direction": "long",
+                "target_mode": "rr",
+                "target_rr": 1.0,
+                "session_name": "all_day",
+            }
+        return None
+
+
 class EngineTests(unittest.TestCase):
+    def test_enforce_hard_stop_rejects_signal_without_stop(self) -> None:
+        frame = make_frame(
+            [
+                {"timestamp": "2022-01-03 10:45:00", "open": 1.1000, "high": 1.1002, "low": 1.0998, "close": 1.1000},
+                {"timestamp": "2022-01-03 11:00:00", "open": 1.1000, "high": 1.1002, "low": 1.0998, "close": 1.1001},
+                {"timestamp": "2022-01-03 11:15:00", "open": 1.1001, "high": 1.1003, "low": 1.0999, "close": 1.1002},
+            ]
+        )
+        with self.assertRaisesRegex(ValueError, "hard stop valido"):
+            run_backtest(
+                MissingStopStrategy,
+                frame,
+                {},
+                EngineConfig(pair="EURUSD", risk_pct=0.5, assumed_spread_pips=1.0, max_spread_pips=2.0, slippage_pips=0.0, commission_per_lot_roundturn_usd=0.0, max_trades_per_day=2),
+                np.zeros(len(frame), dtype=bool),
+                False,
+            )
+
     def test_signal_before_11_does_not_open_trade(self) -> None:
         frame = make_frame(
             [
@@ -98,7 +134,7 @@ class EngineTests(unittest.TestCase):
             LongSignalStrategy,
             frame,
             {"signal_times": ["18:45"], "direction": "long", "stop_atr": 1.0, "target_rr": 10.0, "session_name": "light_fixed"},
-            EngineConfig(pair="EURUSD", risk_pct=0.5, assumed_spread_pips=1.0, max_spread_pips=2.0, slippage_pips=0.0, commission_per_lot_roundturn_usd=0.0, max_trades_per_day=2),
+            EngineConfig(pair="EURUSD", risk_pct=0.5, assumed_spread_pips=1.0, max_spread_pips=10.0, slippage_pips=0.0, commission_per_lot_roundturn_usd=0.0, max_trades_per_day=2),
             np.zeros(len(frame), dtype=bool),
             False,
         )
@@ -433,3 +469,56 @@ class EngineTests(unittest.TestCase):
         trade = result.trades.iloc[0]
         self.assertFalse(trade["gap_exit_flag"], "Sin gap, gap_exit_flag debe ser False")
         self.assertEqual(trade["gap_exit_type"], "no_gap")
+
+    def test_news_fortress_force_flat_uses_bar_open_once_kill_zone_starts(self) -> None:
+        frame = make_frame(
+            [
+                {"timestamp": "2022-01-03 07:40:00", "open": 1.1000, "high": 1.1001, "low": 1.0999, "close": 1.1000, "atr14": 0.0005},
+                {"timestamp": "2022-01-03 07:45:00", "open": 1.1000, "high": 1.1001, "low": 1.0999, "close": 1.1000, "atr14": 0.0005},
+                {"timestamp": "2022-01-03 07:50:00", "open": 1.1000, "high": 1.1001, "low": 1.0999, "close": 1.1000, "atr14": 0.0005},
+                {"timestamp": "2022-01-03 07:55:00", "open": 1.1000, "high": 1.1001, "low": 1.0999, "close": 1.1000, "atr14": 0.0005},
+                {"timestamp": "2022-01-03 08:00:00", "open": 1.1000, "high": 1.1001, "low": 1.0999, "close": 1.1000, "atr14": 0.0005},
+                {"timestamp": "2022-01-03 08:05:00", "open": 1.1000, "high": 1.1001, "low": 1.0999, "close": 1.1000, "atr14": 0.0005},
+                {"timestamp": "2022-01-03 08:10:00", "open": 1.1000, "high": 1.1001, "low": 1.0999, "close": 1.1000, "atr14": 0.0005},
+                {"timestamp": "2022-01-03 08:15:00", "open": 1.1000, "high": 1.1001, "low": 1.0999, "close": 1.1000, "atr14": 0.0005},
+                {"timestamp": "2022-01-03 08:20:00", "open": 1.1000, "high": 1.1001, "low": 1.0999, "close": 1.1000, "atr14": 0.0005},
+                {"timestamp": "2022-01-03 08:25:00", "open": 1.1001, "high": 1.1003, "low": 1.1000, "close": 1.1002, "atr14": 0.0005},
+                {"timestamp": "2022-01-03 08:30:00", "open": 1.1002, "high": 1.1004, "low": 1.1001, "close": 1.1003, "atr14": 0.0005},
+                {"timestamp": "2022-01-03 08:35:00", "open": 1.1003, "high": 1.1005, "low": 1.1002, "close": 1.1004, "atr14": 0.0005},
+            ]
+        )
+        news_events = pd.DataFrame(
+            [
+                {
+                    "event_name_normalized": "cpi m/m",
+                    "timestamp_ny": pd.Timestamp("2022-01-03 08:30:00", tz=NY_TZ),
+                }
+            ]
+        )
+        news_settings = NewsConfig(
+            enabled=True,
+            file_path=Path("data/news_eurusd_am_fortress_v3.csv"),
+            pre_minutes=30,
+            post_minutes=60,
+            pre_news_exit_minutes=10,
+            forced_exit_pre_news=True,
+            cancel_pending_pre_news=True,
+        )
+        news_block = build_entry_block(entry_open_index(frame.index), news_events, news_settings)
+        result = run_backtest(
+            LongSignalStrategy,
+            frame,
+            {"signal_times": ["07:45"], "direction": "long", "stop_atr": 10.0, "target_rr": 10.0, "session_name": "all_day"},
+            EngineConfig(pair="EURUSD", risk_pct=0.5, assumed_spread_pips=0.0, max_spread_pips=10.0, slippage_pips=0.0, commission_per_lot_roundturn_usd=0.0, max_trades_per_day=2),
+            news_block,
+            True,
+            news_events=news_events,
+            news_settings=news_settings,
+        )
+        self.assertEqual(len(result.trades), 1)
+        trade = result.trades.iloc[0]
+        exit_time_ny = pd.to_datetime(trade["exit_time"], utc=True).tz_convert(NY_TZ)
+        self.assertEqual(trade["exit_reason"], "news_fortress_kill")
+        self.assertEqual(exit_time_ny.strftime("%H:%M"), "08:20")
+        self.assertAlmostEqual(float(trade["exit_signal_price"]), 1.1001, places=4)
+        self.assertEqual(trade["blocking_rule_used"], "force_flat:10m_before_to_event")

@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-04-24T00:48:10.900084Z",
+  "current_n": 0,
+  "checkpoint_target": 0,
+  "checkpoint_name": "NONE",
+  "decision": "CHECKPOINT_NOT_REACHED",
+  "metrics": {
+    "total_trades": 0,
+    "cumulative_r": 0.0,
+    "pf": 0.0,
+    "expectancy_r": 0.0,
+    "max_dd_r": 0.0,
+    "win_rate": 0.0
+  },
+  "baseline_comparison": {
+    "pf_delta": -2.4,
+    "expectancy_delta": -0.41
+  }
+}

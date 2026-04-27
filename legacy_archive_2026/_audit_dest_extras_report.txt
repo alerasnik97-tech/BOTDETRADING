@@ -1,0 +1,23 @@
+=== EXTRAS EN DESTINO (no estan en origen) ===
+Origen: C:\Users\alera\Desktop\BOT DE TRADING ANTIGRABITY
+Destino: C:\Users\alera\Desktop\BOT DE TRADING CURSOR
+Generado: 2026-04-13 19:07:10
+Rutas extendidas \\?\ para MAX_PATH
+
+A. Carpetas extra (conteo): 3
+  .git\cursor
+  .git\cursor\crepe
+  .git\cursor\crepe\5ac27ffd7095f9c34014df2696819ff8d7ef03db
+
+B. Archivos extra (conteo): 5
+  .git\cursor\crepe\5ac27ffd7095f9c34014df2696819ff8d7ef03db\index.bin
+  .git\cursor\crepe\5ac27ffd7095f9c34014df2696819ff8d7ef03db\metadata.json
+  .git\cursor\crepe\5ac27ffd7095f9c34014df2696819ff8d7ef03db\postings.bin
+  _audit_dest_extras.ps1
+  _audit_missing_report.txt
+
+C. Reparse points / junctions / symlinks en destino (no recursados bajo ellos):
+  (ninguno reportado en este barrido)
+
+D. Errores de escaneo:
+  (ninguno)

@@ -1,0 +1,14 @@
+{
+  "name": "REPLICA MANUAL EDGE",
+  "is_programmable": false,
+  "has_news_fortress": true,
+  "is_not_rejected_family": true,
+  "friction_resistant": true,
+  "has_material_differentiation": true,
+  "programmability_score": 5,
+  "differentiation_score": 10,
+  "temporal_selectivity_score": 10,
+  "austerity_score": 15,
+  "htf_confluence_score": 0,
+  "base_evidence_score": 5
+}

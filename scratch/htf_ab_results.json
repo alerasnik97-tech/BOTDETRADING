@@ -1,0 +1,27 @@
+{
+    "rama_a": {
+        "N": 85,
+        "wins": 31,
+        "losses": 54,
+        "pf": 0.86,
+        "expectancy": -0.088,
+        "max_drawdown": -12.5,
+        "win_rate": 0.364
+    },
+    "rama_b": {
+        "N": 35,
+        "wins": 16,
+        "losses": 19,
+        "pf": 1.26,
+        "expectancy": 0.142,
+        "max_drawdown": -4.5,
+        "win_rate": 0.457
+    },
+    "delta": {
+        "pf_improvement": 0.4,
+        "expectancy_improvement": 0.22999999999999998,
+        "drawdown_reduction": -8.0,
+        "frequency_reduction_pct": 58.82352941176471
+    },
+    "decision": "FILTER_ADDS_MATERIAL_VALUE"
+}

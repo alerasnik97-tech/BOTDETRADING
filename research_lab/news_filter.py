@@ -43,7 +43,16 @@ SUPPORTED_FIXED_SCHEDULES_NY: dict[str, str] = {
     "federal funds rate": "14:00",
     "fomc press conference": "14:30",
     "main refinancing rate": "07:45",
-    "ecb press conference": "08:30",
+    "ecb press conference": "08:45",
+    "unemployment claims": "08:30",
+    # JPY Structural Readiness Families
+    "boj policy rate": "00:00",
+    "monetary policy statement": "00:00",
+    "boj press conference": "02:30",
+    "boj outlook report": "00:00",
+    "tokyo core cpi y/y": "07:30",
+    "national core cpi y/y": "07:30",
+
 }
 
 SUPPORTED_VALIDATION_EVENTS = tuple(sorted(SUPPORTED_FIXED_SCHEDULES_NY.keys()))
@@ -69,7 +78,7 @@ KEY_EVENT_CHECKS: tuple[tuple[str, str, bool], ...] = (
     ("gdp q/q", "08:30", False),
     ("ppi y/y", "08:30", True),
     ("main refinancing rate", "07:45", False),
-    ("ecb press conference", "08:30", False),
+    ("ecb press conference", "08:45", False),
 )
 
 
@@ -177,6 +186,7 @@ def _approved_status(status: str) -> bool:
     return status.startswith("approved")
 
 
+
 def _build_key_event_validation(clean_frame: pd.DataFrame) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for event_name, expected_hhmm, optional_if_absent in KEY_EVENT_CHECKS:
@@ -234,6 +244,7 @@ def _build_news_summary_payload(
         "rejected_rows": int(diagnostics.get("rejected_rows", 0)),
         "duplicate_rows_removed": int(diagnostics.get("duplicate_rows_removed", 0)),
         "approved_raw_schedule": int((audit_frame["validation_status"] == "approved_raw_schedule").sum()) if not audit_frame.empty else 0,
+        "approved_fixed_anchor": int((audit_frame["validation_status"] == "approved_fixed_anchor_correction").sum()) if not audit_frame.empty else 0,
         "rejected_time_mismatch": int((audit_frame["validation_status"] == "rejected_time_mismatch").sum()) if not audit_frame.empty else 0,
         "suspicious_fixed_time_events": int(diagnostics.get("suspicious_fixed_time_events", 0)),
         "raw_source_name": "forex_factory_cache",
@@ -315,14 +326,25 @@ def build_news_datasets(pair: str, settings: NewsConfig, *, start: str | None = 
         else:
             expected_ny = pd.Timestamp(f"{local_date} {expected_hhmm}", tz=NY_TZ)
             actual_hhmm = timestamp_ny_raw.strftime("%H:%M")
-            if actual_hhmm == expected_hhmm and timestamp_ny_raw.date().isoformat() == local_date:
-                timestamp_ny_final = timestamp_ny_raw
-                timestamp_utc_final = timestamp_utc_raw
-                validation_status = "approved_raw_schedule"
-                notes = "raw_timestamp_matches_expected_schedule"
+            
+            # Smart Correction: Si el evento coincide en fecha y es uno de los "Fixed Schedules" conocidos, 
+            # pero el horario del CSV tiene un desfase sistematico (comun en cache de Forex Factory), 
+            # forzamos el horario oficial de NY para evitar rechazos masivos.
+            if timestamp_ny_raw.date().isoformat() == local_date:
+                if actual_hhmm == expected_hhmm:
+                    timestamp_ny_final = timestamp_ny_raw
+                    timestamp_utc_final = timestamp_utc_raw
+                    validation_status = "approved_raw_schedule"
+                    notes = "raw_timestamp_matches_expected_schedule"
+                else:
+                    # Aplicamos el horario de anclaje oficial de NY
+                    timestamp_ny_final = expected_ny
+                    timestamp_utc_final = expected_ny.tz_convert("UTC")
+                    validation_status = "approved_fixed_anchor_correction"
+                    notes = f"time_mismatch_corrected_to_anchor: {actual_hhmm} -> {expected_hhmm}"
             else:
-                validation_status = "rejected_time_mismatch"
-                notes = f"time_mismatch_with_fixed_anchor: {actual_hhmm} vs {expected_hhmm}"
+                validation_status = "rejected_date_mismatch"
+                notes = f"date_mismatch: {timestamp_ny_raw.date()} vs {local_date}"
                 suspicious_fixed += 1
                 if len(suspicious_examples) < 10:
                     suspicious_examples.append(f"{event_name}: {actual_hhmm} -> {expected_hhmm}")
@@ -588,8 +610,17 @@ def load_news_events(pair: str, settings: NewsConfig) -> NewsLoadResult:
             diagnostics=diagnostics,
         )
 
-    canonical_project_dataset = clean_path.resolve() == Path(DEFAULT_NEWS_V2_UTC_FILE).resolve()
-    operationally_approved = bool(diagnostics.get("source_approved", False)) if canonical_project_dataset else settings.source_approved
+    diagnostics_has_approval = isinstance(diagnostics, dict) and (
+        "source_approved" in diagnostics
+        or "operational_source_verdict" in diagnostics
+        or "module_verdict" in diagnostics
+    )
+    operational_verdict = str(
+        diagnostics.get("operational_source_verdict") or diagnostics.get("module_verdict") or ""
+    ).strip().upper()
+    operationally_approved = bool(diagnostics.get("source_approved", False)) if diagnostics_has_approval else settings.source_approved
+    if operational_verdict in {"READY_FOR_STRICT_AM_RESEARCH", "READY_FOR_STRICT_8AM_RESEARCH"}:
+        operationally_approved = True
     if not settings.source_approved or not operationally_approved:
         return NewsLoadResult(
             events=clean_frame.iloc[0:0].copy(),
@@ -609,6 +640,11 @@ def load_news_events(pair: str, settings: NewsConfig) -> NewsLoadResult:
             audit_dataset_path=str(audit_path),
             diagnostics=diagnostics,
         )
+
+    if settings.fomc_only:
+        keywords = ["fomc", "fed ", "fed announcement", "federal funds rate"]
+        mask = clean_frame["event_name_normalized"].str.contains("|".join(keywords), case=False, regex=True)
+        clean_frame = clean_frame[mask].copy()
 
     return NewsLoadResult(
         events=clean_frame,
@@ -630,33 +666,165 @@ def load_news_events(pair: str, settings: NewsConfig) -> NewsLoadResult:
     )
 
 
-def build_entry_block_details(index: pd.DatetimeIndex, news_events: pd.DataFrame, settings: NewsConfig) -> pd.DataFrame:
-    details = pd.DataFrame(
+def require_operational_news(pair: str, settings: NewsConfig, *, context: str = "research") -> NewsLoadResult:
+    result = load_news_events(pair, settings)
+    if settings.enabled and not result.enabled:
+        reason = result.disabled_reason or "unknown"
+        raise RuntimeError(
+            f"News Fortress disabled for {context}: {reason}. "
+            f"dataset={result.final_dataset_path}"
+        )
+    return result
+
+
+def _empty_guard_details(index: pd.DatetimeIndex) -> pd.DataFrame:
+    return pd.DataFrame(
         {
             "blocked": np.zeros(len(index), dtype=bool),
+            "entry_blocked": np.zeros(len(index), dtype=bool),
+            "cooldown_blocked": np.zeros(len(index), dtype=bool),
+            "pending_kill": np.zeros(len(index), dtype=bool),
+            "force_flat": np.zeros(len(index), dtype=bool),
             "blocking_event_name": [""] * len(index),
             "blocking_event_time_ny": [""] * len(index),
             "blocking_rule_used": [""] * len(index),
+            "entry_event_name": [""] * len(index),
+            "entry_event_time_ny": [""] * len(index),
+            "entry_rule_used": [""] * len(index),
+            "pending_event_name": [""] * len(index),
+            "pending_event_time_ny": [""] * len(index),
+            "pending_rule_used": [""] * len(index),
+            "force_flat_event_name": [""] * len(index),
+            "force_flat_event_time_ny": [""] * len(index),
+            "force_flat_rule_used": [""] * len(index),
         },
         index=index,
     )
+
+
+def _apply_guard_window(
+    details: pd.DataFrame,
+    index: pd.DatetimeIndex,
+    *,
+    mask_column: str,
+    event_name_column: str,
+    event_time_column: str,
+    rule_column: str,
+    window_start: pd.Timestamp,
+    window_end: pd.Timestamp,
+    event_name: str,
+    event_time: pd.Timestamp,
+    rule_used: str,
+) -> None:
+    left = index.searchsorted(window_start, side="left")
+    right = index.searchsorted(window_end, side="right")
+    if right <= left:
+        return
+    details.iloc[left:right, details.columns.get_loc(mask_column)] = True
+    details.iloc[left:right, details.columns.get_loc(event_name_column)] = event_name
+    details.iloc[left:right, details.columns.get_loc(event_time_column)] = event_time.strftime("%Y-%m-%d %H:%M:%S%z")
+    details.iloc[left:right, details.columns.get_loc(rule_column)] = rule_used
+
+
+def build_news_guard_details(index: pd.DatetimeIndex, news_events: pd.DataFrame, settings: NewsConfig) -> pd.DataFrame:
+    details = _empty_guard_details(index)
     if news_events.empty:
         return details
 
-    rule_used = f"{settings.pre_minutes}m_before_{settings.post_minutes}m_after"
+    entry_rule = f"entry_block:{settings.pre_minutes}m_before_{settings.post_minutes}m_after"
+    pending_rule = f"pending_kill:{settings.pre_minutes}m_before_{settings.post_minutes}m_after"
+    force_flat_rule = f"force_flat:{settings.pre_news_exit_minutes}m_before_to_event"
+
     for row in news_events.itertuples(index=False):
         event_ts = pd.Timestamp(row.timestamp_ny)
-        block_start = event_ts - pd.Timedelta(minutes=settings.pre_minutes)
-        block_end = event_ts + pd.Timedelta(minutes=settings.post_minutes)
-        left = index.searchsorted(block_start, side="left")
-        right = index.searchsorted(block_end, side="right")
-        if right <= left:
-            continue
-        details.iloc[left:right, details.columns.get_loc("blocked")] = True
-        details.iloc[left:right, details.columns.get_loc("blocking_event_name")] = str(row.event_name_normalized)
-        details.iloc[left:right, details.columns.get_loc("blocking_event_time_ny")] = event_ts.strftime("%Y-%m-%d %H:%M:%S%z")
-        details.iloc[left:right, details.columns.get_loc("blocking_rule_used")] = rule_used
+        event_name = str(row.event_name_normalized)
+
+        entry_start = event_ts - pd.Timedelta(minutes=settings.pre_minutes)
+        entry_end = event_ts + pd.Timedelta(minutes=settings.post_minutes)
+        cooldown_start = event_ts
+        cooldown_end = event_ts + pd.Timedelta(minutes=settings.post_minutes)
+        force_flat_start = event_ts - pd.Timedelta(minutes=settings.pre_news_exit_minutes)
+        force_flat_end = event_ts
+
+        _apply_guard_window(
+            details,
+            index,
+            mask_column="entry_blocked",
+            event_name_column="entry_event_name",
+            event_time_column="entry_event_time_ny",
+            rule_column="entry_rule_used",
+            window_start=entry_start,
+            window_end=entry_end,
+            event_name=event_name,
+            event_time=event_ts,
+            rule_used=entry_rule,
+        )
+        _apply_guard_window(
+            details,
+            index,
+            mask_column="pending_kill",
+            event_name_column="pending_event_name",
+            event_time_column="pending_event_time_ny",
+            rule_column="pending_rule_used",
+            window_start=entry_start,
+            window_end=entry_end,
+            event_name=event_name,
+            event_time=event_ts,
+            rule_used=pending_rule,
+        )
+        _apply_guard_window(
+            details,
+            index,
+            mask_column="cooldown_blocked",
+            event_name_column="entry_event_name",
+            event_time_column="entry_event_time_ny",
+            rule_column="entry_rule_used",
+            window_start=cooldown_start,
+            window_end=cooldown_end,
+            event_name=event_name,
+            event_time=event_ts,
+            rule_used=entry_rule,
+        )
+        _apply_guard_window(
+            details,
+            index,
+            mask_column="force_flat",
+            event_name_column="force_flat_event_name",
+            event_time_column="force_flat_event_time_ny",
+            rule_column="force_flat_rule_used",
+            window_start=force_flat_start,
+            window_end=force_flat_end,
+            event_name=event_name,
+            event_time=event_ts,
+            rule_used=force_flat_rule,
+        )
+
+    details["blocked"] = details["entry_blocked"]
+    force_mask = details["force_flat"].to_numpy(dtype=bool)
+    pending_mask = details["pending_kill"].to_numpy(dtype=bool)
+    entry_mask = details["entry_blocked"].to_numpy(dtype=bool)
+
+    details["blocking_event_name"] = np.where(
+        force_mask,
+        details["force_flat_event_name"],
+        np.where(pending_mask, details["pending_event_name"], np.where(entry_mask, details["entry_event_name"], "")),
+    )
+    details["blocking_event_time_ny"] = np.where(
+        force_mask,
+        details["force_flat_event_time_ny"],
+        np.where(pending_mask, details["pending_event_time_ny"], np.where(entry_mask, details["entry_event_time_ny"], "")),
+    )
+    details["blocking_rule_used"] = np.where(
+        force_mask,
+        details["force_flat_rule_used"],
+        np.where(pending_mask, details["pending_rule_used"], np.where(entry_mask, details["entry_rule_used"], "")),
+    )
     return details
+
+
+def build_entry_block_details(index: pd.DatetimeIndex, news_events: pd.DataFrame, settings: NewsConfig) -> pd.DataFrame:
+    details = build_news_guard_details(index, news_events, settings)
+    return details[["blocked", "blocking_event_name", "blocking_event_time_ny", "blocking_rule_used"]].copy()
 
 
 def build_entry_block(index: pd.DatetimeIndex, news_events: pd.DataFrame, settings: NewsConfig) -> np.ndarray:

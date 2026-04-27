@@ -1,0 +1,10 @@
+{
+  "best_params": {
+    "label": "mr_vwap_rsi2__mr_balanced__early__balanced",
+    "style": "mr_vwap_rsi2",
+    "variant": "balanced",
+    "regime": "mr_balanced",
+    "session": "early"
+  },
+  "score": null
+}

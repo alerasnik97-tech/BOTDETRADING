@@ -1,0 +1,77 @@
+{
+  "parameters": {
+    "h1_ema_fast": 50,
+    "h1_ema_slow": 200,
+    "h1_adx_period": 14,
+    "h1_adx_threshold": 18.0,
+    "m15_ema_period": 20,
+    "m15_rsi_period": 7,
+    "m15_rsi_pullback_long": 45.0,
+    "m15_rsi_pullback_short": 55.0,
+    "m15_atr_period": 14,
+    "m15_max_prev_range_atr": 1.5,
+    "m5_rsi_period": 7,
+    "m5_atr_period": 14,
+    "m5_trigger_rsi_midpoint": 50.0,
+    "stop_atr_multiple": 1.2,
+    "take_profit_rr": 1.8
+  },
+  "broker": {
+    "initial_capital": 100000.0,
+    "risk_fraction": 0.0075,
+    "commission_rate": 2e-05,
+    "slippage_pips": 0.2,
+    "use_spread_model": 1,
+    "max_leverage": 20.0,
+    "lot_step": 1000,
+    "session_start": "11:00",
+    "session_end": "18:45"
+  },
+  "data_quality": [
+    {
+      "pair": "EURUSD",
+      "bars": 4032,
+      "coverage_ratio": 0.9828869047619048,
+      "missing_bars": 69,
+      "max_missing_streak_bars": 23,
+      "duplicate_timestamps": 0,
+      "unexpected_schedule_bars": 69,
+      "weekend_bars": 69,
+      "zero_range_bars": 0,
+      "nonpositive_prices": 0,
+      "invalid_hilo_bars": 0,
+      "outlier_return_bars": 0,
+      "quality_score": 59.31,
+      "quality_status": "warn"
+    },
+    {
+      "pair": "GBPUSD",
+      "bars": 4032,
+      "coverage_ratio": 0.9828869047619048,
+      "missing_bars": 69,
+      "max_missing_streak_bars": 23,
+      "duplicate_timestamps": 0,
+      "unexpected_schedule_bars": 69,
+      "weekend_bars": 69,
+      "zero_range_bars": 0,
+      "nonpositive_prices": 0,
+      "invalid_hilo_bars": 0,
+      "outlier_return_bars": 0,
+      "quality_score": 59.31,
+      "quality_status": "warn"
+    }
+  ],
+  "portfolio_summary": {
+    "initial_capital": 100000.0,
+    "final_equity": 96842.63041494181,
+    "total_return_pct": -3.1573695850581895,
+    "max_drawdown_pct": 3.157369585058186,
+    "sharpe_ratio": -6.873256721200116,
+    "profit_factor": 0.0,
+    "total_trades": 4,
+    "wins": 0,
+    "losses": 4,
+    "win_rate_pct": 0.0
+  },
+  "robustness_score": 0.04406589949348928
+}

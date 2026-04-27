@@ -50,6 +50,22 @@ def session_window(name: str) -> tuple[str, str]:
     return SESSION_VARIANTS[name]
 
 
+def is_in_session(dt, session_name: str) -> bool:
+    start_str, end_str = session_window(session_name)
+    start_hour, start_min = map(int, start_str.split(":"))
+    end_hour, end_min = map(int, end_str.split(":"))
+    
+    curr_total = dt.hour * 60 + dt.minute
+    start_total = start_hour * 60 + start_min
+    end_total = end_hour * 60 + end_min
+    
+    if start_total <= end_total:
+        return start_total <= curr_total < end_total
+    else:
+        # Crosses midnight (not expected for PM session but good for robustness)
+        return curr_total >= start_total or curr_total < end_total
+
+
 def add_general_params(param_space: dict[str, list]) -> dict[str, list]:
     merged = dict(param_space)
     merged["session_name"] = list(SESSION_VARIANTS.keys())

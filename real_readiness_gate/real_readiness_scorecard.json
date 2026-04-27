@@ -1,0 +1,59 @@
+{
+  "variant_id": "tp_1p50_timeout_4h_sl_1p0_longbuf_0p3_win_0_1_mode_close_reclaim_pick_first_levels_all_levels_news_sweep_plus_minus_30m",
+  "timestamp": "2026-04-24T00:07:16.414714Z",
+  "gates": {
+    "sample_size": {
+      "value": 1638,
+      "threshold": 1500,
+      "pass": true
+    },
+    "profit_factor": {
+      "value": 2.4741,
+      "threshold": 2.0,
+      "pass": true
+    },
+    "expectancy": {
+      "value": 0.486,
+      "threshold": 0.3,
+      "pass": true
+    },
+    "max_drawdown": {
+      "value": 11.0,
+      "threshold": 15.0,
+      "pass": true
+    },
+    "year_positive_ratio": {
+      "value": 1.0,
+      "threshold": 1.0,
+      "pass": true
+    },
+    "year_concentration": {
+      "value": 0.1845,
+      "threshold": 0.3,
+      "pass": true
+    },
+    "operational_namespace": {
+      "value": "MISSING",
+      "pass": false
+    },
+    "timeout_dependency": {
+      "value": 0.1972,
+      "threshold": 0.4,
+      "pass": true
+    },
+    "shadow_execution": {
+      "value": 0,
+      "threshold": 20,
+      "pass": false
+    }
+  },
+  "verdict": "SHADOW_READY",
+  "blockers": [
+    "MISSING_OPERATIONAL_NAMESPACE",
+    "INSUFFICIENT_SHADOW_SAMPLE"
+  ],
+  "recommendations": [
+    "La l\u00ednea es robusta en backtest. Proceder a crear namespace y ejecutar shadow."
+  ],
+  "primary_blocker": "MISSING_OPERATIONAL_NAMESPACE"
+}
