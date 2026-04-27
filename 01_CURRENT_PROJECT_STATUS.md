@@ -12,12 +12,15 @@ La raíz oficial `C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo` ha sido sane
 - **Candidato Diurno Líder:** Phase 8 High Precision (PF 2.09)
 
 ## 3. Estado de Estrategias
-- **Selective Fakeout V2:** **INVALIDADA** (Error de lógica detectado en auditoría).
 - **SCBI_M5_GLOBAL:** PROTEGIDA (Autoridad Overnight).
-- **Phase 8 High Precision:** RESTAURADA (Autoridad Diurna Vigente).
+- **Phase 7 Repaired:** PF 1.50 (Equilibrio).
+- **Phase 8 High Precision:** PF 2.09 (Alta Precisión).
+- **Phase 13 London Reclaim:** PF 1.62 (Práctico).
+- **Phase 17 Post-News:** PF 2.03 (Macro).
+- **Phase 18 Fractal Sweep:** **VALIDATED_FOR_FORWARD_DEMO** (Certified).
 
 ## 4. Próximo Paso Único
-Retomar validación de Phase 8 High Precision y realizar limpieza de los motores de simulación de la Phase 12.
+Configurar el entorno de Forward Demo para las fases 8, 13 y 18 simultáneamente.
 
 > [!WARNING]
 > Prohibido usar archivos de `ARCHIVE_SUPERSEDED` para toma de decisiones operativas.
