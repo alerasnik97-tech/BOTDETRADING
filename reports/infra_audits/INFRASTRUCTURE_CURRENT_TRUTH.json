@@ -1,0 +1,16 @@
+{
+  "audit_date": "2026-04-27",
+  "verdict": "INFRA_OK",
+  "components": {
+    "bid_ask_spread": { "status": "certified", "datasets": "2015-2026 verified" },
+    "news_guard": { "status": "validated_research", "pending": "latency_check_live" },
+    "python_runtime": { "status": "operational", "dll_issues": "none" },
+    "saturday_sunday_gap": { "status": "fixed", "loaders": "canonical_only" },
+    "bug_19_00": { "status": "controlled", "risk": "low_in_current_phases" }
+  },
+  "operating_hours": {
+    "scbi": "overnight_london",
+    "bot_v2": "daytime_independent",
+    "operational_window": "07:00-20:30"
+  }
+}

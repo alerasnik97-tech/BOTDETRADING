@@ -1,0 +1,27 @@
+{
+  "provider": "dukascopy",
+  "source_type": "dukascopy_m1_bid_ask",
+  "pair": "EURUSD",
+  "input_dir": "data_precision_raw\\dukascopy",
+  "output_dir": "data_precision\\dukascopy",
+  "source_files": {
+    "bid": "data_precision_raw\\dukascopy\\EURUSD_M1_BID.csv",
+    "ask": "data_precision_raw\\dukascopy\\EURUSD_M1_ASK.csv"
+  },
+  "generated_files": {
+    "bid_m1": "data_precision\\dukascopy\\EURUSD_M1_BID.csv",
+    "ask_m1": "data_precision\\dukascopy\\EURUSD_M1_ASK.csv",
+    "mid_m1": "data_precision\\dukascopy\\EURUSD_M1_MID.csv"
+  },
+  "timezone": "America/New_York",
+  "rows_bid": 2233022,
+  "rows_ask": 2233022,
+  "rows_mid": 2233022,
+  "first_timestamp_ny": "2020-01-01 17:00:00-05:00",
+  "last_timestamp_ny": "2025-12-31 16:58:00-05:00",
+  "notes": [
+    "mid_m1 es derivado como promedio de bid y ask reales",
+    "no se activa automaticamente en el motor actual",
+    "la integracion deja la fuente lista para un paso posterior de alta precision"
+  ]
+}

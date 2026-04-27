@@ -1,0 +1,47 @@
+{
+  "unprotected": {
+    "scenario": "unprotected",
+    "final_equity": 88932.85037351598,
+    "total_return_pct": -11.06714962648403,
+    "max_drawdown_pct": 11.797170034203853,
+    "sharpe_ratio": -1.5832034134319946,
+    "profit_factor": 0.10710922797885625,
+    "total_trades": 22,
+    "wins": 5,
+    "losses": 17,
+    "win_rate_pct": 22.727272727272727,
+    "trades_per_month": 1.2941176470588236,
+    "robustness_score": 0.05262579486677286,
+    "news_events_count": 0
+  },
+  "calendar_only": {
+    "scenario": "calendar_only",
+    "final_equity": 91147.3337643532,
+    "total_return_pct": -8.8526662356468,
+    "max_drawdown_pct": 9.600846914972994,
+    "sharpe_ratio": -1.3919263529808816,
+    "profit_factor": 0.12341357387707468,
+    "total_trades": 18,
+    "wins": 4,
+    "losses": 14,
+    "win_rate_pct": 22.22222222222222,
+    "trades_per_month": 1.2857142857142858,
+    "robustness_score": 0.062313748654953836,
+    "news_events_count": 2458
+  },
+  "layered_guard": {
+    "scenario": "layered_guard",
+    "final_equity": 91147.3337643532,
+    "total_return_pct": -8.8526662356468,
+    "max_drawdown_pct": 9.600846914972994,
+    "sharpe_ratio": -1.3919263529808816,
+    "profit_factor": 0.12341357387707468,
+    "total_trades": 18,
+    "wins": 4,
+    "losses": 14,
+    "win_rate_pct": 22.22222222222222,
+    "trades_per_month": 1.2857142857142858,
+    "robustness_score": 0.062313748654953836,
+    "news_events_count": 2458
+  }
+}

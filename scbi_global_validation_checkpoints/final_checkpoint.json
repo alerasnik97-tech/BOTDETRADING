@@ -1,0 +1,85 @@
+{
+  "test": "SCBI_M5_GLOBAL_EDGE_VALIDATION",
+  "source": "scratch/real_htf_filter_ab_results.json (Rama A)",
+  "runner": "scratch/run_scbi_global_validation.py",
+  "n_total": 1080,
+  "period": "2022-01-03 to 2025-12-31",
+  "global_metrics": {
+    "N": 1080,
+    "wins": 671,
+    "losses": 409,
+    "pf": 2.444,
+    "expectancy": 0.4297,
+    "max_drawdown": -9.6,
+    "win_rate": 0.621,
+    "total_r": 464.04
+  },
+  "stress_metrics": {
+    "N": 1080,
+    "wins": 661,
+    "losses": 419,
+    "pf": 2.007,
+    "expectancy": 0.3352,
+    "max_drawdown": -12.42,
+    "win_rate": 0.612,
+    "total_r": 361.98
+  },
+  "yearly_profit_share": {
+    "2022": {
+      "profit_r": 117.61,
+      "share": 0.253
+    },
+    "2023": {
+      "profit_r": 93.77,
+      "share": 0.202
+    },
+    "2024": {
+      "profit_r": 150.44,
+      "share": 0.324
+    },
+    "2025": {
+      "profit_r": 102.22,
+      "share": 0.22
+    }
+  },
+  "criteria_results": {
+    "A_temporal_stability": {
+      "pass": true,
+      "years_pf_gt_1": 4,
+      "all_years_pf_gte_080": true,
+      "years_exp_positive": 4
+    },
+    "B_global_minimums": {
+      "pass": true,
+      "pf_gte_130": true,
+      "exp_gte_010": true,
+      "dd_gt_neg15": true
+    },
+    "C_cost_robustness": {
+      "pass": true,
+      "stress_pf_gt_1": true,
+      "stress_exp_gt_0": true
+    },
+    "D_non_concentration": {
+      "pass": true,
+      "max_year_share_lte_060": true,
+      "max_year_share": 0.324,
+      "top20_share_lte_080": true
+    },
+    "E_directional_stability": {
+      "pass": true,
+      "long_pf_gte_090": true,
+      "short_pf_gte_090": true
+    }
+  },
+  "criteria_passed": 5,
+  "decision": "VALIDATED_FOR_FULL_CAMPAIGN",
+  "reason": "5/5 criteria passed. Failed: none",
+  "integrity_checks": {
+    "DATA_SOURCE": "PASS (verified A/B test output)",
+    "TRADES_COUNT": "PASS (N=1080)",
+    "TRADES_HAVE_TIMESTAMPS": "PASS",
+    "NO_HARDCODED_FALLBACK": "PASS",
+    "CHRONOLOGICAL": "PASS"
+  }
+}

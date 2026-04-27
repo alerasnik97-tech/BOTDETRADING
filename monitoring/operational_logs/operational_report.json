@@ -1,0 +1,107 @@
+{
+  "generated_at_utc": "2026-04-23T20:02:19Z",
+  "source_csv": "C:\\Users\\alera\\Desktop\\Bot\\operational_logs\\daily_operational_log.csv",
+  "output_scope": "read_only_input_write_only_reports",
+  "records": [
+    {
+      "date": "2026-04-22",
+      "feeder_status": "PRESENT",
+      "autopilot_status": "UNKNOWN",
+      "promotion_status": "H1:STAGING|M5:STAGING|NEWS:BLOCK",
+      "chain_status": "BLOCKED",
+      "classification": "DATA_REFRESH_CANONICAL",
+      "coverage_ready": true,
+      "daily_operable": true,
+      "blockers": "NONE",
+      "bundle_updated": true,
+      "source_row": 2
+    }
+  ],
+  "cleaning": {
+    "required_columns": [
+      "date",
+      "feeder_status",
+      "autopilot_status",
+      "promotion_status",
+      "chain_status",
+      "classification",
+      "coverage_ready",
+      "daily_operable",
+      "blockers",
+      "bundle_updated"
+    ],
+    "rows_loaded": 1,
+    "rows_retained": 1,
+    "rows_dropped_invalid_date": 0,
+    "invalid_date_rows": [],
+    "filled_missing_values": {},
+    "duplicate_dates": []
+  },
+  "metrics": {
+    "total_runs": 1,
+    "unique_dates": 1,
+    "success_rate_operational": 1.0,
+    "error_rate_real": 0.0,
+    "fail_closed_rate": 0.0,
+    "canonical_overlap_rate": 1.0,
+    "coverage_ready_rate": 1.0,
+    "daily_operable_rate": 1.0,
+    "counts": {
+      "operational_success_days": 1,
+      "real_error_days": 0,
+      "fail_closed_days": 0,
+      "canonical_overlap_days": 1,
+      "coverage_ready_days": 1,
+      "daily_operable_days": 1
+    },
+    "classification_distribution": {
+      "DATA_REFRESH_CANONICAL": 1
+    },
+    "metric_definitions": {
+      "success_rate_operational": "Dias sin error real que terminaron operables o en una proteccion legitima.",
+      "error_rate_real": "Dias clasificados como AUTOMATION_BLOCKED_BY_REAL_ERROR.",
+      "fail_closed_rate": "Dias clasificados como FAIL_CLOSED_CORRECT_BEHAVIOR.",
+      "canonical_overlap_rate": "Dias clasificados como DATA_REFRESH_CANONICAL."
+    }
+  },
+  "streaks": {
+    "longest_streak_without_real_errors": {
+      "longest_length": 1,
+      "longest_start": "2026-04-22",
+      "longest_end": "2026-04-22",
+      "current_length": 1,
+      "current_start": "2026-04-22",
+      "current_end": "2026-04-22"
+    },
+    "current_streak_without_real_errors": {
+      "longest_length": 1,
+      "longest_start": "2026-04-22",
+      "longest_end": "2026-04-22",
+      "current_length": 1,
+      "current_start": "2026-04-22",
+      "current_end": "2026-04-22"
+    },
+    "fail_closed_streak": {
+      "longest_length": 0,
+      "longest_start": null,
+      "longest_end": null,
+      "current_length": 0,
+      "current_start": null,
+      "current_end": null
+    },
+    "full_operation_streak": {
+      "longest_length": 0,
+      "longest_start": null,
+      "longest_end": null,
+      "current_length": 0,
+      "current_start": null,
+      "current_end": null
+    }
+  },
+  "patterns": {
+    "repetitive_blockers": [],
+    "anomalous_sequences": [],
+    "behavior_changes": []
+  },
+  "alerts": []
+}

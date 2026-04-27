@@ -1,0 +1,22 @@
+{
+  "sample_size": 1440,
+  "win_rate": 0.6652777777777777,
+  "TP_count": 690,
+  "SL_count": 354,
+  "timeout_rate": 0.275,
+  "PF": 2.99543625288591,
+  "expectancy_R": 0.5443896527777778,
+  "avg_R": 0.5443896527777778,
+  "median_R": 0.97455,
+  "cumulative_R": 783.9211,
+  "max_drawdown_R": -6.712400000000002,
+  "max_win_streak": 15,
+  "max_loss_streak": 6,
+  "trades_per_month": 24.0,
+  "trades_per_year": 288.0,
+  "yearly_positive_ratio": 1.0,
+  "best_year": 2017,
+  "worst_year": 2019,
+  "news_blocked_count": 978,
+  "result_by_year_json": "{\"2015\": {\"N\": 292, \"total_R\": 177.1909, \"avg_R\": 0.6068, \"pf\": 3.2968, \"win_rate\": 0.6815}, \"2016\": {\"N\": 284, \"total_R\": 145.7986, \"avg_R\": 0.5134, \"pf\": 2.7893, \"win_rate\": 0.6479}, \"2017\": {\"N\": 289, \"total_R\": 183.168, \"avg_R\": 0.6338, \"pf\": 3.7103, \"win_rate\": 0.7197}, \"2018\": {\"N\": 286, \"total_R\": 150.1491, \"avg_R\": 0.525, \"pf\": 2.9687, \"win_rate\": 0.6573}, \"2019\": {\"N\": 289, \"total_R\": 127.6145, \"avg_R\": 0.4416, \"pf\": 2.412, \"win_rate\": 0.6194}}"
+}

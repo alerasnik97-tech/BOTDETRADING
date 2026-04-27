@@ -1,0 +1,17 @@
+{
+  "repair_date": "2026-04-27",
+  "status": "SUCCESS",
+  "scope": "BOT_V2_DAYTIME_LAB/src/*.py",
+  "replacements": {
+    "old_patterns": [
+      "C:\\Users\\alera\\Desktop\\Bot\\Bot V2",
+      "C:\\Users\\alera\\Desktop\\Bot V2"
+    ],
+    "new_path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB",
+    "residual_count": 0
+  },
+  "safety_confirmation": {
+    "logic_modified": false,
+    "backtest_executed": false
+  }
+}

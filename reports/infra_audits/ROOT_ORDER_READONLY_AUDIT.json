@@ -1,0 +1,41 @@
+{
+  "audit_date": "2026-04-27",
+  "verdict": "CLEANUP_REQUIRED",
+  "root_hygiene_score": "low",
+  "findings": [
+    {
+      "category": "loose_files",
+      "type": ".md",
+      "count": "100+",
+      "classification": "CLEANUP_RECOMMENDED"
+    },
+    {
+      "category": "temp_folders",
+      "items": ["temp_zip_staging", "_staging_final", "_zip_clean_..."],
+      "classification": "TEMP_FOLDER_RISK"
+    },
+    {
+      "category": "obsolete_references",
+      "description": "Hardcoded absolute paths to Bot V2 in src scripts",
+      "count": "100+ instances",
+      "classification": "OBSOLETE_REFERENCE"
+    },
+    {
+      "category": "redundant_docs",
+      "items": ["STRATEGY_AUTHORITY_MAP.md", "TIME_WINDOW_AUTHORITY.md"],
+      "classification": "DUPLICATE_RISK"
+    }
+  ],
+  "risks": {
+    "script_failure": "high",
+    "document_confusion": "high",
+    "ai_context_pollution": "high"
+  },
+  "recommendations": [
+    "Execute global path replacement from Bot V2 to official root",
+    "Move loose root reports to ARCHIVE_SUPERSEDED",
+    "Delete temporary staging folders",
+    "Consolidate duplicate master documents"
+  ],
+  "read_only_confirmation": true
+}

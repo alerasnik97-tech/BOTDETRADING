@@ -1,0 +1,15 @@
+{
+  "phase": "3_mass_validation",
+  "status": "BLOCKED_NO_INPUT",
+  "message": "No existe el archivo de entrada TE: C:\\Users\\alera\\Desktop\\BOT DE TRADING CURSOR\\data\\news_imports\\tradingeconomics_calendar.json. Coloque el export (JSON o CSV) bajo data\\news_imports o pase --input con ruta dentro del proyecto.",
+  "expected_default_path": "C:\\Users\\alera\\Desktop\\BOT DE TRADING CURSOR\\data\\news_imports\\tradingeconomics_calendar.json",
+  "metrics_global": null,
+  "verdict_te_pipeline_data": "no_evaluable_sin_dataset_te",
+  "input_verification_report": "C:\\Users\\alera\\Desktop\\BOT DE TRADING CURSOR\\reports\\news_reliability\\PHASE3_T1_INPUT_VERIFICATION.txt",
+  "alternate_json_candidates": [
+    "results\\source_integration_audit\\20260411_111336_source_upgrade\\tradingeconomics_integration_notes.json"
+  ],
+  "phase_3_5_status_report": "C:\\Users\\alera\\Desktop\\BOT DE TRADING CURSOR\\reports\\news_reliability\\PHASE3_5_STATUS.txt",
+  "te_input_readme": "C:\\Users\\alera\\Desktop\\BOT DE TRADING CURSOR\\data\\news_imports\\README_TE_INPUT.txt",
+  "ingestion_operational_gate": "operational_eligible en CSV V2; ver news_tradingeconomics.summary JSON"
+}

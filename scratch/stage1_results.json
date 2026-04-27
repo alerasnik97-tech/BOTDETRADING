@@ -1,0 +1,6 @@
+{
+  "trades": 12,
+  "exit_reason": "REJECT_EARLY",
+  "accumulated_r": -4.5,
+  "notes": "Kill-switch activado por Drawdown. La regla de SL ajustado (Extremo + 1 pip) fue cazada repetidamente por la 'Inconsistencia de Reclaim'. El momentum (Body Fraction > 0.6) en M3 es vulnerable a dobles barridos antes de la expansión real."
+}

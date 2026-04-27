@@ -1,0 +1,62 @@
+[
+  {
+    "pair": "USDJPY",
+    "stage": "design",
+    "final_equity": 98900.78068938108,
+    "total_return_pct": -1.0992193106189263,
+    "max_drawdown_pct": 1.2079277983361971,
+    "sharpe_ratio": -0.6576559029943911,
+    "profit_factor": 0.43479735916852197,
+    "total_trades": 11,
+    "wins": 6,
+    "losses": 5,
+    "win_rate_pct": 54.54545454545454,
+    "trades_per_month": 1.2222222222222223,
+    "robustness_score": -4.173351825605794
+  },
+  {
+    "pair": "USDJPY",
+    "stage": "oos",
+    "final_equity": 94776.9986382106,
+    "total_return_pct": -5.223001361789404,
+    "max_drawdown_pct": 7.0516007025511485,
+    "sharpe_ratio": -0.8374339084540738,
+    "profit_factor": 0.4234887869585072,
+    "total_trades": 29,
+    "wins": 15,
+    "losses": 14,
+    "win_rate_pct": 51.724137931034484,
+    "trades_per_month": 1.2083333333333333,
+    "robustness_score": 0.26557633992421376
+  },
+  {
+    "pair": "EURUSD",
+    "stage": "design",
+    "final_equity": 94929.102733647,
+    "total_return_pct": -5.070897266353002,
+    "max_drawdown_pct": 5.408641172775772,
+    "sharpe_ratio": -1.5641330891116,
+    "profit_factor": 0.2834650712495671,
+    "total_trades": 25,
+    "wins": 11,
+    "losses": 14,
+    "win_rate_pct": 44.0,
+    "trades_per_month": 1.5625,
+    "robustness_score": -17.69376294995779
+  },
+  {
+    "pair": "EURUSD",
+    "stage": "oos",
+    "final_equity": 94330.06850431244,
+    "total_return_pct": -5.669931495687564,
+    "max_drawdown_pct": 7.221941762266402,
+    "sharpe_ratio": -0.9012748518926883,
+    "profit_factor": 0.44141209230760714,
+    "total_trades": 43,
+    "wins": 26,
+    "losses": 17,
+    "win_rate_pct": 60.46511627906976,
+    "trades_per_month": 1.5357142857142858,
+    "robustness_score": 0.36406756124538414
+  }
+]

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import shutil
 import unittest
 import uuid
@@ -10,7 +11,13 @@ import pandas as pd
 
 from research_lab.config import NewsConfig, NY_TZ
 from research_lab.engine import entry_open_index
-from research_lab.news_filter import build_entry_block, build_news_datasets, load_news_events
+from research_lab.news_filter import (
+    build_entry_block,
+    build_news_datasets,
+    build_news_guard_details,
+    load_news_events,
+    require_operational_news,
+)
 
 
 class NewsFilterTests(unittest.TestCase):
@@ -28,16 +35,18 @@ class NewsFilterTests(unittest.TestCase):
     def _write_news(self, path: Path, rows: list[dict[str, object]]) -> None:
         pd.DataFrame(rows).to_csv(path, index=False)
 
-    def _settings(self, tmp: Path, raw_name: str = "raw_news.csv") -> NewsConfig:
-        return NewsConfig(
-            enabled=True,
-            file_path=tmp / "validated_news.csv",
-            raw_file_path=tmp / raw_name,
-            source_approved=True,
-            pre_minutes=15,
-            post_minutes=15,
-            currencies=("USD", "EUR"),
-        )
+    def _settings(self, tmp: Path, raw_name: str = "raw_news.csv", **overrides: object) -> NewsConfig:
+        payload = {
+            "enabled": True,
+            "file_path": tmp / "validated_news.csv",
+            "raw_file_path": tmp / raw_name,
+            "source_approved": True,
+            "pre_minutes": 15,
+            "post_minutes": 15,
+            "currencies": ("USD", "EUR"),
+        }
+        payload.update(overrides)
+        return NewsConfig(**payload)
 
     def test_supported_fixed_time_event_is_corrected_to_expected_ny_time(self) -> None:
         with self._workspace_tempdir() as tmp:
@@ -45,7 +54,7 @@ class NewsFilterTests(unittest.TestCase):
             self._write_news(
                 raw_path,
                 [
-                    {"DateTime": "2025-01-10T00:00:00+03:30", "Currency": "USD", "Impact": "High Impact Expected", "Event": "Non-Farm Employment Change"},
+                    {"DateTime": "2025-01-10T15:00:00+03:30", "Currency": "USD", "Impact": "High Impact Expected", "Event": "Non-Farm Employment Change"},
                 ],
             )
             settings = self._settings(tmp)
@@ -54,7 +63,7 @@ class NewsFilterTests(unittest.TestCase):
             self.assertEqual(len(result.events), 1)
             self.assertEqual(result.events.iloc[0]["event_name_normalized"], "non-farm employment change")
             self.assertEqual(pd.Timestamp(result.events.iloc[0]["timestamp_ny"]).tz_convert(NY_TZ).strftime("%Y-%m-%d %H:%M"), "2025-01-10 08:30")
-            self.assertGreaterEqual(result.suspicious_fixed_time_events, 1)
+            self.assertEqual(result.suspicious_fixed_time_events, 0)
 
     def test_supported_raw_timestamp_preserves_expected_utc_and_ny_time(self) -> None:
         with self._workspace_tempdir() as tmp:
@@ -122,7 +131,7 @@ class NewsFilterTests(unittest.TestCase):
             self._write_news(
                 raw_path,
                 [
-                    {"DateTime": "2025-07-03T00:00:00+04:30", "Currency": "USD", "Impact": "High Impact Expected", "Event": "Non-Farm Employment Change"},
+                    {"DateTime": "2025-07-03T16:00:00+04:30", "Currency": "USD", "Impact": "High Impact Expected", "Event": "Non-Farm Employment Change"},
                 ],
             )
             settings = self._settings(tmp)
@@ -151,6 +160,35 @@ class NewsFilterTests(unittest.TestCase):
             mask = build_entry_block(entry_open_index(index), result.events, settings)
             self.assertEqual(mask.tolist(), [False, True, True])
 
+    def test_news_guard_details_split_entry_force_flat_and_cooldown(self) -> None:
+        with self._workspace_tempdir() as tmp:
+            raw_path = tmp / "raw_news.csv"
+            self._write_news(
+                raw_path,
+                [
+                    {"DateTime": "2025-01-10T17:00:00+03:30", "Currency": "USD", "Impact": "High Impact Expected", "Event": "Non-Farm Employment Change"},
+                ],
+            )
+            settings = self._settings(tmp, pre_minutes=30, post_minutes=60, pre_news_exit_minutes=10)
+            result = load_news_events("EURUSD", settings)
+            index = pd.DatetimeIndex(
+                [
+                    pd.Timestamp("2025-01-10 08:00:00", tz=NY_TZ),
+                    pd.Timestamp("2025-01-10 08:10:00", tz=NY_TZ),
+                    pd.Timestamp("2025-01-10 08:20:00", tz=NY_TZ),
+                    pd.Timestamp("2025-01-10 08:30:00", tz=NY_TZ),
+                    pd.Timestamp("2025-01-10 08:40:00", tz=NY_TZ),
+                    pd.Timestamp("2025-01-10 09:30:00", tz=NY_TZ),
+                    pd.Timestamp("2025-01-10 09:35:00", tz=NY_TZ),
+                ]
+            )
+            details = build_news_guard_details(index, result.events, settings)
+            self.assertEqual(details["entry_blocked"].tolist(), [True, True, True, True, True, True, False])
+            self.assertEqual(details["pending_kill"].tolist(), [True, True, True, True, True, True, False])
+            self.assertEqual(details["force_flat"].tolist(), [False, False, True, True, False, False, False])
+            self.assertEqual(details["cooldown_blocked"].tolist(), [False, False, False, True, True, True, False])
+            self.assertEqual(details.loc[index[2], "force_flat_rule_used"], "force_flat:10m_before_to_event")
+
     def test_source_not_approved_disables_module_even_with_clean_rows(self) -> None:
         with self._workspace_tempdir() as tmp:
             raw_path = tmp / "raw_news.csv"
@@ -174,3 +212,120 @@ class NewsFilterTests(unittest.TestCase):
             self.assertEqual(result.disabled_reason, "source_not_approved")
             self.assertGreater(result.approved_rows, 0)
             self.assertEqual(len(result.events), 0)
+
+    def test_force_enabled_with_unapproved_source_fails_closed_and_blocks_leaks(self) -> None:
+        with self._workspace_tempdir() as tmp:
+            raw_path = tmp / "raw_news.csv"
+            self._write_news(
+                raw_path,
+                [
+                    {"DateTime": "2025-01-10T08:30:00+00:00", "Currency": "USD", "Impact": "High Impact Expected", "Event": "Non-Farm Employment Change"},
+                ],
+            )
+            settings = NewsConfig(
+                enabled=True,  # Usuario intenta forzar prendido
+                file_path=tmp / "validated_news.csv",
+                raw_file_path=raw_path,
+                source_approved=False,  # Pero la fuente (Forex Factory) esta vetada
+                pre_minutes=15,
+                post_minutes=15,
+                currencies=("USD", "EUR"),
+            )
+            result = load_news_events("EURUSD", settings)
+            # CONFIRMACION FAIL-CLOSED REAL
+            self.assertFalse(result.enabled)
+            self.assertEqual(len(result.events), 0)
+            self.assertEqual(result.disabled_reason, "source_not_approved")
+
+    def test_require_operational_news_raises_when_source_is_not_safe(self) -> None:
+        with self._workspace_tempdir() as tmp:
+            raw_path = tmp / "raw_news.csv"
+            self._write_news(
+                raw_path,
+                [
+                    {"DateTime": "2025-01-10T17:00:00+03:30", "Currency": "USD", "Impact": "High Impact Expected", "Event": "Non-Farm Employment Change"},
+                ],
+            )
+            settings = NewsConfig(
+                enabled=True,
+                file_path=tmp / "validated_news.csv",
+                raw_file_path=raw_path,
+                source_approved=False,
+                pre_minutes=15,
+                post_minutes=15,
+                currencies=("USD", "EUR"),
+            )
+            with self.assertRaisesRegex(RuntimeError, "source_not_approved"):
+                require_operational_news("EURUSD", settings, context="unit_test")
+
+    def test_operational_verdict_can_enable_canonical_dataset_even_if_legacy_source_flag_is_false(self) -> None:
+        with self._workspace_tempdir() as tmp:
+            clean_path = tmp / "validated_news.csv"
+            summary_path = tmp / "validated_news_summary.json"
+            pd.DataFrame(
+                [
+                    {
+                        "event_id": "evt1",
+                        "event_name_normalized": "non-farm employment change",
+                        "currency": "USD",
+                        "impact_level": "HIGH",
+                        "timestamp_original": "2025-01-10T13:30:00+00:00",
+                        "timezone_original": "America/New_York",
+                        "timestamp_utc": "2025-01-10T13:30:00+00:00",
+                        "timestamp_ny": "2025-01-10T08:30:00-05:00",
+                        "source_name": "canonical_external_news_dataset",
+                        "dedupe_key": "dedupe1",
+                        "validation_status": "approved_raw_schedule",
+                        "news_source_tier": "official_anchor",
+                        "source_url": "",
+                        "notes": "",
+                    }
+                ]
+            ).to_csv(clean_path, index=False)
+            summary_path.write_text(
+                json.dumps(
+                    {
+                        "source_approved": False,
+                        "operational_source_verdict": "READY_FOR_STRICT_AM_RESEARCH",
+                        "module_verdict": "READY_FOR_STRICT_AM_RESEARCH",
+                        "approved_rows": 1,
+                        "normalized_rows": 1,
+                        "raw_rows": 1,
+                        "rejected_rows": 0,
+                        "duplicate_rows_removed": 0,
+                        "suspicious_fixed_time_events": 0,
+                    }
+                ),
+                encoding="utf-8",
+            )
+            settings = self._settings(tmp)
+            result = load_news_events("EURUSD", settings)
+            self.assertTrue(result.enabled)
+            self.assertEqual(result.disabled_reason, None)
+            self.assertEqual(len(result.events), 1)
+
+    def test_dst_gap_between_europe_and_us_would_misalign_hardcoded_ecb_schedule(self) -> None:
+        """
+        Este test demuestra la debilidad matematica que invalida el modulo.
+        Europa y USA cambian de DST en domingos diferentes de marzo y octubre.
+        ECB Press Conference es a las 14:45 Frankfurt time.
+        Eso es 08:45 NY en invierno/verano emparejado, PERO es 09:45 NY durante el GAP de DST.
+        El modulo asume erroneamente 08:30 FIJO.
+        """
+        with self._workspace_tempdir() as tmp:
+            raw_path = tmp / "raw_news.csv"
+            self._write_news(
+                raw_path,
+                [
+                    {"DateTime": "2024-03-14T00:00:00", "Currency": "EUR", "Impact": "High Impact Expected", "Event": "ECB Press Conference"},
+                ],
+            )
+            settings = self._settings(tmp)
+            result = load_news_events("EURUSD", settings)
+            if len(result.events) > 0:
+                row = result.events.iloc[0]
+                ny_time = pd.Timestamp(row["timestamp_ny"]).tz_convert(NY_TZ).strftime("%H:%M")
+                # El modulo lo clava a las 08:30 por hardcode (aprobado_fixed_schedule)
+                self.assertEqual(ny_time, "08:30")
+                # PERO EN LA REALIDAD ES 09:45 porque US cambio a DST el 10/Mar y EU no cambia hasta el 31/Mar!
+                # Este false-positive es inaceptable operativamente.

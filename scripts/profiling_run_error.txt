@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\scripts\final_forensic_backtest.py", line 226, in <module>
+    run_forensic()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\scripts\final_forensic_backtest.py", line 185, in run_forensic
+    stress_config.max_spread_pips = 3.0
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 46, in __setattr__
+dataclasses.FrozenInstanceError: cannot assign to field 'max_spread_pips'

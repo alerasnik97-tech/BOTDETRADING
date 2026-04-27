@@ -2,339 +2,173 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+import shutil
+import sys
 import time
 from pathlib import Path
 from typing import Any
-import sys
 
 import numpy as np
 import pandas as pd
 
-if __package__ in {None, ""}:
-    sys.path.append(str(Path(__file__).resolve().parents[1]))
-
 from research_lab.config import (
-    ALT_WFA_IS_MONTHS,
-    ALT_WFA_OOS_MONTHS,
     DEFAULT_DATA_DIRS,
-    DEFAULT_EXECUTION_MODE,
-    DEFAULT_MAX_EVALS_PER_STRATEGY,
-    DEFAULT_NEWS_FILE,
+    DEFAULT_HIGH_PRECISION_PREPARED_DIR,
+    DEFAULT_NEWS_V2_UTC_FILE,
     DEFAULT_PAIR,
     DEFAULT_RESULTS_DIR,
-    DEFAULT_SEED,
-    DEFAULT_WFA_IS_MONTHS,
-    DEFAULT_WFA_OOS_MONTHS,
-    EngineConfig,
     INITIAL_CAPITAL,
-    NewsConfig,
     STRATEGY_NAMES,
-    SessionConfig,
-    SESSION_VARIANTS,
     SUPPORTED_COST_PROFILES,
     SUPPORTED_EXECUTION_MODES,
     SUPPORTED_INTRABAR_POLICIES,
-    resolved_cost_profile,
-    resolved_intrabar_policy,
+    DEFAULT_MAX_EVALS_PER_STRATEGY,
+    DEFAULT_SEED,
+    DEFAULT_EXECUTION_MODE,
+    DEFAULT_RISK_PCT,
+    DEFAULT_SPREAD_PIPS,
+    DEFAULT_SLIPPAGE_PIPS,
+    DEFAULT_COMMISSION_ROUNDTURN_USD,
+    EngineConfig,
+    NewsConfig,
     with_execution_mode,
 )
-from research_lab.data_loader import load_price_data, prepare_common_frame
-from research_lab.engine import entry_open_index, run_backtest
-from research_lab.news_filter import build_entry_block, load_news_events, news_result_payload
-from research_lab.plotting import (
-    plot_drawdown_curve,
-    plot_equity_curve,
-    plot_heatmap,
-    plot_overlay_drawdown,
-    plot_overlay_equity,
-    plot_overlay_yearly,
-    plot_yearly_pnl,
+from research_lab.data_loader import load_backtest_data_bundle
+from research_lab.engine import run_backtest
+from research_lab.report import (
+    export_root_tables,
+    summarize_result,
+    sync_visible_chatgpt,
 )
-from research_lab.report import export_root_tables, export_strategy_bundle, summarize_result, sync_visible_chatgpt
-from research_lab.scorer import compute_final_score, score_is_summary
+from research_lab.rejection_protocol import apply_rejection_logic
 from research_lab.strategies import STRATEGY_REGISTRY
-from research_lab.validation import parameter_combinations, run_default_and_alt_wfa
+from research_lab.wfa import run_wfa_default
 
 
-def build_output_root(results_dir: Path, label: str) -> Path:
-    timestamp = pd.Timestamp.now(tz="America/New_York").strftime("%Y%m%d_%H%M%S")
-    path = results_dir / f"{timestamp}_{label}"
+def build_output_root(base_dir: Path, label: str) -> Path:
+    timestamp = time.strftime("%Y%m%d_%H%M%S")
+    path = base_dir / f"{timestamp}_{label}"
     path.mkdir(parents=True, exist_ok=True)
     return path
 
-
-def schedule_from_params(params: dict[str, Any]) -> dict[str, str]:
-    session_name = params.get("session_name")
-    if session_name in SESSION_VARIANTS:
-        entry_start, entry_end = SESSION_VARIANTS[session_name]
-    else:
-        session = SessionConfig()
-        entry_start, entry_end = session.entry_start, session.entry_end
-    return {"entry_start": entry_start, "entry_end": entry_end, "force_close": SessionConfig().force_close}
-
-
-def costs_payload(engine_config: EngineConfig) -> dict[str, Any]:
-    return {
-        "assumed_spread_pips": engine_config.assumed_spread_pips if engine_config.assumed_spread_pips is not None else engine_config.max_spread_pips,
-        "max_allowed_spread_pips": engine_config.max_spread_pips,
-        "slippage_pips": engine_config.slippage_pips,
-        "commission_per_lot_roundturn_usd": engine_config.commission_per_lot_roundturn_usd,
-        "risk_pct": engine_config.risk_pct,
-        "initial_capital": INITIAL_CAPITAL,
-        "price_source": engine_config.price_source,
-        "opening_session_end": engine_config.opening_session_end,
-        "late_session_start": engine_config.late_session_start,
-        "spread_opening_multiplier": engine_config.spread_opening_multiplier,
-        "high_vol_range_atr": engine_config.high_vol_range_atr,
-        "spread_high_vol_multiplier": engine_config.spread_high_vol_multiplier,
-        "spread_late_session_multiplier": engine_config.spread_late_session_multiplier,
-        "slippage_opening_multiplier": engine_config.slippage_opening_multiplier,
-        "slippage_high_vol_multiplier": engine_config.slippage_high_vol_multiplier,
-        "slippage_stop_multiplier": engine_config.slippage_stop_multiplier,
-        "slippage_target_multiplier": engine_config.slippage_target_multiplier,
-        "slippage_late_session_multiplier": engine_config.slippage_late_session_multiplier,
-        "slippage_forced_close_multiplier": engine_config.slippage_forced_close_multiplier,
-        "slippage_final_close_multiplier": engine_config.slippage_final_close_multiplier,
-        "stress_spread_multiplier": engine_config.stress_spread_multiplier,
-        "stress_slippage_multiplier": engine_config.stress_slippage_multiplier,
-        "ambiguity_slippage_multiplier": engine_config.ambiguity_slippage_multiplier,
-        "intrabar_exit_priority": engine_config.intrabar_exit_priority,
-        "execution_mode": engine_config.execution_mode,
-        "cost_profile_used": resolved_cost_profile(engine_config),
-        "intrabar_policy_used": resolved_intrabar_policy(engine_config),
-    }
-
-
-def yearly_positive_count(yearly_stats: pd.DataFrame) -> int:
-    if yearly_stats.empty:
-        return 0
-    return int((yearly_stats.groupby("year")["total_pnl_r"].sum() > 0).sum())
-
-
-def share_best_year(yearly_stats: pd.DataFrame) -> float:
-    if yearly_stats.empty:
-        return 0.0
-    yearly = yearly_stats.groupby("year")["total_pnl_r"].sum()
-    positive_total = float(yearly[yearly > 0].sum())
-    if positive_total <= 0:
-        return 0.0
-    return float(yearly.max() / positive_total)
-
-
-def plateau_metrics(optimization_df: pd.DataFrame) -> tuple[float, float]:
-    if optimization_df.empty or "support_score" not in optimization_df.columns:
-        return 0.0, 1.0
-    count = max(1, int(np.ceil(len(optimization_df) * 0.10)))
-    top = optimization_df.nlargest(count, "support_score")
-    best = float(top["support_score"].max())
-    median = float(top["support_score"].median())
-    plateau_index = len(top) / max(len(optimization_df), 1)
-    gap = best - median
-    return plateau_index, gap
-
-
-def strategy_row(
-    strategy_name: str,
-    summary: dict[str, Any],
-    oos_summary: dict[str, Any],
-    alt_oos_summary: dict[str, Any],
-    selected_score: float,
-) -> dict[str, Any]:
-    return {
-        "strategy_name": strategy_name,
-        "total_trades": summary["total_trades"],
-        "avg_trades_per_month": summary["avg_trades_per_month"],
-        "win_rate": summary["win_rate"],
-        "breakeven_rate": summary["breakeven_rate"],
-        "profit_factor": summary["profit_factor"],
-        "expectancy_r": summary["expectancy_r"],
-        "total_return_pct": summary["total_return_pct"],
-        "max_drawdown_pct": summary["max_drawdown_pct"],
-        "negative_months": summary["negative_months"],
-        "negative_years": summary["negative_years"],
-        "insufficient_sample": summary["insufficient_sample"],
-        "sample_penalty_applied": summary["sample_penalty_applied"],
-        "pf_oos": oos_summary["profit_factor"],
-        "expectancy_oos": oos_summary["expectancy_r"],
-        "dd_oos": oos_summary["max_drawdown_pct"],
-        "return_oos": oos_summary["total_return_pct"],
-        "years_positive_oos": 4 - int(oos_summary["negative_years"]),
-        "trades_mes_oos": oos_summary["avg_trades_per_month"],
-        "pf_oos_alt": alt_oos_summary["profit_factor"],
-        "expectancy_oos_alt": alt_oos_summary["expectancy_r"],
-        "dd_oos_alt": alt_oos_summary["max_drawdown_pct"],
-        "selected_score": selected_score,
-        "parameter_set_used": json.dumps(summary["parameter_set_used"], ensure_ascii=False),
-    }
-
-
 def evaluate_strategy(
-    strategy_name: str,
-    frame: pd.DataFrame,
-    engine_config: EngineConfig,
-    news_config: NewsConfig,
+    name: str,
+    data: Any,
+    engine_config: Any,
+    news_config: Any,
     output_root: Path,
     max_evals: int,
     seed: int,
+    *,
+    precision_package: Any = None,
+    data_source_used: str | None = None,
+    timeframe: str = "M15",
+    fixed_params: dict | None = None,
 ) -> dict[str, Any]:
-    strategy_module = STRATEGY_REGISTRY[strategy_name]
-    combos = parameter_combinations(strategy_module, max_evals=max_evals, seed=seed)
-    news_result = load_news_events(engine_config.pair, news_config)
-    news_filter_used = news_result.enabled
-    news_block = build_entry_block(entry_open_index(frame.index), news_result.events, news_config)
-    optimization_rows: list[dict[str, Any]] = []
-    best_support_score = -float("inf")
-    best_payload: dict[str, Any] | None = None
+    strategy_module = STRATEGY_REGISTRY.get(name)
+    if not strategy_module:
+        raise ValueError(f"Estrategia '{name}' no encontrada en el registro.")
 
-    for params in combos:
-        result = run_backtest(strategy_module, frame, params, engine_config, news_block, news_filter_used)
-        summary, trades_export, monthly_stats, yearly_stats, equity_export = summarize_result(
-            strategy_name,
-            result.trades,
-            result.equity_curve,
-            params,
-            news_filter_used,
-            INITIAL_CAPITAL,
-            None,
-            costs_payload(engine_config),
-            "M15",
-            schedule_from_params(params),
-            params.get("break_even_at_r"),
-        )
-        support_score = score_is_summary(summary)
-        row = {
-            **summary,
-            "support_score": support_score,
-            "parameter_set_used": json.dumps(params, ensure_ascii=False),
-        }
-        for key, value in params.items():
-            row[key] = value
-        optimization_rows.append(row)
-        if support_score > best_support_score:
-            best_support_score = support_score
-            best_payload = {
-                "params": params,
-                "result": result,
-                "summary": summary,
-                "trades_export": trades_export,
-                "monthly_stats": monthly_stats,
-                "yearly_stats": yearly_stats,
-                "equity_export": equity_export,
-            }
-
-    if best_payload is None:
-        raise RuntimeError(f"No pude evaluar {strategy_name}")
-
-    optimization_df = pd.DataFrame(optimization_rows).sort_values("support_score", ascending=False).reset_index(drop=True)
-    default_wfa, alt_wfa = run_default_and_alt_wfa(
-        strategy_name=strategy_name,
-        strategy_module=strategy_module,
-        frame=frame,
-        combos=combos,
-        engine_config=engine_config,
-        news_config=news_config,
+    # 1. Ejecutar WFA (usando parametros fijos si se proveen)
+    wfa_res = run_wfa_default(
+        strategy_module,
+        data.frame,
+        engine_config,
+        news_config,
+        max_evals=max_evals if fixed_params is None else 1,
+        seed=seed,
+        precision_package=precision_package,
+        data_source_used=data_source_used,
+        fixed_params=fixed_params,
     )
 
-    plateau_index, top10_gap = plateau_metrics(optimization_df)
-    positive_years_full = yearly_positive_count(best_payload["yearly_stats"])
-    share_year = share_best_year(best_payload["yearly_stats"])
-    selected_score = compute_final_score(
-        full_summary=best_payload["summary"],
-        oos_summary=default_wfa.oos_summary,
-        plateau_index=plateau_index,
-        top10_median_gap=top10_gap,
-        positive_years_full=positive_years_full,
-        share_best_year=share_year,
+    # 2. Aplicar Protocolo de Rechazo (In-Sample + Out-of-Sample)
+    status, rejection_reason, score = apply_rejection_logic(wfa_res)
+
+    # 3. Preparar fila del ranking
+    ranking_row = {
+        "strategy_name": name,
+        "insufficient_sample": wfa_res.insufficient_sample,
+        "selected_score": score,
+        "pf_oos": wfa_res.oos_stats.get("profit_factor", 0.0),
+        "expectancy_oos": wfa_res.oos_stats.get("expectancy_r", 0.0),
+        "dd_oos": wfa_res.oos_stats.get("max_drawdown_pct", 0.0),
+        "trades_mes_oos": wfa_res.oos_stats.get("avg_trades_per_month", 0.0),
+        "return_oos": wfa_res.oos_stats.get("total_return_pct", 0.0),
+        "years_positive_oos": wfa_res.oos_stats.get("years_positive", 0),
+        "parameter_set_used": json.dumps(wfa_res.best_params),
+    }
+
+    # 4. Exportar bundle de la estrategia
+    strategy_dir = output_root / name
+    from research_lab.report import export_strategy_bundle
+    
+    # Generamos los DF de reporte para el mejor set
+    summary, trades_exp, monthly, yearly, equity = summarize_result(
+        name,
+        wfa_res.oos_trades,
+        wfa_res.oos_equity_curve,
+        wfa_res.best_params,
+        True,
+        INITIAL_CAPITAL,
+        score,
+        timeframe=timeframe,
     )
 
-    summary = dict(best_payload["summary"])
-    summary["selected_score"] = selected_score
-    summary["wfa_default"] = {
-        "is_months": DEFAULT_WFA_IS_MONTHS,
-        "oos_months": DEFAULT_WFA_OOS_MONTHS,
-        "profit_factor": default_wfa.oos_summary["profit_factor"],
-        "expectancy_r": default_wfa.oos_summary["expectancy_r"],
-        "max_drawdown_pct": default_wfa.oos_summary["max_drawdown_pct"],
-        "total_return_pct": default_wfa.oos_summary["total_return_pct"],
-        "avg_trades_per_month": default_wfa.oos_summary["avg_trades_per_month"],
-    }
-    summary["wfa_alt"] = {
-        "is_months": ALT_WFA_IS_MONTHS,
-        "oos_months": ALT_WFA_OOS_MONTHS,
-        "profit_factor": alt_wfa.oos_summary["profit_factor"],
-        "expectancy_r": alt_wfa.oos_summary["expectancy_r"],
-        "max_drawdown_pct": alt_wfa.oos_summary["max_drawdown_pct"],
-        "total_return_pct": alt_wfa.oos_summary["total_return_pct"],
-        "avg_trades_per_month": alt_wfa.oos_summary["avg_trades_per_month"],
-    }
-    summary["plateau_index"] = plateau_index
-    summary["top10_median_gap"] = top10_gap
-    summary["share_best_year"] = share_year
-    summary["news_module"] = news_result_payload(news_result)
-
-    strategy_dir = output_root / strategy_name
     export_strategy_bundle(
-        strategy_dir / "PARA CHATGPT",
+        strategy_dir,
         summary=summary,
-        trades_export=best_payload["trades_export"],
-        monthly_stats=best_payload["monthly_stats"],
-        yearly_stats=best_payload["yearly_stats"],
-        equity_export=best_payload["equity_export"],
-        optimization_results=optimization_df,
-        extra_frames={
-            "walkforward_default.csv": default_wfa.fold_rows,
-            "walkforward_alt.csv": alt_wfa.fold_rows,
-            "wfa_default_equity_curve.csv": summarize_result(
-                strategy_name,
-                default_wfa.oos_trades,
-                default_wfa.oos_equity_curve,
-                {"wfa": "default"},
-                news_filter_used,
-                INITIAL_CAPITAL,
-                None,
-            )[4],
-        },
+        trades_export=trades_exp,
+        monthly_stats=monthly,
+        yearly_stats=yearly,
+        equity_export=equity,
+        optimization_results=wfa_res.optimization_results,
+        extra_frames={},
+        extra_json={"lineage_metadata.json": wfa_res.lineage},
     )
 
-    plot_equity_curve(best_payload["equity_export"], strategy_dir / "PARA CHATGPT" / "equity_curve.png", f"{strategy_name} equity")
-    plot_drawdown_curve(best_payload["equity_export"], strategy_dir / "PARA CHATGPT" / "drawdown_curve.png", f"{strategy_name} drawdown")
-    plot_yearly_pnl(best_payload["yearly_stats"], strategy_dir / "PARA CHATGPT" / "yearly_pnl_r_bar.png", f"{strategy_name} yearly pnl_r")
-    plot_heatmap(optimization_df, strategy_dir / "PARA CHATGPT" / "parameter_sensitivity_heatmaps.png", f"{strategy_name} sensitivity")
+    if status != "pass":
+        (strategy_dir / "REJECTION_REPORT.md").write_text(
+            f"# ESTRATEGIA RECHAZADA TEMPRANAMENTE\nNivel: {status}\nFase: {'IN-SAMPLE' if 'IS' in rejection_reason else 'OUT-OF-SAMPLE'}\nMotivo: {rejection_reason}\n\n"
+            f"No se ejecutó WFA completo para ahorrar CPU si falló el primer IS. El mejor IS Profit Factor fue {wfa_res.best_is_pf:.2f} y Expectancy_R {wfa_res.best_is_expectancy:.2f}."
+        )
 
     return {
-        "strategy_name": strategy_name,
-        "summary": summary,
-        "optimization_df": optimization_df,
-        "default_wfa": default_wfa,
-        "alt_wfa": alt_wfa,
-        "yearly_stats": best_payload["yearly_stats"],
-        "equity_export": best_payload["equity_export"],
-        "row": strategy_row(strategy_name, summary, default_wfa.oos_summary, alt_wfa.oos_summary, selected_score),
+        "strategy_name": name,
+        "row": ranking_row,
+        "status": status,
+        "rejection_reason": rejection_reason,
+        "default_wfa": wfa_res,
     }
 
 
 def build_top3_markdown(ranking: pd.DataFrame) -> str:
-    lines = ["# Top 3 finalistas", ""]
-    for _, row in ranking.head(3).iterrows():
-        lines.append(f"## {row['strategy_name']}")
-        lines.append(f"- score: {row['selected_score']:.2f}")
-        lines.append(f"- PF OOS: {row['pf_oos']:.4f}")
-        lines.append(f"- expectancy OOS: {row['expectancy_oos']:.4f}R")
-        lines.append(f"- DD OOS: {row['dd_oos']:.2f}%")
-        lines.append(f"- trades/mes OOS: {row['trades_mes_oos']:.2f}")
-        lines.append(f"- insufficient_sample: {row['insufficient_sample']}")
+    lines = ["# Top 3 Finalistas (Consolidado OOS)", ""]
+    if ranking.empty:
+        lines.append("No hay estrategias que hayan pasado los filtros.")
+        return "\n".join(lines)
+    for i, (_, row) in enumerate(ranking.head(3).iterrows()):
+        lines.append(f"{i+1}. **{row['strategy_name']}**")
+        lines.append(f"   - Score: {row['selected_score']:.2f}")
+        lines.append(f"   - PF OOS: {row['pf_oos']:.2f} | Expectancy: {row['expectancy_oos']:.3f}")
+        lines.append(f"   - Trades/mes: {row['trades_mes_oos']:.1f}")
         lines.append("")
     return "\n".join(lines)
 
 
 def build_losers_markdown(ranking: pd.DataFrame) -> str:
-    lines = ["# Autopsia perdedores", ""]
-    for _, row in ranking.iloc[3:].iterrows():
-        lines.append(f"## {row['strategy_name']}")
-        reasons: list[str] = []
-        if row["insufficient_sample"]:
+    lines = ["# Autopsia de Perdedores / Rechazados", ""]
+    losers = ranking[ranking["selected_score"] < -500].copy()
+    if losers.empty:
+        lines.append("Todas las estrategias evaluadas mostraron algun edge.")
+        return "\n".join(lines)
+    for _, row in losers.iterrows():
+        lines.append(f"### {row['strategy_name']}")
+        reasons = []
+        if bool(row["insufficient_sample"]):
             reasons.append("muestra insuficiente")
-        if row["pf_oos"] < 1.0:
+        if row["pf_oos"] < 1:
             reasons.append("PF OOS < 1")
         if row["expectancy_oos"] <= 0:
             reasons.append("expectancy OOS <= 0")
@@ -383,25 +217,29 @@ def build_parser() -> argparse.ArgumentParser:
         target.add_argument("--end", default="2025-12-31")
         target.add_argument("--data-dirs", nargs="+", default=[str(path) for path in DEFAULT_DATA_DIRS])
         target.add_argument("--results-dir", default=str(DEFAULT_RESULTS_DIR))
-        target.add_argument("--news-file", default=str(DEFAULT_NEWS_FILE))
+        target.add_argument("--news-file", default=str(DEFAULT_NEWS_V2_UTC_FILE))
         target.add_argument("--disable-news", action="store_true")
-        target.add_argument("--news-pre-minutes", type=int, default=15)
-        target.add_argument("--news-post-minutes", type=int, default=15)
-        target.add_argument("--risk-pct", type=float, default=0.5)
+        target.add_argument("--news-pre-minutes", type=int, default=30)
+        target.add_argument("--news-post-minutes", type=int, default=60)
+        target.add_argument("--risk-pct", type=float, default=DEFAULT_RISK_PCT)
         target.add_argument("--shock-candle-atr-max", type=float, default=2.2)
-        target.add_argument("--assumed-spread-pips", type=float, default=1.2)
-        target.add_argument("--max-spread-pips", type=float, default=1.2)
-        target.add_argument("--slippage-pips", type=float, default=0.2)
-        target.add_argument("--commission-per-lot-roundturn-usd", type=float, default=7.0)
+        target.add_argument("--assumed-spread-pips", type=float, default=DEFAULT_SPREAD_PIPS)
+        target.add_argument("--max-spread-pips", type=float, default=3.0)
+        target.add_argument("--slippage-pips", type=float, default=DEFAULT_SLIPPAGE_PIPS)
+        target.add_argument("--commission-per-lot-roundturn-usd", type=float, default=DEFAULT_COMMISSION_ROUNDTURN_USD)
         target.add_argument("--execution-mode", choices=list(SUPPORTED_EXECUTION_MODES), default=DEFAULT_EXECUTION_MODE)
         target.add_argument("--cost-profile", choices=list(SUPPORTED_COST_PROFILES), default="auto")
         target.add_argument("--intrabar-policy", choices=list(SUPPORTED_INTRABAR_POLICIES), default="auto")
         target.add_argument("--max-evals", type=int, default=DEFAULT_MAX_EVALS_PER_STRATEGY)
         target.add_argument("--seed", type=int, default=DEFAULT_SEED)
+        target.add_argument("--max-trades-per-day", type=int, default=2)
+        target.add_argument("--fomc-only", action="store_true", help="Filtrar solo eventos FOMC/FED.")
+        target.add_argument("--session-cutoff", type=str, help="Forzar cierre de sesión a esta hora (HH:MM).")
 
     run_parser = subparsers.add_parser("run", help="Corre una estrategia con parámetros por defecto.")
     add_common(run_parser)
     run_parser.add_argument("--strategy", choices=STRATEGY_NAMES, required=True)
+    run_parser.add_argument("--params", type=str, help="Parametros en formato JSON para bypass de optimización.")
 
     optimize_parser = subparsers.add_parser("optimize", help="Optimiza una estrategia con WFA.")
     add_common(optimize_parser)
@@ -409,6 +247,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     all_parser = subparsers.add_parser("run-all", help="Corre todas las estrategias y genera ranking.")
     add_common(all_parser)
+    parser.add_argument("--timeframe", type=str, choices=["M5", "M15"], default="M15", help="Timeframe de resolución para el laboratorio.")
     return parser
 
 
@@ -425,6 +264,8 @@ def build_configs(args: argparse.Namespace) -> tuple[EngineConfig, NewsConfig]:
         execution_mode=args.execution_mode,
         cost_profile=args.cost_profile,
         intrabar_policy=args.intrabar_policy,
+        max_trades_per_day=args.max_trades_per_day,
+        session_cutoff=args.session_cutoff,
         ),
         args.execution_mode,
     )
@@ -434,6 +275,7 @@ def build_configs(args: argparse.Namespace) -> tuple[EngineConfig, NewsConfig]:
         source_approved=True,
         pre_minutes=args.news_pre_minutes,
         post_minutes=args.news_post_minutes,
+        fomc_only=args.fomc_only,
     )
     return engine_config, news_config
 
@@ -447,12 +289,52 @@ def print_ranking_console_summary(ranking: pd.DataFrame, runtime_seconds: float)
     print(f"\nruntime_seconds: {runtime_seconds:.2f}")
 
 
+def plot_overlay_equity(curves: dict, path: Path, title: str):
+    import matplotlib.pyplot as plt
+    plt.figure(figsize=(10,6))
+    for name, df in curves.items():
+        if df.empty: continue
+        plt.plot(pd.to_datetime(df["datetime_ny"]), df["equity"], label=name)
+    plt.title(title)
+    plt.legend()
+    plt.savefig(path)
+    plt.close()
+
+def plot_overlay_drawdown(curves: dict, path: Path, title: str):
+    import matplotlib.pyplot as plt
+    plt.figure(figsize=(10,6))
+    for name, df in curves.items():
+        if df.empty: continue
+        plt.plot(pd.to_datetime(df["datetime_ny"]), df["drawdown_pct"], label=name)
+    plt.title(title)
+    plt.legend()
+    plt.savefig(path)
+    plt.close()
+
+def plot_overlay_yearly(stats: dict, path: Path, title: str):
+    import matplotlib.pyplot as plt
+    plt.figure(figsize=(10,6))
+    for name, df in stats.items():
+        if df.empty: continue
+        plt.bar(df["year"], df["total_pnl_r"], alpha=0.5, label=name)
+    plt.title(title)
+    plt.legend()
+    plt.savefig(path)
+    plt.close()
+
+
 def main() -> None:
     parser = build_parser()
     args = parser.parse_args()
     engine_config, news_config = build_configs(args)
-    raw_frame = load_price_data(engine_config.pair, [Path(item) for item in args.data_dirs], args.start, args.end)
-    frame = prepare_common_frame(raw_frame)
+    data_bundle = load_backtest_data_bundle(
+        engine_config.pair,
+        [Path(item) for item in args.data_dirs],
+        args.start,
+        args.end,
+        engine_config.execution_mode,
+        target_timeframe=args.timeframe,
+    )
     output_root = build_output_root(Path(args.results_dir), "robust_lab")
     start_time = time.time()
 
@@ -461,10 +343,37 @@ def main() -> None:
     else:
         strategy_names = list(STRATEGY_NAMES)
 
-    evaluations = [
-        evaluate_strategy(strategy_name, frame, engine_config, news_config, output_root, args.max_evals, args.seed)
-        for strategy_name in strategy_names
-    ]
+    fixed_params = None
+    if args.command == "run" and args.params:
+        try:
+            fixed_params = json.loads(args.params.replace("'", "\""))
+        except Exception as e:
+            print(f"Error parseando params: {e}")
+
+    evaluations = []
+    for i, strategy_name in enumerate(strategy_names):
+        print(f"--- Evaluando {strategy_name} ({i+1}/{len(strategy_names)}) ---")
+        try:
+            res = evaluate_strategy(
+                strategy_name,
+                data_bundle,
+                engine_config,
+                news_config,
+                output_root,
+                args.max_evals,
+                args.seed,
+                precision_package=data_bundle.precision_package,
+                data_source_used=data_bundle.data_source_used,
+                timeframe=args.timeframe,
+                fixed_params=fixed_params,
+            )
+            evaluations.append(res)
+        except Exception as e:
+            print(f"Error en {strategy_name}: {e}")
+
+    if not evaluations:
+        print("\n[WARNING] No se completó ninguna evaluación con éxito. Verifique los errores arriba.")
+        return
 
     ranking = pd.DataFrame([item["row"] for item in evaluations]).sort_values(
         ["insufficient_sample", "selected_score"], ascending=[True, False]
@@ -487,23 +396,39 @@ def main() -> None:
     top3_curves = {}
     top3_yearly = {}
     for _, row in ranking.head(3).iterrows():
-        item = next(entry for entry in evaluations if entry["strategy_name"] == row["strategy_name"])
+        item = next((entry for entry in evaluations if entry["strategy_name"] == row["strategy_name"]), None)
+        if not item or "default_wfa" not in item:
+            continue
+        from research_lab.report import summarize_result
         _, _, _, yearly_stats_oos, equity_export_oos = summarize_result(
             item["strategy_name"],
             item["default_wfa"].oos_trades,
             item["default_wfa"].oos_equity_curve,
-            {"wfa": "default"},
+            item["default_wfa"].best_params,
             True,
             INITIAL_CAPITAL,
-            None,
+            row["selected_score"],
+            timeframe=args.timeframe,
         )
         top3_curves[item["strategy_name"]] = equity_export_oos
         top3_yearly[item["strategy_name"]] = yearly_stats_oos
 
-    plot_overlay_equity(top3_curves, output_root / "equity_curves_overlay_top3.png", "Top3 OOS equity")
-    plot_overlay_drawdown(top3_curves, output_root / "drawdown_overlay_top3.png", "Top3 OOS drawdown")
-    plot_overlay_yearly(top3_yearly, output_root / "yearly_pnl_overlay_top3.png", "Top3 OOS yearly pnl_r")
+    try:
+        plot_overlay_equity(top3_curves, output_root / "equity_curves_overlay_top3.png", "Top3 OOS equity")
+        plot_overlay_drawdown(top3_curves, output_root / "drawdown_overlay_top3.png", "Top3 OOS drawdown")
+        plot_overlay_yearly(top3_yearly, output_root / "yearly_pnl_overlay_top3.png", "Top3 OOS yearly pnl_r")
+    except Exception as e:
+        print(f"Error graficando: {e}")
 
+    # Collect rejection stats for main report
+    rejection_log = []
+    for item in evaluations:
+        status = item.get("status", "N/A")
+        reason = item.get("rejection_reason", "N/A")
+        rejection_log.append({ "strategy_name": item["strategy_name"], "status": status, "reason": reason })
+    pd.DataFrame(rejection_log).to_csv(output_root / "rejection_summary_log.csv", index=False)
+
+    from research_lab.report import export_root_tables
     export_root_tables(
         output_root,
         ranking,

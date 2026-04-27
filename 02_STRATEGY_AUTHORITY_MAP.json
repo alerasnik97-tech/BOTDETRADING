@@ -1,0 +1,34 @@
+{
+  "authority_hierarchy": {
+    "primary": {
+      "id": "SCBI_M5_GLOBAL",
+      "role": "overnight_authority",
+      "status": "protected",
+      "window": "00:00-05:00 UTC"
+    },
+    "daytime_candidates": [
+      {
+        "id": "Phase8_High_Precision",
+        "pf": 2.09,
+        "status": "forward_candidate",
+        "frequency": "low"
+      },
+      {
+        "id": "Phase7_Repaired",
+        "pf": 1.50,
+        "status": "forward_candidate",
+        "frequency": "medium"
+      }
+    ],
+    "rejected_phases": [
+      { "id": "Phase9", "reason": "edge_destruction_by_frequency" },
+      { "id": "Phase10", "reason": "insufficient_edge_at_high_frequency" },
+      { "id": "Phase11", "reason": "no_improvement_over_baseline" }
+    ]
+  },
+  "lab_status": {
+    "id": "BOT_V2_DAYTIME_LAB",
+    "role": "research_only",
+    "authority": "none_production"
+  }
+}

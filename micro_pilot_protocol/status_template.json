@@ -1,0 +1,13 @@
+{
+  "protocol_status": "READY_BUT_NOT_ACTIVE",
+  "activation_status": "NOT_ACTIVE_UNTIL_MICRO_PILOT_ALLOWED",
+  "gate_status": "NOT_READY_FOR_MICRO_PILOT",
+  "allowed_to_trade": false,
+  "current_risk_mode": "PILOT_DEFAULTS_CONSERVATIVE",
+  "daily_limit_status": "OK",
+  "weekly_limit_status": "OK",
+  "kill_switch_status": "ARMED",
+  "breach_detected": false,
+  "last_update": "2026-04-24T08:42:57-03:00",
+  "notes": "Protocolo finalizado y listo. Esperando autorizacion del gate institucional por falta de evidencia Shadow (N < 10)."
+}

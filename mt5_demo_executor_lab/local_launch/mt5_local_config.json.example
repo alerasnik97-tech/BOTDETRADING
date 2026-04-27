@@ -1,0 +1,7 @@
+{
+  "mt5_terminal_path": "C:\\Program Files\\MetaTrader 5\\terminal64.exe",
+  "project_root": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo",
+  "python_command": "python",
+  "startup_delay_seconds": 10,
+  "account_type_required": "DEMO"
+}

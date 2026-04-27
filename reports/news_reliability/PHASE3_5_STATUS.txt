@@ -1,0 +1,12 @@
+Fase 3.5 (desbloqueo + validacion masiva) — 2026-04-13
+
+Estado input TE: NO PRESENTE en el workspace. No se ejecuto ingesta masiva real.
+Se inspecciono data/news_imports/ (inexistente salvo este README), data/ (solo legacy FF y news_eurusd_m15_*), y el arbol del repo: sin JSON/CSV TE compatible.
+
+Cambio aplicado (fail-closed explicito en ingesta):
+- Columna operational_eligible en audit y clean (CSV V2).
+- status sigue siendo solo validacion tecnica (approved / rejected_*).
+- operational_eligible = (status==approved) AND source_approved en config.
+- summary JSON: technical_approved_rows, operational_eligible_rows, status_column_semantics, operational_eligible_rule.
+
+Proximo paso: copiar export TE dentro de data/news_imports/tradingeconomics_calendar.json y ejecutar python -m research_lab.news_phase3_mass_validate.

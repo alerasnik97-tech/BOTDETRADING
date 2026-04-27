@@ -1,0 +1,77 @@
+{
+  "timestamp": "2026-04-21T19:54:26.337565",
+  "phase": "N10",
+  "n_trades": 10,
+  "metrics": {
+    "N": 10,
+    "wins": 6,
+    "losses": 4,
+    "pf": 1.548,
+    "expectancy": 0.1755,
+    "max_drawdown": -3.2,
+    "win_rate": 0.6
+  },
+  "gate_status": null,
+  "trades": [
+    {
+      "sweep_time": "2022-01-13 10:00:00-05:00",
+      "level": "asia_h",
+      "direction": "short",
+      "entry_time": "2022-01-13 11:05:00-05:00",
+      "entry_price": 1.14607,
+      "sl": 1.14807,
+      "tp": 1.14307,
+      "risk_pips": 20.0,
+      "pnl_r": 0.12,
+      "exit_type": "timeout"
+    },
+    {
+      "sweep_time": "2022-01-14 09:00:00-05:00",
+      "level": "pdl",
+      "direction": "long",
+      "entry_time": "2022-01-14 10:05:00-05:00",
+      "entry_price": 1.14421,
+      "sl": 1.14323,
+      "tp": 1.14568,
+      "risk_pips": 9.8,
+      "pnl_r": -1.0,
+      "exit_type": "sl_hit"
+    },
+    {
+      "sweep_time": "2022-01-17 09:00:00-05:00",
+      "level": "pdl",
+      "direction": "long",
+      "entry_time": "2022-01-17 10:05:00-05:00",
+      "entry_price": 1.14119,
+      "sl": 1.13907,
+      "tp": 1.14437,
+      "risk_pips": 21.2,
+      "pnl_r": -0.203,
+      "exit_type": "timeout"
+    },
+    {
+      "sweep_time": "2022-01-19 09:00:00-05:00",
+      "level": "london_h",
+      "direction": "short",
+      "entry_time": "2022-01-19 10:05:00-05:00",
+      "entry_price": 1.13438,
+      "sl": 1.13516,
+      "tp": 1.13321,
+      "risk_pips": 7.8,
+      "pnl_r": -1.0,
+      "exit_type": "sl_hit"
+    },
+    {
+      "sweep_time": "2022-01-20 08:00:00-05:00",
+      "level": "london_l",
+      "direction": "long",
+      "entry_time": "2022-01-20 09:05:00-05:00",
+      "entry_price": 1.13518,
+      "sl": 1.13301,
+      "tp": 1.13844,
+      "risk_pips": 21.7,
+      "pnl_r": -1.0,
+      "exit_type": "sl_hit"
+    }
+  ]
+}

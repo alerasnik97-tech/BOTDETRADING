@@ -1,0 +1,12 @@
+{
+  "total_trades": 24,
+  "win_rate": 45.83333333333333,
+  "profit_factor": 0.26486809692722335,
+  "expectancy": -328.1472473582756,
+  "expectancy_r": -0.3281472473582755,
+  "max_drawdown": 8.448450090877412,
+  "return_total": -7.875533936598567,
+  "avg_trades_per_month": 1.0,
+  "negative_months": 10,
+  "negative_years": 2
+}

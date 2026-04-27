@@ -1,0 +1,13 @@
+{
+    "name": "London Close Sweep with HTF Bias M1",
+    "is_programmable": true,
+    "has_news_fortress": true,
+    "is_not_rejected_family": true,
+    "friction_resistant": true,
+    "programmability_score": 25,
+    "differentiation_score": 20,
+    "temporal_selectivity_score": 20,
+    "austerity_score": 15,
+    "htf_confluence_score": 10,
+    "base_evidence_score": 10
+}
