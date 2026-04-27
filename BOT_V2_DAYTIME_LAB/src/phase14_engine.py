@@ -60,12 +60,23 @@ class Phase14Engine:
         config: {
             "tp_r": 1.5, "be_r": None, "news_guard_mins": 30,
             "start_time": "07:00", "end_time": "20:00",
-            "mandatory_close_time": "20:00", "one_trade_per_day": True
+            "mandatory_close_time": "20:00", "one_trade_per_day": True,
+            "max_trades_per_day": 1,
+            "sl_buffer_pips": 0.0,
+            "partial_tp_r": None, "partial_pct": 0.0,
+            "timeout_mins": None
         }
         """
         trades = []
         active_trade = None
-        news_timestamps = news_df['timestamp'].tolist()
+        
+        # Pre-calculate news blocks for speed
+        news_blocked_times = set()
+        if not news_df.empty:
+            news_guard = config.get('news_guard_mins', 30)
+            for nt in news_df['timestamp']:
+                for m in range(-news_guard, news_guard + 1):
+                    news_blocked_times.add((nt + pd.Timedelta(minutes=m)).replace(second=0, microsecond=0))
         
         start_t = datetime.strptime(config['start_time'], "%H:%M").time()
         end_t = datetime.strptime(config['end_time'], "%H:%M").time()
@@ -75,109 +86,166 @@ class Phase14Engine:
         trades_today = 0
         current_date = None
 
-        for i, row in df_ltf.iterrows():
-            ny_time = row['timestamp_ny'].time()
-            ny_date = row['timestamp_ny'].date()
+        for row in df_ltf.itertuples():
+            i = row.Index
+            ny_time = row.timestamp_ny.time()
+            ny_date = row.timestamp_ny.date()
             
             if ny_date != current_date:
                 current_date = ny_date
                 trades_today = 0
 
             if active_trade:
-                # Mandatory close at 20:00 NY
-                if ny_time >= close_t:
-                    active_trade['status'] = 'TIMEOUT_CLOSE'
-                    active_trade['exit_price'] = row['close_bid'] if active_trade['type'] == 'LONG' else row['close_ask']
-                    active_trade['exit_time'] = row['timestamp_ny']
+                # Timeout Logic
+                elapsed_mins = (row.timestamp_ny - active_trade['entry_time']).total_seconds() / 60
+                if (config.get('timeout_mins') and elapsed_mins >= config['timeout_mins']) or (ny_time >= close_t):
+                    active_trade['status'] = 'TIMEOUT_CLOSE' if ny_time < close_t else 'FORCED_CLOSE_2000'
+                    active_trade['exit_price'] = row.close_bid if active_trade['type'] == 'LONG' else row.close_ask
+                    active_trade['exit_time'] = row.timestamp_ny
                     trades.append(active_trade)
                     active_trade = None
                     continue
 
                 # Normal Exit Logic
                 if active_trade['type'] == 'LONG':
-                    if row['low_bid'] <= active_trade['sl']:
+                    # SL Check
+                    if row.low_bid <= active_trade['sl']:
                         active_trade['status'] = 'SL'
                         active_trade['exit_price'] = active_trade['sl']
-                        active_trade['exit_time'] = row['timestamp_ny']
+                        active_trade['exit_time'] = row.timestamp_ny
                         trades.append(active_trade)
                         active_trade = None
-                    elif row['high_bid'] >= active_trade['tp']:
+                        continue
+                    
+                    # Partial TP Check
+                    if config.get('partial_tp_r') and not active_trade.get('partial_taken'):
+                        if row.high_bid >= active_trade['entry_price'] + active_trade['risk'] * config['partial_tp_r']:
+                            active_trade['partial_taken'] = True
+                            active_trade['partial_exit_price'] = active_trade['entry_price'] + active_trade['risk'] * config['partial_tp_r']
+                            active_trade['partial_exit_time'] = row.timestamp_ny
+                    
+                    # Final TP Check
+                    if row.high_bid >= active_trade['tp']:
                         active_trade['status'] = 'TP'
                         active_trade['exit_price'] = active_trade['tp']
-                        active_trade['exit_time'] = row['timestamp_ny']
+                        active_trade['exit_time'] = row.timestamp_ny
                         trades.append(active_trade)
                         active_trade = None
-                    elif config.get('be_r') and not active_trade.get('be_triggered'):
-                        if row['high_bid'] >= active_trade['entry_price'] + active_trade['risk'] * config['be_r']:
+                        continue
+                        
+                    # BE Check
+                    if config.get('be_r') and not active_trade.get('be_triggered'):
+                        if row.high_bid >= active_trade['entry_price'] + active_trade['risk'] * config['be_r']:
                             active_trade['sl'] = active_trade['entry_price']
                             active_trade['be_triggered'] = True
                 else: # SHORT
-                    if row['high_ask'] >= active_trade['sl']:
+                    # SL Check
+                    if row.high_ask >= active_trade['sl']:
                         active_trade['status'] = 'SL'
                         active_trade['exit_price'] = active_trade['sl']
-                        active_trade['exit_time'] = row['timestamp_ny']
+                        active_trade['exit_time'] = row.timestamp_ny
                         trades.append(active_trade)
                         active_trade = None
-                    elif row['low_ask'] <= active_trade['tp']:
+                        continue
+                    
+                    # Partial TP Check
+                    if config.get('partial_tp_r') and not active_trade.get('partial_taken'):
+                        if row.low_bid <= active_trade['entry_price'] - active_trade['risk'] * config['partial_tp_r']:
+                            active_trade['partial_taken'] = True
+                            active_trade['partial_exit_price'] = active_trade['entry_price'] - active_trade['risk'] * config['partial_tp_r']
+                            active_trade['partial_exit_time'] = row.timestamp_ny
+
+                    # Final TP Check
+                    if row.low_ask <= active_trade['tp']:
                         active_trade['status'] = 'TP'
                         active_trade['exit_price'] = active_trade['tp']
-                        active_trade['exit_time'] = row['timestamp_ny']
+                        active_trade['exit_time'] = row.timestamp_ny
                         trades.append(active_trade)
                         active_trade = None
-                    elif config.get('be_r') and not active_trade.get('be_triggered'):
-                        if row['low_bid'] <= active_trade['entry_price'] - active_trade['risk'] * config['be_r']:
+                        continue
+                        
+                    # BE Check
+                    if config.get('be_r') and not active_trade.get('be_triggered'):
+                        if row.low_bid <= active_trade['entry_price'] - active_trade['risk'] * config['be_r']:
                             active_trade['sl'] = active_trade['entry_price']
                             active_trade['be_triggered'] = True
                 continue
             
             # Entry Logic
             if i in signals_by_idx:
-                if config.get('one_trade_per_day') and trades_today >= 1: continue
+                max_trades = config.get('max_trades_per_day', 1)
+                if trades_today >= max_trades: continue
                 if not (start_t <= ny_time <= end_t): continue
                 
                 # News Guard
-                if any(abs((row['timestamp'] - nt).total_seconds()) <= config['news_guard_mins'] * 60 for nt in news_timestamps):
+                if row.timestamp.replace(second=0, microsecond=0) in news_blocked_times:
                     continue
                 
                 sig = signals_by_idx[i]
+                sl_buffer = config.get('sl_buffer_pips', 0.0) * 0.0001
+                
                 if sig['type'] == 'LONG':
-                    entry_p = row['close_ask']
-                    sl = sig.get('sl_custom') or (row['low_bid'] - 0.0001)
+                    entry_p = row.close_ask
+                    sl = (sig.get('sl_custom') or (row.low_bid - 0.0001)) - sl_buffer
                     risk = entry_p - sl
                     if risk <= 0: continue
                     active_trade = {
-                        'type': 'LONG', 'entry_time': row['timestamp_ny'], 'entry_price': entry_p,
-                        'sl': sl, 'tp': entry_p + risk * config['tp_r'], 'risk': risk, 'status': 'OPEN'
+                        'type': 'LONG', 'entry_time': row.timestamp_ny, 'entry_price': entry_p,
+                        'sl': sl, 'tp': entry_p + risk * config['tp_r'], 'risk': risk, 'status': 'OPEN',
+                        'partial_taken': False
                     }
                 else:
-                    entry_p = row['close_bid']
-                    sl = sig.get('sl_custom') or (row['high_ask'] + 0.0001)
+                    entry_p = row.close_bid
+                    sl = (sig.get('sl_custom') or (row.high_ask + 0.0001)) + sl_buffer
                     risk = sl - entry_p
                     if risk <= 0: continue
                     active_trade = {
-                        'type': 'SHORT', 'entry_time': row['timestamp_ny'], 'entry_price': entry_p,
-                        'sl': sl, 'tp': entry_p - risk * config['tp_r'], 'risk': risk, 'status': 'OPEN'
+                        'type': 'SHORT', 'entry_time': row.timestamp_ny, 'entry_price': entry_p,
+                        'sl': sl, 'tp': entry_p - risk * config['tp_r'], 'risk': risk, 'status': 'OPEN',
+                        'partial_taken': False
                     }
                 trades_today += 1
                     
         return pd.DataFrame(trades)
 
-    def calculate_metrics(self, df_trades):
+    def calculate_metrics(self, df_trades, config=None):
         if df_trades.empty:
-            return {"sample": 0, "pf": 0, "expectancy": 0}
+            return {"sample": 0, "pf": 0.0, "expectancy": 0.0, "win_rate": 0.0, "total_r": 0.0}
+        
         df = df_trades.copy()
-        df['r_return'] = np.where(df['status'] == 'TP', (df['tp'] - df['entry_price']).abs() / df['risk'], 
-                         np.where(df['status'] == 'SL', -1.0, 
-                         (df['exit_price'] - df['entry_price']) / df['risk'] if df.iloc[0]['type'] == 'LONG' else (df['entry_price'] - df['exit_price']) / df['risk']))
+        partial_pct = config.get('partial_pct', 0.0) if config else 0.0
+        
+        def calc_r_return(row):
+            # Final R-return calculation considering partials
+            final_pnl_r = 0.0
+            
+            # Exit calculation
+            exit_dist = (row['exit_price'] - row['entry_price']) if row['type'] == 'LONG' else (row['entry_price'] - row['exit_price'])
+            exit_r = exit_dist / row['risk']
+            
+            if row.get('partial_taken'):
+                partial_dist = (row['partial_exit_price'] - row['entry_price']) if row['type'] == 'LONG' else (row['entry_price'] - row['partial_exit_price'])
+                partial_r = partial_dist / row['risk']
+                final_pnl_r = (partial_r * partial_pct) + (exit_r * (1.0 - partial_pct))
+            else:
+                final_pnl_r = exit_r
+                
+            return final_pnl_r
+
+        df['r_return'] = df.apply(calc_r_return, axis=1)
         
         profits = df[df['r_return'] > 0]['r_return'].sum()
         losses = abs(df[df['r_return'] < 0]['r_return'].sum())
         
-        return {
+        metrics = {
             "sample": len(df),
-            "pf": round(profits / losses if losses > 0 else 0, 2),
+            "pf": round(profits / losses if losses > 0 else (profits if profits > 0 else 0.0), 2),
             "expectancy": round(df['r_return'].mean(), 3),
             "win_rate": round(len(df[df['r_return'] > 0]) / len(df), 4),
             "total_r": round(df['r_return'].sum(), 2),
-            "timeout_count": len(df[df['status'] == 'TIMEOUT_CLOSE'])
+            "timeout_count": len(df[df['status'].isin(['TIMEOUT_CLOSE', 'FORCED_CLOSE_2000'])]),
+            "tp_count": len(df[df['status'] == 'TP']),
+            "sl_count": len(df[df['status'] == 'SL']),
+            "be_count": len(df[df['be_triggered'] == True]) if 'be_triggered' in df.columns else 0
         }
+        return metrics
