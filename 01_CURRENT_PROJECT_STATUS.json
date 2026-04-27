@@ -6,11 +6,12 @@
     "vps_readiness": "VPS_READY",
     "strategies": {
       "SCBI_M5_GLOBAL": "protected",
-      "Phase13_London_Reclaim": "strong_candidate",
+      "Phase13_London_Reclaim": "strong_candidate_london_only",
       "Phase8_High_Precision": "living_candidate",
       "Phase7_Repaired": "living_candidate"
     },
-    "research_milestone": "Phase 13 Successful Discovery",
+    "research_milestone": "Phase 14 NY Window Conflict Identified",
+    "critical_note": "La ventana 07:00-20:00 NY no es apta para los modelos de reversión actuales.",
     "archived_items": "150+ docs, 25+ csvs, 3 temp_folders"
   }
 }

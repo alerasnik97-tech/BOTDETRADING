@@ -1,0 +1,21 @@
+{
+  "phase": 14,
+  "verdict": "REJECTED_NY_WINDOW",
+  "critical_finding": "Operational start at 07:00 NY destroys current edge.",
+  "metrics_london_window_03_07": {
+    "pf": 7.57,
+    "sample": 123
+  },
+  "metrics_ny_window_07_11": {
+    "pf": 0.90,
+    "sample": 1089
+  },
+  "strategies_tested": [
+    {"id": "Phase13", "pf_ny": 0.89},
+    {"id": "Phase8_Sim", "pf_ny": 0.79},
+    {"id": "S1_HTF_Sweep", "pf_ny": 0.64},
+    {"id": "S2_London_Cont", "pf_ny": 0.89},
+    {"id": "S3_Opening_Range", "pf_ny": 0.88}
+  ],
+  "recommendation": "Maintain London session (03:00-07:00) or pivot to Trend Following for NY."
+}
