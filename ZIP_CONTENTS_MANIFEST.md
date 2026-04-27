@@ -1,6 +1,6 @@
 # ZIP CONTENTS MANIFEST
 
-**Fecha de Reconstrucción:** 2026-04-27 (POST-LIMPIEZA)
+**Fecha de Reconstrucción:** 2026-04-27 (POST-PHASE 13)
 **Estado:** **CANÓNICO MAESTRO SANEADO**
 
 ## 1. Contenido Incluido
@@ -14,19 +14,17 @@
 - `000_PARA_CHATGPT.zip` (Autoridad única)
 
 ### Estructura de Autoridad
-- `BOT_V2_DAYTIME_LAB\`: Laboratorio con rutas reparadas (excluyendo datos pesados).
-- `STRATEGIES\`: Fases de estrategias 7, 8, 9, 10, 11 con estatus actualizado.
-- `REPORTS\infra_audits\`: Historial completo de auditorías y limpieza.
+- `BOT_V2_DAYTIME_LAB\`: Laboratorio de investigación diurna.
+- `BOT_V2_DAYTIME_LAB\reports\PHASE13_TWO_PRACTICAL_ENTRIES_REPORT.md`: Reporte del nuevo candidato estrella.
+- `STRATEGIES\`: Fases de estrategias 7 a 13 con estatus actualizado.
 - `REPORTS\engine_safety\`: Certificación del Engine Safety Gate.
 - `VPS_READINESS\`: Infraestructura y guías para despliegue en VPS.
-- `REPORTS\vps_readiness\`: Reportes de validación de entorno VPS.
-- `BOT_V2_DAYTIME_LAB\tests\`: Suite de pruebas unitarias de integridad.
-- `BOT_V2_DAYTIME_LAB\outputs\engine_safety_tests\`: Resultados de la suite de pruebas.
 
 ## 2. Exclusiones
 - `ARCHIVE_SUPERSEDED/`: Evidencia histórica archivada.
 - `DATA/`: Datasets pesados.
-- Temporales y duplicados eliminados/archivados.
+- `.venv`, `__pycache__`, `.pyc`, `.git`.
+- Credenciales y configuraciones locales reales.
 
 ## 3. Veredicto
-Este ZIP representa el **Estado del Arte** del proyecto tras la consolidación de 2026. Es la única fuente de verdad permitida.
+Este ZIP representa el **Estado del Arte** del proyecto tras el éxito de la Phase 13. Incluye el modelo **London Reclaim Dual Bias**, certificado con PF 1.62.
