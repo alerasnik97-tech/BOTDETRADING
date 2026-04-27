@@ -18,6 +18,8 @@
 - `STRATEGIES\`: Fases de estrategias 7, 8, 9, 10, 11 con estatus actualizado.
 - `REPORTS\infra_audits\`: Historial completo de auditorías y limpieza.
 - `REPORTS\engine_safety\`: Certificación del Engine Safety Gate.
+- `VPS_READINESS\`: Infraestructura y guías para despliegue en VPS.
+- `REPORTS\vps_readiness\`: Reportes de validación de entorno VPS.
 - `BOT_V2_DAYTIME_LAB\tests\`: Suite de pruebas unitarias de integridad.
 - `BOT_V2_DAYTIME_LAB\outputs\engine_safety_tests\`: Resultados de la suite de pruebas.
 
