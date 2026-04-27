@@ -364,6 +364,7 @@ def break_even_trigger_price(position: Position, pair: str) -> float:
         0.0,
     )
 
+
 def mark_to_market_execution_price(pair: str, direction: str, bid_close: float, spread_pips: float) -> float:
     spread_price = pip_to_price(pair, spread_pips)
     if direction == "long":
