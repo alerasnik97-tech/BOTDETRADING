@@ -7,8 +7,8 @@
 La raíz oficial `C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo` ha sido saneada. Se han archivado más de 150 documentos sueltos y CSVs para restaurar el orden institucional.
 
 ## 2. Reparación de Infraestructura
-- **Fase Actual:** ENGINE_SAFETY_GATE (APROBADO)
-- **Estado de Infraestructura:** VALIDADO Y SANEADO
+- **Fase Actual:** VPS_READINESS (COMPLETADA)
+- **Estado de Infraestructura:** VPS-READY (Preflight/Forward Demo)
 - **Candidato Diurno Líder:** Phase 8 High Precision (PF 2.09)
 
 ## 3. Estado de Estrategias

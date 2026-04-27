@@ -1,0 +1,5 @@
+{
+  "max_risk_per_trade_percent": 1.0,
+  "max_open_trades": 1,
+  "max_daily_risk": 2.0
+}
