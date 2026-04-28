@@ -20,7 +20,9 @@ class Phase14Engine:
         m_key_ask = key_ask if key_ask in self.manifest[period] else 'm5_ask'
 
         path_bid = self.manifest[period][m_key_bid]
+        if isinstance(path_bid, dict): path_bid = path_bid['path']
         path_ask = self.manifest[period].get(m_key_ask)
+        if isinstance(path_ask, dict): path_ask = path_ask['path']
         
         df_bid = pd.read_csv(path_bid)
         df_bid['timestamp'] = pd.to_datetime(df_bid['timestamp'], utc=True)
