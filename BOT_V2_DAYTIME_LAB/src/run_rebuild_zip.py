@@ -34,6 +34,7 @@ def rebuild_zip():
         "BOT_V2_DAYTIME_LAB/outputs/phase18_h1_fractal_sweep",
         "BOT_V2_DAYTIME_LAB/outputs/manual_edge_alignment",
         "BOT_V2_DAYTIME_LAB/outputs/news_fortress_live_gate",
+        "BOT_V2_DAYTIME_LAB/outputs/phase20_news_fortress_frequency_recovery",
         "BOT_V2_DAYTIME_LAB/docs",
         "REPORTS/infra_audits",
         "REPORTS/engine_safety",
@@ -101,6 +102,7 @@ def rebuild_zip():
             "BOT_V2_DAYTIME_LAB/src/phase18_h1_fractal_sweep.py",
             "BOT_V2_DAYTIME_LAB/src/phase18_first_3m_choch.py",
             "BOT_V2_DAYTIME_LAB/src/news_fortress/news_fortress_gate.py",
+            "BOT_V2_DAYTIME_LAB/reports/PHASE20_NEWS_FORTRESS_FREQUENCY_RECOVERY_REPORT.md",
             "00_READ_THIS_FIRST.md",
             "ZIP_CONTENTS_MANIFEST.md"
         ]
