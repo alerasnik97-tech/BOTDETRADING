@@ -1,41 +1,21 @@
 # STRATEGY AUTHORITY MAP
 
-Este documento define la jerarquía y el estado de autoridad de todas las estrategias dentro del ecosistema del BOT.
+## 1. Autoridad maxima: SCBI_M5_GLOBAL
+- Estado: PROTEGIDA / SIN CAMBIOS.
+- No fue modificada por la certificacion M3/news.
 
-## 1. Autoridad Máxima: SCBI_M5_GLOBAL (Overnight)
-- **Estado:** PRODUCCIÓN / MADRUGADA.
-- **Rango Operativo:** 00:00 - 05:00 UTC.
-- **Benchmark:** Superior. No se modifica. No se adapta.
-- **Infraestructura:** Requiere VPS o entorno 24/5. 
-- **Nota:** Es la estrategia principal. No está reemplazada por Bot V2.
+## 2. Baseline diurna protegida
+- Phase18 H1 Fractal Sweep + First M3 CHOCH: VALIDATED_FOR_FORWARD_DEMO, PF 1.63, sample 1.040.
+- Phase19 no reemplaza Phase18.
 
-## 2. Candidatos Diurnos Certificados
-- **Phase 8 High Precision**: PF 2.09. Estado: **VALIDADO**.
-- **Phase 13 London Reclaim**: PF 1.62. Estado: **VALIDADO**.
-- **Phase 17 Post-News**: PF 2.03. Estado: **VALIDADO**.
-- **Phase 19 Expanded Sweep**: PF 3.18. Estado: **VALIDADO_FOR_FORWARD**.
+## 3. Data foundation Phase19 repaired
+- Estado: NEWS_CERTIFIED_M3_BLOCKED.
+- Preflight: PHASE19_REPAIRED_PREFLIGHT_BLOCKED.
+- Phase19 repaired no fue ejecutada en esta fase.
 
-## 3. Candidato Diurno Balanceado: Phase 7 Repaired
-- **Estado:** VALIDADO (PF 1.50).
+## 4. Phase19 legacy
+- Estado: PHASE19_INVALIDATED.
+- No habilita forward demo, real, VPS ni reemplazo operativo.
 
-## 4. Laboratorio Diurno: BOT_V2_DAYTIME_LAB
-- **Estado:** LABORATORIO / INVESTIGACIÓN.
-
-## 5. Experimentos Rechazados (Sin Autoridad Operativa)
-- **Phase 9, 10, 11**: Rechazadas por baja robustez.
-- **Phase 12**: **INVALIDADA** (Bug crítico detectado).
-
-## 6. Validación de Infraestructura (Safety Gate)
-- **Engine Safety Suite:** **APROBADO**.
-- **Phase 18 Forensic Audit:** **PASSED** (No-lookahead certified).
-
-## 7. Preparación para Despliegue (VPS Readiness)
-- **Estado:** **VPS-READY**.
-- **Gate de Control:** Forward Demo activo para fases 8, 13 y 18.
-
-## 7. Regla de Oro
-Ninguna estrategia fuera de esta lista tiene autoridad operativa. Los reportes obsoletos en `ARCHIVE_SUPERSEDED\` no deben ser usados para tomar decisiones.
-
-## 8. Integridad de Directorios
-- **Raíz Única:** `C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo`
-- **Limpieza:** Todas las versiones anteriores han sido archivadas internamente.
+## 5. Regla de autoridad
+Si hay contradiccion entre narrativa previa y archivos reales actuales, mandan estos archivos de estado y el reporte M3_BID_ASK_AND_NEWS_CERTIFICATION_REPORT.

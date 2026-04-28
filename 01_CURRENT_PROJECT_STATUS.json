@@ -1,17 +1,17 @@
 {
   "project_status": {
-    "date": "2026-04-27",
-    "root_status": "CLEAN_AND_CERTIFIED",
-    "path_repair": "COMPLETE",
-    "vps_readiness": "VPS_READY",
+    "date": "2026-04-28",
+    "root_status": "M3_BID_ASK_NEWS_FOUNDATION_UPDATED",
+    "lab": "BOT_V2_DAYTIME_LAB",
     "strategies": {
-      "SCBI_M5_GLOBAL": "protected",
-      "Phase13_London_Reclaim": "strong_candidate_london_only",
-      "Phase8_High_Precision": "living_candidate",
-      "Phase7_Repaired": "living_candidate"
+      "SCBI_M5_GLOBAL": "protected_unchanged",
+      "Phase18_Fractal_Sweep": "daytime_baseline_protected",
+      "Phase19_Expanded_Sweep": "PHASE19_INVALIDATED",
+      "Phase19_Repaired": "PHASE19_REPAIRED_PREFLIGHT_BLOCKED"
     },
-    "research_milestone": "Phase 14 NY Window Conflict Identified",
-    "critical_note": "La ventana 07:00-20:00 NY no es apta para los modelos de reversión actuales.",
-    "archived_items": "150+ docs, 25+ csvs, 3 temp_folders"
+    "critical_note": "M3 BID/ASK y News Guard fueron tratados como capa de datos. No se corrio Phase19 ni se promovio ninguna estrategia.",
+    "final_data_verdict": "NEWS_CERTIFIED_M3_BLOCKED",
+    "mt5_touched": false,
+    "real_trading_enabled": false
   }
 }

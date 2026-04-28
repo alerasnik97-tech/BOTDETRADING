@@ -1,0 +1,499 @@
+{
+  "objective": "Forensic audit Phase19 before operational promotion",
+  "original_phase19": {
+    "strategy": "Phase19 Expanded Sweep",
+    "base": "H1 Fractal Sweep + First M3 CHOCH",
+    "window": "08:00-16:30 NY",
+    "max_trades_per_day": 3,
+    "choch_window_minutes": 30,
+    "tp_r": 2.5,
+    "be": "none",
+    "sl": "sweep extreme",
+    "exclude_friday": true,
+    "min_sweep_pips": 0.5,
+    "sample": 3177,
+    "pf": 3.18,
+    "expectancy_r": 0.69,
+    "trades_month": 51,
+    "pf_2023_2025_min": 2.9,
+    "pf_plus_1_pip": 2.58,
+    "pf_plus_1_5_pips": 2.35,
+    "out_of_hours_trades": 0,
+    "news_violations": 0
+  },
+  "reproduction": {
+    "metrics": {
+      "sample": 3177,
+      "pf": 3.176362,
+      "expectancy_R": 0.741895,
+      "cumulative_R": 2357.0,
+      "max_drawdown_R": -15.5,
+      "max_drawdown_pct_1pct_risk": -15.5,
+      "max_loss_streak": 12,
+      "worst_day_R": -3.0,
+      "worst_week_R": -9.0,
+      "worst_month_R": -4.0,
+      "win_rate": 0.433113,
+      "tp_count": 1376,
+      "sl_count": 1083,
+      "be_count": 0,
+      "timeout_count": 718,
+      "forced_close_count": 0,
+      "same_bar_count": 0,
+      "average_win_R": 2.5,
+      "average_loss_R": -1.0,
+      "gross_profit_R": 3440.0,
+      "gross_loss_R": 1083.0,
+      "trades_month": 41.802632,
+      "trades_day_avg": 2.690093,
+      "drawdown_recovery_trades": 56
+    },
+    "reproduction_verdict": "PHASE19_REPRODUCTION_MISMATCH",
+    "news_counts": {
+      "30m": 458,
+      "45m": 520,
+      "60m": 570
+    }
+  },
+  "tp_sl_math": {
+    "verdict": "PHASE19_TP_SL_WARNING",
+    "long_tp_above_entry_violations": 0,
+    "long_sl_below_entry_violations": 0,
+    "short_tp_below_entry_violations": 0,
+    "short_sl_above_entry_violations": 0,
+    "tp_2_5r_violations": 0,
+    "risk_le_zero": 0,
+    "sl_equal_entry_without_be": 0,
+    "absurd_r_count": 0,
+    "one_bar_duration_count": 67,
+    "outlier_file": "phase19_outlier_trades.csv",
+    "impossible_targets_file": "phase19_impossible_targets.csv",
+    "note": "La matematica TP/SL legacy esta orientada correctamente; los problemas invalidantes aparecen en entrada/ejecucion/multitrade, no en la formula simple de TP/SL."
+  },
+  "multi_trade": {
+    "verdict": "PHASE19_MULTI_TRADE_INVALIDATES_PHASE19",
+    "max_daily_trades": 3,
+    "days_with_1_trade": 121,
+    "days_with_2_trades": 124,
+    "days_with_3_trades": 936,
+    "max_daily_loss_R": -3.0,
+    "duplicate_same_event_count": 0,
+    "same_timestamp_trade_count": 2145,
+    "overlapping_position_count": 1671,
+    "trade_not_after_previous_count": 1299,
+    "sequence_metrics": {
+      "1": {
+        "pf": 2.826577,
+        "expectancy_R": 0.686706,
+        "sample": 1181
+      },
+      "2": {
+        "pf": 3.292507,
+        "expectancy_R": 0.750472,
+        "sample": 1060
+      },
+      "3": {
+        "pf": 3.570205,
+        "expectancy_R": 0.801816,
+        "sample": 936
+      }
+    }
+  },
+  "signal_no_lookahead": {
+    "verdict": "PHASE19_SIGNAL_INVALIDATES_PHASE19",
+    "h1_fractal_delay_confirmed_by_code": true,
+    "m3_choch_uses_closed_bar_for_detection": true,
+    "entry_occurs_next_bar_open": false,
+    "entry_next_bar_violations": 20822,
+    "m3_source_valid_native_m3": false,
+    "m3_source_issue": "Phase14Engine synthesizes m3 from m5 when native m3 is absent; this is not certified native M3 data.",
+    "first_choch_per_sweep": true,
+    "selection_ignores_later_winners_per_sweep": true,
+    "critical_findings": [
+      "Phase19 legacy enters at CHOCH close, not next bar open.",
+      "The M3 series is derived from M5 OHLC, not native M3/tick data.",
+      "Multiple H1 sweep levels can produce the same CHOCH timestamp and later duplicate trades."
+    ]
+  },
+  "filters": {
+    "verdict": "PHASE19_FILTERS_OVERFIT_WARNING",
+    "filters_audited": [
+      "exclude_friday",
+      "sweep_min_0_5_pips",
+      "window_0800_1630",
+      "no_rollover",
+      "max_3_trades_day",
+      "choch_within_30m"
+    ],
+    "critical_note": "Several filters came from matrix search and lack pre-registered external rationale in the Phase19 evidence surface.",
+    "base_metrics": {
+      "sample": 3177,
+      "pf": 3.176362,
+      "expectancy_R": 0.741895,
+      "cumulative_R": 2357.0,
+      "max_drawdown_R": -15.5,
+      "max_drawdown_pct_1pct_risk": -15.5,
+      "max_loss_streak": 12,
+      "worst_day_R": -3.0,
+      "worst_week_R": -9.0,
+      "worst_month_R": -4.0,
+      "win_rate": 0.433113,
+      "tp_count": 1376,
+      "sl_count": 1083,
+      "be_count": 0,
+      "timeout_count": 718,
+      "forced_close_count": 0,
+      "same_bar_count": 0,
+      "average_win_R": 2.5,
+      "average_loss_R": -1.0,
+      "gross_profit_R": 3440.0,
+      "gross_loss_R": 1083.0,
+      "trades_month": 41.802632,
+      "trades_day_avg": 2.690093,
+      "drawdown_recovery_trades": 56
+    },
+    "no_rollover_filtered_metrics": {
+      "sample": 2802,
+      "pf": 3.270165,
+      "expectancy_R": 0.83369,
+      "cumulative_R": 2336.0,
+      "max_drawdown_R": -15.5,
+      "max_drawdown_pct_1pct_risk": -15.5,
+      "max_loss_streak": 10,
+      "worst_day_R": -3.0,
+      "worst_week_R": -9.0,
+      "worst_month_R": -4.0,
+      "win_rate": 0.480371,
+      "tp_count": 1346,
+      "sl_count": 1029,
+      "be_count": 0,
+      "timeout_count": 427,
+      "forced_close_count": 0,
+      "same_bar_count": 0,
+      "average_win_R": 2.5,
+      "average_loss_R": -1.0,
+      "gross_profit_R": 3365.0,
+      "gross_loss_R": 1029.0,
+      "trades_month": 36.868421,
+      "trades_day_avg": 2.51752,
+      "drawdown_recovery_trades": 49
+    }
+  },
+  "execution": {
+    "verdict": "PHASE19_EXECUTION_INVALIDATES_PHASE19",
+    "long_entry_ask_used": false,
+    "long_exit_bid_used": true,
+    "short_entry_bid_used": true,
+    "short_exit_ask_used": false,
+    "historical_spread_available": true,
+    "historical_spread_applied_to_legacy_result": false,
+    "slippage_applied_to_legacy_result": false,
+    "same_bar_conservative_policy_implemented": false,
+    "cost_stress_never_improves_check_required": true,
+    "trades_without_sl": 0,
+    "trades_without_tp": 0,
+    "impossible_fill_count": 0,
+    "critical_findings": [
+      "Legacy Phase19 enters LONG at close_bid instead of ask/next open.",
+      "Legacy Phase19 exits SHORT with bid high/low instead of ask.",
+      "Same-bar policy is avoided by skipping the entry bar, not conservatively simulated.",
+      "Reported PF is not a BID/ASK/SPREAD-real result."
+    ]
+  },
+  "time_news": {
+    "verdict": "PHASE19_TIME_NEWS_INVALIDATES_PHASE19",
+    "trades_before_0700": 0,
+    "trades_after_2000": 0,
+    "trades_open_after_2000": 375,
+    "trades_1700_1900": 0,
+    "news_guard_active_in_legacy_code": false,
+    "news_violations_30m": 458,
+    "news_violations_45m": 520,
+    "news_violations_60m": 570,
+    "timezone": "America/New_York",
+    "dst_checked_by_timezone_aware_timestamps": true,
+    "forced_close_correct": false
+  },
+  "robustness": {
+    "verdict": "PHASE19_ROBUSTNESS_WARNING",
+    "negative_years": 0,
+    "negative_months": 4,
+    "worst_month": {
+      "month": "2016-05",
+      "sample": 38,
+      "pf": 0.657895,
+      "expectancy_R": -0.171053,
+      "cumulative_R": -6.5,
+      "max_drawdown_R": -13.0,
+      "max_drawdown_pct_1pct_risk": -13.0,
+      "max_loss_streak": 13,
+      "worst_day_R": -3.0,
+      "worst_week_R": -10.0,
+      "worst_month_R": -6.5,
+      "win_rate": 0.131579,
+      "tp_count": 5,
+      "sl_count": 19,
+      "be_count": 0,
+      "timeout_count": 14,
+      "forced_close_count": 0,
+      "same_bar_count": 0,
+      "average_win_R": 2.5,
+      "average_loss_R": -1.0,
+      "gross_profit_R": 12.5,
+      "gross_loss_R": 19.0,
+      "trades_month": 38.0,
+      "trades_day_avg": 2.533333,
+      "drawdown_recovery_trades": 19
+    },
+    "worst_year": {
+      "year": 2026,
+      "sample": 169,
+      "pf": 2.615385,
+      "expectancy_R": 0.621302,
+      "cumulative_R": 105.0,
+      "max_drawdown_R": -12.5,
+      "max_drawdown_pct_1pct_risk": -12.5,
+      "max_loss_streak": 8,
+      "worst_day_R": -3.0,
+      "worst_week_R": -7.0,
+      "worst_month_R": 15.5,
+      "win_rate": 0.402367,
+      "tp_count": 68,
+      "sl_count": 65,
+      "be_count": 0,
+      "timeout_count": 36,
+      "forced_close_count": 0,
+      "same_bar_count": 0,
+      "average_win_R": 2.5,
+      "average_loss_R": -1.0,
+      "gross_profit_R": 170.0,
+      "gross_loss_R": 65.0,
+      "trades_month": 42.25,
+      "trades_day_avg": 2.816667,
+      "drawdown_recovery_trades": 36
+    },
+    "pf_2023_2025": 3.127376,
+    "pf_2020_2022": 3.302846,
+    "degradation_2023_2025_vs_2020_2022": -0.17547,
+    "warnings": [
+      "Legacy robustness is numerically strong, but it is downstream of invalid execution/data/multitrade assumptions.",
+      "2015-2019 is available but uses the same synthetic M3 construction."
+    ]
+  },
+  "costs": {
+    "verdict": "PHASE19_COST_WARNING",
+    "slippage": [
+      {
+        "slippage_pips": 0.0,
+        "pf": 3.176362,
+        "expectancy_R": 0.741895,
+        "sample": 3177
+      },
+      {
+        "slippage_pips": 0.25,
+        "pf": 3.027627,
+        "expectancy_R": 0.704596,
+        "sample": 3177
+      },
+      {
+        "slippage_pips": 0.5,
+        "pf": 2.811947,
+        "expectancy_R": 0.644476,
+        "sample": 3177
+      },
+      {
+        "slippage_pips": 0.75,
+        "pf": 2.67452,
+        "expectancy_R": 0.604029,
+        "sample": 3177
+      },
+      {
+        "slippage_pips": 1.0,
+        "pf": 2.575561,
+        "expectancy_R": 0.574284,
+        "sample": 3177
+      },
+      {
+        "slippage_pips": 1.5,
+        "pf": 2.347152,
+        "expectancy_R": 0.506295,
+        "sample": 3177
+      },
+      {
+        "slippage_pips": 2.0,
+        "pf": 2.141109,
+        "expectancy_R": 0.440353,
+        "sample": 3177
+      }
+    ],
+    "spread_stress": [
+      {
+        "spread_stress_pips": 0.0,
+        "pf": 3.176362,
+        "expectancy_R": 0.741895,
+        "sample": 3177
+      },
+      {
+        "spread_stress_pips": 0.2,
+        "pf": 3.05,
+        "expectancy_R": 0.709789,
+        "sample": 3177
+      },
+      {
+        "spread_stress_pips": 0.5,
+        "pf": 2.811947,
+        "expectancy_R": 0.644476,
+        "sample": 3177
+      },
+      {
+        "spread_stress_pips": 0.75,
+        "pf": 2.67452,
+        "expectancy_R": 0.604029,
+        "sample": 3177
+      },
+      {
+        "spread_stress_pips": 1.0,
+        "pf": 2.575561,
+        "expectancy_R": 0.574284,
+        "sample": 3177
+      },
+      {
+        "spread_stress_pips": 1.5,
+        "pf": 2.347152,
+        "expectancy_R": 0.506295,
+        "sample": 3177
+      },
+      {
+        "spread_stress_pips": 2.0,
+        "pf": 2.141109,
+        "expectancy_R": 0.440353,
+        "sample": 3177
+      }
+    ],
+    "max_cost_before_pf_lt_2_0": null,
+    "max_cost_before_pf_lt_1_5": null,
+    "max_cost_before_pf_lt_1_35": null,
+    "max_cost_before_expectancy_le_0": null,
+    "execution_real_can_degrade_strongly": true,
+    "note": "Sensitivity is legacy-style entry cost stress, not a full BID/ASK-real fill model."
+  },
+  "risk": {
+    "verdict": "PHASE19_RISK_WARNING",
+    "sample": 3177,
+    "pf": 3.176362,
+    "expectancy_R": 0.741895,
+    "cumulative_R": 2357.0,
+    "max_drawdown_R": -15.5,
+    "max_drawdown_pct_1pct_risk": -15.5,
+    "max_loss_streak": 12,
+    "worst_day_R": -3.0,
+    "worst_week_R": -9.0,
+    "worst_month_R": -4.0,
+    "win_rate": 0.433113,
+    "tp_count": 1376,
+    "sl_count": 1083,
+    "be_count": 0,
+    "timeout_count": 718,
+    "forced_close_count": 0,
+    "same_bar_count": 0,
+    "average_win_R": 2.5,
+    "average_loss_R": -1.0,
+    "gross_profit_R": 3440.0,
+    "gross_loss_R": 1083.0,
+    "trades_month": 41.802632,
+    "trades_day_avg": 2.690093,
+    "drawdown_recovery_trades": 56,
+    "average_monthly_R": 31.013158,
+    "monthly_volatility_R": 14.006421,
+    "profit_distribution": {
+      "-1.0": 1083,
+      "0.0": 718,
+      "2.5": 1376
+    },
+    "skew": 0.116518,
+    "kurtosis": -1.823413,
+    "risk_of_ruin_simple_10R_bankroll": 0.09122213,
+    "largest_loss_cluster": 12,
+    "drawdown_recovery_time_trades": 56,
+    "note": "Risk is warning-only because the measured curve is based on invalid legacy execution assumptions."
+  },
+  "overfit_control": {
+    "verdict": "PHASE19_OVERFIT_HIGH_RISK",
+    "tested_variants_count": 69,
+    "raw_pf": 3.176362,
+    "pf_penalized": 0.8508913258963624,
+    "raw_expectancy_R": 0.741895,
+    "expectancy_penalized": 0.19874057812865212,
+    "final_deflated_edge_score": 6.697058819935845,
+    "note": "Overfit control is high risk because Phase19 emerged from multiple exploratory matrices and failed independent execution controls."
+  },
+  "tests": {
+    "tests_run": 5,
+    "failures": 4,
+    "errors": 0,
+    "passed": 1,
+    "failure_names": [
+      "test_phase19_uses_realistic_bid_ask_and_same_bar_policy (test_phase19_execution_bid_ask.TestPhase19ExecutionBidAsk.test_phase19_uses_realistic_bid_ask_and_same_bar_policy)",
+      "test_phase19_has_no_duplicate_or_overlapping_trades (test_phase19_multi_trade_daily_limit.TestPhase19MultiTradeDailyLimit.test_phase19_has_no_duplicate_or_overlapping_trades)",
+      "test_phase19_entry_uses_next_bar_open_and_native_m3 (test_phase19_signal_no_lookahead.TestPhase19SignalNoLookahead.test_phase19_entry_uses_next_bar_open_and_native_m3)",
+      "test_phase19_time_news_and_forced_close (test_phase19_time_news_guard.TestPhase19TimeNewsGuard.test_phase19_time_news_and_forced_close)"
+    ],
+    "error_names": [],
+    "verdict": "PHASE19_TESTS_FAILED",
+    "raw_output": "test_phase19_uses_realistic_bid_ask_and_same_bar_policy (test_phase19_execution_bid_ask.TestPhase19ExecutionBidAsk.test_phase19_uses_realistic_bid_ask_and_same_bar_policy) ... FAIL\ntest_phase19_has_no_duplicate_or_overlapping_trades (test_phase19_multi_trade_daily_limit.TestPhase19MultiTradeDailyLimit.test_phase19_has_no_duplicate_or_overlapping_trades) ... FAIL\ntest_phase19_entry_uses_next_bar_open_and_native_m3 (test_phase19_signal_no_lookahead.TestPhase19SignalNoLookahead.test_phase19_entry_uses_next_bar_open_and_native_m3) ... FAIL\ntest_phase19_time_news_and_forced_close (test_phase19_time_news_guard.TestPhase19TimeNewsGuard.test_phase19_time_news_and_forced_close) ... FAIL\ntest_phase19_tp_sl_orientation_and_risk (test_phase19_tp_sl_math.TestPhase19TpSlMath.test_phase19_tp_sl_orientation_and_risk) ... ok\n\n======================================================================\nFAIL: test_phase19_uses_realistic_bid_ask_and_same_bar_policy (test_phase19_execution_bid_ask.TestPhase19ExecutionBidAsk.test_phase19_uses_realistic_bid_ask_and_same_bar_policy)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\tests\\engine_safety\\test_phase19_execution_bid_ask.py\", line 13, in test_phase19_uses_realistic_bid_ask_and_same_bar_policy\n    self.assertTrue(data[\"long_entry_ask_used\"])\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true\n\n======================================================================\nFAIL: test_phase19_has_no_duplicate_or_overlapping_trades (test_phase19_multi_trade_daily_limit.TestPhase19MultiTradeDailyLimit.test_phase19_has_no_duplicate_or_overlapping_trades)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\tests\\engine_safety\\test_phase19_multi_trade_daily_limit.py\", line 15, in test_phase19_has_no_duplicate_or_overlapping_trades\n    self.assertEqual(data[\"same_timestamp_trade_count\"], 0)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 2145 != 0\n\n======================================================================\nFAIL: test_phase19_entry_uses_next_bar_open_and_native_m3 (test_phase19_signal_no_lookahead.TestPhase19SignalNoLookahead.test_phase19_entry_uses_next_bar_open_and_native_m3)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\tests\\engine_safety\\test_phase19_signal_no_lookahead.py\", line 13, in test_phase19_entry_uses_next_bar_open_and_native_m3\n    self.assertTrue(data[\"entry_occurs_next_bar_open\"], \"Phase19 must enter on next bar open, not CHOCH close\")\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true : Phase19 must enter on next bar open, not CHOCH close\n\n======================================================================\nFAIL: test_phase19_time_news_and_forced_close (test_phase19_time_news_guard.TestPhase19TimeNewsGuard.test_phase19_time_news_and_forced_close)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\tests\\engine_safety\\test_phase19_time_news_guard.py\", line 15, in test_phase19_time_news_and_forced_close\n    self.assertEqual(data[\"trades_open_after_2000\"], 0)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 375 != 0\n\n----------------------------------------------------------------------\nRan 5 tests in 0.006s\n\nFAILED (failures=4)\n"
+  },
+  "comparison": {
+    "phase18": {
+      "label": "Phase18 baseline",
+      "pf": 1.63,
+      "sample": 1040,
+      "note": "diurna protegida; no reemplazada"
+    },
+    "manual": {
+      "label": "Manual",
+      "pf": 1.64,
+      "sample": 841,
+      "note": "manual monetario; R-normalizado PF 1.53"
+    },
+    "phase7": {
+      "label": "Phase7",
+      "pf": 1.5,
+      "sample": null,
+      "note": "referencia historica; no modificada"
+    },
+    "phase8": {
+      "label": "Phase8",
+      "pf": 2.09,
+      "sample": 88,
+      "note": "alta precision; no modificada"
+    },
+    "phase13": {
+      "label": "Phase13",
+      "pf": 1.62,
+      "sample": 210,
+      "note": "London reclaim; no modificada"
+    },
+    "phase17": {
+      "label": "Phase17",
+      "pf": 2.03,
+      "sample": 53,
+      "note": "post-news; no modificada"
+    },
+    "scbi": {
+      "label": "SCBI_M5_GLOBAL",
+      "pf": null,
+      "sample": null,
+      "note": "benchmark overnight protegido; solo lectura"
+    }
+  },
+  "final_verdict": "PHASE19_INVALIDATED",
+  "invalidators": [
+    "PHASE19_MULTI_TRADE_INVALIDATES_PHASE19",
+    "PHASE19_SIGNAL_INVALIDATES_PHASE19",
+    "PHASE19_EXECUTION_INVALIDATES_PHASE19",
+    "PHASE19_TIME_NEWS_INVALIDATES_PHASE19",
+    "PHASE19_CRITICAL_TESTS_FAILED",
+    "PHASE19_OVERFIT_HIGH_RISK"
+  ],
+  "single_next_step": "Repair Phase19 in quarantine or keep Phase18 as daytime baseline; do not promote Phase19."
+}

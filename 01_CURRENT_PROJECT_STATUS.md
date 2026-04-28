@@ -1,27 +1,16 @@
 # CURRENT PROJECT STATUS
 
-**Fecha de Actualización:** 2026-04-27
-**Estado Global:** **PENDING_FORENSIC_AUDIT**
+Fecha de actualizacion: 2026-04-28
+Estado data foundation: NEWS_CERTIFIED_M3_BLOCKED
 
-## 1. Estado de la Raíz Oficial
-La raíz oficial `C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo` ha sido saneada. Se han archivado más de 150 documentos sueltos y CSVs para restaurar el orden institucional.
+## Estado de estrategias
+- SCBI_M5_GLOBAL: PROTEGIDA / SIN CAMBIOS.
+- Phase18 Fractal Sweep: baseline diurna protegida; no fue reemplazada.
+- Phase19 legacy: PHASE19_INVALIDATED; no es autoridad positiva.
+- Phase19 repaired: PHASE19_REPAIRED_PREFLIGHT_BLOCKED; no fue ejecutada en esta fase.
 
-## 2. Reparación de Infraestructura
-- **Fase Actual:** VPS_READINESS (COMPLETADA)
-- **Estado de Infraestructura:** VPS-READY (Preflight/Forward Demo)
-- **Candidato Diurno Líder:** Phase 8 High Precision (PF 2.09)
+## Nota critica
+Esta fase certifica datos M3 BID/ASK y News Guard estricto. No optimiza parametros ni corre backtests Phase19.
 
-## 3. Estado de Estrategias
-- **SCBI_M5_GLOBAL:** PROTEGIDA (Autoridad Overnight).
-- **Phase 7 Repaired:** PF 1.50 (Equilibrio).
-- **Phase 8 High Precision:** PF 2.09 (Alta Precisión).
-- **Phase 13 London Reclaim:** PF 1.62 (Práctico).
-- **Phase 17 Post-News:** PF 2.03 (Macro).
-- **Phase 18 Fractal Sweep:** SUPERADA por Phase 19.
-- **Phase 19 Expanded Sweep:** **VALIDATED_FOR_FORWARD** (Nuevo Líder NY). PF 3.18.
-
-## 4. Próximo Paso Único
-Configurar el entorno de Forward Demo para las fases 8, 13 y 19 simultáneamente.
-
-> [!WARNING]
-> Prohibido usar archivos de `ARCHIVE_SUPERSEDED` para toma de decisiones operativas.
+## Siguiente paso unico
+Si el preflight paso, autorizar en una fase separada un retest Phase19 repaired; si no, reparar la capa bloqueante.
