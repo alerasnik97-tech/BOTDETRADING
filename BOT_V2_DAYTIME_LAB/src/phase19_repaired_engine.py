@@ -10,6 +10,12 @@ import pandas as pd
 
 PIP = 0.0001
 NY_TZ = "America/New_York"
+VALID_M3_STATUSES = {
+    "M3_BID_ASK_CERTIFIED",
+    "M3_BID_ASK_CERTIFIED_FULL",
+    "M3_BID_ASK_CERTIFIED_WITH_DATA_QUALITY_MASK",
+    "M3_CERTIFIED_WITH_WARNINGS",
+}
 
 
 class NativeM3UnavailableError(RuntimeError):
@@ -42,13 +48,13 @@ def require_native_m3(manifest: dict, period: str) -> tuple[Path, Path]:
     bid = data.get("m3_bid")
     ask = data.get("m3_ask")
     if isinstance(bid, dict):
-        if bid.get("certification_status") not in {"M3_BID_ASK_CERTIFIED", "M3_CERTIFIED_WITH_WARNINGS"}:
+        if bid.get("certification_status") not in VALID_M3_STATUSES:
             raise NativeM3UnavailableError(
                 f"M3_NATIVO_AUSENTE: m3_bid certification_status={bid.get('certification_status')}"
             )
         bid = bid.get("path")
     if isinstance(ask, dict):
-        if ask.get("certification_status") not in {"M3_BID_ASK_CERTIFIED", "M3_CERTIFIED_WITH_WARNINGS"}:
+        if ask.get("certification_status") not in VALID_M3_STATUSES:
             raise NativeM3UnavailableError(
                 f"M3_NATIVO_AUSENTE: m3_ask certification_status={ask.get('certification_status')}"
             )
@@ -66,6 +72,39 @@ def require_native_m3(manifest: dict, period: str) -> tuple[Path, Path]:
     return bid_path, ask_path
 
 
+def require_data_quality_mask(manifest: dict, period: str) -> Path | None:
+    data = manifest.get(period, {})
+    m3_entries = [data.get("m3_bid"), data.get("m3_ask"), data.get("m3_spread")]
+    mask_required = any(isinstance(entry, dict) and entry.get("requires_data_quality_mask") for entry in m3_entries)
+    if not mask_required:
+        return None
+    mask = data.get("m3_data_quality_mask")
+    if not isinstance(mask, dict):
+        raise NativeM3UnavailableError("DATA_QUALITY_MASK_REQUIRED_BUT_MISSING")
+    if mask.get("certification_status") != "DATA_QUALITY_MASK_FAIL_CLOSED":
+        raise NativeM3UnavailableError("DATA_QUALITY_MASK_NOT_FAIL_CLOSED")
+    if mask.get("enforced_for_phase19_repaired") is not True:
+        raise NativeM3UnavailableError("DATA_QUALITY_MASK_NOT_ENFORCED")
+    path = Path(mask.get("path", ""))
+    if not path.exists():
+        raise NativeM3UnavailableError("DATA_QUALITY_MASK_PATH_MISSING")
+    return path
+
+
+def enforce_phase19_data_quality_mask(df_m3: pd.DataFrame, mask_path: Path | None) -> pd.DataFrame:
+    if mask_path is None:
+        return df_m3
+    mask = pd.read_csv(mask_path)
+    if "date_ny" not in mask.columns or "allow_phase19_repaired" not in mask.columns:
+        raise NativeM3UnavailableError("DATA_QUALITY_MASK_SCHEMA_INVALID")
+    allowed_dates = set(mask[mask["allow_phase19_repaired"].astype(bool)]["date_ny"].astype(str))
+    df = df_m3.copy()
+    if "timestamp_ny" not in df.columns:
+        df["timestamp_ny"] = pd.to_datetime(df["timestamp"], utc=True).dt.tz_convert(NY_TZ)
+    date_ny = df["timestamp_ny"].dt.date.astype(str)
+    return df[date_ny.isin(allowed_dates)].reset_index(drop=True)
+
+
 def _load_ohlc_pair(bid_path: Path, ask_path: Path) -> pd.DataFrame:
     bid = pd.read_csv(bid_path)
     ask = pd.read_csv(ask_path)
@@ -79,7 +118,9 @@ def _load_ohlc_pair(bid_path: Path, ask_path: Path) -> pd.DataFrame:
 def load_native_m3(manifest_path: str | Path, period: str) -> pd.DataFrame:
     manifest = load_manifest(manifest_path)
     bid_path, ask_path = require_native_m3(manifest, period)
-    return _load_ohlc_pair(bid_path, ask_path)
+    mask_path = require_data_quality_mask(manifest, period)
+    df = _load_ohlc_pair(bid_path, ask_path)
+    return enforce_phase19_data_quality_mask(df, mask_path)
 
 
 def load_h1_bid(manifest_path: str | Path, period: str) -> pd.DataFrame:

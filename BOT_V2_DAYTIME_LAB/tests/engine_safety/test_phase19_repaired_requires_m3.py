@@ -37,12 +37,16 @@ class Phase19RepairedRequiresM3Tests(unittest.TestCase):
                 p.write_text("timestamp,open,high,low,close\n", encoding="utf-8")
             common = {
                 "rows": 100,
-                "start": "2020-01-01T00:00:00+00:00",
-                "end": "2026-04-01T00:00:00+00:00",
+                "coverage_start": "2020-01-01T22:00:00+00:00",
+                "coverage_end": "2026-04-01T00:00:00+00:00",
                 "timezone": "UTC",
-                "certification_status": "M3_BID_ASK_CERTIFIED",
-                "source_type": "m1_derived",
+                "certification_status": "M3_BID_ASK_CERTIFIED_FULL",
+                "source_type": "M3_FROM_M1_BID_ASK",
                 "source": str(root / "EURUSD_M1_BID_FULL_2020_2026.csv"),
+                "requires_data_quality_mask": False,
+                "no_interpolation": True,
+                "no_forward_fill_for_trading": True,
+                "synthetic_ticks": False,
             }
             manifest = root / "manifest.json"
             news = root / "news_audit.json"
@@ -58,7 +62,7 @@ class Phase19RepairedRequiresM3Tests(unittest.TestCase):
             )
             self.write_json(news, {"verdict": "NEWS_GUARD_STRICT_CERTIFIED"})
             result = run_preflight(manifest, news, root)
-            self.assertEqual(result["verdict"], "PHASE19_REPAIRED_PREFLIGHT_PASSED")
+            self.assertEqual(result["verdict"], "PHASE19_REPAIRED_PREFLIGHT_PASSED_FULL")
 
 
 if __name__ == "__main__":

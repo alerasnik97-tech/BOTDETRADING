@@ -3,8 +3,7 @@
     "primary": {
       "id": "SCBI_M5_GLOBAL",
       "role": "overnight_authority",
-      "status": "protected_unchanged",
-      "window": "00:00-05:00 UTC"
+      "status": "protected_unchanged"
     },
     "daytime_baseline": {
       "id": "Phase18_H1_Fractal_Sweep_First_M3_CHOCH",
@@ -13,17 +12,15 @@
       "status": "validated_for_forward_demo_baseline_protected"
     },
     "data_foundation": {
-      "id": "M3_BID_ASK_AND_STRICT_NEWS_GUARD",
-      "status": "NEWS_CERTIFIED_M3_BLOCKED",
-      "phase19_repaired_preflight": "PHASE19_REPAIRED_PREFLIGHT_BLOCKED"
+      "id": "M3_BID_ASK_DATA_QUALITY_MASK",
+      "status": "M3_CERTIFIED_WITH_MASK_PHASE19_READY_FOR_RETEST",
+      "phase19_repaired_preflight": "PHASE19_REPAIRED_PREFLIGHT_PASSED_MASKED",
+      "mask_required": true
     },
     "quarantined_or_rejected": [
       {
         "id": "Phase19_Expanded_Sweep",
-        "reported_pf": 3.18,
-        "reported_sample": 3177,
-        "status": "PHASE19_INVALIDATED",
-        "reason": "legacy_invalidated; repaired line may only be retested after data/news preflight"
+        "status": "PHASE19_INVALIDATED"
       },
       {
         "id": "Phase12",
