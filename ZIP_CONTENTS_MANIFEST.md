@@ -1,31 +1,190 @@
 # ZIP CONTENTS MANIFEST
 
-**Fecha de Reconstrucción:** 2026-04-27 (POST-PHASE 18)
-**Estado:** **CANÓNICO MAESTRO SANEADO**
+Canonical ZIP: 000_PARA_CHATGPT.zip
+Generated for: M3 BID/ASK and Strict News Guard foundation
+Phase19 executed: false
+MT5 touched: false
+Real trading enabled: false
+SCBI touched: false
 
-## 1. Contenido Incluido
+## Exclusions
+- Raw data and DATA folders excluded.
+- Heavy generated M3 CSV files excluded; only M3_CERTIFICATION_METADATA.json included.
+- .git, venvs, caches, pyc, secrets, credentials and nested ZIPs excluded.
 
-### Documentos Maestros (Raíz)
-- `00_READ_THIS_FIRST.md`
-- `01_CURRENT_PROJECT_STATUS.md/json`
-- `02_STRATEGY_AUTHORITY_MAP.md/json`
-- `03_OBSOLETE_AND_SUPERSEDED_INDEX.md/json`
-- `ZIP_CONTENTS_MANIFEST.md`
-- `000_PARA_CHATGPT.zip` (Autoridad única)
+## Entry count
+172
 
-### Estructura de Autoridad
-- `BOT_V2_DAYTIME_LAB\`: Laboratorio de investigación diurna.
-- `BOT_V2_DAYTIME_LAB\reports\PHASE18_H1_FRACTAL_SWEEP_ALIGNMENT_REPORT.md`: Reporte del éxito de la alineación manual.
-- `BOT_V2_DAYTIME_LAB\src\phase18_h1_fractal_sweep.py`: Motor de fractales dinámicos.
-- `STRATEGIES\`: Fases de estrategias 7 a 18 con estatus actualizado.
-- `REPORTS\engine_safety\`: Certificación del Engine Safety Gate.
-- `VPS_READINESS\`: Infraestructura y guías para despliegue en VPS.
-
-## 2. Exclusiones
-- `ARCHIVE_SUPERSEDED/`: Evidencia histórica archivada.
-- `DATA/`: Datasets pesados.
-- `.venv`, `__pycache__`, `.pyc`, `.git`.
-- Credenciales y configuraciones locales reales.
-
-## 3. Veredicto
-Este ZIP representa el **Estado del Arte** tras cerrar la brecha manual/bot. Incluye el modelo **H1 Fractal Sweep + First 3M CHoCH**, certificado con PF 1.63 y alineado con el historial manual del usuario.
+## Entries
+- 00_READ_THIS_FIRST.md
+- 01_CURRENT_PROJECT_STATUS.json
+- 01_CURRENT_PROJECT_STATUS.md
+- 02_STRATEGY_AUTHORITY_MAP.json
+- 02_STRATEGY_AUTHORITY_MAP.md
+- BOT_V2_DAYTIME_LAB/data/certified_data_paths.json
+- BOT_V2_DAYTIME_LAB/data/certified_m3/M3_CERTIFICATION_METADATA.json
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/diagnosis/m3_certification_starting_point.json
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/diagnosis/m3_certification_starting_point.md
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/inventory/data_inventory.csv
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/inventory/data_inventory_summary.json
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/inventory/data_inventory_summary.md
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/m3_validation/m3_coverage_by_year.csv
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/m3_validation/m3_gap_report.csv
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/m3_validation/m3_ohlc_integrity_report.csv
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/m3_validation/m3_session_coverage_report.csv
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/m3_validation/m3_spread_report.csv
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/m3_validation/m3_validation_summary.json
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/m3_validation/m3_validation_summary.md
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/manifest/m3_manifest_update_summary.json
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/manifest/m3_manifest_update_summary.md
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/news_guard/news_coverage_report.csv
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/news_guard/news_family_map.csv
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/news_guard/news_guard_strict_audit.json
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/news_guard/news_guard_strict_audit.md
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/phase19_preflight/phase19_repaired_preflight_report.json
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/phase19_preflight/phase19_repaired_preflight_report.md
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/source_audit/source_audit_summary.json
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/source_audit/source_audit_summary.md
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/source_audit/source_coverage_by_year.csv
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/source_audit/source_gap_report.csv
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/source_audit/source_ohlc_integrity_report.csv
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/source_audit/source_spread_report.csv
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/tests/m3_news_certification_test_results.json
+- BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/tests/m3_news_certification_test_results.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/comparison/phase19_forensic_vs_manual.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/comparison/phase19_forensic_vs_phase13.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/comparison/phase19_forensic_vs_phase17.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/comparison/phase19_forensic_vs_phase18.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/comparison/phase19_forensic_vs_phase7.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/comparison/phase19_forensic_vs_phase8.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/comparison/phase19_forensic_vs_scbi.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/costs/phase19_forensic_cost_summary.json
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/costs/phase19_forensic_cost_summary.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/costs/phase19_forensic_slippage_sensitivity.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/costs/phase19_forensic_spread_stress.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/diagnosis/phase19_forensic_starting_point.json
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/diagnosis/phase19_forensic_starting_point.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/execution/phase19_bid_ask_audit.json
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/execution/phase19_bid_ask_audit.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/execution/phase19_impossible_fills.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/execution/phase19_same_bar_cases.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/execution/phase19_spread_distribution.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/filters/phase19_filter_ablation.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/filters/phase19_filter_by_year.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/filters/phase19_filter_report.json
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/filters/phase19_filter_report.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/git_status.json
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/multi_trade/phase19_daily_pnl_distribution.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/multi_trade/phase19_multi_trade_report.json
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/multi_trade/phase19_multi_trade_report.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/multi_trade/phase19_trade_sequence_analysis.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/multi_trade/phase19_trades_per_day_audit.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/overfit_control/phase19_deflated_edge_score.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/overfit_control/phase19_overfit_control_report.json
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/overfit_control/phase19_overfit_control_report.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/overfit_control/phase19_tested_variants_registry.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/phase19_forensic_terminal_state.json
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/reproduction/phase19_reproduced_drawdown_curve.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/reproduction/phase19_reproduced_equity_curve.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/reproduction/phase19_reproduced_summary.json
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/reproduction/phase19_reproduced_summary.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/reproduction/phase19_reproduced_trades.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/risk/phase19_daily_risk.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/risk/phase19_drawdown_curve.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/risk/phase19_monthly_risk.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/risk/phase19_risk_summary.json
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/risk/phase19_risk_summary.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/robustness/phase19_forensic_overfitting_warnings.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/robustness/phase19_forensic_robustness_by_month.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/robustness/phase19_forensic_robustness_by_period.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/robustness/phase19_forensic_robustness_by_year.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/robustness/phase19_forensic_robustness_report.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/signal_no_lookahead/phase19_h1_fractal_timing_audit.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/signal_no_lookahead/phase19_m3_choch_timing_audit.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/signal_no_lookahead/phase19_signal_no_lookahead_report.json
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/signal_no_lookahead/phase19_signal_no_lookahead_report.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/tests/phase19_forensic_test_results.json
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/tests/phase19_forensic_test_results.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/time_news/phase19_news_audit.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/time_news/phase19_rollover_audit.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/time_news/phase19_time_news_report.json
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/time_news/phase19_time_news_report.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/time_news/phase19_time_window_audit.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/tp_sl_math/phase19_impossible_targets.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/tp_sl_math/phase19_outlier_trades.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/tp_sl_math/phase19_r_distribution.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/tp_sl_math/phase19_tp_sl_math_audit.json
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/tp_sl_math/phase19_tp_sl_math_audit.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/zip/phase19_zip_validation.json
+- BOT_V2_DAYTIME_LAB/outputs/phase19_forensic_audit/zip/phase19_zip_validation.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_repair_sandbox/diagnosis/phase19_repair_starting_point.json
+- BOT_V2_DAYTIME_LAB/outputs/phase19_repair_sandbox/diagnosis/phase19_repair_starting_point.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_repair_sandbox/multitrade/phase19_repaired_multitrade_decision.json
+- BOT_V2_DAYTIME_LAB/outputs/phase19_repair_sandbox/multitrade/phase19_repaired_multitrade_decision.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_repair_sandbox/phase19_repair_terminal_state.json
+- BOT_V2_DAYTIME_LAB/outputs/phase19_repair_sandbox/screening/phase19_repaired_screening_results.csv
+- BOT_V2_DAYTIME_LAB/outputs/phase19_repair_sandbox/screening/phase19_repaired_screening_summary.json
+- BOT_V2_DAYTIME_LAB/outputs/phase19_repair_sandbox/screening/phase19_repaired_screening_summary.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_repair_sandbox/tests/phase19_repaired_engine_test_results.json
+- BOT_V2_DAYTIME_LAB/outputs/phase19_repair_sandbox/tests/phase19_repaired_engine_test_results.md
+- BOT_V2_DAYTIME_LAB/outputs/phase19_repair_sandbox/zip/phase19_repair_zip_validation.json
+- BOT_V2_DAYTIME_LAB/reports/DAYTIME_EURUSD_EDGE_RECONSTRUCTION_REPORT.md
+- BOT_V2_DAYTIME_LAB/reports/DAYTIME_EURUSD_PHASE3_ENTRY_SEARCH_REPORT.md
+- BOT_V2_DAYTIME_LAB/reports/DAYTIME_EURUSD_PHASE5_SIMPLE_ENTRIES_REPORT.md
+- BOT_V2_DAYTIME_LAB/reports/DAYTIME_EURUSD_PHASE6_CHOCH_ENTRY_REPORT.md
+- BOT_V2_DAYTIME_LAB/reports/DAYTIME_EURUSD_PHASE7_M3_CHOCH_REFINEMENT_REPORT.md
+- BOT_V2_DAYTIME_LAB/reports/M3_BID_ASK_AND_NEWS_CERTIFICATION_REPORT.json
+- BOT_V2_DAYTIME_LAB/reports/M3_BID_ASK_AND_NEWS_CERTIFICATION_REPORT.md
+- BOT_V2_DAYTIME_LAB/reports/MANUAL_EDGE_ALIGNMENT_AUDIT_REPORT.md
+- BOT_V2_DAYTIME_LAB/reports/MANUAL_VS_BOT_GAP_ANALYSIS.md
+- BOT_V2_DAYTIME_LAB/reports/PHASE10_HIGH_FREQUENCY_ENTRY_DISCOVERY_REPORT.json
+- BOT_V2_DAYTIME_LAB/reports/PHASE10_HIGH_FREQUENCY_ENTRY_DISCOVERY_REPORT.md
+- BOT_V2_DAYTIME_LAB/reports/PHASE11_TWO_ENTRIES_MANAGEMENT_REPORT.json
+- BOT_V2_DAYTIME_LAB/reports/PHASE11_TWO_ENTRIES_MANAGEMENT_REPORT.md
+- BOT_V2_DAYTIME_LAB/reports/PHASE12_FORENSIC_AUDIT_REPORT.json
+- BOT_V2_DAYTIME_LAB/reports/PHASE12_FORENSIC_AUDIT_REPORT.md
+- BOT_V2_DAYTIME_LAB/reports/PHASE13_TWO_PRACTICAL_ENTRIES_REPORT.json
+- BOT_V2_DAYTIME_LAB/reports/PHASE13_TWO_PRACTICAL_ENTRIES_REPORT.md
+- BOT_V2_DAYTIME_LAB/reports/PHASE14_BEST_CANDIDATE_SEARCH_REPORT.json
+- BOT_V2_DAYTIME_LAB/reports/PHASE14_BEST_CANDIDATE_SEARCH_REPORT.md
+- BOT_V2_DAYTIME_LAB/reports/PHASE15_EVENT_REGIME_EDGE_REPORT.json
+- BOT_V2_DAYTIME_LAB/reports/PHASE15_EVENT_REGIME_EDGE_REPORT.md
+- BOT_V2_DAYTIME_LAB/reports/PHASE16_POST_NEWS_VALIDATION_REPORT.json
+- BOT_V2_DAYTIME_LAB/reports/PHASE16_POST_NEWS_VALIDATION_REPORT.md
+- BOT_V2_DAYTIME_LAB/reports/PHASE17_NEWS_FEED_RELIABILITY_REPORT.json
+- BOT_V2_DAYTIME_LAB/reports/PHASE17_NEWS_FEED_RELIABILITY_REPORT.md
+- BOT_V2_DAYTIME_LAB/reports/PHASE18_FORENSIC_AUDIT_REPORT.md
+- BOT_V2_DAYTIME_LAB/reports/PHASE18_H1_FRACTAL_SWEEP_ALIGNMENT_REPORT.json
+- BOT_V2_DAYTIME_LAB/reports/PHASE18_H1_FRACTAL_SWEEP_ALIGNMENT_REPORT.md
+- BOT_V2_DAYTIME_LAB/reports/PHASE19_FORENSIC_AUDIT_REPORT.json
+- BOT_V2_DAYTIME_LAB/reports/PHASE19_FORENSIC_AUDIT_REPORT.md
+- BOT_V2_DAYTIME_LAB/reports/PHASE19_REPAIR_SANDBOX_REPORT.json
+- BOT_V2_DAYTIME_LAB/reports/PHASE19_REPAIR_SANDBOX_REPORT.md
+- BOT_V2_DAYTIME_LAB/reports/PHASE3_MANUAL_EDGE_TRANSLATION_PLAN.json
+- BOT_V2_DAYTIME_LAB/reports/PHASE3_MANUAL_EDGE_TRANSLATION_PLAN.md
+- BOT_V2_DAYTIME_LAB/reports/PHASE4_CONTEXT_FILTERS_FINAL_REPORT.md
+- BOT_V2_DAYTIME_LAB/reports/PHASE7_FORENSIC_AUDIT_REPORT.json
+- BOT_V2_DAYTIME_LAB/reports/PHASE7_FORENSIC_AUDIT_REPORT.md
+- BOT_V2_DAYTIME_LAB/reports/PHASE7_REPAIR_AND_REAUDIT_REPORT.json
+- BOT_V2_DAYTIME_LAB/reports/PHASE7_REPAIR_AND_REAUDIT_REPORT.md
+- BOT_V2_DAYTIME_LAB/reports/PHASE8_CONTROLLED_IMPROVEMENT_REPORT.json
+- BOT_V2_DAYTIME_LAB/reports/PHASE8_CONTROLLED_IMPROVEMENT_REPORT.md
+- BOT_V2_DAYTIME_LAB/reports/PHASE9_FREQUENCY_EXPANSION_REPORT.json
+- BOT_V2_DAYTIME_LAB/reports/PHASE9_FREQUENCY_EXPANSION_REPORT.md
+- BOT_V2_DAYTIME_LAB/src/data_certification/m3_bid_ask_builder.py
+- BOT_V2_DAYTIME_LAB/src/news_guard_strict.py
+- BOT_V2_DAYTIME_LAB/src/phase19_repaired_engine.py
+- BOT_V2_DAYTIME_LAB/src/phase19_repaired_preflight.py
+- BOT_V2_DAYTIME_LAB/src/run_m3_bid_ask_news_certification.py
+- BOT_V2_DAYTIME_LAB/src/run_phase19_forensic_audit.py
+- BOT_V2_DAYTIME_LAB/src/run_phase19_repair_sandbox.py
+- BOT_V2_DAYTIME_LAB/tests/engine_safety/test_m3_bid_ask_certification.py
+- BOT_V2_DAYTIME_LAB/tests/engine_safety/test_news_guard_strict.py
+- BOT_V2_DAYTIME_LAB/tests/engine_safety/test_phase19_execution_bid_ask.py
+- BOT_V2_DAYTIME_LAB/tests/engine_safety/test_phase19_multi_trade_daily_limit.py
+- BOT_V2_DAYTIME_LAB/tests/engine_safety/test_phase19_repaired_engine.py
+- BOT_V2_DAYTIME_LAB/tests/engine_safety/test_phase19_repaired_requires_m3.py
+- BOT_V2_DAYTIME_LAB/tests/engine_safety/test_phase19_signal_no_lookahead.py
+- BOT_V2_DAYTIME_LAB/tests/engine_safety/test_phase19_time_news_guard.py
+- BOT_V2_DAYTIME_LAB/tests/engine_safety/test_phase19_tp_sl_math.py
+- ZIP_CONTENTS_MANIFEST.md

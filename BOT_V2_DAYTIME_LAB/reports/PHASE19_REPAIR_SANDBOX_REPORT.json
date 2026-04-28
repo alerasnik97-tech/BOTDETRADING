@@ -1,0 +1,59 @@
+{
+  "verdict": "PHASE19_REMAINS_INVALIDATED",
+  "starting_point": {
+    "phase": "PHASE19_REPAIR_SANDBOX",
+    "timestamp": "2026-04-28T08:41:00.695834",
+    "phase19_legacy_status": "INVALIDATED",
+    "does_not_replace_phase18": true,
+    "phase18_status": "PROTECTED_CERTIFIED_BASELINE",
+    "objective": "repair_implementation_not_optimize",
+    "no_mt5": true,
+    "no_real_trading": true,
+    "no_scbi_changes": true,
+    "root": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo",
+    "lab": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB"
+  },
+  "tests": {
+    "tests_run": 8,
+    "passed": 8,
+    "failures": 0,
+    "errors": 0,
+    "failure_names": [],
+    "error_names": [],
+    "verdict": "PHASE19_REPAIRED_ENGINE_TESTS_PASSED",
+    "raw_output": "test_bid_ask_execution_long_and_short (test_phase19_repaired_engine.TestPhase19RepairedEngine.test_bid_ask_execution_long_and_short) ... ok\ntest_entry_is_next_bar_open (test_phase19_repaired_engine.TestPhase19RepairedEngine.test_entry_is_next_bar_open) ... ok\ntest_forced_close_and_no_rollover (test_phase19_repaired_engine.TestPhase19RepairedEngine.test_forced_close_and_no_rollover) ... ok\ntest_h1_fractal_no_lookahead (test_phase19_repaired_engine.TestPhase19RepairedEngine.test_h1_fractal_no_lookahead) ... ok\ntest_news_guard_blocks (test_phase19_repaired_engine.TestPhase19RepairedEngine.test_news_guard_blocks) ... ok\ntest_no_native_m3_aborts (test_phase19_repaired_engine.TestPhase19RepairedEngine.test_no_native_m3_aborts) ... ok\ntest_no_overlap_and_max_trades_per_day (test_phase19_repaired_engine.TestPhase19RepairedEngine.test_no_overlap_and_max_trades_per_day) ... ok\ntest_same_bar_conservative (test_phase19_repaired_engine.TestPhase19RepairedEngine.test_same_bar_conservative) ... ok\n\n----------------------------------------------------------------------\nRan 8 tests in 0.055s\n\nOK\n"
+  },
+  "screening": {
+    "verdict": "SCREENING_BLOCKED_NATIVE_M3_ABSENT",
+    "reason": "M3_NATIVO_AUSENTE: manifest period period_2020_2026 must contain m3_bid and m3_ask",
+    "m3_native_confirmed": false,
+    "m3_status": {
+      "native_m3_confirmed": false,
+      "m3_bid": null,
+      "m3_ask": null,
+      "reason": "M3_NATIVO_AUSENTE: manifest period period_2020_2026 must contain m3_bid and m3_ask"
+    },
+    "screening_rows": 0,
+    "best_candidate": null,
+    "one_trade_day_survived_pf_ge_1_50": false
+  },
+  "multitrade": {
+    "multitrade_tested": false,
+    "blocked": true,
+    "reason": "1_trade_day_not_screened_or_not_survived_pf_1_50",
+    "rules_if_future_tested": [
+      "real_sequence",
+      "no_overlap",
+      "distinct_level",
+      "subsequent_trade_after_previous_close",
+      "daily_stop_minus_1R_and_minus_2R"
+    ]
+  },
+  "phase18_comparison": {
+    "phase18_status": "PROTECTED_CERTIFIED_BASELINE",
+    "phase18_pf": 1.63,
+    "phase18_sample": 1040,
+    "phase19_repaired_replaces_phase18": false
+  },
+  "single_next_step": "Obtener M3 nativo certificado antes de cualquier backtest reparado real."
+}

@@ -3,31 +3,32 @@
     "primary": {
       "id": "SCBI_M5_GLOBAL",
       "role": "overnight_authority",
-      "status": "protected",
+      "status": "protected_unchanged",
       "window": "00:00-05:00 UTC"
     },
-    "daytime_candidates": [
+    "daytime_baseline": {
+      "id": "Phase18_H1_Fractal_Sweep_First_M3_CHOCH",
+      "pf": 1.63,
+      "sample": 1040,
+      "status": "validated_for_forward_demo_baseline_protected"
+    },
+    "data_foundation": {
+      "id": "M3_BID_ASK_AND_STRICT_NEWS_GUARD",
+      "status": "NEWS_CERTIFIED_M3_BLOCKED",
+      "phase19_repaired_preflight": "PHASE19_REPAIRED_PREFLIGHT_BLOCKED"
+    },
+    "quarantined_or_rejected": [
       {
-        "id": "Phase13_London_Reclaim",
-        "pf_london": 7.57,
-        "pf_ny": 0.90,
-        "status": "strong_candidate_restricted",
-        "restriction": "Only valid 03:00-07:00 NY"
+        "id": "Phase19_Expanded_Sweep",
+        "reported_pf": 3.18,
+        "reported_sample": 3177,
+        "status": "PHASE19_INVALIDATED",
+        "reason": "legacy_invalidated; repaired line may only be retested after data/news preflight"
       },
       {
-        "id": "Phase8_High_Precision",
-        "pf": 2.09,
-        "status": "forward_candidate",
-        "frequency": "low"
+        "id": "Phase12",
+        "status": "invalidated_not_authority"
       }
-    ],
-    "vps_readiness": {
-      "status": "VPS_READY",
-      "purpose": "forward_demo_validation"
-    },
-    "rejected_phases": [
-      { "id": "Phase14", "reason": "negative_pf_in_ny_window" },
-      { "id": "Phase12", "reason": "invalidated_by_hallucination_and_bug" }
     ]
   },
   "lab_status": {
