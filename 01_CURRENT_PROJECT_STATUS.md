@@ -1,18 +1,22 @@
+
 # CURRENT PROJECT STATUS
 
-Fecha de actualizacion: 2026-04-28
-Estado data quality: M3_CERTIFIED_WITH_MASK_PHASE19_READY_FOR_RETEST
+- **Última Actualización**: 2026-04-28 13:40 NY
+- **Fase Actual**: **PHASE 23 CLOSED (Consistency Repaired)**
+- **Estado Estratégico**: **PHASE 22 READY FOR FORWARD DEMO (With Warnings)**
+- **Objetivo Inmediato**: Ejecución controlada en cuenta Demo local.
 
-## Estado de estrategias
-- SCBI_M5_GLOBAL: PROTEGIDA / SIN CAMBIOS.
-- Phase18 Fractal Sweep: baseline diurna protegida; no fue reemplazada.
-- Phase19 legacy: PHASE19_INVALIDATED; archivada definitivamente.
-- **Phase 20 Recovery**: VALIDATED (Superseded by Phase 22).
-- **Phase 22 High WR**: **CERTIFIED_FOR_FORWARD** (WR 55.2%, PF 1.72, DD -8.45R).
-- **News Fortress Live Gate**: **CERTIFIED_FOR_FORWARD** (Capa de Seguridad Obligatoria).
+## Estado de Fases
+- **Phase 23**: Finalizada. Auditoría forense superada. Métricas reconciliadas.
+- **Phase 22**: Candidato certificado para Forward Demo.
+- **Phase 18**: Baseline protegida (H1 Sweep + 3M CHoCH).
+- **Phase 19**: ARCHIVADA (Legacy/Failed reproduction).
+- **Phase 20**: ARCHIVADA (Benchmark).
 
-## Nota critica
-M3 BID/ASK fue revalidado con mascara fail-closed. El retest Phase19 queda para una fase separada.
-
-## Siguiente paso unico
-Activar Forward Demo masivo protegido por News Fortress Live Gate utilizando la variante Phase 20 (07:00-16:30 NY).
+## Seguridad
+- **Trading Real**: BLOQUEADO.
+- **MT5 Real**: BLOQUEADO.
+- **VPS/cTrader**: BLOQUEADOS.
+- **News Fortress**: ENABLED (Fail-Closed).
+- **Data Quality Mask**: ENABLED (Fail-Closed).
+- **SCBI**: Protegido (No tocar).

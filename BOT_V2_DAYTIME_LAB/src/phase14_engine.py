@@ -40,7 +40,11 @@ class Phase14Engine:
             
         merged['timestamp_ny'] = merged['timestamp'].dt.tz_convert(self.tz_ny)
         
-        if timeframe == 'm3':
+        # Only resample if we are not already at the target timeframe
+        # For M3, we check if the file name or manifest indicates it's already M3
+        is_already_m3 = 'M3' in path_bid.upper()
+        
+        if timeframe == 'm3' and not is_already_m3:
             merged.set_index('timestamp', inplace=True)
             resampled = merged.resample('3min').agg({
                 'open_bid': 'first', 'high_bid': 'max', 'low_bid': 'min', 'close_bid': 'last',
