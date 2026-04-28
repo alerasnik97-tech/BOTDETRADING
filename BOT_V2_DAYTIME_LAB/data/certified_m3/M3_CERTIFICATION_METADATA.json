@@ -38,8 +38,10 @@
   "bid_sha256": "f548364a54f3e176866071cd01b84592c26de6ee05b5fa60b3477d9cd89891a0",
   "ask_sha256": "22006065c757b2117d11986b95baa18fdd715d855133c64ec14c60030fc20ca1",
   "spread_sha256": "ae6fb62d81e82f673d18bb3a44ec7a24f63164a86de97173371e9d06e4d4fc2a",
-  "validation_status": "M3_REQUIRES_REPAIR",
-  "manifest_declared": false,
-  "usable_for_phase19_repaired": false,
-  "blocked_reason": "M3 validation did not pass; generated files remain local diagnostics only"
+  "validation_status": "M3_BID_ASK_CERTIFIED_WITH_DATA_QUALITY_MASK",
+  "manifest_declared": true,
+  "usable_for_phase19_repaired": true,
+  "blocked_reason": null,
+  "requires_data_quality_mask": true,
+  "data_quality_mask_path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\data\\certified_m3\\EURUSD_M3_DATA_QUALITY_MASK_2020_2026.csv"
 }

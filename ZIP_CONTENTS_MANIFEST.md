@@ -1,19 +1,20 @@
 # ZIP CONTENTS MANIFEST
 
 Canonical ZIP: 000_PARA_CHATGPT.zip
-Generated for: M3 BID/ASK and Strict News Guard foundation
+Generated for: DATA QUALITY FORENSIC REPAIR
+Final verdict: M3_CERTIFIED_WITH_MASK_PHASE19_READY_FOR_RETEST
 Phase19 executed: false
 MT5 touched: false
 Real trading enabled: false
 SCBI touched: false
 
 ## Exclusions
-- Raw data and DATA folders excluded.
-- Heavy generated M3 CSV files excluded; only M3_CERTIFICATION_METADATA.json included.
-- .git, venvs, caches, pyc, secrets, credentials and nested ZIPs excluded.
+- Raw M1 data and heavy generated M3 CSV files excluded.
+- DATA folders, .git, venvs, caches, pyc, logs, secrets, credentials and nested ZIPs excluded.
+- Included M3 data-quality mask because it is lightweight and required by preflight.
 
 ## Entry count
-172
+219
 
 ## Entries
 - 00_READ_THIS_FIRST.md
@@ -22,7 +23,44 @@ SCBI touched: false
 - 02_STRATEGY_AUTHORITY_MAP.json
 - 02_STRATEGY_AUTHORITY_MAP.md
 - BOT_V2_DAYTIME_LAB/data/certified_data_paths.json
+- BOT_V2_DAYTIME_LAB/data/certified_m3/EURUSD_M3_DATA_QUALITY_MASK_2020_2026.csv
 - BOT_V2_DAYTIME_LAB/data/certified_m3/M3_CERTIFICATION_METADATA.json
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/calendar/expected_market_calendar_summary.json
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/calendar/expected_market_calendar_summary.md
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/data_quality_mask/data_quality_mask_summary.json
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/data_quality_mask/data_quality_mask_summary.md
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/diagnosis/data_quality_starting_point.json
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/diagnosis/data_quality_starting_point.md
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/gap_forensics/m3_gap_forensic_classification.csv
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/gap_forensics/m3_gap_forensic_summary.json
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/gap_forensics/m3_gap_forensic_summary.md
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/gap_impact/gap_impact_by_month.csv
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/gap_impact/gap_impact_by_weekday.csv
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/gap_impact/gap_impact_by_window.csv
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/gap_impact/gap_impact_by_year.csv
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/gap_impact/gap_impact_summary.json
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/gap_impact/gap_impact_summary.md
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/inventory/data_file_inventory.csv
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/inventory/data_file_inventory_summary.json
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/inventory/data_file_inventory_summary.md
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/m3_revalidation/m3_revalidation_coverage.csv
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/m3_revalidation/m3_revalidation_gaps.csv
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/m3_revalidation/m3_revalidation_ohlc.csv
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/m3_revalidation/m3_revalidation_spread.csv
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/m3_revalidation/m3_revalidation_summary.json
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/m3_revalidation/m3_revalidation_summary.md
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/manifest/strict_manifest_update_report.json
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/manifest/strict_manifest_update_report.md
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/news_guard_revalidation/news_gap_interaction.csv
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/news_guard_revalidation/news_guard_revalidation_report.json
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/news_guard_revalidation/news_guard_revalidation_report.md
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/phase19_preflight/phase19_repaired_preflight_after_repair.json
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/phase19_preflight/phase19_repaired_preflight_after_repair.md
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/repair/m3_gap_repair_actions.csv
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/repair/m3_repair_summary.json
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/repair/m3_repair_summary.md
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/tests/data_quality_forensic_test_results.json
+- BOT_V2_DAYTIME_LAB/outputs/data_quality_forensic_repair/tests/data_quality_forensic_test_results.md
 - BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/diagnosis/m3_certification_starting_point.json
 - BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/diagnosis/m3_certification_starting_point.md
 - BOT_V2_DAYTIME_LAB/outputs/m3_bid_ask_certification/inventory/data_inventory.csv
@@ -128,6 +166,8 @@ SCBI touched: false
 - BOT_V2_DAYTIME_LAB/outputs/phase19_repair_sandbox/tests/phase19_repaired_engine_test_results.json
 - BOT_V2_DAYTIME_LAB/outputs/phase19_repair_sandbox/tests/phase19_repaired_engine_test_results.md
 - BOT_V2_DAYTIME_LAB/outputs/phase19_repair_sandbox/zip/phase19_repair_zip_validation.json
+- BOT_V2_DAYTIME_LAB/reports/DATA_QUALITY_FORENSIC_REPAIR_REPORT.json
+- BOT_V2_DAYTIME_LAB/reports/DATA_QUALITY_FORENSIC_REPAIR_REPORT.md
 - BOT_V2_DAYTIME_LAB/reports/DAYTIME_EURUSD_EDGE_RECONSTRUCTION_REPORT.md
 - BOT_V2_DAYTIME_LAB/reports/DAYTIME_EURUSD_PHASE3_ENTRY_SEARCH_REPORT.md
 - BOT_V2_DAYTIME_LAB/reports/DAYTIME_EURUSD_PHASE5_SIMPLE_ENTRIES_REPORT.md
@@ -171,17 +211,25 @@ SCBI touched: false
 - BOT_V2_DAYTIME_LAB/reports/PHASE8_CONTROLLED_IMPROVEMENT_REPORT.md
 - BOT_V2_DAYTIME_LAB/reports/PHASE9_FREQUENCY_EXPANSION_REPORT.json
 - BOT_V2_DAYTIME_LAB/reports/PHASE9_FREQUENCY_EXPANSION_REPORT.md
+- BOT_V2_DAYTIME_LAB/src/data_certification/forex_market_calendar.py
 - BOT_V2_DAYTIME_LAB/src/data_certification/m3_bid_ask_builder.py
+- BOT_V2_DAYTIME_LAB/src/data_certification/m3_gap_repair.py
 - BOT_V2_DAYTIME_LAB/src/news_guard_strict.py
 - BOT_V2_DAYTIME_LAB/src/phase19_repaired_engine.py
 - BOT_V2_DAYTIME_LAB/src/phase19_repaired_preflight.py
+- BOT_V2_DAYTIME_LAB/src/run_data_quality_forensic_repair.py
 - BOT_V2_DAYTIME_LAB/src/run_m3_bid_ask_news_certification.py
 - BOT_V2_DAYTIME_LAB/src/run_phase19_forensic_audit.py
 - BOT_V2_DAYTIME_LAB/src/run_phase19_repair_sandbox.py
 - BOT_V2_DAYTIME_LAB/tests/engine_safety/test_m3_bid_ask_certification.py
+- BOT_V2_DAYTIME_LAB/tests/engine_safety/test_m3_data_quality_mask.py
+- BOT_V2_DAYTIME_LAB/tests/engine_safety/test_m3_gap_classification.py
+- BOT_V2_DAYTIME_LAB/tests/engine_safety/test_m3_manifest_strict.py
+- BOT_V2_DAYTIME_LAB/tests/engine_safety/test_news_gap_interaction.py
 - BOT_V2_DAYTIME_LAB/tests/engine_safety/test_news_guard_strict.py
 - BOT_V2_DAYTIME_LAB/tests/engine_safety/test_phase19_execution_bid_ask.py
 - BOT_V2_DAYTIME_LAB/tests/engine_safety/test_phase19_multi_trade_daily_limit.py
+- BOT_V2_DAYTIME_LAB/tests/engine_safety/test_phase19_preflight_requires_mask.py
 - BOT_V2_DAYTIME_LAB/tests/engine_safety/test_phase19_repaired_engine.py
 - BOT_V2_DAYTIME_LAB/tests/engine_safety/test_phase19_repaired_requires_m3.py
 - BOT_V2_DAYTIME_LAB/tests/engine_safety/test_phase19_signal_no_lookahead.py
