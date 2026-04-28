@@ -17,10 +17,11 @@ La raíz oficial `C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo` ha sido sane
 - **Phase 8 High Precision:** PF 2.09 (Alta Precisión).
 - **Phase 13 London Reclaim:** PF 1.62 (Práctico).
 - **Phase 17 Post-News:** PF 2.03 (Macro).
-- **Phase 18 Fractal Sweep:** **VALIDATED_FOR_FORWARD_DEMO** (Certified).
+- **Phase 18 Fractal Sweep:** SUPERADA por Phase 19.
+- **Phase 19 Expanded Sweep:** **VALIDATED_FOR_FORWARD** (Nuevo Líder NY). PF 3.18.
 
 ## 4. Próximo Paso Único
-Configurar el entorno de Forward Demo para las fases 8, 13 y 18 simultáneamente.
+Configurar el entorno de Forward Demo para las fases 8, 13 y 19 simultáneamente.
 
 > [!WARNING]
 > Prohibido usar archivos de `ARCHIVE_SUPERSEDED` para toma de decisiones operativas.

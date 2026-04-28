@@ -13,7 +13,7 @@ Este documento define la jerarquía y el estado de autoridad de todas las estrat
 - **Phase 8 High Precision**: PF 2.09. Estado: **VALIDADO**.
 - **Phase 13 London Reclaim**: PF 1.62. Estado: **VALIDADO**.
 - **Phase 17 Post-News**: PF 2.03. Estado: **VALIDADO**.
-- **Phase 18 H1 Fractal Sweep**: PF 1.63. Estado: **VALIDADO_FOR_FORWARD**.
+- **Phase 19 Expanded Sweep**: PF 3.18. Estado: **VALIDADO_FOR_FORWARD**.
 
 ## 3. Candidato Diurno Balanceado: Phase 7 Repaired
 - **Estado:** VALIDADO (PF 1.50).
