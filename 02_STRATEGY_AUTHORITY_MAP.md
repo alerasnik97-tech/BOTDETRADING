@@ -10,7 +10,10 @@
 - **News Fortress Live Gate**: CERTIFIED_FOR_FORWARD. Capa de bloqueo obligatoria.
 
 ## 4. Estrategia Certificada para Forward Demo
-- **Phase 20 (07:00-16:30 NY)**: M3 Body 70%, TP 2.0R, BE 1.0R. PF 1.64.
+- **Phase 20 Balanced (07:00-16:30 NY)**: M3 Body 70%, TP 1.5R, BE 1.0R. PF 1.54.
+
+## 5. Estrategias Archivadas
+- **Phase 19 (Legacy & Repaired)**: ARCHIVED_FINAL_REJECT. No usar.
 
 ## 3. Data foundation M3 BID/ASK
 - Estado: M3_CERTIFIED_WITH_MASK_PHASE19_READY_FOR_RETEST.
