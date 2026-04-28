@@ -36,6 +36,7 @@ def rebuild_zip():
         "BOT_V2_DAYTIME_LAB/outputs/news_fortress_live_gate",
         "BOT_V2_DAYTIME_LAB/outputs/phase20_news_fortress_frequency_recovery",
         "BOT_V2_DAYTIME_LAB/outputs/phase21_operability_decision",
+        "BOT_V2_DAYTIME_LAB/outputs/phase22_high_wr_low_dd",
         "BOT_V2_DAYTIME_LAB/docs",
         "REPORTS/infra_audits",
         "REPORTS/engine_safety",
@@ -105,6 +106,7 @@ def rebuild_zip():
             "BOT_V2_DAYTIME_LAB/src/news_fortress/news_fortress_gate.py",
             "BOT_V2_DAYTIME_LAB/reports/PHASE20_NEWS_FORTRESS_FREQUENCY_RECOVERY_REPORT.md",
             "BOT_V2_DAYTIME_LAB/reports/PHASE21_OPERABILITY_DECISION_REPORT.md",
+            "BOT_V2_DAYTIME_LAB/reports/PHASE22_HIGH_WR_OPTIMIZATION_REPORT.md",
             "00_READ_THIS_FIRST.md",
             "ZIP_CONTENTS_MANIFEST.md"
         ]
