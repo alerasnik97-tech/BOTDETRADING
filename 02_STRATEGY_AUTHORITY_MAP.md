@@ -10,7 +10,7 @@
 - **News Fortress Live Gate**: CERTIFIED_FOR_FORWARD. Capa de bloqueo obligatoria.
 
 ## 4. Estrategia Certificada para Forward Demo
-- **Phase 20 Balanced (07:00-16:30 NY)**: M3 Body 70%, TP 1.5R, BE 1.0R. PF 1.54.
+- **Phase 22 High WR (07:00-16:30 NY)**: TP 1.1R, BE 0.5R. Winrate 55.2%, PF 1.72.
 
 ## 5. Estrategias Archivadas
 - **Phase 19 (Legacy & Repaired)**: ARCHIVED_FINAL_REJECT. No usar.
