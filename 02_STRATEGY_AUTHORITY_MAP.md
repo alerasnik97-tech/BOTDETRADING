@@ -6,6 +6,9 @@
 ## 2. Baseline diurna protegida
 - Phase18 H1 Fractal Sweep + First M3 CHOCH: VALIDATED_FOR_FORWARD_DEMO, PF 1.63, sample 1.040.
 
+## 3. Seguridad institucional
+- **News Fortress Live Gate**: CERTIFIED_FOR_FORWARD. Capa de bloqueo obligatoria.
+
 ## 3. Data foundation M3 BID/ASK
 - Estado: M3_CERTIFIED_WITH_MASK_PHASE19_READY_FOR_RETEST.
 - Preflight Phase19 repaired: PHASE19_REPAIRED_PREFLIGHT_PASSED_MASKED.
