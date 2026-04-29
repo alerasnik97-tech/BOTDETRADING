@@ -17,7 +17,26 @@ DECISIONS = LOG_DIR / "decisions.csv"
 
 RUNNER_SCRIPT = "phase37_ftmo_trial_bot_runner.py"
 STATUS_SCRIPT = "phase37ze_quick_status_panel.py"
-VALID_STATES = {"VERDE", "AMARILLO", "ROJO", "CRITICO", "VIOLETA"}
+STATUS_OK = "OK - BOT ACTIVO"
+STATUS_BLOCKED = "BLOQUEADO - BOT ACTIVO PERO NO OPERA"
+STATUS_ERROR = "ERROR - BOT APAGADO"
+STATUS_DANGER = "PELIGRO - NO APAGAR PC"
+STATUS_DUPLICATE = "DUPLICADO - LIMPIAR RUNNERS"
+
+VALID_STATES = {
+    STATUS_OK,
+    STATUS_BLOCKED,
+    STATUS_ERROR,
+    STATUS_DANGER,
+    STATUS_DUPLICATE,
+}
+LEGACY_STATE_MAP = {
+    "VERDE": STATUS_OK,
+    "AMARILLO": STATUS_BLOCKED,
+    "ROJO": STATUS_ERROR,
+    "CRITICO": STATUS_DANGER,
+    "VIOLETA": STATUS_DUPLICATE,
+}
 
 
 @dataclass(frozen=True)
@@ -251,17 +270,18 @@ def build_status(
     operation_open = _operation_open(qs, hb)
     safe_off = _safe_to_turn_off(qs, hb, operation_open, runner_count)
 
-    estado = str(qs.get("ESTADO_GENERAL") or "").strip().upper()
+    raw_estado = str(qs.get("ESTADO_GENERAL") or "").strip().upper()
+    estado = LEGACY_STATE_MAP.get(raw_estado, raw_estado)
     if estado not in VALID_STATES:
-        estado = "VERDE"
+        estado = STATUS_OK
     if runner_count > 1:
-        estado = "VIOLETA"
+        estado = STATUS_DUPLICATE
     elif runner_count == 0:
-        estado = "ROJO"
+        estado = STATUS_ERROR
     elif operation_open == "SI" or _yes_no(hb.get("critical_position_still_open")) == "SI":
-        estado = "CRITICO"
+        estado = STATUS_DANGER
     elif news not in {"ALLOW", "---"} or _yes_no(hb.get("manual_intervention_required")) == "SI":
-        estado = "AMARILLO"
+        estado = STATUS_BLOCKED
 
     arg_time = (
         _hhmm(qs.get("ULTIMA_ACTUALIZACION_ARG"))
@@ -320,11 +340,11 @@ def render_panel(status: dict[str, str] | None = None) -> str:
         "",
         "=" * 60,
         "SIGNIFICADO",
-        "VERDE    = Todo bien",
-        "AMARILLO = Bot activo pero no opera por regla",
-        "ROJO     = Bot apagado o error",
-        "CRITICO  = No apagar PC",
-        "VIOLETA  = Revisar duplicados",
+        "OK        = Bot activo",
+        "BLOQUEADO = Bot activo pero no opera por regla",
+        "ERROR     = Bot apagado",
+        "PELIGRO   = No apagar PC",
+        "DUPLICADO = Limpiar runners",
         "=" * 60,
         "",
         "CTRL+C para cerrar este panel. El bot NO se apaga.",

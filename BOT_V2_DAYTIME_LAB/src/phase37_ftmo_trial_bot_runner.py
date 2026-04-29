@@ -110,17 +110,17 @@ def write_heartbeat(result: dict[str, Any]) -> None:
     write_text(HEARTBEAT_TXT, "\n".join(lines))
     
     # Phase 37ZF quick status, ASCII only for Windows CMD.
-    estado_gen = "VERDE"
-    msg_gen = "TODO BIEN"
+    estado_gen = "OK - BOT ACTIVO"
+    msg_gen = "BOT ACTIVO"
     operacion_abierta = "SI" if hb["position_state"] != "FLAT" else "NO"
     seguro_apagar = "SI" if hb["safe_to_turn_off_pc"] else "NO"
     
     if hb["news_gate"] != "ALLOW" or not hb["can_open_new_trades"]:
-        estado_gen = "AMARILLO"
+        estado_gen = "BLOQUEADO - BOT ACTIVO PERO NO OPERA"
         msg_gen = "BOT ACTIVO PERO NO OPERA POR REGLA"
         
     if operacion_abierta == "SI" or hb["critical_position_still_open"] or hb["manual_intervention_required"]:
-        estado_gen = "CRITICO"
+        estado_gen = "PELIGRO - NO APAGAR PC"
         msg_gen = "NO APAGAR PC"
     
     qs_lines = [
