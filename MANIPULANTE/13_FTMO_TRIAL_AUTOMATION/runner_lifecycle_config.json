@@ -1,0 +1,17 @@
+{
+  "timezone": "America/New_York",
+  "session_start": "07:00",
+  "no_new_trades_after": "16:30",
+  "pc_off_protection_start": "19:30",
+  "forced_safe_close": "19:45",
+  "verify_flat": "19:50",
+  "daily_shutdown": "20:00",
+  "friday_hard_close": "16:55",
+  "shutdown_when_flat_after_cutoff": false,
+  "keep_runner_visible_until_daily_shutdown": true,
+  "never_shutdown_with_open_position": true,
+  "force_close_before_user_pc_off": true,
+  "ftmo_trial_only": true,
+  "real_blocked": true,
+  "exness_blocked": true
+}
