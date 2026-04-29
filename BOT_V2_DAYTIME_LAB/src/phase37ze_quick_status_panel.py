@@ -19,6 +19,7 @@ RUNNER_SCRIPT = "phase37_ftmo_trial_bot_runner.py"
 STATUS_SCRIPT = "phase37ze_quick_status_panel.py"
 STATUS_OK = "OK - BOT ACTIVO"
 STATUS_BLOCKED = "BLOQUEADO - BOT ACTIVO PERO NO OPERA"
+STATUS_AUTOTRADING_BLOCKED = "BLOQUEADO - AUTOTRADING DESHABILITADO"
 STATUS_ERROR = "ERROR - BOT APAGADO"
 STATUS_DANGER = "PELIGRO - NO APAGAR PC"
 STATUS_DUPLICATE = "DUPLICADO - LIMPIAR RUNNERS"
@@ -26,6 +27,7 @@ STATUS_DUPLICATE = "DUPLICADO - LIMPIAR RUNNERS"
 VALID_STATES = {
     STATUS_OK,
     STATUS_BLOCKED,
+    STATUS_AUTOTRADING_BLOCKED,
     STATUS_ERROR,
     STATUS_DANGER,
     STATUS_DUPLICATE,
@@ -33,6 +35,7 @@ VALID_STATES = {
 LEGACY_STATE_MAP = {
     "VERDE": STATUS_OK,
     "AMARILLO": STATUS_BLOCKED,
+    "BLOQUEADO - AUTOTRADING DESHABILITADO": STATUS_AUTOTRADING_BLOCKED,
     "ROJO": STATUS_ERROR,
     "CRITICO": STATUS_DANGER,
     "VIOLETA": STATUS_DUPLICATE,
@@ -269,6 +272,11 @@ def build_status(
     ).strip()
     operation_open = _operation_open(qs, hb)
     safe_off = _safe_to_turn_off(qs, hb, operation_open, runner_count)
+    motivo = str(qs.get("MOTIVO") or "").strip().upper()
+    orders_message = str(qs.get("ORDENES") or hb.get("orders_message") or "---").strip() or "---"
+    order_check = str(qs.get("ORDER_CHECK") or ("PASS" if hb.get("order_check_pass") else "---")).strip() or "---"
+    order_send = str(qs.get("ORDER_SEND") or "GATEADO").strip() or "GATEADO"
+    action = str(qs.get("ACCION") or hb.get("action_required") or "---").strip() or "---"
 
     raw_estado = str(qs.get("ESTADO_GENERAL") or "").strip().upper()
     estado = LEGACY_STATE_MAP.get(raw_estado, raw_estado)
@@ -280,6 +288,8 @@ def build_status(
         estado = STATUS_ERROR
     elif operation_open == "SI" or _yes_no(hb.get("critical_position_still_open")) == "SI":
         estado = STATUS_DANGER
+    elif motivo == "AUTOTRADING_DESHABILITADO" or hb.get("order_readiness_state") == "BLOCKED_AUTOTRADING_DISABLED":
+        estado = STATUS_AUTOTRADING_BLOCKED
     elif news not in {"ALLOW", "---"} or _yes_no(hb.get("manual_intervention_required")) == "SI":
         estado = STATUS_BLOCKED
 
@@ -300,9 +310,14 @@ def build_status(
     return {
         "ESTADO_GENERAL": estado,
         "CUENTA": _account_label(qs, hb),
+        "BOT": runner_state,
         "RUNNER": runner_state,
         "PID_RUNNER": pids,
         "MT5": mt5,
+        "ORDENES": orders_message,
+        "ORDER_CHECK": order_check,
+        "ORDER_SEND": order_send,
+        "ACCION": action,
         "NEWS": news,
         "ULTIMA_DECISION": decision or "---",
         "OPERACION_ABIERTA": operation_open,
@@ -322,10 +337,15 @@ def render_panel(status: dict[str, str] | None = None) -> str:
         "",
         f"ESTADO GENERAL: {status['ESTADO_GENERAL']}",
         "",
+        f"BOT: {status['BOT']}",
         f"CUENTA: {status['CUENTA']}",
         f"RUNNER: {status['RUNNER']}",
         f"PID RUNNER: {status['PID_RUNNER']}",
         f"MT5: {status['MT5']}",
+        f"ORDENES: {status['ORDENES'].replace('ORDENES: ', '')}",
+        f"ORDER_CHECK: {status['ORDER_CHECK']}",
+        f"ORDER_SEND: {status['ORDER_SEND']}",
+        f"ACCION: {status['ACCION']}",
         "",
         f"NEWS: {status['NEWS']}",
         f"ULTIMA DECISION: {status['ULTIMA_DECISION']}",
@@ -342,6 +362,7 @@ def render_panel(status: dict[str, str] | None = None) -> str:
         "SIGNIFICADO",
         "OK        = Bot activo",
         "BLOQUEADO = Bot activo pero no opera por regla",
+        "AUTOTRADING = Revisar boton Trading algoritmico",
         "ERROR     = Bot apagado",
         "PELIGRO   = No apagar PC",
         "DUPLICADO = Limpiar runners",

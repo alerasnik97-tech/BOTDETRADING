@@ -614,6 +614,209 @@ def lot_gate_10k(symbol_status: dict[str, Any], account_status: dict[str, Any]) 
     }
 
 
+def order_send_readiness_audit(
+    symbol_status: dict[str, Any] | None = None,
+    account_status: dict[str, Any] | None = None,
+    risk: float = 0.005,
+    stop_pips: float = 10.0,
+) -> dict[str, Any]:
+    status: dict[str, Any] = {
+        "timestamp_utc": now_iso(),
+        "state": "BLOCKED_MT5_UNAVAILABLE",
+        "order_send_executed": False,
+        "order_check_executed": False,
+        "order_check_pass": False,
+        "order_check_retcode": None,
+        "order_check_comment": None,
+        "margin_required": None,
+        "request": None,
+        "account_trade_allowed": None,
+        "account_trade_expert": None,
+        "account_trade_mode": None,
+        "account_trade_mode_label": None,
+        "terminal_connected": None,
+        "terminal_trade_allowed": None,
+        "tradeapi_disabled": None,
+        "dlls_allowed": None,
+        "company": None,
+        "server": None,
+        "balance": None,
+        "currency": None,
+        "symbol": None,
+        "volume": None,
+        "reason": "",
+        "orders_message": "ORDENES: BLOQUEADAS",
+        "action_required": "Revisar MT5",
+    }
+    mt5, error = ensure_mt5()
+    if mt5 is None:
+        status["reason"] = error
+        return status
+
+    try:
+        terminal = mt5.terminal_info()
+        account = mt5.account_info()
+    except Exception as exc:
+        status["state"] = "BLOCKED_ACCOUNT_INFO_UNAVAILABLE"
+        status["reason"] = str(exc)
+        return status
+    if terminal is None or account is None:
+        status["state"] = "BLOCKED_ACCOUNT_INFO_UNAVAILABLE"
+        status["reason"] = "terminal_info or account_info unavailable"
+        return status
+
+    terminal_dict = terminal._asdict() if hasattr(terminal, "_asdict") else {}
+    account_dict = account._asdict() if hasattr(account, "_asdict") else {}
+    mode_map = {
+        getattr(mt5, "ACCOUNT_TRADE_MODE_DEMO", 0): "DEMO",
+        getattr(mt5, "ACCOUNT_TRADE_MODE_CONTEST", 1): "CONTEST",
+        getattr(mt5, "ACCOUNT_TRADE_MODE_REAL", 2): "REAL",
+    }
+    trade_mode = account_dict.get("trade_mode")
+    mode_label = mode_map.get(trade_mode, "UNKNOWN")
+    company = str(account_dict.get("company", "") or "")
+    server = str(account_dict.get("server", "") or "")
+    name = str(account_dict.get("name", "") or "")
+    combined = f"{company} {server} {name}".lower()
+    terminal_trade_allowed = bool(terminal_dict.get("trade_allowed"))
+    tradeapi_disabled = bool(terminal_dict.get("tradeapi_disabled"))
+    account_trade_allowed = bool(account_dict.get("trade_allowed"))
+
+    status.update(
+        {
+            "account_trade_allowed": account_trade_allowed,
+            "account_trade_expert": bool(account_dict.get("trade_expert")),
+            "account_trade_mode": trade_mode,
+            "account_trade_mode_label": mode_label,
+            "terminal_connected": bool(terminal_dict.get("connected")),
+            "terminal_trade_allowed": terminal_trade_allowed,
+            "tradeapi_disabled": tradeapi_disabled,
+            "dlls_allowed": bool(terminal_dict.get("dlls_allowed")),
+            "company": company,
+            "server": server,
+            "balance": float(account_dict.get("balance", 0.0) or 0.0),
+            "currency": account_dict.get("currency"),
+        }
+    )
+
+    if "exness" in combined or mode_label == "REAL":
+        status["state"] = "EMERGENCY_ABORT_REAL_MONEY_DETECTED"
+        status["reason"] = "Real or Exness account detected"
+        return status
+    if "ftmo" not in combined or mode_label != "DEMO":
+        status["state"] = "BLOCKED_ACCOUNT_NOT_FTMO_DEMO"
+        status["reason"] = "Account is not confirmed as FTMO demo"
+        return status
+    if not account_trade_allowed:
+        status["state"] = "BLOCKED_ACCOUNT_TRADE_NOT_ALLOWED"
+        status["reason"] = "Account trade_allowed is false"
+        return status
+
+    symbol = str((symbol_status or {}).get("symbol") or "EURUSD")
+    try:
+        mt5.symbol_select(symbol, True)
+        info = mt5.symbol_info(symbol)
+        tick = mt5.symbol_info_tick(symbol)
+    except Exception as exc:
+        status["state"] = "BLOCKED_SYMBOL_INFO_UNAVAILABLE"
+        status["reason"] = str(exc)
+        return status
+    if info is None or tick is None:
+        status["state"] = "BLOCKED_SYMBOL_INFO_UNAVAILABLE"
+        status["reason"] = "symbol_info or symbol_info_tick unavailable"
+        return status
+
+    info_dict = info._asdict() if hasattr(info, "_asdict") else {}
+    digits = int(info_dict.get("digits", 5) or 5)
+    point = float(info_dict.get("point", 0.00001) or 0.00001)
+    pip = point * 10 if point < 0.001 else point
+    min_lot = float(info_dict.get("volume_min", 0.01) or 0.01)
+    max_lot = float(info_dict.get("volume_max", 50.0) or 50.0)
+    lot_step = float(info_dict.get("volume_step", 0.01) or 0.01)
+    stop_pips = max(float(stop_pips), 5.0)
+    risk_usd = float(status["balance"] or 10000.0) * float(risk)
+    raw_volume = risk_usd / (stop_pips * 10.0)
+    volume = round_down_lot(raw_volume, lot_step)
+    volume = max(min_lot, min(max_lot, volume))
+    price = float(getattr(tick, "ask", 0.0) or 0.0)
+    if price <= 0:
+        status["state"] = "BLOCKED_NO_TICK_PRICE"
+        status["reason"] = "No ASK price available"
+        return status
+    sl = round(price - stop_pips * pip, digits)
+    tp = round(price + (stop_pips * 1.4) * pip, digits)
+    filling = getattr(mt5, "ORDER_FILLING_IOC", 1)
+    request = {
+        "action": getattr(mt5, "TRADE_ACTION_DEAL", 1),
+        "symbol": symbol,
+        "volume": float(volume),
+        "type": getattr(mt5, "ORDER_TYPE_BUY", 0),
+        "price": price,
+        "sl": sl,
+        "tp": tp,
+        "deviation": 20,
+        "magic": 370037,
+        "comment": "PHASE37ZH_ORDER_CHECK_ONLY",
+        "type_time": getattr(mt5, "ORDER_TIME_GTC", 0),
+        "type_filling": filling,
+    }
+    status["symbol"] = symbol
+    status["volume"] = float(volume)
+    status["request"] = request
+
+    if not hasattr(mt5, "order_check"):
+        status["state"] = "BLOCKED_ORDER_CHECK_UNAVAILABLE"
+        status["reason"] = "mt5.order_check unavailable"
+        return status
+    try:
+        check = mt5.order_check(request)
+        status["order_check_executed"] = True
+    except Exception as exc:
+        status["state"] = "BLOCKED_ORDER_CHECK_FAILED"
+        status["reason"] = f"order_check exception: {exc}"
+        return status
+    if check is None:
+        status["state"] = "BLOCKED_ORDER_CHECK_FAILED"
+        status["reason"] = f"order_check returned None: {mt5.last_error() if hasattr(mt5, 'last_error') else 'unknown'}"
+        return status
+    check_dict = check._asdict() if hasattr(check, "_asdict") else {}
+    retcode = check_dict.get("retcode", getattr(check, "retcode", None))
+    comment = str(check_dict.get("comment", getattr(check, "comment", "")) or "")
+    pass_codes = {
+        0,
+        getattr(mt5, "TRADE_RETCODE_DONE", 10009),
+        getattr(mt5, "TRADE_RETCODE_PLACED", 10008),
+        getattr(mt5, "TRADE_RETCODE_DONE_PARTIAL", 10010),
+    }
+    status.update(
+        {
+            "order_check_retcode": retcode,
+            "order_check_comment": comment,
+            "margin_required": check_dict.get("margin"),
+            "order_check_pass": retcode in pass_codes and "disable" not in comment.lower(),
+        }
+    )
+
+    if not terminal_trade_allowed or tradeapi_disabled:
+        status["state"] = "BLOCKED_AUTOTRADING_DISABLED"
+        status["reason"] = "Terminal trade_allowed is false or tradeapi_disabled is true"
+        status["orders_message"] = "ORDENES: BLOQUEADAS POR MT5"
+        status["action_required"] = "Revisar boton Trading algoritmico en MT5"
+        return status
+    if not status["order_check_pass"]:
+        status["state"] = "BLOCKED_ORDER_CHECK_FAILED"
+        status["reason"] = f"order_check failed retcode={retcode} comment={comment}"
+        status["orders_message"] = "ORDENES: BLOQUEADAS POR ORDER_CHECK"
+        status["action_required"] = "Revisar request y permisos MT5"
+        return status
+
+    status["state"] = "ORDER_CHECK_PASS_NO_ORDER_SENT"
+    status["reason"] = "order_check passed and no order_send was executed"
+    status["orders_message"] = "ORDENES: LISTAS EN DEMO"
+    status["action_required"] = "Ninguna"
+    return status
+
+
 def signal_sync() -> dict[str, Any]:
     findings: list[dict[str, Any]] = []
     patterns = ["Phase25", "TP 1.4", "BE 0.4", "BF70", "H1 Fractal", "M3 CHOCH", "manipulante"]
