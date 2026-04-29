@@ -20,6 +20,7 @@ from phase37_ftmo_trial_support import (
     confirmation_file_status,
     detect_symbol,
     lot_gate_10k,
+    order_send_readiness_audit,
     order_send_safety,
     signal_sync,
     time_gate,
@@ -104,6 +105,13 @@ def write_heartbeat(result: dict[str, Any]) -> None:
         "safe_to_turn_off_pc": result.get("shutdown_allowed", False),
         "manual_intervention_required": result.get("manual_intervention_required", False),
         "critical_position_still_open": result.get("critical_do_not_turn_off_pc", False),
+        "order_readiness_state": result.get("order_readiness", {}).get("state"),
+        "order_check_retcode": result.get("order_readiness", {}).get("order_check_retcode"),
+        "order_check_pass": result.get("order_readiness", {}).get("order_check_pass"),
+        "terminal_trade_allowed": result.get("order_readiness", {}).get("terminal_trade_allowed"),
+        "tradeapi_disabled": result.get("order_readiness", {}).get("tradeapi_disabled"),
+        "orders_message": result.get("order_readiness", {}).get("orders_message"),
+        "action_required": result.get("order_readiness", {}).get("action_required"),
     }
     write_json(HEARTBEAT_JSON, hb)
     lines = [f"{k}: {v}" for k, v in hb.items()]
@@ -118,6 +126,10 @@ def write_heartbeat(result: dict[str, Any]) -> None:
     if hb["news_gate"] != "ALLOW" or not hb["can_open_new_trades"]:
         estado_gen = "BLOQUEADO - BOT ACTIVO PERO NO OPERA"
         msg_gen = "BOT ACTIVO PERO NO OPERA POR REGLA"
+
+    if hb["order_readiness_state"] == "BLOCKED_AUTOTRADING_DISABLED":
+        estado_gen = "BLOQUEADO - BOT ACTIVO PERO NO OPERA"
+        msg_gen = "AUTOTRADING DESHABILITADO"
         
     if operacion_abierta == "SI" or hb["critical_position_still_open"] or hb["manual_intervention_required"]:
         estado_gen = "PELIGRO - NO APAGAR PC"
@@ -129,6 +141,12 @@ def write_heartbeat(result: dict[str, Any]) -> None:
         f"CUENTA={hb['server'] or 'FTMO-Demo'}",
         f"RUNNER=ACTIVO",
         f"NEWS={hb['news_gate'] or 'NO_TRADE'}",
+        f"MOTIVO={'AUTOTRADING_DESHABILITADO' if hb['order_readiness_state'] == 'BLOCKED_AUTOTRADING_DISABLED' else ''}",
+        f"ORDENES={hb['orders_message'] or 'ORDENES: DESCONOCIDAS'}",
+        f"ORDER_CHECK={'PASS' if hb['order_check_pass'] else 'FAIL'}",
+        f"ORDER_CHECK_RETCODE={hb['order_check_retcode'] if hb['order_check_retcode'] is not None else '---'}",
+        f"ORDER_SEND=GATEADO",
+        f"ACCION={hb['action_required'] or '---'}",
         f"ULTIMA_DECISION={hb['last_decision'] or '---'}",
         f"OPERACION_ABIERTA={operacion_abierta}",
         f"SEGURO_APAGAR_PC={seguro_apagar}",
@@ -150,6 +168,7 @@ def run_once(args: argparse.Namespace) -> dict[str, Any]:
         lot = lot_gate_10k(symbol, account)
         safety = order_send_safety()
         confirmation = confirmation_file_status()
+        order_readiness = order_send_readiness_audit(symbol, account, risk=args.risk)
         
         pos_info = pos_state.get_position_state(symbol.get("symbol", "EURUSD"))
         session_state = lifecycle.get_session_state(position_open=(pos_info["state"] != "FLAT"))
@@ -170,15 +189,35 @@ def run_once(args: argparse.Namespace) -> dict[str, Any]:
             "lot_gate": lot.get("state"),
             "signal_engine_gate": signal.get("state"),
             "order_router_safety": safety.get("state"),
+            "autotrading_gate": order_readiness.get("state"),
+            "terminal_trade_allowed": order_readiness.get("terminal_trade_allowed"),
+            "tradeapi_disabled": order_readiness.get("tradeapi_disabled"),
+            "order_check": "PASS" if order_readiness.get("order_check_pass") else "FAIL",
+            "order_check_retcode": order_readiness.get("order_check_retcode"),
             "confirmation_file": confirmation.get("valid"),
             "lifecycle_state": session_state,
         }
         
         final_decision = "DRY_RUN_NO_SIGNAL" if args.dry_run else "NO_TRADE"
         reason = signal.get("signal_status", "NO_SIGNAL")
+        if order_readiness.get("state") == "EMERGENCY_ABORT_REAL_MONEY_DETECTED":
+            final_decision = "EMERGENCY_ABORT_REAL_MONEY_DETECTED"
+            reason = "REAL_OR_EXNESS_DETECTED"
+        elif order_readiness.get("state") == "BLOCKED_AUTOTRADING_DISABLED":
+            final_decision = "NO_TRADE_AUTOTRADING_DISABLED"
+            reason = "AUTOTRADING_DESHABILITADO"
+        elif order_readiness.get("state") not in {"ORDER_CHECK_PASS_NO_ORDER_SENT"}:
+            final_decision = "NO_TRADE_ORDER_CHECK_FAILED"
+            reason = str(order_readiness.get("state") or "ORDER_CHECK_FAILED")
         
         # Lifecycle Logic Overrides
-        if session_state == "BEFORE_SESSION_WAIT":
+        if final_decision in {
+            "EMERGENCY_ABORT_REAL_MONEY_DETECTED",
+            "NO_TRADE_AUTOTRADING_DISABLED",
+            "NO_TRADE_ORDER_CHECK_FAILED",
+        }:
+            pass
+        elif session_state == "BEFORE_SESSION_WAIT":
             final_decision = "WAITING_FOR_SESSION"
             reason = "Pre-07:00 NY"
         elif not can_open and pos_info["state"] == "FLAT":
@@ -189,7 +228,15 @@ def run_once(args: argparse.Namespace) -> dict[str, Any]:
             reason = "Weekend"
 
         # Trading Checks
-        if final_decision not in {"WAITING_FOR_SESSION", "NO_NEW_TRADES_AFTER_CUTOFF", "NO_TRADE_WEEKEND"}:
+        no_check_decisions = {
+            "WAITING_FOR_SESSION",
+            "NO_NEW_TRADES_AFTER_CUTOFF",
+            "NO_TRADE_WEEKEND",
+            "EMERGENCY_ABORT_REAL_MONEY_DETECTED",
+            "NO_TRADE_AUTOTRADING_DISABLED",
+            "NO_TRADE_ORDER_CHECK_FAILED",
+        }
+        if final_decision not in no_check_decisions:
             checks = [
                 (account.get("state") == "FTMO_DEMO_TRIAL_CONFIRMED", "NO_TRADE_ACCOUNT"),
                 (news.get("gate") == "ALLOW", "NO_TRADE_NEWS_BLOCK"),
@@ -255,6 +302,7 @@ def run_once(args: argparse.Namespace) -> dict[str, Any]:
             "next_news_block": news.get("next_blocking_event", {}).get("event_time_ny") if news.get("next_blocking_event") else None,
             "signal_sync": signal,
             "gates": gates,
+            "order_readiness": order_readiness,
             "shutdown_allowed": shutdown_allowed,
             "critical_do_not_turn_off_pc": critical_pc,
             "manual_intervention_required": manual_req,
