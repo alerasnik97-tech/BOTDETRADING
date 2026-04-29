@@ -23,54 +23,63 @@ class First3MChochDetector:
 
     def detect_choch(self, df_m3, sweeps_h1):
         """
-        Detecta el primer CHoCH M3 tras un barrido H1.
+        Detecta el primer CHoCH M3 tras un barrido H1 (Versión Optimizada v2).
         """
         df = df_m3.copy()
         fh, fl = get_m3_fractals(df, n=self.params.get('fractal_n', 2))
         df['last_m3_fh'] = pd.Series(fh).ffill()
         df['last_m3_fl'] = pd.Series(fl).ffill()
         
+        df['choch_bearish_trigger'] = (df['close_bid'] < df['last_m3_fl'])
+        df['choch_bullish_trigger'] = (df['close_bid'] > df['last_m3_fh'])
+        
         results = []
         
-        for _, sweep in sweeps_h1.iterrows():
+        # Convertimos a serie para mantener TZ en la comparación si es necesario, 
+        # o usamos .values y aseguramos que sweep_time sea compatible.
+        df_times = df['timestamp_ny']
+        df_close = df['close_bid'].values
+        df_bearish = df['choch_bearish_trigger'].values
+        df_bullish = df['choch_bullish_trigger'].values
+        
+        sweeps_sorted = sweeps_h1.sort_values('timestamp_ny')
+        
+        curr_idx = 0
+        total_bars = len(df)
+        
+        for _, sweep in sweeps_sorted.iterrows():
             sweep_time = sweep['timestamp_ny']
-            # Ventana de búsqueda: sweep_time hasta sweep_time + max_mins
             max_mins = self.params.get('max_mins_post_sweep', 60)
-            window = df[(df['timestamp_ny'] >= sweep_time) & 
-                        (df['timestamp_ny'] <= sweep_time + pd.Timedelta(minutes=max_mins))]
+            end_time = sweep_time + pd.Timedelta(minutes=max_mins)
             
-            if window.empty: continue
+            # Buscamos el índice inicial
+            while curr_idx < total_bars and df_times.iloc[curr_idx] < sweep_time:
+                curr_idx += 1
             
-            # Buscar el primer CHoCH
-            for idx, bar in window.iterrows():
-                close = bar['close_bid']
-                
-                if sweep['type'] == 'BEARISH_SWEEP': # Buscamos CHoCH bajista
-                    trigger_lvl = bar['last_m3_fl']
-                    if not pd.isna(trigger_lvl) and close < trigger_lvl:
-                        # CHoCH confirmado
+            search_idx = curr_idx
+            while search_idx < total_bars and df_times.iloc[search_idx] <= end_time:
+                if sweep['type'] == 'BEARISH_SWEEP':
+                    if df_bearish[search_idx]:
                         results.append({
                             "sweep_time": sweep_time,
-                            "choch_time": bar['timestamp_ny'],
+                            "choch_time": df_times.iloc[search_idx],
                             "direction": "SHORT",
-                            "entry_price": bar['close_bid'], # Entrada al cierre del CHoCH
+                            "entry_price": df_close[search_idx],
                             "sl_price": sweep['peak_price'] + (self.params.get('sl_buffer', 0.5) * 0.0001),
                             "sweep_level": sweep['level_type']
                         })
-                        break # Solo el primer CHoCH
-                
-                elif sweep['type'] == 'BULLISH_SWEEP': # Buscamos CHoCH alcista
-                    trigger_lvl = bar['last_m3_fh']
-                    if not pd.isna(trigger_lvl) and close > trigger_lvl:
-                        # CHoCH confirmado
+                        break
+                elif sweep['type'] == 'BULLISH_SWEEP':
+                    if df_bullish[search_idx]:
                         results.append({
                             "sweep_time": sweep_time,
-                            "choch_time": bar['timestamp_ny'],
+                            "choch_time": df_times.iloc[search_idx],
                             "direction": "LONG",
-                            "entry_price": bar['close_bid'],
+                            "entry_price": df_close[search_idx],
                             "sl_price": sweep['peak_price'] - (self.params.get('sl_buffer', 0.5) * 0.0001),
                             "sweep_level": sweep['level_type']
                         })
                         break
+                search_idx += 1
                         
         return pd.DataFrame(results)

@@ -1,0 +1,206 @@
+[
+  {
+    "file": "CHANGELOG.md",
+    "line_num": 74,
+    "content": "- Migraci\u00f3n desde versi\u00f3n escritorio a `C:\\BOT DE TRADING` como fuente oficial",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "CLOUD_WORKFLOW.md",
+    "line_num": 7,
+    "content": "1. **Local (Fuente de Verdad)**: `C:\\BOT DE TRADING`",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "phase34_path_audit.py",
+    "line_num": 37,
+    "content": "# \"C:\\BOT DE TRADING\"",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "phase34_path_audit.py",
+    "line_num": 38,
+    "content": "# \"C:\\Users\\alera\\Desktop\\BOT DE TRADING\" (without Bot\\)",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "README.md",
+    "line_num": 3,
+    "content": "> **Fuente oficial del proyecto:** `C:\\BOT DE TRADING`",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "README.md",
+    "line_num": 14,
+    "content": "| **Fuente de verdad** | Solo `C:\\BOT DE TRADING`. No trabajar desde copias del escritorio. |",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "README.md",
+    "line_num": 25,
+    "content": "C:\\BOT DE TRADING\\",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "legacy_archive_2026\\_audit_dest_extras.ps1",
+    "line_num": 5,
+    "content": "$SourceRoot = 'C:\\Users\\alera\\Desktop\\BOT DE TRADING ANTIGRABITY'",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "legacy_archive_2026\\_audit_dest_extras.ps1",
+    "line_num": 6,
+    "content": "$DestRoot   = 'C:\\Users\\alera\\Desktop\\BOT DE TRADING CURSOR'",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "legacy_archive_2026\\_temp_read_report.py",
+    "line_num": 2,
+    "content": "with open(r'c:\\Users\\alera\\Desktop\\BOT DE TRADING CURSOR\\reports\\official_anchors\\pipeline_run_report.json', 'r') as f:",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "research_lab\\README.md",
+    "line_num": 42,
+    "content": "$env:PYTHONPATH='C:\\Users\\alera\\Desktop\\BOT DE TRADING\\.pkg'",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "research_lab\\README.md",
+    "line_num": 43,
+    "content": "$env:MPLCONFIGDIR='C:\\Users\\alera\\Desktop\\BOT DE TRADING\\.mplconfig'",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "research_lab\\README.md",
+    "line_num": 44,
+    "content": "$env:TEMP='C:\\Users\\alera\\Desktop\\BOT DE TRADING\\.tmp'",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "research_lab\\README.md",
+    "line_num": 45,
+    "content": "$env:TMP='C:\\Users\\alera\\Desktop\\BOT DE TRADING\\.tmp'",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "results\\research_lab_level3_audit\\20260411_100137_level3_audit\\audit_level3_report.md",
+    "line_num": 6,
+    "content": "- repo: `C:\\Users\\alera\\Desktop\\BOT DE TRADING`",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "results\\research_lab_level3_audit\\20260411_101004_level3_audit\\audit_level3_report.md",
+    "line_num": 6,
+    "content": "- repo: `C:\\Users\\alera\\Desktop\\BOT DE TRADING`",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "results\\research_lab_level3_audit\\20260411_101748_level3_audit\\audit_level3_report.md",
+    "line_num": 6,
+    "content": "- repo: `C:\\Users\\alera\\Desktop\\BOT DE TRADING`",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "ARCHIVE_SUPERSEDED\\old_root_documents\\ACCIONES_INMEDIATAS.md",
+    "line_num": 7,
+    "content": "cd \"c:\\Users\\alera\\Desktop\\BOT DE TRADING ultimo\"",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "ARCHIVE_SUPERSEDED\\old_root_documents\\ACCIONES_INMEDIATAS.md",
+    "line_num": 8,
+    "content": "$env:PYTHONPATH = \"c:\\Users\\alera\\Desktop\\BOT DE TRADING ultimo\"",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "ARCHIVE_SUPERSEDED\\old_root_documents\\ACCIONES_INMEDIATAS.md",
+    "line_num": 225,
+    "content": "cd \"c:\\Users\\alera\\Desktop\\BOT DE TRADING ultimo\"",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "ARCHIVE_SUPERSEDED\\old_root_documents\\ACCIONES_INMEDIATAS.md",
+    "line_num": 226,
+    "content": "$env:PYTHONPATH = \"c:\\Users\\alera\\Desktop\\BOT DE TRADING ultimo\"",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "ARCHIVE_SUPERSEDED\\old_root_documents\\ACCIONES_INMEDIATAS.md",
+    "line_num": 227,
+    "content": "$env:MPLCONFIGDIR = \"c:\\Users\\alera\\Desktop\\BOT DE TRADING ultimo\\.mplconfig\"",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "ARCHIVE_SUPERSEDED\\old_root_documents\\ARCHIVE_MANIFEST.md",
+    "line_num": 7,
+    "content": "- `C:\\Users\\alera\\Desktop\\BOT DE TRADING_ARCHIVE\\2026-04-09_workspace_trim`",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "ARCHIVE_SUPERSEDED\\old_root_documents\\LEGACY_CONFINEMENT_REPORT_W2.md",
+    "line_num": 7,
+    "content": "**Origen:** `C:\\Users\\alera\\Desktop\\BOT DE TRADING CURSOR\\`",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "ARCHIVE_SUPERSEDED\\old_root_documents\\LEGACY_CONFINEMENT_REPORT_W2.md",
+    "line_num": 8,
+    "content": "**Destino:** `C:\\Users\\alera\\Desktop\\BOT DE TRADING CURSOR\\legacy_archive_2026\\`",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "ARCHIVE_SUPERSEDED\\temp_artifacts\\temp_zip_staging\\ACCIONES_INMEDIATAS.md",
+    "line_num": 7,
+    "content": "cd \"c:\\Users\\alera\\Desktop\\BOT DE TRADING ultimo\"",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "ARCHIVE_SUPERSEDED\\temp_artifacts\\temp_zip_staging\\ACCIONES_INMEDIATAS.md",
+    "line_num": 8,
+    "content": "$env:PYTHONPATH = \"c:\\Users\\alera\\Desktop\\BOT DE TRADING ultimo\"",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "ARCHIVE_SUPERSEDED\\temp_artifacts\\temp_zip_staging\\ACCIONES_INMEDIATAS.md",
+    "line_num": 225,
+    "content": "cd \"c:\\Users\\alera\\Desktop\\BOT DE TRADING ultimo\"",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "ARCHIVE_SUPERSEDED\\temp_artifacts\\temp_zip_staging\\ACCIONES_INMEDIATAS.md",
+    "line_num": 226,
+    "content": "$env:PYTHONPATH = \"c:\\Users\\alera\\Desktop\\BOT DE TRADING ultimo\"",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "ARCHIVE_SUPERSEDED\\temp_artifacts\\temp_zip_staging\\ACCIONES_INMEDIATAS.md",
+    "line_num": 227,
+    "content": "$env:MPLCONFIGDIR = \"c:\\Users\\alera\\Desktop\\BOT DE TRADING ultimo\\.mplconfig\"",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "ARCHIVE_SUPERSEDED\\temp_artifacts\\temp_zip_staging\\ARCHIVE_MANIFEST.md",
+    "line_num": 7,
+    "content": "- `C:\\Users\\alera\\Desktop\\BOT DE TRADING_ARCHIVE\\2026-04-09_workspace_trim`",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "ARCHIVE_SUPERSEDED\\temp_artifacts\\temp_zip_staging\\LEGACY_CONFINEMENT_REPORT_W2.md",
+    "line_num": 7,
+    "content": "**Origen:** `C:\\Users\\alera\\Desktop\\BOT DE TRADING CURSOR\\`",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": "ARCHIVE_SUPERSEDED\\temp_artifacts\\temp_zip_staging\\LEGACY_CONFINEMENT_REPORT_W2.md",
+    "line_num": 8,
+    "content": "**Destino:** `C:\\Users\\alera\\Desktop\\BOT DE TRADING CURSOR\\legacy_archive_2026\\`",
+    "issue": "Wrong absolute path"
+  },
+  {
+    "file": ".venv_fixed\\Scripts\\activate.bat",
+    "line_num": 11,
+    "content": "set \"VIRTUAL_ENV=C:\\Users\\alera\\Desktop\\BOT DE TRADING - Copia\\.venv_fixed\"",
+    "issue": "Wrong absolute path"
+  }
+]

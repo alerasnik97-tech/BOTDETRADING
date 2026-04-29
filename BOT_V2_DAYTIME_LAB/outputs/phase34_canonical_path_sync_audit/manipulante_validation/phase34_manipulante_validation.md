@@ -1,0 +1,19 @@
+# MANIPULANTE VALIDATION
+
+Overall OK: True
+
+| Requirement | Path | Exists |
+|---|---|---|
+| README | MANIPULANTE/00_LEER_PRIMERO/README_MANIPULANTE.md | True |
+| strategy_card | MANIPULANTE/01_ESTRATEGIA_AUTORIDAD/MANIPULANTE_STRATEGY_CARD.md | True |
+| manipulante_config | MANIPULANTE/01_ESTRATEGIA_AUTORIDAD/manipulante_config.json | True |
+| hard_close_policy | MANIPULANTE/01_ESTRATEGIA_AUTORIDAD/MANIPULANTE_GLOBAL_WEEKEND_POLICY.md | True |
+| risk_policy | MANIPULANTE/04_OPERACION_DIARIA/MANIPULANTE_RISK_POLICY.md | True |
+| kill_switch | MANIPULANTE/04_OPERACION_DIARIA/MANIPULANTE_KILL_SWITCH.md | True |
+| pre_trade_checklist | MANIPULANTE/04_OPERACION_DIARIA/MANIPULANTE_PRE_TRADE_CHECKLIST.md | True |
+| post_trade_checklist | MANIPULANTE/04_OPERACION_DIARIA/MANIPULANTE_POST_TRADE_CHECKLIST.md | True |
+| mt5_launcher_demo_bat | MANIPULANTE/03_MT5_DEMO_LAUNCHER/ABRIR_MANIPULANTE_DEMO.bat | True |
+| templates_dir | MANIPULANTE/06_TEMPLATES | True |
+| compliance_docs_dir | MANIPULANTE/09_COMPLIANCE | True |
+| no_auto_trading | manipulante_config.json | True |
+| no_allow_live | manipulante_config.json | True |

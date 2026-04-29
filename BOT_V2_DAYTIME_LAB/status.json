@@ -1,7 +1,7 @@
 {
   "timestamp": "2026-04-29T03:10:00+00:00",
   "current_authority": "MANIPULANTE",
-  "latest_phase_active": "PHASE32E",
+  "latest_phase_active": "PHASE34",
   "project_structure_reorganized": true,
   "global_weekend_policy": "FRIDAY_16_55_NY_HARD_CLOSE_UNIVERSAL",
   "real_blocked": true,
@@ -9,5 +9,6 @@
   "auto_order_execution": false,
   "news_fortress": "FAIL_CLOSED",
   "data_quality_mask": "FAIL_CLOSED",
-  "be05_status": "SHADOW_ONLY"
+  "be05_status": "SHADOW_ONLY",
+  "canonical_path_sync": true
 }

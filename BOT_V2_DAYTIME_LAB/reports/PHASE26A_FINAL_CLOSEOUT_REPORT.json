@@ -1,0 +1,23 @@
+{
+  "objective": "Cerrar Phase26-A como auditoria de data gap 2015-2019",
+  "phase25_frozen": true,
+  "phase25_authority": "PHASE25_REMAINS_AUTHORITY",
+  "verdict": "PHASE26A_DATA_PARTIAL_REQUIRES_REPAIR",
+  "inventory_2015_2019": "M5/H1 parcial encontrado.",
+  "m3_from_m5": "PROHIBIDO. Pierde resoluci\u00f3n y causa lookahead de bid/ask intrafractal.",
+  "m1_tick_2015_2019": "NOT_AVAILABLE",
+  "news_2015_2019": "RAW_AVAILABLE",
+  "mask_2015_2019": "MISSING",
+  "state_2020_2026": "CERTIFIED_WITH_MASK",
+  "optimization_blocked": true,
+  "risk_2020_2026_only": "Alto riesgo de curve-fitting a r\u00e9gimen post-pand\u00e9mico.",
+  "blocked": [
+    "Real Trading",
+    "MT5",
+    "cTrader",
+    "VPS",
+    "Phase26 Optimization"
+  ],
+  "next_phase": "Adquisici\u00f3n y certificaci\u00f3n de M1/Tick 2015-2019.",
+  "next_step": "Conseguir data EURUSD M1/Tick 2015-2019."
+}

@@ -7,3 +7,6 @@
 - **Phase19** está archivada y prohibida (bug de lookahead).
 - Trading real bloqueado. MT5 real bloqueado. Launcher demo no opera en real.
 - Todo desarrollo posterior debe compararse contra la autoridad de `MANIPULANTE`.
+
+- **Ruta Oficial Única**: `C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo`
+- **Ejecución Manual**: La ejecución actual es manual y temporal. El operador humano NO TIENE discrecionalidad estratégica. Solo ejecuta la estrategia 100% programada (MANIPULANTE).

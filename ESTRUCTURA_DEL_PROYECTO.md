@@ -22,3 +22,9 @@ Este es el único archivo comprimido válido del proyecto. Se utiliza para sincr
 - No borre la carpeta `ESTRATEGIAS`.
 - No abra cuentas reales.
 - No modifique scripts en `BOT_V2_DAYTIME_LAB/src` a menos que sea en una nueva iteración de desarrollo validada.
+
+## Ruta Oficial Única
+Todo el proyecto debe residir exclusivamente en `C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo`.
+
+## Core Protocols
+Los documentos base canónicos de arquitectura se encuentran unificados en `BOT_V2_DAYTIME_LAB/docs/CORE_PROTOCOLS/`.
