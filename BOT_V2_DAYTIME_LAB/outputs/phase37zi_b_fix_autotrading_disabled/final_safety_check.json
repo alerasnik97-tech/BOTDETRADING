@@ -1,0 +1,20 @@
+{
+  "initialize": true,
+  "last_error": [
+    1,
+    "Success"
+  ],
+  "company": "FTMO Global Markets Ltd",
+  "server": "FTMO-Demo",
+  "trade_mode": 0,
+  "exness_detected": false,
+  "real_detected": false,
+  "positions_total": 0,
+  "account_trade_allowed": true,
+  "account_trade_expert": true,
+  "terminal_trade_allowed": false,
+  "tradeapi_disabled": true,
+  "connected": true,
+  "path": "C:\\Program Files\\MetaTrader 5",
+  "data_path": "C:\\Users\\alera\\AppData\\Roaming\\MetaQuotes\\Terminal\\D0E8209F77C8CF37AD8BF550E51FF075"
+}

@@ -1,0 +1,59 @@
+{
+  "timestamp": "2026-04-29T17:35:08",
+  "verdict": "TERMINAL_API_STILL_DISABLED",
+  "scope": "FTMO_DEMO_TRIAL_ONLY_NO_ORDER_SEND_NO_STRATEGY_CHANGE",
+  "account": {
+    "ftmo_demo_confirmed": true,
+    "exness_detected": false,
+    "real_detected": false,
+    "position_open": false,
+    "positions_total": 0
+  },
+  "terminal": {
+    "path": "C:\\Program Files\\MetaTrader 5",
+    "data_path": "C:\\Users\\alera\\AppData\\Roaming\\MetaQuotes\\Terminal\\D0E8209F77C8CF37AD8BF550E51FF075",
+    "server": "FTMO-Demo",
+    "connected": true,
+    "terminal_correct": true,
+    "instance_state": "TERMINAL_CORRECTO"
+  },
+  "permissions_before": {
+    "account_trade_allowed": true,
+    "terminal_trade_allowed": false,
+    "tradeapi_disabled": true,
+    "conclusion": "AUTOTRADING_API_BLOQUEADO_POR_TERMINAL"
+  },
+  "actions": {
+    "runner_restart": true,
+    "mt5_restart": true,
+    "mt5_restart_forced": false,
+    "status_update": true
+  },
+  "permissions_after": {
+    "account_trade_allowed": true,
+    "terminal_trade_allowed": false,
+    "tradeapi_disabled": true,
+    "conclusion": "TERMINAL_API_STILL_DISABLED"
+  },
+  "order_check": {
+    "executed": true,
+    "retcode": 0,
+    "pass": true,
+    "order_send_executed": false,
+    "comment": "Done",
+    "margin_required": 1945.47
+  },
+  "status_final": {},
+  "dry_run": {
+    "decision": null,
+    "order_sent": null
+  },
+  "security": {
+    "no_real": true,
+    "no_exness": true,
+    "strategy_modified": false,
+    "order_sent": false,
+    "positions_open_after": 0
+  },
+  "next_manual_action": "Herramientas > Opciones > Asesores Expertos: permitir trading algoritmico y desmarcar bloqueo de Python API externa; luego reiniciar MT5 y START."
+}

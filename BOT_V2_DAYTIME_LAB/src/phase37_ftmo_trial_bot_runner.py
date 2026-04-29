@@ -108,10 +108,14 @@ def write_heartbeat(result: dict[str, Any]) -> None:
         "order_readiness_state": result.get("order_readiness", {}).get("state"),
         "order_check_retcode": result.get("order_readiness", {}).get("order_check_retcode"),
         "order_check_pass": result.get("order_readiness", {}).get("order_check_pass"),
+        "account_trade_allowed": result.get("order_readiness", {}).get("account_trade_allowed"),
+        "account_trade_expert": result.get("order_readiness", {}).get("account_trade_expert"),
+        "terminal_connected": result.get("order_readiness", {}).get("terminal_connected"),
         "terminal_trade_allowed": result.get("order_readiness", {}).get("terminal_trade_allowed"),
         "tradeapi_disabled": result.get("order_readiness", {}).get("tradeapi_disabled"),
         "orders_message": result.get("order_readiness", {}).get("orders_message"),
         "action_required": result.get("order_readiness", {}).get("action_required"),
+        "permission_conclusion": result.get("order_readiness", {}).get("permission_conclusion"),
     }
     write_json(HEARTBEAT_JSON, hb)
     lines = [f"{k}: {v}" for k, v in hb.items()]
@@ -146,6 +150,12 @@ def write_heartbeat(result: dict[str, Any]) -> None:
         f"ORDER_CHECK={'PASS' if hb['order_check_pass'] else 'FAIL'}",
         f"ORDER_CHECK_RETCODE={hb['order_check_retcode'] if hb['order_check_retcode'] is not None else '---'}",
         f"ORDER_SEND=GATEADO",
+        f"ACCOUNT_TRADE_ALLOWED={'SI' if hb['account_trade_allowed'] else 'NO'}",
+        f"ACCOUNT_TRADE_EXPERT={'SI' if hb['account_trade_expert'] else 'NO'}",
+        f"TERMINAL_CONNECTED={'SI' if hb['terminal_connected'] else 'NO'}",
+        f"TERMINAL_TRADE_ALLOWED={'SI' if hb['terminal_trade_allowed'] else 'NO'}",
+        f"TRADEAPI_DISABLED={'SI' if hb['tradeapi_disabled'] else 'NO'}",
+        f"PERMISSION_CONCLUSION={hb['permission_conclusion'] or '---'}",
         f"ACCION={hb['action_required'] or '---'}",
         f"ULTIMA_DECISION={hb['last_decision'] or '---'}",
         f"OPERACION_ABIERTA={operacion_abierta}",

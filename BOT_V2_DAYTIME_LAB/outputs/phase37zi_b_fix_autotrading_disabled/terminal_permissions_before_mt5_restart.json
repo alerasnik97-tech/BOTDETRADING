@@ -1,0 +1,24 @@
+{
+  "initialize": true,
+  "last_error": [
+    1,
+    "Success"
+  ],
+  "company": "FTMO Global Markets Ltd",
+  "server": "FTMO-Demo",
+  "trade_mode": 0,
+  "account_trade_allowed": true,
+  "account_trade_expert": true,
+  "balance": 10000.0,
+  "currency": "USD",
+  "terminal_path": "C:\\Program Files\\MetaTrader 5",
+  "data_path": "C:\\Users\\alera\\AppData\\Roaming\\MetaQuotes\\Terminal\\D0E8209F77C8CF37AD8BF550E51FF075",
+  "connected": true,
+  "terminal_trade_allowed": false,
+  "tradeapi_disabled": true,
+  "dlls_allowed": true,
+  "ping_last": 242986,
+  "symbol_visible": true,
+  "symbol_trade_mode": 4,
+  "positions_total": 0
+}

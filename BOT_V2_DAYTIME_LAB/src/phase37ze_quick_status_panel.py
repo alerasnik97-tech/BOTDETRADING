@@ -276,6 +276,12 @@ def build_status(
     orders_message = str(qs.get("ORDENES") or hb.get("orders_message") or "---").strip() or "---"
     order_check = str(qs.get("ORDER_CHECK") or ("PASS" if hb.get("order_check_pass") else "---")).strip() or "---"
     order_send = str(qs.get("ORDER_SEND") or "GATEADO").strip() or "GATEADO"
+    account_trade_allowed = _yes_no(qs.get("ACCOUNT_TRADE_ALLOWED") or hb.get("account_trade_allowed"))
+    terminal_trade_allowed = _yes_no(qs.get("TERMINAL_TRADE_ALLOWED") or hb.get("terminal_trade_allowed"))
+    tradeapi_disabled = _yes_no(qs.get("TRADEAPI_DISABLED") or hb.get("tradeapi_disabled"))
+    permission_conclusion = str(
+        qs.get("PERMISSION_CONCLUSION") or hb.get("permission_conclusion") or "---"
+    ).strip() or "---"
     action = str(qs.get("ACCION") or hb.get("action_required") or "---").strip() or "---"
 
     raw_estado = str(qs.get("ESTADO_GENERAL") or "").strip().upper()
@@ -317,6 +323,10 @@ def build_status(
         "ORDENES": orders_message,
         "ORDER_CHECK": order_check,
         "ORDER_SEND": order_send,
+        "ACCOUNT_TRADE_ALLOWED": account_trade_allowed,
+        "TERMINAL_TRADE_ALLOWED": terminal_trade_allowed,
+        "TRADEAPI_DISABLED": tradeapi_disabled,
+        "PERMISSION_CONCLUSION": permission_conclusion,
         "ACCION": action,
         "NEWS": news,
         "ULTIMA_DECISION": decision or "---",
@@ -345,6 +355,10 @@ def render_panel(status: dict[str, str] | None = None) -> str:
         f"ORDENES: {status['ORDENES'].replace('ORDENES: ', '')}",
         f"ORDER_CHECK: {status['ORDER_CHECK']}",
         f"ORDER_SEND: {status['ORDER_SEND']}",
+        f"CUENTA TRADE: {status['ACCOUNT_TRADE_ALLOWED']}",
+        f"TERMINAL TRADE: {status['TERMINAL_TRADE_ALLOWED']}",
+        f"PYTHON API BLOQUEADA: {status['TRADEAPI_DISABLED']}",
+        f"CONCLUSION: {status['PERMISSION_CONCLUSION']}",
         f"ACCION: {status['ACCION']}",
         "",
         f"NEWS: {status['NEWS']}",
@@ -362,7 +376,7 @@ def render_panel(status: dict[str, str] | None = None) -> str:
         "SIGNIFICADO",
         "OK        = Bot activo",
         "BLOQUEADO = Bot activo pero no opera por regla",
-        "AUTOTRADING = Revisar boton Trading algoritmico",
+        "AUTOTRADING = Revisar Opciones MT5 Python API",
         "ERROR     = Bot apagado",
         "PELIGRO   = No apagar PC",
         "DUPLICADO = Limpiar runners",

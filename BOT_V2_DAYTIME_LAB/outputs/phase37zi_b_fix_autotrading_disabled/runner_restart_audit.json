@@ -1,0 +1,66 @@
+{
+  "timestamp": "2026-04-29T17:26:53",
+  "before_restart_permissions": {
+    "initialize": true,
+    "last_error": [
+      1,
+      "Success"
+    ],
+    "company": "FTMO Global Markets Ltd",
+    "server": "FTMO-Demo",
+    "trade_mode": 0,
+    "account_trade_allowed": true,
+    "account_trade_expert": true,
+    "terminal_path": "C:\\Program Files\\MetaTrader 5",
+    "data_path": "C:\\Users\\alera\\AppData\\Roaming\\MetaQuotes\\Terminal\\D0E8209F77C8CF37AD8BF550E51FF075",
+    "connected": true,
+    "terminal_trade_allowed": false,
+    "tradeapi_disabled": true,
+    "positions_total": 0
+  },
+  "runner_pids_before_stop": [
+    12512
+  ],
+  "runner_pids_after_stop": [],
+  "runner_lock_removed": true,
+  "permissions_after_runner_stop": {
+    "initialize": true,
+    "last_error": [
+      1,
+      "Success"
+    ],
+    "company": "FTMO Global Markets Ltd",
+    "server": "FTMO-Demo",
+    "trade_mode": 0,
+    "account_trade_allowed": true,
+    "account_trade_expert": true,
+    "terminal_path": "C:\\Program Files\\MetaTrader 5",
+    "data_path": "C:\\Users\\alera\\AppData\\Roaming\\MetaQuotes\\Terminal\\D0E8209F77C8CF37AD8BF550E51FF075",
+    "connected": true,
+    "terminal_trade_allowed": false,
+    "tradeapi_disabled": true,
+    "positions_total": 0
+  },
+  "start_process_stdout": "",
+  "start_process_stderr": "Start-Process : No se puede validar el argumento del parÃ¡metro 'ArgumentList'. El argumento es null o estÃ¡ vacÃ­o. \nProporcione un argumento que no sea null o que no estÃ© vacÃ­o e intente ejecutar el comando de nuevo.\nEn lÃ­nea: 1 CarÃ¡cter: 54\n+ Start-Process -FilePath \"$env:ComSpec\" -ArgumentList \"/c\", \"\"C:\\Users ...\n+                                                      ~~~~~~~~\n    + CategoryInfo          : InvalidData: (:) [Start-Process], ParameterBindingValidationException\n    + FullyQualifiedErrorId : ParameterArgumentValidationError,Microsoft.PowerShell.Commands.StartProcessCommand",
+  "start_process_returncode": 1,
+  "runner_pids_after_start_wait": [],
+  "permissions_after_runner_restart": {
+    "initialize": true,
+    "last_error": [
+      1,
+      "Success"
+    ],
+    "company": "FTMO Global Markets Ltd",
+    "server": "FTMO-Demo",
+    "trade_mode": 0,
+    "account_trade_allowed": true,
+    "account_trade_expert": true,
+    "terminal_path": "C:\\Program Files\\MetaTrader 5",
+    "data_path": "C:\\Users\\alera\\AppData\\Roaming\\MetaQuotes\\Terminal\\D0E8209F77C8CF37AD8BF550E51FF075",
+    "connected": true,
+    "terminal_trade_allowed": false,
+    "tradeapi_disabled": true,
+    "positions_total": 0
+  }
+}
