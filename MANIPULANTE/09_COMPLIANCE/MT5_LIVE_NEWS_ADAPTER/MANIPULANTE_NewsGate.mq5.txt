@@ -1,0 +1,26 @@
+// MANIPULANTE_NewsGate.mq5.txt
+// Watch-only Economic Calendar cache producer. No trading functions allowed.
+// This is a specification scaffold for later manual import into MetaEditor.
+
+#property script_show_inputs
+input int GuardMinutesBefore = 30;
+input int GuardMinutesAfter = 30;
+
+void OnStart()
+{
+   datetime from_time = TimeTradeServer();
+   datetime to_time = from_time + 7 * 24 * 60 * 60;
+   string currencies[2] = {"EUR", "USD"};
+
+   // For each currency call CalendarValueHistory(values, from_time, to_time, NULL, currency).
+   // For each value call CalendarEventById(value.event_id, event).
+   // Export JSON fields:
+   // event_id, name, currency, impact, server_time, time_utc, time_ny,
+   // actual, forecast, previous, source_type=MT5_MQL5_ECONOMIC_CALENDAR,
+   // verified_by_mt5=true, generated_at_utc.
+   //
+   // If CalendarValueHistory fails, write status:
+   // NO_TRADE_NEWS_SOURCE_UNAVAILABLE.
+   //
+   // No OrderSend, no CTrade, no PositionOpen, no trade.Buy, no trade.Sell.
+}

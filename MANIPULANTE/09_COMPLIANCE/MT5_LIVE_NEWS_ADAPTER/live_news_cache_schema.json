@@ -1,0 +1,20 @@
+{
+  "source_type": "MT5_MQL5_ECONOMIC_CALENDAR",
+  "verified_by_mt5": true,
+  "generated_at_utc": "ISO-8601 UTC timestamp",
+  "server_time_utc_offset_required": true,
+  "events": [
+    {
+      "event_id": "string",
+      "name": "string",
+      "currency": "EUR|USD",
+      "impact": "HIGH|MEDIUM|LOW",
+      "time_utc": "ISO-8601 UTC timestamp",
+      "time_ny": "ISO-8601 America/New_York timestamp",
+      "server_time": "MT5 trade server timestamp",
+      "actual": "optional",
+      "forecast": "optional",
+      "previous": "optional"
+    }
+  ]
+}

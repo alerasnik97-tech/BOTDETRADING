@@ -1,20 +1,13 @@
 @echo off
 echo ==============================================================
-echo MANIPULANTE MT5 DEMO LAUNCHER
+echo MANIPULANTE WATCH-ONLY DRY-RUN LAUNCHER
 echo ==============================================================
-echo WARNING: DEMO/PAPER ONLY. NO REAL TRADING.
-echo NO AUTO ORDERS.
-echo GLOBAL HARD CLOSE FRIDAY 16:55 NY.
+echo PHASE36: DRY-RUN ONLY. NO REAL ORDERS. NO AUTOTRADING.
+echo News Gate and Data Mask are mandatory. If unavailable = NO TRADE.
+echo Global hard close Friday 16:55 NY. No weekend holding.
 echo ==============================================================
 echo.
-echo Presione cualquier tecla para confirmar que entiende que esto es SOLO DEMO...
-pause >nul
-
-echo Abriendo Checklists y Runbook...
-start "" "..\04_OPERACION_DIARIA\MANIPULANTE_DAILY_RUNBOOK.md"
-start "" "..\06_TEMPLATES\MANIPULANTE_DAILY_TRADE_LOG.csv"
-
-echo.
-echo Para abrir MT5 debe configurar la ruta en mt5_path_config.json
+echo This launcher does not activate AutoTrading and does not send orders.
+echo Configure MT5 path manually in mt5_path_config.json only for future demo observation.
 echo.
 pause

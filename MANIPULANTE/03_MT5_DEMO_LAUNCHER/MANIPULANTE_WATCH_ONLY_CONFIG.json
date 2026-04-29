@@ -1,0 +1,11 @@
+{
+  "mode": "WATCH_ONLY_DRY_RUN",
+  "allow_live": false,
+  "allow_real_orders": false,
+  "auto_order_execution": false,
+  "order_send_enabled": false,
+  "news_gate_required": true,
+  "data_mask_required": true,
+  "lot_validator_required": true,
+  "dry_run_orders_only": true
+}
