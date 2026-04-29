@@ -34,9 +34,10 @@ def get_session_state(position_open: bool = False) -> str:
     # Daily States
     start = time.fromisoformat(cfg.get("session_start", "07:00"))
     cutoff = time.fromisoformat(cfg.get("no_new_trades_after", "16:30"))
-    protection = time.fromisoformat(cfg.get("pc_off_protection_start", "19:30"))
     force_close = time.fromisoformat(cfg.get("forced_safe_close", "19:45"))
-    verify = time.fromisoformat(cfg.get("verify_flat", "19:50"))
+    retry_until = time.fromisoformat(cfg.get("retry_close_until", "19:49"))
+    verify1 = time.fromisoformat(cfg.get("verify_flat_first", "19:50"))
+    verify2 = time.fromisoformat(cfg.get("verify_flat_second", "19:55"))
     shutdown = time.fromisoformat(cfg.get("daily_shutdown", "20:00"))
     
     if now_time < start:
@@ -45,17 +46,20 @@ def get_session_state(position_open: bool = False) -> str:
     if start <= now_time < cutoff:
         return "SESSION_ACTIVE"
     
-    if cutoff <= now_time < protection:
+    if cutoff <= now_time < force_close:
         return "MANAGE_ONLY" if position_open else "NO_NEW_TRADES_AFTER_CUTOFF"
     
-    if protection <= now_time < force_close:
-        return "USER_PC_OFF_PROTECTION_WINDOW"
-    
-    if force_close <= now_time < verify:
+    if force_close <= now_time <= retry_until:
         return "FORCED_SAFE_CLOSE_REQUIRED"
     
-    if verify <= now_time < shutdown:
-        return "VERIFY_FLAT_BEFORE_SHUTDOWN"
+    if retry_until < now_time < verify1:
+        return "CRITICAL_RETRY_CLOSE" if position_open else "VERIFY_FLAT_BEFORE_SHUTDOWN"
+    
+    if verify1 <= now_time < verify2:
+        return "VERIFY_FLAT_FIRST"
+    
+    if verify2 <= now_time < shutdown:
+        return "VERIFY_FLAT_SECOND"
     
     if now_time >= shutdown:
         return "DAILY_AUTO_SHUTDOWN"
@@ -68,15 +72,15 @@ def can_open_new_trades() -> bool:
 
 def should_manage_only() -> bool:
     state = get_session_state(position_open=True)
-    return state in {"MANAGE_ONLY", "USER_PC_OFF_PROTECTION_WINDOW"}
+    return state in {"MANAGE_ONLY", "FORCED_SAFE_CLOSE_REQUIRED", "CRITICAL_RETRY_CLOSE", "VERIFY_FLAT_FIRST", "VERIFY_FLAT_SECOND"}
 
 def should_force_safe_close() -> bool:
     state = get_session_state(position_open=True)
-    return state in {"FORCED_SAFE_CLOSE_REQUIRED", "FRIDAY_HARD_CLOSE_REQUIRED"}
+    return state in {"FORCED_SAFE_CLOSE_REQUIRED", "FRIDAY_HARD_CLOSE_REQUIRED", "CRITICAL_RETRY_CLOSE"}
 
 def should_verify_flat() -> bool:
     state = get_session_state()
-    return state == "VERIFY_FLAT_BEFORE_SHUTDOWN"
+    return state in {"VERIFY_FLAT_FIRST", "VERIFY_FLAT_SECOND", "VERIFY_FLAT_BEFORE_SHUTDOWN"}
 
 def should_daily_shutdown() -> bool:
     state = get_session_state()
