@@ -1,7 +1,22 @@
-# FTMO Trial Run Commands
+# FTMO TRIAL - COMANDOS DE EJECUCIÓN (Phase 37ZA)
 
-```powershell
-python BOT_V2_DAYTIME_LAB\src\phase37d_ftmo_trial_api_news_signal_auto.py
-```
+## Launchers Recomendados (Raíz MANIPULANTE)
 
-No auto order path is allowed unless all gates pass.
+| Comando | Ubicación | Función |
+| :--- | :--- | :--- |
+| `START_MANIPULANTE.bat` | `MANIPULANTE\` | Iniciar el Runner oficial de FTMO Trial |
+| `STATUS_MANIPULANTE.bat` | `MANIPULANTE\` | Consultar el Panel de Control y Seguridad |
+
+## Scripts Internos (Uso Avanzado)
+
+Si necesita ejecutar desde consola o depurar, use los archivos en `MANIPULANTE\13_FTMO_TRIAL_AUTOMATION\`:
+
+- `START_FTMO_TRIAL_AUTO.bat`: Lógica de inicio completa.
+- `STATUS_FTMO_TRIAL_AUTO.bat`: Panel detallado.
+- `STOP_FTMO_TRIAL_AUTO.bat`: Detener bot de forma segura (Safe Shutdown).
+- `STATUS_DEBUG_FTMO_TRIAL_AUTO.bat`: Verificación de errores de importación/rutas.
+
+## Política de Uso
+1. Ejecutar `START_MANIPULANTE.bat`.
+2. Mantener abierta la ventana del runner.
+3. Consultar `STATUS_MANIPULANTE.bat` antes de apagar la PC a las 20:00 NY.
