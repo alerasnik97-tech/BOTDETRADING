@@ -1,0 +1,3 @@
+STOP_BOT ACTIVE
+
+Remove this file only when intentionally running FTMO trial automation after all gates pass.
