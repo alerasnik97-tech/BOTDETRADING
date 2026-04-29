@@ -86,10 +86,8 @@ def write_heartbeat(result: dict[str, Any]) -> None:
         "position_has_sl": pos.get("has_sl"),
         "position_has_tp": pos.get("has_tp"),
         "manage_only": lifecycle.should_manage_only(),
-        "hard_flat_required_before_pc_off": cfg.get("hard_flat_required_before_pc_off"),
         "pc_off_deadline_ny": cfg.get("pc_must_be_off_after"),
         "forced_safe_close_time_ny": cfg.get("forced_safe_close"),
-        "verify_flat_time_ny": cfg.get("verify_flat_first"),
         "news_gate": result.get("gates", {}).get("api_live_news_gate"),
         "data_gate": result.get("gates", {}).get("data_quality_gate"),
         "time_gate": result.get("gates", {}).get("time_gate"),
@@ -98,12 +96,13 @@ def write_heartbeat(result: dict[str, Any]) -> None:
         "next_news_block": result.get("next_news_block"),
         "order_sent": result.get("order_sent"),
         "runner_status": "RUNNING",
-        "pc_off_warning": result.get("session_state") in {"USER_PC_OFF_PROTECTION_WINDOW", "VERIFY_FLAT_FIRST", "VERIFY_FLAT_SECOND"},
-        "safe_to_turn_off_pc": result.get("shutdown_allowed", False),
-        "critical_position_still_open": result.get("critical_do_not_turn_off_pc", False),
-        "manual_intervention_required": result.get("manual_intervention_required", False),
-        "last_safe_close_status": result.get("safe_close_result", {}).get("status") if result.get("safe_close_result") else None,
         "forced_close_attempts": result.get("safe_close_result", {}).get("attempts") if result.get("safe_close_result") else 0,
+        "last_close_attempt_status": result.get("safe_close_result", {}).get("status") if result.get("safe_close_result") else None,
+        "flat_confirmed_1950": result.get("flat_confirmed_1950", False),
+        "flat_confirmed_1955": result.get("flat_confirmed_1955", False),
+        "safe_to_turn_off_pc": result.get("shutdown_allowed", False),
+        "manual_intervention_required": result.get("manual_intervention_required", False),
+        "critical_position_still_open": result.get("critical_do_not_turn_off_pc", False),
     }
     write_json(HEARTBEAT_JSON, hb)
     lines = [f"{k}: {v}" for k, v in hb.items()]
@@ -111,12 +110,10 @@ def write_heartbeat(result: dict[str, Any]) -> None:
 
 
 def run_once(args: argparse.Namespace) -> dict[str, Any]:
-    api_mode = False
     try:
         from phase37d_live_news_api_adapter import news_gate_status
         from phase37d_manipulante_live_signal_engine import evaluate_live_signal
 
-        api_mode = True
         account = account_gate()
         symbol = detect_symbol()
         session_gate = time_gate(symbol)
@@ -125,7 +122,6 @@ def run_once(args: argparse.Namespace) -> dict[str, Any]:
         safety = order_send_safety()
         confirmation = confirmation_file_status()
         
-        # Position & Lifecycle
         pos_info = pos_state.get_position_state(symbol.get("symbol", "EURUSD"))
         session_state = lifecycle.get_session_state(position_open=(pos_info["state"] != "FLAT"))
         can_open = lifecycle.can_open_new_trades()
@@ -185,7 +181,7 @@ def run_once(args: argparse.Namespace) -> dict[str, Any]:
                 final_decision = "NO_TRADE_OUTSIDE_ENTRY_WINDOW"
                 reason = f"State {session_state} forbids entries"
 
-        # Phase37X-C Forced Close & Retries
+        # Phase 37X-C Forced Close & Retries
         safe_close_res = None
         if not args.dry_run and lifecycle.should_force_safe_close() and pos_info["state"] != "FLAT":
             print(f"[CRITICAL] Executing Safe Close Retry Logic: {session_state}")
@@ -193,6 +189,14 @@ def run_once(args: argparse.Namespace) -> dict[str, Any]:
             final_decision = "FORCED_CLOSE_ATTEMPTED"
             reason = safe_close_res.get("status")
             pos_info = pos_state.get_position_state(symbol.get("symbol", "EURUSD"))
+
+        # Verify Flat Windows
+        flat_confirmed_1950 = False
+        flat_confirmed_1955 = False
+        if session_state == "VERIFY_FLAT_FIRST" and pos_info["state"] == "FLAT":
+            flat_confirmed_1950 = True
+        if session_state == "VERIFY_FLAT_SECOND" and pos_info["state"] == "FLAT":
+            flat_confirmed_1955 = True
 
         shutdown_allowed = False
         critical_pc = False
@@ -226,6 +230,8 @@ def run_once(args: argparse.Namespace) -> dict[str, Any]:
             "critical_do_not_turn_off_pc": critical_pc,
             "manual_intervention_required": manual_req,
             "safe_close_result": safe_close_res,
+            "flat_confirmed_1950": flat_confirmed_1950,
+            "flat_confirmed_1955": flat_confirmed_1955,
         }
         
         append_decision({

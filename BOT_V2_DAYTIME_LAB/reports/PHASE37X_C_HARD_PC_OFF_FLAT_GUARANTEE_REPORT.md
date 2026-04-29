@@ -1,47 +1,52 @@
-# PHASE 37X-C HARD PC-OFF DEADLINE FLAT GUARANTEE REPORT
+# PHASE 37X-C HARD PC-OFF FLAT GUARANTEE REPORT
 
 ## 1. Lo más importante
-Se ha implementado una garantía de estado **FLAT** antes de las **20:00 NY**. El sistema ahora no solo intenta cerrar posiciones a las 19:45 NY, sino que reintenta el cierre hasta 5 veces si falla, y verifica el estado en dos ventanas críticas adicionales (19:50 y 19:55 NY). Si antes de las 20:00 NY el sistema no logra confirmar que la cuenta está flat, emite una alerta roja **CRITICAL_MANUAL_INTERVENTION_REQUIRED**, informando al usuario que NO es seguro apagar la PC sin intervención manual.
+Se ha implementado la política operativa final de **Garantía FLAT** antes de las **20:00 NY**. El sistema ha sido configurado para asegurar que ninguna posición de MANIPULANTE quede abierta al momento en que el usuario debe apagar su PC. La regla, ya auditada y aprobada en Phase 37X-A (+1.53R de impacto), se ejecuta ahora con mecanismos de redundancia (5 reintentos) y doble verificación (19:50 y 19:55 NY).
 
 ## 2. Veredicto final exacto
 **HARD_PC_OFF_FLAT_GUARANTEE_READY**
 
-## 3. Política final antes de apagar PC
-- **19:45 NY (Forced Close)**: Cierre obligatorio con hasta 5 reintentos y `order_check`.
-- **19:50 NY (Verify Flat 1)**: Primera verificación de seguridad.
-- **19:55 NY (Verify Flat 2)**: Segunda verificación de seguridad.
-- **20:00 NY (Shutdown)**: Apagado automático solo si se confirma `FLAT_CONFIRMED`.
-- **Si NO está flat**: El sistema bloquea el shutdown, marca incidente crítico y recomienda cierre manual inmediato.
+## 3. Confirmación de Auditoría
+**NO se re-auditó**. Se implementó la política operativa basada estrictamente en los resultados aprobados de la Phase 37X-A, los cuales demostraron que el cierre a las 19:45 NY no daña el edge estadístico de la estrategia.
 
-## 4. ¿Puede quedar posición abierta después de 20:00?
-**NO** bajo condiciones normales de conexión. El sistema está diseñado para forzar el cierre. Solo podría quedar abierta si MT5 pierde conexión total con el broker o si el mercado está congelado. En ese caso, el bot **NO se apagará** y mostrará una advertencia visual persistente.
+## 4. Política final antes de apagar PC (NY)
+- **16:30 NY**: Fin de ventana de entradas (No New Trades).
+- **19:45 NY**: Inicio de **Cierre Forzado Obligatorio**.
+- **19:45 - 19:49 NY**: Ventana de reintentos (hasta 5 intentos con `order_check`).
+- **19:50 NY**: Primera verificación de estado FLAT.
+- **19:55 NY**: Segunda verificación de estado FLAT.
+- **20:00 NY**: Apagado automático del runner solo si se confirma `FLAT_CONFIRMED`.
 
-## 5. Safe close retry
-- **Intentos**: 5 reintentos con backoff de 5 segundos.
-- **Order Check**: Se realiza antes de cada envío para asegurar que la orden es válida.
-- **Logs**: Cada intento queda registrado en `decisions.csv` y en el heartbeat.
+## 5. ¿Puede quedar posición abierta después de 20:00?
+**SÍ**, pero solo en caso de falla crítica externa (pérdida de conexión MT5/Broker). En tal caso, el sistema **NO se apagará**, emitirá una alerta roja en el panel de control y exigirá **MANUAL_CLOSE_REQUIRED** antes de que el usuario apague la PC.
 
-## 6. STATUS / heartbeat
-- **Dashboard**: El panel `.bat` ahora incluye un veredicto visual: `SAFE_TO_TURN_OFF_PC` (Verde), `NOT_SAFE_YET` (Amarillo) o `MANUAL_CLOSE_REQUIRED` (Rojo).
-- **Campos nuevos**: `hard_flat_required_before_pc_off`, `pc_off_deadline_ny`, `forced_close_attempts`, `manual_intervention_required`.
+## 6. Safe close retry
+- **Lógica**: Hasta 5 intentos con esperas controladas.
+- **Seguridad**: Se ejecuta `mt5.order_check` antes de cada envío para validar márgenes y conectividad.
+- **Account Protection**: El módulo está bloqueado para cuentas Reales o Exness.
 
-## 7. Tests
-- **Cantidad**: 10 casos de prueba lógicos validados.
+## 7. STATUS / heartbeat
+- **STATUS Panel**: Ahora muestra explícitamente `SAFE_TO_TURN_OFF_PC` en verde cuando el deadline se cumple y la cuenta está flat.
+- **Heartbeat**: Incluye los nuevos campos: `pc_off_deadline_ny`, `forced_close_attempts`, `last_close_attempt_status`, `flat_confirmed_1950`, `flat_confirmed_1955`, `safe_to_turn_off_pc` y `manual_intervention_required`.
+
+## 8. Tests
+- **Cantidad**: 10 casos de uso validados.
 - **Resultado**: **PASS**.
 
-## 8. Dry-run
-- **Decisión**: `NO_TRADE` (News block activo).
+## 9. Dry-run
+- **Resultado**: Exitosa sincronización de gates.
+- **Decisión**: `NO_TRADE` (News block por Crudo USD).
 - **Order_sent**: False.
 
-## 9. Seguridad
-- **No Real / No Exness**: Confirmado por `account_gate`.
-- **No Estrategia Modificada**: MANIPULANTE (Phase 25) permanece intacta.
+## 10. Seguridad
+- **No Real / No Exness**: Validado por `account_gate`.
+- **Inmutabilidad**: La lógica de MANIPULANTE (Phase 25) no ha sido modificada.
 
-## 10. ZIP canónico
-Actualizado con toda la lógica de redundancia de cierre.
+## 11. ZIP canónico
+Actualizado con la infraestructura de cierre garantizado.
 
-## 11. GitHub
-Cambios sincronizados en `main`.
+## 12. GitHub
+Sincronizado en `main`.
 
-## 12. Siguiente paso único
-**Monitoreo del Cierre**: Hoy a las 19:45 NY el bot ejecutará el primer cierre forzado real con la nueva lógica de reintentos si hay una posición activa.
+## 13. Siguiente paso único
+**Ejecución Operativa**: El sistema está listo para gestionar el cierre de hoy a las 19:45 NY. No se requieren más cambios técnicos.
