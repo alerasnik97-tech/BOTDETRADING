@@ -70,7 +70,7 @@ def should_manage_only() -> bool:
     state = get_session_state(position_open=True)
     return state in {"MANAGE_ONLY", "USER_PC_OFF_PROTECTION_WINDOW"}
 
-def should_force_close() -> bool:
+def should_force_safe_close() -> bool:
     state = get_session_state(position_open=True)
     return state in {"FORCED_SAFE_CLOSE_REQUIRED", "FRIDAY_HARD_CLOSE_REQUIRED"}
 
@@ -78,6 +78,6 @@ def should_verify_flat() -> bool:
     state = get_session_state()
     return state == "VERIFY_FLAT_BEFORE_SHUTDOWN"
 
-def should_shutdown() -> bool:
+def should_daily_shutdown() -> bool:
     state = get_session_state()
     return state == "DAILY_AUTO_SHUTDOWN"
