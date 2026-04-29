@@ -3,35 +3,84 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import os
 import time
+import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 from phase37_ftmo_trial_order_router import evaluate_gates
-from phase37_ftmo_trial_support import MANIPULANTE, NY, OUT, account_gate, confirmation_file_status, detect_symbol, lot_gate_10k, order_send_safety, signal_sync, time_gate, write_json, write_text
+from phase37_ftmo_trial_support import (
+    MANIPULANTE,
+    NY,
+    AR,
+    OUT,
+    account_gate,
+    confirmation_file_status,
+    detect_symbol,
+    lot_gate_10k,
+    order_send_safety,
+    signal_sync,
+    time_gate,
+    write_json,
+    write_text,
+)
 
 
 STOP_FILE = MANIPULANTE / "13_FTMO_TRIAL_AUTOMATION" / "STOP_BOT.txt"
-DECISION_LOG = MANIPULANTE / "10_LOGS_PAPER" / "ftmo_trial_bot" / "decisions.csv"
+LOG_DIR = MANIPULANTE / "10_LOGS_PAPER" / "ftmo_trial_bot"
+DECISION_LOG = LOG_DIR / "decisions.csv"
+HEARTBEAT_JSON = LOG_DIR / "heartbeat.json"
+HEARTBEAT_TXT = LOG_DIR / "heartbeat.txt"
+LOCK_FILE = LOG_DIR / "runner.lock"
 
 
 def append_decision(row: dict[str, Any]) -> None:
-    DECISION_LOG.parent.mkdir(parents=True, exist_ok=True)
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
     exists = DECISION_LOG.exists()
     fields = [
-        "timestamp",
+        "timestamp_local",
+        "timestamp_ny",
         "final_decision",
         "reason",
         "signal_status",
         "order_sent",
+        "account",
+        "news_gate",
+        "data_gate",
+        "time_gate",
         "gates_status",
     ]
     with DECISION_LOG.open("a", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields)
         if not exists:
             writer.writeheader()
-        writer.writerow(row)
+        writer.writerow({k: row.get(k) for k in fields})
+
+
+def write_heartbeat(result: dict[str, Any]) -> None:
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
+    hb = {
+        "timestamp_local": datetime.now(AR).isoformat(),
+        "timestamp_ny": datetime.now(NY).isoformat(),
+        "pid": os.getpid(),
+        "account_company": result.get("account_company"),
+        "server": result.get("server"),
+        "account_mode": result.get("account_mode"),
+        "symbol": result.get("symbol"),
+        "news_gate": result.get("gates", {}).get("api_live_news_gate"),
+        "data_gate": result.get("gates", {}).get("data_quality_gate"),
+        "time_gate": result.get("gates", {}).get("time_gate"),
+        "signal_status": result.get("signal_sync", {}).get("state"),
+        "last_decision": result.get("final_decision"),
+        "next_news_block": result.get("next_news_block"),
+        "order_sent": result.get("order_sent"),
+        "runner_status": "RUNNING",
+    }
+    write_json(HEARTBEAT_JSON, hb)
+    lines = [f"{k}: {v}" for k, v in hb.items()]
+    write_text(HEARTBEAT_TXT, "\n".join(lines))
 
 
 def run_once(args: argparse.Namespace) -> dict[str, Any]:
@@ -95,67 +144,49 @@ def run_once(args: argparse.Namespace) -> dict[str, Any]:
         elif final_decision == "NO_TRADE" and signal.get("signal_status") == "SIGNAL_READY":
             final_decision = "ALLOW"
             reason = "SIGNAL_READY_GATES_ALLOW"
-        decision = type("Decision", (), {"gates": gates})()
-        sync = signal
-    except Exception:
-        decision = evaluate_gates(args)
-        sync = signal_sync()
-        final_decision = decision.final_decision
-        reason = decision.reason
-        if sync["state"] != "MANIPULANTE_SIGNAL_SYNC_OK":
-            final_decision = "NO_TRADE_SIGNAL_NOT_READY"
-            reason = sync["state"]
-    if STOP_FILE.exists():
-        final_decision = "STOP_BOT_ACTIVE"
-        reason = "STOP_BOT.txt present"
-    row = {
-        "timestamp": datetime.now(NY).isoformat(),
-        "final_decision": final_decision,
-        "reason": reason,
-        "signal_status": sync["state"],
-        "order_sent": False,
-        "gates_status": json.dumps(decision.gates, ensure_ascii=False),
-    }
-    append_decision(row)
-    return {
-        "timestamp": row["timestamp"],
-        "dry_run": args.dry_run,
-        "final_decision": final_decision,
-        "reason": reason,
-        "order_sent": False,
-        "signal_sync": sync,
-        "gates": decision.gates,
-        "api_news_primary": api_mode,
-    }
+        
+        result = {
+            "timestamp_ny": datetime.now(NY).isoformat(),
+            "timestamp_local": datetime.now(AR).isoformat(),
+            "final_decision": final_decision,
+            "reason": reason,
+            "order_sent": False,
+            "account_company": account.get("company"),
+            "server": account.get("server"),
+            "account_mode": account.get("trade_mode_label"),
+            "symbol": symbol.get("symbol"),
+            "next_news_block": news.get("next_blocking_event", {}).get("event_time_ny") if news.get("next_blocking_event") else None,
+            "signal_sync": signal,
+            "gates": gates,
+            "api_news_primary": api_mode,
+        }
+        append_decision({
+            **result,
+            "account": f"{result['account_company']} ({result['account_mode']})",
+            "news_gate": gates["api_live_news_gate"],
+            "data_gate": gates["data_quality_gate"],
+            "time_gate": gates["time_gate"],
+            "gates_status": json.dumps(gates, ensure_ascii=False),
+            "signal_status": signal.get("state"),
+        })
+        write_heartbeat(result)
+        return result
+
+    except Exception as exc:
+        print(f"Error in run_once: {exc}")
+        return {"final_decision": "ERROR", "reason": str(exc), "order_sent": False}
 
 
 def write_dry_run_outputs(result: dict[str, Any]) -> None:
     out_dir = OUT / "dry_run"
     write_json(out_dir / "phase37_dry_run.json", result)
-    csv_path = out_dir / "phase37_dry_run_decisions.csv"
-    csv_path.parent.mkdir(parents=True, exist_ok=True)
-    with csv_path.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=["timestamp", "decision", "reason", "order_sent"])
-        writer.writeheader()
-        writer.writerow(
-            {
-                "timestamp": result["timestamp"],
-                "decision": result["final_decision"],
-                "reason": result["reason"],
-                "order_sent": result["order_sent"],
-            }
-        )
     write_text(
         out_dir / "phase37_dry_run.md",
         f"""
 # Phase37 FTMO Trial Dry-Run
-
-- executed: true
-- decision: {result['final_decision']}
-- reason: {result['reason']}
-- order_sent: {result['order_sent']}
-
-Dry-run never sends orders.
+- decision: {result.get('final_decision')}
+- reason: {result.get('reason')}
+- order_sent: {result.get('order_sent')}
 """,
     )
 
@@ -167,8 +198,6 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument("--risk", type=float, default=0.005)
     parser.add_argument("--i-understand-demo-automation", action="store_true", default=True)
     parser.add_argument("--no-real", action="store_true", default=True)
-    parser.add_argument("--no-force", action="store_true", default=True)
-    parser.add_argument("--trial-risk-stress-075", action="store_true")
     parser.add_argument("--once", action="store_true", default=False)
     parser.add_argument("--interval-seconds", type=int, default=60)
     return parser
@@ -176,30 +205,65 @@ def build_arg_parser() -> argparse.ArgumentParser:
 
 def safe_dumps(obj: Any) -> str:
     def default(o: Any) -> str:
-        if hasattr(o, "isoformat"):
-            return o.isoformat()
-        if hasattr(o, "item"):
-            return o.item()
+        if hasattr(o, "isoformat"): return o.isoformat()
+        if hasattr(o, "item"): return o.item()
         return str(o)
     return json.dumps(obj, default=default, indent=2, ensure_ascii=False)
+
+
+def acquire_lock() -> bool:
+    if LOCK_FILE.exists():
+        try:
+            pid = int(LOCK_FILE.read_text().strip())
+            if os.name == 'nt':
+                import ctypes
+                kernel32 = ctypes.windll.kernel32
+                handle = kernel32.OpenProcess(1, False, pid)
+                if handle:
+                    kernel32.CloseHandle(handle)
+                    return False
+        except Exception:
+            pass
+    LOCK_FILE.write_text(str(os.getpid()))
+    return True
+
+
+def release_lock():
+    if LOCK_FILE.exists():
+        try:
+            LOCK_FILE.unlink()
+        except Exception:
+            pass
 
 
 def main(argv: list[str] | None = None) -> dict[str, Any]:
     parser = build_arg_parser()
     args = parser.parse_args(argv)
-    if args.once or args.dry_run:
-        result = run_once(args)
-        write_dry_run_outputs(result)
-        print(safe_dumps(result))
-        return result
-    last: dict[str, Any] = {}
-    while not STOP_FILE.exists():
-        last = run_once(args)
-        time.sleep(max(10, args.interval_seconds))
-    if not last:
-        last = {"final_decision": "STOP_BOT_ACTIVE", "order_sent": False, "reason": "STOP_BOT.txt present before loop"}
-    print(safe_dumps(last))
-    return last
+    
+    if not args.dry_run and not acquire_lock():
+        print("DUPLICATE_RUNNER_DETECTION: Another instance is running. Aborting.")
+        sys.exit(1)
+
+    try:
+        if args.once or args.dry_run:
+            result = run_once(args)
+            if args.dry_run: write_dry_run_outputs(result)
+            print(safe_dumps(result))
+            return result
+        
+        print(f"MANIPULANTE FTMO TRIAL AUTO-RUNNER STARTED [PID {os.getpid()}]")
+        last: dict[str, Any] = {}
+        while not STOP_FILE.exists():
+            last = run_once(args)
+            print(f"[{datetime.now().strftime('%H:%M:%S')}] Decision: {last.get('final_decision')} | Reason: {last.get('reason')}")
+            time.sleep(max(10, args.interval_seconds))
+        
+        if not last:
+            last = {"final_decision": "STOP_BOT_ACTIVE", "order_sent": False}
+        print("STOP_BOT.txt detected. Shutting down safely.")
+        return last
+    finally:
+        if not args.dry_run: release_lock()
 
 
 if __name__ == "__main__":
