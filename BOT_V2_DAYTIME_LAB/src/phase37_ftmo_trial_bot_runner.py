@@ -69,6 +69,7 @@ def append_decision(row: dict[str, Any]) -> None:
 def write_heartbeat(result: dict[str, Any]) -> None:
     LOG_DIR.mkdir(parents=True, exist_ok=True)
     pos = result.get("position_state_info", {})
+    cfg = lifecycle.load_config()
     hb = {
         "timestamp_local": datetime.now(AR).isoformat(),
         "timestamp_ny": datetime.now(NY).isoformat(),
@@ -84,6 +85,10 @@ def write_heartbeat(result: dict[str, Any]) -> None:
         "position_side": pos.get("side"),
         "position_has_sl": pos.get("has_sl"),
         "position_has_tp": pos.get("has_tp"),
+        "manage_only": result.get("session_state") in {"MANAGE_ONLY", "USER_PC_OFF_PROTECTION_WINDOW"},
+        "forced_safe_close_time_ny": cfg.get("forced_safe_close"),
+        "verify_flat_time_ny": cfg.get("verify_flat"),
+        "shutdown_time_ny": cfg.get("daily_shutdown"),
         "news_gate": result.get("gates", {}).get("api_live_news_gate"),
         "data_gate": result.get("gates", {}).get("data_quality_gate"),
         "time_gate": result.get("gates", {}).get("time_gate"),
@@ -92,8 +97,10 @@ def write_heartbeat(result: dict[str, Any]) -> None:
         "next_news_block": result.get("next_news_block"),
         "order_sent": result.get("order_sent"),
         "runner_status": "RUNNING",
+        "pc_off_warning": result.get("session_state") == "USER_PC_OFF_PROTECTION_WINDOW",
         "critical_do_not_turn_off_pc": result.get("critical_do_not_turn_off_pc", False),
         "shutdown_allowed": result.get("shutdown_allowed", False),
+        "last_safe_close_status": result.get("safe_close_result", {}).get("status") if result.get("safe_close_result") else None,
     }
     write_json(HEARTBEAT_JSON, hb)
     lines = [f"{k}: {v}" for k, v in hb.items()]
@@ -193,7 +200,7 @@ def run_once(args: argparse.Namespace) -> dict[str, Any]:
 
         # Forced Safe Close Execution
         safe_close_res = None
-        if not args.dry_run and lifecycle.should_force_close() and pos_info["state"] != "FLAT":
+        if not args.dry_run and lifecycle.should_force_safe_close() and pos_info["state"] != "FLAT":
             print(f"[CRITICAL] Forced safe close triggered by lifecycle: {session_state}")
             safe_close_res = safe_close.execute_safe_close(symbol.get("symbol", "EURUSD"))
             final_decision = "FORCED_CLOSE_EXECUTED"
@@ -203,7 +210,7 @@ def run_once(args: argparse.Namespace) -> dict[str, Any]:
 
         shutdown_allowed = False
         critical_pc = False
-        if lifecycle.should_shutdown():
+        if lifecycle.should_daily_shutdown():
             if pos_info["state"] == "FLAT":
                 shutdown_allowed = True
             else:
