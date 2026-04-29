@@ -17,25 +17,29 @@ DECISIONS = LOG_DIR / "decisions.csv"
 
 RUNNER_SCRIPT = "phase37_ftmo_trial_bot_runner.py"
 STATUS_SCRIPT = "phase37ze_quick_status_panel.py"
-STATUS_OK = "OK - BOT ACTIVO"
-STATUS_BLOCKED = "BLOQUEADO - BOT ACTIVO PERO NO OPERA"
-STATUS_AUTOTRADING_BLOCKED = "BLOQUEADO - AUTOTRADING DESHABILITADO"
-STATUS_ERROR = "ERROR - BOT APAGADO"
+STATUS_OK = "OK - BOT LISTO"
+STATUS_BLOCKED_HOURS = "BLOQUEADO - FUERA DE HORARIO"
+STATUS_BLOCKED_NEWS = "BLOQUEADO - NOTICIAS"
+STATUS_BLOCKED_SIGNAL = "BLOQUEADO - SIN SENAL"
+STATUS_BLOCKED_AUTOTRADING = "BLOQUEADO - AUTOTRADING"
+STATUS_ERROR = "ERROR - REVISAR SISTEMA"
 STATUS_DANGER = "PELIGRO - NO APAGAR PC"
 STATUS_DUPLICATE = "DUPLICADO - LIMPIAR RUNNERS"
 
 VALID_STATES = {
     STATUS_OK,
-    STATUS_BLOCKED,
-    STATUS_AUTOTRADING_BLOCKED,
+    STATUS_BLOCKED_HOURS,
+    STATUS_BLOCKED_NEWS,
+    STATUS_BLOCKED_SIGNAL,
+    STATUS_BLOCKED_AUTOTRADING,
     STATUS_ERROR,
     STATUS_DANGER,
     STATUS_DUPLICATE,
 }
 LEGACY_STATE_MAP = {
     "VERDE": STATUS_OK,
-    "AMARILLO": STATUS_BLOCKED,
-    "BLOQUEADO - AUTOTRADING DESHABILITADO": STATUS_AUTOTRADING_BLOCKED,
+    "AMARILLO": STATUS_BLOCKED_SIGNAL,
+    "BLOQUEADO - AUTOTRADING DESHABILITADO": STATUS_BLOCKED_AUTOTRADING,
     "ROJO": STATUS_ERROR,
     "CRITICO": STATUS_DANGER,
     "VIOLETA": STATUS_DUPLICATE,
@@ -244,7 +248,8 @@ def _safe_to_turn_off(qs: dict[str, str], hb: dict[str, Any], operation_open: st
     from_hb = _yes_no(hb.get("safe_to_turn_off_pc"))
     if from_hb:
         return from_hb
-    return "SI" if runner_count == 0 else "NO"
+    # Si no hay operacion abierta, es seguro apagar (el usuario decide si cierra el bot)
+    return "SI"
 
 
 def build_status(
@@ -295,9 +300,19 @@ def build_status(
     elif operation_open == "SI" or _yes_no(hb.get("critical_position_still_open")) == "SI":
         estado = STATUS_DANGER
     elif motivo == "AUTOTRADING_DESHABILITADO" or hb.get("order_readiness_state") == "BLOCKED_AUTOTRADING_DISABLED":
-        estado = STATUS_AUTOTRADING_BLOCKED
-    elif news not in {"ALLOW", "---"} or _yes_no(hb.get("manual_intervention_required")) == "SI":
-        estado = STATUS_BLOCKED
+        estado = STATUS_BLOCKED_AUTOTRADING
+    elif news not in {"ALLOW", "---"}:
+        estado = STATUS_BLOCKED_NEWS
+    elif "CUTOFF" in decision or "WINDOW_CLOSED" in decision:
+        estado = STATUS_BLOCKED_HOURS
+    elif "WAIT_SIGNAL" in decision:
+        estado = STATUS_BLOCKED_SIGNAL
+    else:
+        # Por defecto si no hay señal y está todo bien
+        if decision == "---" and runner_count > 0:
+            estado = STATUS_OK
+        else:
+            estado = STATUS_BLOCKED_SIGNAL
 
     arg_time = (
         _hhmm(qs.get("ULTIMA_ACTUALIZACION_ARG"))
@@ -337,11 +352,67 @@ def build_status(
     }
 
 
-def render_panel(status: dict[str, str] | None = None) -> str:
-    status = build_status() if status is None else status
+def render_panel(status: dict[str, str], mode: str = "clean") -> str:
+    if mode == "technical":
+        return render_panel_technical(status)
+    return render_panel_clean(status)
+
+
+def render_panel_clean(status: dict[str, str]) -> str:
+    # Mapeo de noticias
+    noticias = "BLOQUEADO" if status["NEWS"] not in {"ALLOW", "---"} else "PERMITIDO"
+    # Mapeo de ordenes
+    ordenes = "LISTAS"
+    if status["ESTADO_GENERAL"] in {STATUS_BLOCKED_AUTOTRADING, STATUS_ERROR, STATUS_DUPLICATE}:
+        ordenes = "BLOQUEADAS"
+    elif status["ESTADO_GENERAL"] in {STATUS_BLOCKED_HOURS, STATUS_BLOCKED_NEWS}:
+        ordenes = "BLOQUEADAS"
+    # Si es STATUS_OK o STATUS_BLOCKED_SIGNAL, queda como LISTAS
+
+    # Determinar MODO (DEMO/REAL)
+    cuenta_text = status["CUENTA"].upper()
+    modo_text = "DEMO"
+    if "REAL" in cuenta_text or "LIVE" in cuenta_text:
+        modo_text = "REAL"
+
     lines = [
         "=" * 60,
-        "MANIPULANTE - PANEL DE ESTADO",
+        "MANIPULANTE - ESTADO DEL BOT",
+        "Actualiza cada 30 segundos",
+        "=" * 60,
+        "",
+        f"ESTADO: {status['ESTADO_GENERAL']}",
+        "",
+        f"BOT: {status['BOT']}",
+        f"CUENTA: {status['CUENTA'].split(' / ')[0]}",
+        f"MODO: {modo_text}",
+        f"ORDENES: {ordenes}",
+        f"NOTICIAS: {noticias}",
+        f"ULTIMA DECISION: {status['ULTIMA_DECISION']}",
+        f"OPERACION ABIERTA: {status['OPERACION_ABIERTA']}",
+        f"SEGURO APAGAR PC: {status['SEGURO_APAGAR_PC']}",
+        "",
+        f"HORA: {status['ULTIMA_ACTUALIZACION_ARG']} ARG / {status['ULTIMA_ACTUALIZACION_NY']} NY",
+        "",
+        "=" * 60,
+        "QUE SIGNIFICA",
+        "OK        = Bot listo para operar si aparece senal",
+        "BLOQUEADO = Bot activo pero no opera por regla",
+        "PELIGRO   = No apagar PC",
+        "ERROR     = Revisar sistema",
+        "DUPLICADO = Limpiar runners",
+        "=" * 60,
+        "",
+        "CTRL+C para cerrar este panel. El bot NO se apaga.",
+        "=" * 60,
+    ]
+    return "\n".join(lines)
+
+
+def render_panel_technical(status: dict[str, str]) -> str:
+    lines = [
+        "=" * 60,
+        "MANIPULANTE - PANEL TECNICO",
         "Actualiza cada 30 segundos",
         "=" * 60,
         "",
@@ -373,16 +444,7 @@ def render_panel(status: dict[str, str] | None = None) -> str:
         ),
         "",
         "=" * 60,
-        "SIGNIFICADO",
-        "OK        = Bot activo",
-        "BLOQUEADO = Bot activo pero no opera por regla",
-        "AUTOTRADING = Revisar Opciones MT5 Python API",
-        "ERROR     = Bot apagado",
-        "PELIGRO   = No apagar PC",
-        "DUPLICADO = Limpiar runners",
-        "=" * 60,
-        "",
-        "CTRL+C para cerrar este panel. El bot NO se apaga.",
+        "CTRL+C para cerrar este panel.",
     ]
     return "\n".join(lines)
 
@@ -392,6 +454,7 @@ def main() -> int:
     parser.add_argument("--runner-count", action="store_true")
     parser.add_argument("--runner-pids", action="store_true")
     parser.add_argument("--json", action="store_true")
+    parser.add_argument("--mode", choices=["clean", "technical"], default="clean")
     args = parser.parse_args()
 
     runners = find_runner_processes()
@@ -406,7 +469,7 @@ def main() -> int:
     if args.json:
         print(json.dumps(status, indent=2, ensure_ascii=True))
     else:
-        print(render_panel(status))
+        print(render_panel(status, mode=args.mode))
     return 0
 
 
