@@ -1,0 +1,6 @@
+Dia,trades,TP,BE,SL,FORCED_CLOSE,pf,expectancy_r,winrate_r_positive_pct,max_drawdown_r,total_r,veredicto
+Lunes,528,173,256,85,14,2.803,0.2975,34.09,-7.0,157.091,FUERTE
+Martes,529,156,288,68,17,3.131,0.2869,31.0,-4.396,151.778,FUERTE
+Miercoles,535,166,264,74,31,3.12,0.3104,34.58,-5.0,166.039,FUERTE
+Jueves,510,152,254,84,20,2.423,0.2482,30.98,-4.0,126.558,OK
+Viernes,523,154,267,84,18,2.588,0.2601,31.93,-6.6,136.008,FUERTE
