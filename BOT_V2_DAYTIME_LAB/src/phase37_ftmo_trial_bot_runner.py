@@ -109,20 +109,29 @@ def write_heartbeat(result: dict[str, Any]) -> None:
     lines = [f"{k}: {v}" for k, v in hb.items()]
     write_text(HEARTBEAT_TXT, "\n".join(lines))
     
-    # Phase 37ZC Quick Status
-    state_label = "BOT_ACTIVO_Y_SEGURO"
+    # Phase 37ZE Quick Status (Español)
+    estado_gen = "VERDE"
+    msg_gen = "BOT ACTIVO"
+    
     if hb["news_gate"] != "ALLOW" or not hb["can_open_new_trades"]:
-        state_label = "BOT_ACTIVO_PERO_NO_OPERA"
+        estado_gen = "AMARILLO"
+        msg_gen = "BOT ACTIVO PERO NO OPERA"
+        
     if hb["critical_position_still_open"] or hb["manual_intervention_required"]:
-        state_label = "NO_APAGAR_PC"
+        estado_gen = "CRITICO"
+        msg_gen = "NO APAGAR PC - RIESGO ACTIVO"
     
     qs_lines = [
-        f"ESTADO={state_label}",
+        f"ESTADO_GENERAL={estado_gen}",
+        f"MENSAJE={msg_gen}",
         f"CUENTA={hb['account_company']}",
         f"RUNNER=ACTIVO",
         f"NEWS={hb['news_gate']}",
-        f"SAFE_TO_TURN_OFF_PC={'YES' if hb['safe_to_turn_off_pc'] else 'NO'}",
-        f"LAST_UPDATE={hb['timestamp_ny']}"
+        f"ULTIMA_DECISION={hb['last_decision']}",
+        f"OPERACION_ABIERTA={'SI' if hb['position_state'] != 'FLAT' else 'NO'}",
+        f"SEGURO_APAGAR_PC={'SI' if hb['safe_to_turn_off_pc'] else 'NO'}",
+        f"ULTIMA_ACTUALIZACION_ARG={datetime.now(AR).strftime('%H:%M:%S')}",
+        f"ULTIMA_ACTUALIZACION_NY={datetime.now(NY).strftime('%H:%M:%S')}"
     ]
     write_text(QUICK_STATUS_TXT, "\n".join(qs_lines))
 
