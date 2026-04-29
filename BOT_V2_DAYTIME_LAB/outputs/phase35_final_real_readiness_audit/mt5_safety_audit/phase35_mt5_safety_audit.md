@@ -1,0 +1,7 @@
+# MT5 SAFETY AUDIT
+Verdict: PASS
+
+| File | Issue | Severity |
+|---|---|---|
+| ABRIR_MANIPULANTE_DEMO.bat | NOT_PORTABLE_MODE | WARNING |
+| REAL_MONEY_LOCK.md | FILE_CREATED | PASS |

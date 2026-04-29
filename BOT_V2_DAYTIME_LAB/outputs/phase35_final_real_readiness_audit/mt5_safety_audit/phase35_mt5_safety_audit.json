@@ -1,0 +1,15 @@
+{
+  "verdict": "PASS",
+  "findings": [
+    {
+      "file": "ABRIR_MANIPULANTE_DEMO.bat",
+      "issue": "NOT_PORTABLE_MODE",
+      "severity": "WARNING"
+    },
+    {
+      "file": "REAL_MONEY_LOCK.md",
+      "issue": "FILE_CREATED",
+      "severity": "PASS"
+    }
+  ]
+}

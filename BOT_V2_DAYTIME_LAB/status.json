@@ -10,5 +10,7 @@
   "news_fortress": "FAIL_CLOSED",
   "data_quality_mask": "FAIL_CLOSED",
   "be05_status": "SHADOW_ONLY",
-  "canonical_path_sync": true
+  "canonical_path_sync": true,
+  "latest_phase_completed": "PHASE35",
+  "micro_real_readiness": "READY"
 }

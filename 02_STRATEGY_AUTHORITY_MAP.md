@@ -10,3 +10,4 @@
 - **AUTO ORDERS**: BLOCKED.
 
 - **Aclaración**: El trader actúa como operador de registro. MANIPULANTE es 100% programable.
+- **Status**: MANIPULANTE validada para paper y micro real manual.

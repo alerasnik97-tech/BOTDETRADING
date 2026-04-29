@@ -27,3 +27,6 @@ Cualquier otra cosa en el proyecto (`ESTRATEGIAS`, `BOT_V2_DAYTIME_LAB`) es arch
 ## Límites de Ejecución Manual
 Por favor, lea detalladamente el documento de límites: [`BOT_V2_DAYTIME_LAB/docs/MANUAL_EXECUTION_BOUNDARY.md`](../../BOT_V2_DAYTIME_LAB/docs/MANUAL_EXECUTION_BOUNDARY.md)
 "El sistema estratégico es 100% objetivo/programable. La fase manual/paper/trial es una fase temporal de ejecución asistida. El usuario no tiene permiso de alterar señales, dirección, TP, BE, SL, noticias, data mask ni gestión por criterio emocional. El trader humano actúa como operador de ejecución y registro, no como fuente discrecional de edge."
+
+## Micro Real Readiness
+El sistema ha pasado la auditoría Phase 35. Ver `MANIPULANTE/12_MICRO_REAL_READINESS/` para el plan de ejecución.
