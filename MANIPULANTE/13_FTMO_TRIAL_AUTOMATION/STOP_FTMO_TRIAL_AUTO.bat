@@ -1,13 +1,22 @@
 @echo off
+setlocal
+
+:: ======================================================================
+:: STOP MANIPULANTE FTMO TRIAL (PHASE 37Y)
+:: ======================================================================
+
+set "ROOT=C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo"
+set "STOP_FILE=%ROOT%\MANIPULANTE\13_FTMO_TRIAL_AUTOMATION\STOP_BOT.txt"
+
 TITLE STOP MANIPULANTE FTMO TRIAL
-cd /d "%~dp0"
 
 echo ======================================================================
 echo DETENIENDO MANIPULANTE FTMO TRIAL (SAFE SHUTDOWN REQUEST)
 echo ======================================================================
 echo.
-echo Creando STOP_BOT.txt...
-echo STOP_BOT > STOP_BOT.txt
+echo Creando STOP_BOT.txt en:
+echo %STOP_FILE%
+echo STOP_BOT > "%STOP_FILE%"
 
 echo.
 echo [ADVERTENCIA]

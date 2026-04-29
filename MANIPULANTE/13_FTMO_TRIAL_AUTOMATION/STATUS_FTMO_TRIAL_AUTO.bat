@@ -2,20 +2,32 @@
 setlocal enabledelayedexpansion
 
 :: ======================================================================
-:: MANIPULANTE FTMO TRIAL AUTO-RUNNER STATUS PANEL (PHASE 37X-C)
+:: MANIPULANTE FTMO TRIAL AUTO-RUNNER STATUS PANEL (PHASE 37Y)
 :: ======================================================================
 
-set HEARTBEAT_JSON="c:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\MANIPULANTE\10_LOGS_PAPER\ftmo_trial_bot\heartbeat.json"
-set LOCK_FILE="c:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\MANIPULANTE\10_LOGS_PAPER\ftmo_trial_bot\runner.lock"
+set "ROOT=C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo"
+set "SRC=%ROOT%\BOT_V2_DAYTIME_LAB\src"
+set "HEARTBEAT_JSON=%ROOT%\MANIPULANTE\10_LOGS_PAPER\ftmo_trial_bot\heartbeat.json"
+set "LOCK_FILE=%ROOT%\MANIPULANTE\10_LOGS_PAPER\ftmo_trial_bot\runner.lock"
+
+cd /d "%ROOT%"
+set "PYTHONPATH=%SRC%;%PYTHONPATH%"
 
 cls
 echo ======================================================================
-echo           MANIPULANTE FTMO TRIAL - CONTROL PANEL (PHASE 37X-C)
+echo           MANIPULANTE FTMO TRIAL - CONTROL PANEL (PHASE 37Y)
 echo ======================================================================
 
-:: 1. Check Runner Process
-if exist %LOCK_FILE% (
-    set /p PID=<%LOCK_FILE%
+:: 1. Check Account Gate
+echo [ACCOUNT] Validando MT5...
+python -c "import sys; sys.path.insert(0, r'%SRC%'); from phase37_ftmo_trial_support import account_gate; res = account_gate(); print(f' Company: {res.get(\"company\")} | Server: {res.get(\"server\")}'); sys.exit(0 if res.get('ftmo_demo_trial_confirmed') else 1)"
+if errorlevel 1 (
+    echo [ERROR] No se detecto cuenta FTMO Demo activa.
+)
+
+:: 2. Check Runner Process
+if exist "%LOCK_FILE%" (
+    set /p PID=<"%LOCK_FILE%"
     tasklist /FI "PID eq !PID!" 2>NUL | find /I "!PID!" >NUL
     if !ERRORLEVEL! == 0 (
         echo [STATUS]  RUNNER: ACTIVE (PID: !PID!)
@@ -26,11 +38,11 @@ if exist %LOCK_FILE% (
     echo [STATUS]  RUNNER: NOT RUNNING
 )
 
-:: 2. Parse Heartbeat
-if exist %HEARTBEAT_JSON% (
+:: 3. Parse Heartbeat
+if exist "%HEARTBEAT_JSON%" (
     echo [STATUS]  HEARTBEAT: FOUND
     
-    powershell -Command "$hb = Get-Content %HEARTBEAT_JSON% | ConvertFrom-Json; \
+    powershell -Command "$hb = Get-Content '%HEARTBEAT_JSON%' | ConvertFrom-Json; \
     echo \"----------------------------------------------------------------------\"; \
     echo \" NY TIME:      $($hb.timestamp_ny)\"; \
     echo \" SESSION:      $($hb.session_state)\"; \
