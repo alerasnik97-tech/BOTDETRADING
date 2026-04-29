@@ -647,6 +647,7 @@ def order_send_readiness_audit(
         "reason": "",
         "orders_message": "ORDENES: BLOQUEADAS",
         "action_required": "Revisar MT5",
+        "permission_conclusion": "MT5_NO_AUDITADO",
     }
     mt5, error = ensure_mt5()
     if mt5 is None:
@@ -702,14 +703,17 @@ def order_send_readiness_audit(
     if "exness" in combined or mode_label == "REAL":
         status["state"] = "EMERGENCY_ABORT_REAL_MONEY_DETECTED"
         status["reason"] = "Real or Exness account detected"
+        status["permission_conclusion"] = "EMERGENCY_ABORT_REAL_MONEY_DETECTED"
         return status
     if "ftmo" not in combined or mode_label != "DEMO":
         status["state"] = "BLOCKED_ACCOUNT_NOT_FTMO_DEMO"
         status["reason"] = "Account is not confirmed as FTMO demo"
+        status["permission_conclusion"] = "CUENTA_NO_CONFIRMADA"
         return status
     if not account_trade_allowed:
         status["state"] = "BLOCKED_ACCOUNT_TRADE_NOT_ALLOWED"
         status["reason"] = "Account trade_allowed is false"
+        status["permission_conclusion"] = "CUENTA_NO_PERMITE_TRADING"
         return status
 
     symbol = str((symbol_status or {}).get("symbol") or "EURUSD")
@@ -801,19 +805,25 @@ def order_send_readiness_audit(
         status["state"] = "BLOCKED_AUTOTRADING_DISABLED"
         status["reason"] = "Terminal trade_allowed is false or tradeapi_disabled is true"
         status["orders_message"] = "ORDENES: BLOQUEADAS POR MT5"
-        status["action_required"] = "Revisar boton Trading algoritmico en MT5"
+        status["permission_conclusion"] = "AUTOTRADING_API_BLOQUEADO_POR_TERMINAL"
+        if tradeapi_disabled:
+            status["action_required"] = "Opciones MT5: desmarcar bloqueo Python API"
+        else:
+            status["action_required"] = "Activar Trading algoritmico y reiniciar MT5 si sigue igual"
         return status
     if not status["order_check_pass"]:
         status["state"] = "BLOCKED_ORDER_CHECK_FAILED"
         status["reason"] = f"order_check failed retcode={retcode} comment={comment}"
         status["orders_message"] = "ORDENES: BLOQUEADAS POR ORDER_CHECK"
         status["action_required"] = "Revisar request y permisos MT5"
+        status["permission_conclusion"] = "ORDER_CHECK_FALLO"
         return status
 
     status["state"] = "ORDER_CHECK_PASS_NO_ORDER_SENT"
     status["reason"] = "order_check passed and no order_send was executed"
     status["orders_message"] = "ORDENES: LISTAS EN DEMO"
     status["action_required"] = "Ninguna"
+    status["permission_conclusion"] = "ORDER_CHECK_PASS_READY"
     return status
 
 

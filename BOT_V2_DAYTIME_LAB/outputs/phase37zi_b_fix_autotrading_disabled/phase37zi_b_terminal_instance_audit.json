@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-04-29T17:24:01",
+  "state": "TERMINAL_CORRECTO",
+  "python_terminal_path": "C:\\Program Files\\MetaTrader 5",
+  "python_data_path": "C:\\Users\\alera\\AppData\\Roaming\\MetaQuotes\\Terminal\\D0E8209F77C8CF37AD8BF550E51FF075",
+  "python_server": "FTMO-Demo",
+  "python_company": "FTMO Global Markets Ltd",
+  "python_login_masked": "******0440",
+  "terminal_process_count": 1,
+  "terminal_processes": [
+    {
+      "ProcessId": 18528,
+      "Name": "terminal64.exe",
+      "ExecutablePath": "C:\\Program Files\\MetaTrader 5\\terminal64.exe",
+      "CommandLine": "\"C:\\Program Files\\MetaTrader 5\\terminal64.exe\""
+    }
+  ],
+  "matching_processes": [
+    {
+      "ProcessId": 18528,
+      "Name": "terminal64.exe",
+      "ExecutablePath": "C:\\Program Files\\MetaTrader 5\\terminal64.exe",
+      "CommandLine": "\"C:\\Program Files\\MetaTrader 5\\terminal64.exe\""
+    }
+  ],
+  "conclusion": "Python esta conectado al unico terminal64.exe visible"
+}
