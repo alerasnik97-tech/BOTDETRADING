@@ -1,17 +1,17 @@
 {
-  "project_status": {
-    "date": "2026-04-28",
-    "root_status": "DATA_QUALITY_FORENSIC_REPAIR_UPDATED",
-    "lab": "BOT_V2_DAYTIME_LAB",
-    "strategies": {
-      "SCBI_M5_GLOBAL": "protected_unchanged",
-      "Phase18_Fractal_Sweep": "daytime_baseline_protected",
-      "Phase19_Expanded_Sweep": "PHASE19_INVALIDATED",
-      "Phase19_Repaired": "PHASE19_REPAIRED_PREFLIGHT_PASSED_MASKED"
-    },
-    "data_quality_verdict": "M3_CERTIFIED_WITH_MASK_PHASE19_READY_FOR_RETEST",
-    "critical_note": "M3 BID/ASK queda certificado solo con data-quality mask fail-closed. Phase19 repaired no fue ejecutada.",
-    "mt5_touched": false,
-    "real_trading_enabled": false
-  }
+  "timestamp": "2026-04-29T03:10:00+00:00",
+  "project_structure_reorganized": true,
+  "current_authority": "MANIPULANTE",
+  "authority_components": "PHASE25_AUTHORITY + GLOBAL_WEEKEND_HARD_CLOSE",
+  "shadow_comparator": "TP1.4_BE0.5_BF70",
+  "archived_forbidden": "PHASE19",
+  "primary_funding_route": "FTMO_2STEP_SWING",
+  "secondary_funding_route": "FUNDEDNEXT_STELLAR_LITE",
+  "recommended_risk": "0.50%",
+  "real_blocked": true,
+  "mt5_real_blocked": true,
+  "auto_order_execution": false,
+  "scbi_protected": true,
+  "news_fortress": "FAIL_CLOSED",
+  "data_quality_mask": "FAIL_CLOSED"
 }

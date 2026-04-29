@@ -1,0 +1,35 @@
+{
+  "strategy_name": "MANIPULANTE",
+  "source_phase": "PHASE25_AUTHORITY",
+  "authority_status": "CURRENT_AUTHORITY",
+  "symbol": "EURUSD",
+  "entry_timeframe": "M3",
+  "context": "H1_FRACTAL_SWEEP",
+  "tp_r": 1.4,
+  "be_r": 0.4,
+  "body_filter": 0.7,
+  "window_start_ny": "07:00",
+  "window_end_ny": "16:30",
+  "max_trades_per_day": 1,
+  "news_fortress": "FAIL_CLOSED_REQUIRED",
+  "data_quality_mask": "FAIL_CLOSED_REQUIRED",
+  "global_weekend_policy": {
+    "enabled": true,
+    "hard_close_day": "FRIDAY",
+    "hard_close_time_ny": "16:55",
+    "weekend_holding_allowed": false,
+    "applies_to_all_prop_firms": true,
+    "manual_override_allowed": false
+  },
+  "paper_demo_only": true,
+  "live_trading_allowed": false,
+  "mt5_real_allowed": false,
+  "auto_order_execution": false,
+  "recommended_risk": {
+    "paper_base": 0.005,
+    "funded_base": 0.005,
+    "fundednext_max_base": 0.005,
+    "ftmo_2step_max_defendible": 0.0075,
+    "one_percent_allowed": false
+  }
+}

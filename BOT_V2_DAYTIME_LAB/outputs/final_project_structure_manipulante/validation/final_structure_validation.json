@@ -1,0 +1,75 @@
+{
+  "timestamp": "2026-04-29T03:11:40.928125Z",
+  "all_passed": true,
+  "checks": [
+    {
+      "item": "MANIPULANTE folder",
+      "path": "MANIPULANTE",
+      "exists": true
+    },
+    {
+      "item": "ESTRATEGIAS folder",
+      "path": "ESTRATEGIAS",
+      "exists": true
+    },
+    {
+      "item": "manipulante_config.json",
+      "path": "MANIPULANTE\\01_ESTRATEGIA_AUTORIDAD\\manipulante_config.json",
+      "exists": true
+    },
+    {
+      "item": "README_MANIPULANTE.md",
+      "path": "MANIPULANTE\\00_LEER_PRIMERO\\README_MANIPULANTE.md",
+      "exists": true
+    },
+    {
+      "item": "launcher bat",
+      "path": "MANIPULANTE\\03_MT5_DEMO_LAUNCHER\\ABRIR_MANIPULANTE_DEMO.bat",
+      "exists": true
+    },
+    {
+      "item": "checklist",
+      "path": "MANIPULANTE\\08_CHECKLISTS\\CHECKLIST_ANTES_DE_OPERAR.md",
+      "exists": true
+    },
+    {
+      "item": "templates",
+      "path": "MANIPULANTE\\06_TEMPLATES\\MANIPULANTE_DAILY_TRADE_LOG.csv",
+      "exists": true
+    },
+    {
+      "item": "ESTRATEGIAS_INDEX.md",
+      "path": "ESTRATEGIAS\\00_LEER_PRIMERO\\ESTRATEGIAS_INDEX.md",
+      "exists": true
+    },
+    {
+      "item": "Phase25 config",
+      "path": "BOT_V2_DAYTIME_LAB\\configs\\phase25_forward_demo_candidate_config.json",
+      "exists": true
+    },
+    {
+      "item": "Phase25 hash",
+      "path": "BOT_V2_DAYTIME_LAB\\configs\\phase25_forward_demo_candidate_config_hash.txt",
+      "exists": true
+    },
+    {
+      "item": "BOT_V2_DAYTIME_LAB folder",
+      "path": "BOT_V2_DAYTIME_LAB",
+      "exists": true
+    },
+    {
+      "item": "Phase32E report",
+      "path": "BOT_V2_DAYTIME_LAB\\reports\\PHASE32E_GLOBAL_WEEKEND_HARD_CLOSE_POLICY_REPORT.md",
+      "exists": true
+    },
+    {
+      "item": "No duplicate ZIPs",
+      "path": "N/A",
+      "exists": true
+    }
+  ],
+  "no_autotrading_real": true,
+  "no_orders": true,
+  "no_secrets_in_zip": true,
+  "no_heavy_data_in_zip": true
+}

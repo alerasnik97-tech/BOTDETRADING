@@ -1,9 +1,13 @@
 {
-  "lab_name": "BOT_V2_DAYTIME_LAB",
-  "status": "active_research",
-  "last_audit": "2026-04-27",
-  "live_candidates": ["Phase7_Repaired", "Phase8_High_Precision"],
-  "rejected_experiments": ["Phase9", "Phase10", "Phase11"],
-  "infra_requirement": "bid_ask_spread_mandatory",
-  "authority_level": "research_only"
+  "timestamp": "2026-04-29T03:10:00+00:00",
+  "current_authority": "MANIPULANTE",
+  "latest_phase_active": "PHASE32E",
+  "project_structure_reorganized": true,
+  "global_weekend_policy": "FRIDAY_16_55_NY_HARD_CLOSE_UNIVERSAL",
+  "real_blocked": true,
+  "mt5_real_blocked": true,
+  "auto_order_execution": false,
+  "news_fortress": "FAIL_CLOSED",
+  "data_quality_mask": "FAIL_CLOSED",
+  "be05_status": "SHADOW_ONLY"
 }
