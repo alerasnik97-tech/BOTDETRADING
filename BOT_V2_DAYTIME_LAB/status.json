@@ -12,7 +12,8 @@
   "risk_100_prohibited": true,
   "news_sync_required": true,
   "signal_sync_required": true,
-  "phase": "PHASE37H",
-  "news_status": "REQUIRES_ONE_TIME_BOOTSTRAP",
-  "account_status": "FTMO_DEMO_ALLOWED"
+  "phase": "PHASE37J",
+  "news_status": "NO_TRADE_NEWS_WINDOW",
+  "account_status": "FTMO_DEMO_ALLOWED",
+  "system_readiness": "READY_TO_RUN_AFTER_NEWS"
 }
