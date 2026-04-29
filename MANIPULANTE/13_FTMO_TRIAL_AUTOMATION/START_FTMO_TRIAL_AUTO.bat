@@ -4,12 +4,14 @@ setlocal EnableExtensions
 set "ROOT=C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo"
 set "SRC=%ROOT%\BOT_V2_DAYTIME_LAB\src"
 set "COUNT_FILE=%TEMP%\manipulante_runner_count.txt"
+set "PY_EXE=C:\Users\alera\AppData\Local\Python\pythoncore-3.14-64\python.exe"
+if not exist "%PY_EXE%" set "PY_EXE=python"
 
 cd /d "%ROOT%"
 set "PYTHONPATH=%SRC%;%PYTHONPATH%"
 title MANIPULANTE - INICIO
 
-python "%SRC%\phase37ze_quick_status_panel.py" --runner-count > "%COUNT_FILE%" 2>nul
+"%PY_EXE%" "%SRC%\phase37ze_quick_status_panel.py" --runner-count > "%COUNT_FILE%" 2>nul
 set "RUNNER_COUNT=0"
 if exist "%COUNT_FILE%" set /p RUNNER_COUNT=<"%COUNT_FILE%"
 if "%RUNNER_COUNT%"=="" set "RUNNER_COUNT=0"
@@ -36,7 +38,7 @@ if not "%RUNNER_COUNT%"=="0" (
 
 echo ESTADO: INICIANDO BOT
 echo.
-python -c "import sys; sys.path.insert(0, r'%SRC%'); from phase37_ftmo_trial_support import account_gate; r=account_gate(); sys.exit(0 if r.get('ftmo_demo_trial_confirmed') else 1)"
+"%PY_EXE%" -c "import sys; sys.path.insert(0, r'%SRC%'); from phase37_ftmo_trial_support import account_gate; r=account_gate(); sys.exit(0 if r.get('ftmo_demo_trial_confirmed') else 1)"
 if errorlevel 1 (
     cls
     echo ============================================================
@@ -66,7 +68,7 @@ echo.
 echo ============================================================
 echo.
 
-python -u "%SRC%\phase37_ftmo_trial_bot_runner.py" --ftmo-trial --risk 0.005 --no-real --i-understand-demo-automation --interval-seconds 60
+"%PY_EXE%" -u "%SRC%\phase37_ftmo_trial_bot_runner.py" --ftmo-trial --risk 0.005 --no-real --i-understand-demo-automation --interval-seconds 60
 
 echo.
 echo El bot se detuvo.
