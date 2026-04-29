@@ -1,0 +1,19 @@
+{
+  "phase": "38B",
+  "verdict": "COST_AUDIT_PASS_ROBUST",
+  "metrics_ftmo_5": {
+    "pf": 2.24,
+    "expectancy": 0.23,
+    "total_r": 610.7,
+    "max_dd": -6.65
+  },
+  "be_impact": {
+    "count": 1329,
+    "r_loss": -65.6
+  },
+  "simulation_10k": {
+    "net_usd": 30536,
+    "commissions_usd": 6337,
+    "max_dd_pct": 3.32
+  }
+}
