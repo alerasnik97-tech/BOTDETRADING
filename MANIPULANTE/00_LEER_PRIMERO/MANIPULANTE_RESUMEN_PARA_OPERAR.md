@@ -1,32 +1,35 @@
-# MANIPULANTE - RESUMEN PARA OPERAR
+# MANIPULANTE - RESUMEN PARA OPERAR (OFICIAL)
 
-## Que esperar
-MANIPULANTE no gana por tener un winrate alto. Gana por PF, RR, BE rapido y control de perdida. El WR oficial historico es 32.53%, porque los BE cuentan como non-win.
+Este es el manual rapido para la operacion diaria del bot oficial **MANIPULANTE**.
 
-## Como se prende
-Usar START_MANIPULANTE.bat. Si ya esta prendido, no iniciar otro runner.
+## 1. Conceptos Clave
+- **MANIPULANTE** es el bot oficial. No se llama Phase 25 (esa fue su auditoria).
+- El objetivo es la preservacion de capital y el crecimiento estadistico.
+- No gane por suerte; gana por repeticion de reglas validadas.
 
-## Como leer STATUS
-- OK - BOT ACTIVO: runner vivo y gates principales OK.
-- BLOQUEADO - BOT ACTIVO PERO NO OPERA: esta vivo, pero una regla bloquea.
-- BLOQUEADO - AUTOTRADING DESHABILITADO: MT5 no permite ordenes automaticas.
-- DUPLICADO - LIMPIAR RUNNERS: hay mas de un runner.
-- PELIGRO - NO APAGAR PC: hay riesgo operativo o posicion abierta.
+## 2. Ciclo Diario de Trabajo
+1.  **Abrir MT5**: Cuenta **FTMO-Demo**.
+2.  **Activar Boton**: El icono de "Trading algoritmico" en MT5 debe estar en **VERDE**.
+3.  **Encender**: Doble clic en `START_MANIPULANTE.bat`. Dejar la ventana abierta.
+4.  **Verificar**: Abrir `STATUS_MANIPULANTE.bat`. Debe decir `ESTADO: OK - BOT LISTO`.
+5.  **Cerrar**: Ejecutar `STOP_MANIPULANTE.bat` antes de cerrar MT5 o apagar la PC.
 
-## Cuando no tocar nada
-No tocar nada si hay noticia, data gate bloqueado, AutoTrading bloqueado, duplicado o posicion abierta.
+## 3. Estados de Alerta en STATUS
+- **BLOQUEADO - NOTICIAS**: El bot no operara hasta que pase el riesgo de noticias.
+- **AUTOTRADING DESHABILITADO**: El boton de MT5 esta en ROJO. El bot no podra enviar ordenes.
+- **PELIGRO - NO APAGAR PC**: Hay una posicion abierta. Si apaga la PC, la posicion quedara sin gestion de BE/Cierre forzado.
+- **DUPLICADO**: Hay mas de un runner. Use STOP para limpiar y reinicie uno solo.
 
-## Mala racha
-La racha non-win maxima fue 14. Puede incluir muchos BE, no necesariamente SL puros. La racha de SL puros es mucho menor.
+## 4. Que NO se debe hacer
+- **NO modificar parametros**: TP 1.4R, BE 0.4R y BF 70% son sagrados.
+- **NO operar con 1%**: El riesgo oficial es 0.50% para FTMO Trial.
+- **NO cerrar el runner a la fuerza**: Use siempre `STOP_MANIPULANTE.bat`.
 
-## Que no cambiar
-No cambiar TP 1.4R, BE 0.4R, BF70, max 1 trade/dia ni News/Data gates.
+## 5. Horarios Sagrados (NY Time)
+- **Apertura Ventana**: 07:00 NY.
+- **Cierre Ventana**: 16:30 NY.
+- **Hard Close Diario**: 19:45 NY.
+- **Hard Close Semanal**: Viernes 16:55 NY.
 
-## Si sale duplicado
-No operar. Limpiar runners duplicados y volver a STATUS.
-
-## Si AutoTrading esta bloqueado
-No forzar ordenes. Revisar el boton Trading algoritmico en MT5. El bot debe quedar bloqueado.
-
-## Antes de apagar PC
-Confirmar STATUS: OPERACION ABIERTA NO y SEGURO APAGAR PC SI. Viernes aplica hard close 16:55 NY.
+---
+*Para mas detalle, consulte `MANIPULANTE_BOT_OFICIAL.md`.*
