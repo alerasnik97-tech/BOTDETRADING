@@ -1,0 +1,22 @@
+{
+  "allowed_accounts": [
+    {
+      "broker_contains": "FTMO",
+      "server_contains": "FTMO-Demo",
+      "mode_allowed": ["DEMO", "CONTEST", "TRIAL"],
+      "currency": "USD",
+      "balance_min": 9000,
+      "balance_max": 11000,
+      "symbol_required": "EURUSD"
+    }
+  ],
+  "forbidden_brokers": [
+    "Exness",
+    "Real",
+    "Live",
+    "ICMarkets-Live",
+    "FTMO-Real"
+  ],
+  "real_money_allowed": false,
+  "fail_closed": true
+}
