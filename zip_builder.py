@@ -58,8 +58,8 @@ def should_include(path):
 
     top = parts[0]
 
-    if top in ['MANIPULANTE', 'ESTRATEGIAS']:
-        return suffix in {'.md', '.json', '.csv', '.txt', '.bat', '.ps1'}
+    if top in ['MANIPULANTE', 'ESTRATEGIAS', 'ROCKI_AM']:
+        return suffix in {'.md', '.json', '.csv', '.txt', '.bat', '.ps1', '.py'}
 
     if top == 'BOT_V2_DAYTIME_LAB':
         for part in parts[1:]:

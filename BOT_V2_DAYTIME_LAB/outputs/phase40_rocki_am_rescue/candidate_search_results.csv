@@ -1,0 +1,4 @@
+candidate_name,file_path,evidence,horario_detectado,metrics_detectadas,confianza,comentario
+SCBI_M5_GLOBAL,scratch/run_scbi_global_validation.py,"Mencion en Phase 14 como 'Estrategia Overnight'",00:00-04:00 NY approx,"PF 2.44, Exp 0.43R, WR 62%",Alta,"Coincide perfectamente con la descripcion del usuario."
+SCBI_M5_GLOBAL,scratch/scbi_global_validation_results.json,Reporte de validacion con 5/5 criterios aprobados,2022-2025,"Sample 1080, PF 2.44",Alta,"Confirmado como el candidato mas fuerte."
+SCBI_M5_GLOBAL,scratch/real_htf_filter_ab_results.json,Dataset de trades con timestamps,00:00-09:00 NY,"N=1080",Alta,"Muestra el grueso de operaciones en la madrugada NY."

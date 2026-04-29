@@ -1,0 +1,18 @@
+{
+  "phase": "40",
+  "verdict": "ROCKI_AM_RESCUED_AND_ARCHIVED",
+  "strategy_info": {
+    "original_name": "SCBI_M5_GLOBAL",
+    "new_name": "ROCKI AM",
+    "window": "00:00-04:00 NY",
+    "instrument": "EURUSD",
+    "timeframe": "M5"
+  },
+  "performance": {
+    "pf": 2.44,
+    "expectancy": 0.43,
+    "wr": 0.621,
+    "sample": 1080
+  },
+  "archived_status": "READY_FOR_VPS_PLAN"
+}

@@ -1,0 +1,12 @@
+{
+  "phase": "40",
+  "status": "PREFLIGHT_OK",
+  "target_bot": "ROCKI_AM",
+  "original_window": "00:00-04:00 NY",
+  "rules": {
+    "no_manipulante_change": true,
+    "no_strategy_modification": true,
+    "no_mt5": true,
+    "no_real": true
+  }
+}
