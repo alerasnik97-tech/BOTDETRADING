@@ -13,12 +13,15 @@
     - Confirme que dice **SEGURO APAGAR PC: SÍ**.
     - Si dice **🚨 NO APAGAR PC**, espere a que el bot cierre la posición o intervenga manualmente.
 
-## Estados del Semáforo
-- 🟢 **ACTIVO Y SEGURO**: Todo funcionando, monitoreando señal.
-- 🟡 **ACTIVO PERO NO OPERA**: Bloqueado por noticias, fuera de horario o sin señal.
-- 🔴 **NO ESTÁ CORRIENDO**: El proceso se detuvo o no se ha iniciado.
-- 🚨 **NO APAGAR PC**: Riesgo activo. Posición abierta sin confirmar flat.
-- 🟣 **REVISAR**: Se detectaron runners duplicados. Ejecute una limpieza.
+## Estados del Semaforo
+- OK - BOT LISTO: Todo funcionando, monitoreando senal.
+- BLOQUEADO - FUERA DE HORARIO: El bot esta activo pero fuera de su ventana operativa.
+- BLOQUEADO - NOTICIAS: Operacion pausada por impacto de noticias.
+- BLOQUEADO - SIN SENAL: El bot busca activamente una entrada pero no la hay.
+- BLOQUEADO - AUTOTRADING: Revisar Trading algoritmico en MT5.
+- PELIGRO - NO APAGAR PC: Posicion abierta. No apagar hasta que sea seguro.
+- DUPLICADO - LIMPIAR RUNNERS: Mas de un bot corriendo. Limpiar procesos.
+- ERROR - REVISAR SISTEMA: El proceso del bot no se detecta.
 
 ## Estructura
 - `MANIPULANTE\13_FTMO_TRIAL_AUTOMATION\`: Scripts oficiales.
