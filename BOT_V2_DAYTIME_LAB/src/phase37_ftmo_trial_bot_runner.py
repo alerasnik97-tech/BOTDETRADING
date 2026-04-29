@@ -109,27 +109,29 @@ def write_heartbeat(result: dict[str, Any]) -> None:
     lines = [f"{k}: {v}" for k, v in hb.items()]
     write_text(HEARTBEAT_TXT, "\n".join(lines))
     
-    # Phase 37ZE Quick Status (Español)
+    # Phase 37ZF quick status, ASCII only for Windows CMD.
     estado_gen = "VERDE"
-    msg_gen = "BOT ACTIVO"
+    msg_gen = "TODO BIEN"
+    operacion_abierta = "SI" if hb["position_state"] != "FLAT" else "NO"
+    seguro_apagar = "SI" if hb["safe_to_turn_off_pc"] else "NO"
     
     if hb["news_gate"] != "ALLOW" or not hb["can_open_new_trades"]:
         estado_gen = "AMARILLO"
-        msg_gen = "BOT ACTIVO PERO NO OPERA"
+        msg_gen = "BOT ACTIVO PERO NO OPERA POR REGLA"
         
-    if hb["critical_position_still_open"] or hb["manual_intervention_required"]:
+    if operacion_abierta == "SI" or hb["critical_position_still_open"] or hb["manual_intervention_required"]:
         estado_gen = "CRITICO"
-        msg_gen = "NO APAGAR PC - RIESGO ACTIVO"
+        msg_gen = "NO APAGAR PC"
     
     qs_lines = [
         f"ESTADO_GENERAL={estado_gen}",
         f"MENSAJE={msg_gen}",
-        f"CUENTA={hb['account_company']}",
+        f"CUENTA={hb['server'] or 'FTMO-Demo'}",
         f"RUNNER=ACTIVO",
-        f"NEWS={hb['news_gate']}",
-        f"ULTIMA_DECISION={hb['last_decision']}",
-        f"OPERACION_ABIERTA={'SI' if hb['position_state'] != 'FLAT' else 'NO'}",
-        f"SEGURO_APAGAR_PC={'SI' if hb['safe_to_turn_off_pc'] else 'NO'}",
+        f"NEWS={hb['news_gate'] or 'NO_TRADE'}",
+        f"ULTIMA_DECISION={hb['last_decision'] or '---'}",
+        f"OPERACION_ABIERTA={operacion_abierta}",
+        f"SEGURO_APAGAR_PC={seguro_apagar}",
         f"ULTIMA_ACTUALIZACION_ARG={datetime.now(AR).strftime('%H:%M:%S')}",
         f"ULTIMA_ACTUALIZACION_NY={datetime.now(NY).strftime('%H:%M:%S')}"
     ]
@@ -297,21 +299,52 @@ def safe_dumps(obj: Any) -> str:
         if hasattr(o, "isoformat"): return o.isoformat()
         if hasattr(o, "item"): return o.item()
         return str(o)
-    return json.dumps(obj, default=default, indent=2, ensure_ascii=False)
+    return json.dumps(obj, default=default, indent=2, ensure_ascii=True)
+
+
+def _other_runner_pids() -> list[int]:
+    try:
+        from phase37ze_quick_status_panel import find_runner_processes
+
+        current_pid = os.getpid()
+        return [proc.pid for proc in find_runner_processes() if proc.pid != current_pid]
+    except Exception:
+        return []
+
+
+def _pid_is_running(pid: int) -> bool:
+    if pid <= 0:
+        return False
+    if os.name == "nt":
+        try:
+            import ctypes
+
+            kernel32 = ctypes.windll.kernel32
+            handle = kernel32.OpenProcess(0x1000, False, pid)
+            if handle:
+                kernel32.CloseHandle(handle)
+                return True
+        except Exception:
+            return False
+        return False
+    try:
+        os.kill(pid, 0)
+        return True
+    except OSError:
+        return False
 
 
 def acquire_lock() -> bool:
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
+    if _other_runner_pids():
+        return False
     if LOCK_FILE.exists():
         try:
             pid = int(LOCK_FILE.read_text().strip())
-            if os.name == 'nt':
-                import ctypes
-                kernel32 = ctypes.windll.kernel32
-                handle = kernel32.OpenProcess(1, False, pid)
-                if handle:
-                    kernel32.CloseHandle(handle)
-                    return False
-        except Exception: pass
+            if _pid_is_running(pid):
+                return False
+        except Exception:
+            pass
     LOCK_FILE.write_text(str(os.getpid()))
     return True
 

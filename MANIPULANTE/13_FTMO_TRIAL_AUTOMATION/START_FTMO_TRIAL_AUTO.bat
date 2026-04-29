@@ -1,81 +1,74 @@
 @echo off
-setlocal EnableExtensions EnableDelayedExpansion
-
-:: ======================================================================
-:: MANIPULANTE START LAUNCHER (PHASE 37ZE)
-:: ======================================================================
+setlocal EnableExtensions
 
 set "ROOT=C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo"
 set "SRC=%ROOT%\BOT_V2_DAYTIME_LAB\src"
+set "COUNT_FILE=%TEMP%\manipulante_runner_count.txt"
 
 cd /d "%ROOT%"
 set "PYTHONPATH=%SRC%;%PYTHONPATH%"
+title MANIPULANTE - INICIO
 
-TITLE MANIPULANTE — INICIO
-
-:: Set console to UTF-8
-chcp 65001 > nul
+python "%SRC%\phase37ze_quick_status_panel.py" --runner-count > "%COUNT_FILE%" 2>nul
+set "RUNNER_COUNT=0"
+if exist "%COUNT_FILE%" set /p RUNNER_COUNT=<"%COUNT_FILE%"
+if "%RUNNER_COUNT%"=="" set "RUNNER_COUNT=0"
 
 cls
-echo ======================================================================
-echo MANIPULANTE — INICIO
-echo ======================================================================
+echo ============================================================
+echo MANIPULANTE - INICIO
+echo ============================================================
+echo.
 
-:: 1. Check for active runner (Idempotency)
-set RUNNER_PID=0
-for /f "tokens=*" %%i in ('powershell -NoProfile -ExecutionPolicy Bypass -Command "Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -like '*phase37_ftmo_trial_bot_runner.py*' } | Select-Object -ExpandProperty ProcessId -ErrorAction SilentlyContinue"') do (
-    set RUNNER_PID=%%i
-)
-
-if NOT "!RUNNER_PID!"=="0" (
-    echo ESTADO: BOT YA ESTÁ PRENDIDO
+if not "%RUNNER_COUNT%"=="0" (
+    echo ESTADO: BOT YA ESTA PRENDIDO
     echo.
-    echo No se inició otro bot.
-    echo No hay riesgo duplicado ^(PID activo: !RUNNER_PID!^).
+    echo No se inicio otro bot.
+    echo No hay riesgo duplicado.
     echo.
-    echo Abrí STATUS_MANIPULANTE.bat para ver el estado.
+    echo Use STATUS_MANIPULANTE.bat para ver el estado.
     echo.
-    echo ======================================================================
+    echo ============================================================
+    echo.
     pause
     exit /b 0
 )
 
-:: 2. Pre-flight Checks (New Instance)
 echo ESTADO: INICIANDO BOT
 echo.
-python -c "import sys; sys.path.insert(0, r'%SRC%'); from phase37_ftmo_trial_support import account_gate; res = account_gate(); print(f'Cuenta: {res.get(\"company\")} OK'); sys.exit(0 if res.get('ftmo_demo_trial_confirmed') else 1)"
+python -c "import sys; sys.path.insert(0, r'%SRC%'); from phase37_ftmo_trial_support import account_gate; r=account_gate(); sys.exit(0 if r.get('ftmo_demo_trial_confirmed') else 1)"
 if errorlevel 1 (
     cls
-    echo ======================================================================
-    echo MANIPULANTE — BLOQUEADO
-    echo ======================================================================
+    echo ============================================================
+    echo MANIPULANTE - INICIO
+    echo ============================================================
     echo.
-    echo Motivo: cuenta FTMO Demo no confirmada
+    echo ESTADO: BLOQUEADO
     echo.
-    echo No se inició el bot.
-    echo No se envió ninguna orden.
+    echo Cuenta FTMO Demo no confirmada.
+    echo No se inicio el bot.
+    echo No se envio ninguna orden.
     echo.
-    echo Revisa:
-    echo 1. MT5 abierto
-    echo 2. Cuenta FTMO-Demo
-    echo 3. No Exness / No real
-    echo ======================================================================
+    echo Revise MT5 y la cuenta FTMO-Demo.
+    echo ============================================================
+    echo.
     pause
     exit /b 1
 )
 
+echo Cuenta: FTMO Demo OK
 echo Riesgo: 0.50%%
-echo Modo: Trial / Demo
+echo Modo: Trial Demo
 echo Estrategia: MANIPULANTE
 echo.
-echo IMPORTANTE:
-echo Deja esta ventana abierta mientras el bot trabaja.
-echo Para ver el estado usa STATUS_MANIPULANTE.bat
-echo ======================================================================
+echo Deje esta ventana abierta.
+echo.
+echo ============================================================
 echo.
 
 python -u "%SRC%\phase37_ftmo_trial_bot_runner.py" --ftmo-trial --risk 0.005 --no-real --i-understand-demo-automation --interval-seconds 60
 
 echo.
-echo [INFO] El bot se ha detenido.
+echo El bot se detuvo.
+echo.
 pause
