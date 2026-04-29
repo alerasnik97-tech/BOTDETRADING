@@ -169,7 +169,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument("--no-real", action="store_true", default=True)
     parser.add_argument("--no-force", action="store_true", default=True)
     parser.add_argument("--trial-risk-stress-075", action="store_true")
-    parser.add_argument("--once", action="store_true", default=True)
+    parser.add_argument("--once", action="store_true", default=False)
     parser.add_argument("--interval-seconds", type=int, default=60)
     return parser
 
