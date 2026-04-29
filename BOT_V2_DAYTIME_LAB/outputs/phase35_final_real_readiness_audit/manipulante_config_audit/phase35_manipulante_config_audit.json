@@ -1,0 +1,47 @@
+{
+  "verdict": "PASS",
+  "results": [
+    {
+      "param": "symbol",
+      "current": "EURUSD",
+      "expected": "EURUSD",
+      "status": "OK"
+    },
+    {
+      "param": "tp_r",
+      "current": 1.4,
+      "expected": 1.4,
+      "status": "OK"
+    },
+    {
+      "param": "be_r",
+      "current": 0.4,
+      "expected": 0.4,
+      "status": "OK"
+    },
+    {
+      "param": "body_filter",
+      "current": 0.7,
+      "expected": 0.7,
+      "status": "OK"
+    },
+    {
+      "param": "live_trading_allowed",
+      "current": false,
+      "expected": false,
+      "status": "OK"
+    },
+    {
+      "param": "auto_order_execution",
+      "current": false,
+      "expected": false,
+      "status": "OK"
+    },
+    {
+      "param": "hard_close_friday_ny",
+      "current": "16:55",
+      "expected": "16:55",
+      "status": "OK"
+    }
+  ]
+}

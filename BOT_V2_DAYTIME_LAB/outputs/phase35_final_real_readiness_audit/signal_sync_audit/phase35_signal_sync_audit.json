@@ -1,0 +1,10 @@
+{
+  "verdict": "PASS",
+  "findings": [
+    {
+      "component": "shadow_line_lab",
+      "status": "NOT_FOUND",
+      "severity": "WARNING"
+    }
+  ]
+}
