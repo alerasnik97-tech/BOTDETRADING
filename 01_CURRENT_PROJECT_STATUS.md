@@ -8,3 +8,6 @@
 - **Trading Real**: BLOQUEADO.
 - **MT5 Real**: BLOQUEADO.
 - **GitHub Sync**: Preparado para sincronización segura sin data pesada.
+
+- **Ruta Oficial Única**: Consolidada en `C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo`.
+- **Fase de Ejecución**: Manual Temporal (Sin discrecionalidad estratégica).

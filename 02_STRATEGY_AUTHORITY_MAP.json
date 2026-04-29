@@ -8,9 +8,16 @@
   },
   "shadow_only": "TP1.4_BE0.5_BF70",
   "archived": "PHASE19",
-  "baselines": ["PHASE18", "PHASE24"],
-  "experiments": ["PHASE28", "PHASE29"],
+  "baselines": [
+    "PHASE18",
+    "PHASE24"
+  ],
+  "experiments": [
+    "PHASE28",
+    "PHASE29"
+  ],
   "real_blocked": true,
   "mt5_real_blocked": true,
-  "auto_orders_blocked": true
+  "auto_orders_blocked": true,
+  "manual_execution_rule": "100_percent_programmable_no_human_edge"
 }

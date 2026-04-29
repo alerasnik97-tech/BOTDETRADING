@@ -1,0 +1,100 @@
+# AGENTS.md
+
+## Canonical Workspace
+
+El unico workspace canonico de este proyecto es:
+
+`C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo`
+
+Todo trabajo futuro debe salir solo de este repo, sus archivos, sus datos y sus artefactos locales.
+
+## Repo Mandate
+
+- Trabajar solo localmente.
+- No leer ni mezclar otros proyectos o carpetas.
+- No usar nube.
+- Trabajar solo sobre `main`.
+- No hacer `push`, `pull`, `fetch`, `merge` ni `rebase`.
+- No tocar Git salvo pedido explicito del usuario y con necesidad real.
+- No abrir una nueva linea grande sin antes dejar evidencia y contexto persistido.
+
+## Project Objective
+
+Construir un laboratorio cuantitativo serio para desarrollar un bot de trading:
+
+- 100% objetivo
+- 100% programable
+- 0% discrecional
+- centrado en preservacion de capital
+- blindado frente a noticias de alto impacto
+
+La meta economica inicial es alcanzar un primer hito real de 20 USD como consecuencia natural de un edge sano, no como excusa para relajar estandares.
+
+## Human Priority
+
+La prioridad numero uno del proyecto es evitar de forma estructural cualquier repeticion del escenario de destruccion por noticias, ordenes vivas o riesgo no auditado.
+
+Regla rectora:
+
+`Risk-first. Capital preservation first. Alpha only after that.`
+
+## Non-Negotiable Safety Rules
+
+- Ninguna senal puede existir sin hard stop valido desde el origen.
+- No se permiten posiciones sin stop ni pending orders vivas dentro de ventanas bloqueadas por noticias.
+- Si News Fortress esta habilitado, la fuente debe ser operativa; no se admite modo fail-open.
+- No se habilita una franja sensible solo porque "parece testeable"; primero debe ser segura.
+- PF cercano a 1, edge marginal o "menos malo" no cuentan como victoria.
+- Ninguna estrategia pasa a real/fondeo por marketing interno, intuicion o optimismo.
+
+## Current Source Of Truth Hierarchy
+
+Cuando existan contradicciones, manda esta jerarquia:
+
+1. El comportamiento ejecutable del codigo actual en `research_lab/config.py`, `research_lab/engine.py`, `research_lab/news_filter.py`, `research_lab/validation.py` y runners activos.
+2. Las auditorias recientes y sus resultados: `FORENSIC_META_AUDIT_MEMO.md`, `STRATEGIC_DECISION_MEMO.md`, `NEWS_FORTRESS_AUDIT.md`, `INITIAL_IMPLEMENTATION_RESULTS.md`.
+3. Los artefactos recientes de `results/` y el bundle canonico `000_PARA_CHATGPT.zip`.
+4. La documentacion historica previa, util como contexto pero no como verdad final si choca con evidencia nueva.
+
+Nota importante:
+
+- `task.md` y `walkthrough.md` fueron solicitados como entrada, pero no existen hoy como archivos reales dentro de este repo.
+
+## Current Strategic Position
+
+- Waves 1-5 ya limpiaron gran parte del ruido y de los falsos positivos.
+- La familia EURUSD PM en M15 con reversion simple, continuation simple, HTF alignment y sweeps clasicos no dejo edge defendible.
+- `zscore_mean_reversion_pm` queda solo como benchmark historico.
+- News Fortress es globalmente seguro solo bajo condiciones estrechas.
+- La linea de microestructura PM ya fue cerrada como candidata defendible.
+- El trabajo vigente del repo es `ICT primitives first`: desarmar ICT en piezas 100% programables, testearlas y matar rapido cualquier setup atomico que no sobreviva.
+- La infraestructura ICT objetiva ya existe; los primeros setups atomicos PM-safe no dejaron edge defendible.
+- La ultima hipotesis `PM-safe` materialmente distinta, `pm_volatility_squeeze_retest_m5`, ya fue auditada y cerrada.
+- La investigacion AM desde `8:00 NY` ha sido habilitada: **READY_FOR_STRICT_AM_RESEARCH**.
+- La compuerta AM ha cerrado `ecb press conference`, `retail sales m/m` y `unemployment claims` con datos auditados locales.
+- El blindaje AM es operativo y verificado por auditoria forense de sincronizacion.
+- Tres familias AM ya fueron auditadas y cerradas (`Silver Bullet`, `Opening Drive Reversal`, `Opening Range Expansion + Retest`).
+- El pivot a USDJPY fue cancelado oficialmente por decision del usuario. El laboratorio vuelve a ser FULL EURUSD.
+- La unica linea activa, principal y congelada para observacion es `H6_SILVER_BULLET_HYBRID` en su fase FORWARD-ONLY.
+
+## How To Work Inside This Repo
+
+- Leer primero `PROJECT_CHARTER.md`, `CURRENT_STATE_OF_LAB.md`, `RISK_PROTOCOL.md` y `RESEARCH_OPERATING_SYSTEM.md`.
+- Mantener una sola direccion principal y, como maximo, una secundaria.
+- Todo experimento nuevo debe ser 100% objetivo, auditable y comparable contra benchmark previo.
+- Toda nueva linea debe declarar de forma explicita: contexto, entrada, salida, timeframe, ventana horaria, control de riesgo y politica de noticias.
+- Usar `data/news_eurusd_am_fortress_v3.csv` como fuente oficial aprobada para research AM.
+- Ningun agente debe reabrir otra linea `PM-safe` cosmetica sobre compresion/expansion, reclaim o variantes `ICT` ya derrotadas.
+- El foco es 100% EURUSD. No se debe proponer pivotar a otros instrumentos (como USDJPY).
+- Trabajar exclusivamente sobre la recoleccion de evidencia FORWARD-ONLY para la linea H6.
+- Despues de cada corrida material, actualizar el estado del laboratorio o dejar memo con veredicto honesto.
+
+## What Must Not Happen
+
+- No strategy spam.
+- No rescates artificiales de familias ya muertas solo cambiando parametros.
+- No usar el motor de noticias como maquillaje estadistico.
+- No presentar una estrategia como "viva" si solo sobrevivio por muestra minima o por OOS fragil.
+- No perder el contexto historico de lo que ya fracaso.
+- No pivotar a USDJPY ni sugerir cambios de instrumento bajo ninguna circunstancia.
+- No perder el contexto historico de lo que ya fracaso.

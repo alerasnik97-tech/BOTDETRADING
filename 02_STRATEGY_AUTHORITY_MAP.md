@@ -8,3 +8,5 @@
 - **PHASE28 / 29**: EXPERIMENTS. Ubicación: `ESTRATEGIAS/05_EXPERIMENTOS/`.
 - **REAL / MT5 REAL**: BLOCKED.
 - **AUTO ORDERS**: BLOCKED.
+
+- **Aclaración**: El trader actúa como operador de registro. MANIPULANTE es 100% programable.

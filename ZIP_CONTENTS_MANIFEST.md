@@ -9,3 +9,7 @@
 - No contiene secretos (.env, tokens).
 - No contiene ZIPs internos.
 - Preparado para sincronización segura con GitHub.
+
+- Contiene `CORE_PROTOCOLS` unificados.
+- Contiene clarificación de ejecución manual (`MANUAL_EXECUTION_BOUNDARY.md`).
+- Reporte Phase34.

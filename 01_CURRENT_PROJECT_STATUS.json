@@ -13,5 +13,7 @@
   "auto_order_execution": false,
   "scbi_protected": true,
   "news_fortress": "FAIL_CLOSED",
-  "data_quality_mask": "FAIL_CLOSED"
+  "data_quality_mask": "FAIL_CLOSED",
+  "official_path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo",
+  "manual_execution": "Temporal_No_Discretion"
 }
