@@ -3,12 +3,13 @@ setlocal EnableExtensions EnableDelayedExpansion
 title MANIPULANTE FTMO TRIAL STATUS
 
 :: ======================================================================
-:: MANIPULANTE FTMO TRIAL STATUS (PHASE 37ZB)
+:: MANIPULANTE FTMO TRIAL STATUS (PHASE 37ZC)
 :: ======================================================================
 
 set "ROOT=C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo"
 set "SRC=%ROOT%\BOT_V2_DAYTIME_LAB\src"
-set "HEARTBEAT_JSON=%ROOT%\MANIPULANTE\10_LOGS_PAPER\ftmo_trial_bot\heartbeat.json"
+set "HEARTBEAT=%ROOT%\MANIPULANTE\10_LOGS_PAPER\ftmo_trial_bot\heartbeat.json"
+set "QUICK_STATUS=%ROOT%\MANIPULANTE\10_LOGS_PAPER\ftmo_trial_bot\quick_status.txt"
 set "LOCK_FILE=%ROOT%\MANIPULANTE\10_LOGS_PAPER\ftmo_trial_bot\runner.lock"
 
 cd /d "%ROOT%"
@@ -16,66 +17,58 @@ set "PYTHONPATH=%SRC%;%PYTHONPATH%"
 
 cls
 echo ======================================================================
-echo           MANIPULANTE FTMO TRIAL - CONTROL PANEL (PHASE 37ZB)
+echo           MANIPULANTE — ESTADO RÁPIDO (5 SEG)
 echo ======================================================================
 
-:: 1. Check Duplicate Runners
+:: 1. Check Runners
 set RUNNER_COUNT=0
-for /f "tokens=2 delims=," %%a in ('tasklist /FI "IMAGENAME eq python.exe" /NH /FO CSV') do (
-    set /a RUNNER_COUNT+=1
-)
-:: We subtract 1 or 2 depending on how many pythons are usually there (VSCode, etc)
-:: Better to use powershell to count exact runners
 for /f %%i in ('powershell -NoProfile -ExecutionPolicy Bypass -Command "(Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -like '*phase37_ftmo_trial_bot_runner.py*' }).Count"') do set RUNNER_COUNT=%%i
 
-if "%RUNNER_COUNT%"=="" set RUNNER_COUNT=0
+:: 2. Check MT5
+set MT5_STATUS=CERRADO
+tasklist /FI "IMAGENAME eq terminal64.exe" 2>NUL | find /I /N "terminal64.exe" >NUL
+if "%ERRORLEVEL%"=="0" set MT5_STATUS=ABIERTO
+
+:: 3. Traffic Light Logic
 if %RUNNER_COUNT% GTR 1 (
-    powershell -Command "Write-Host \" [ALERTA] SE DETECTARON %RUNNER_COUNT% RUNNERS ACTIVOS (DUPLICADOS)\" -ForegroundColor Red"
-)
-
-:: 2. Check Account Gate
-echo [ACCOUNT] Validando MT5...
-python -c "import sys; sys.path.insert(0, r'%SRC%'); from phase37_ftmo_trial_support import account_gate; res = account_gate(); print(f' Company: {res.get(\"company\")} | Server: {res.get(\"server\")}'); sys.exit(0 if res.get('ftmo_demo_trial_confirmed') else 1)"
-if errorlevel 1 (
-    echo [ERROR] No se detecto cuenta FTMO Demo activa.
-)
-
-:: 3. Check Runner Process
-if exist "%LOCK_FILE%" (
-    set /p PID=<"%LOCK_FILE%"
-    tasklist /FI "PID eq !PID!" 2>NUL | find /I "!PID!" >NUL
-    if !ERRORLEVEL! == 0 (
-        echo [STATUS]  RUNNER: ACTIVE (PID: !PID!)
+    powershell -Command "Write-Host \"ESTADO: 🟣 REVISAR — RUNNERS DUPLICADOS\" -ForegroundColor Cyan"
+) else if %RUNNER_COUNT% EQU 0 (
+    powershell -Command "Write-Host \"ESTADO: 🔴 BOT NO ESTÁ CORRIENDO\" -ForegroundColor Red"
+) else (
+    :: We have exactly 1 runner, check heartbeat
+    if exist "%HEARTBEAT%" (
+        powershell -Command "$hb = Get-Content '%HEARTBEAT%' | ConvertFrom-Json; \
+        $diff = (New-TimeSpan -Start (Get-Date $hb.timestamp_ny) -End (Get-Date (Get-Date).ToUniversalTime().AddHours(-4))).TotalSeconds; \
+        if($hb.manual_intervention_required -eq $true -or $hb.critical_position_still_open -eq $true){ \
+            Write-Host \"ESTADO: 🚨 NO APAGAR PC (RIESGO ACTIVO)\" -ForegroundColor White -BackgroundColor Red; \
+        } elseif($hb.news_gate -ne 'ALLOW' -or $hb.can_open_new_trades -eq $false){ \
+            Write-Host \"ESTADO: 🟡 BOT ACTIVO PERO NO OPERA (GATE)\" -ForegroundColor Yellow; \
+        } else { \
+            Write-Host \"ESTADO: 🟢 BOT ACTIVO Y SEGURO\" -ForegroundColor Green; \
+        }"
     ) else (
-        echo [STATUS]  RUNNER: STALE LOCK (CRITICAL)
+        echo ESTADO: 🔴 SIN HEARTBEAT
     )
-) else (
-    echo [STATUS]  RUNNER: NOT RUNNING
 )
 
-:: 4. Parse Heartbeat
-if exist "%HEARTBEAT_JSON%" (
-    echo [STATUS]  HEARTBEAT: FOUND
-    
-    powershell -NoProfile -ExecutionPolicy Bypass -Command "$hb = Get-Content '%HEARTBEAT_JSON%' | ConvertFrom-Json; \
-    echo \"----------------------------------------------------------------------\"; \
-    echo \" NY TIME:      $($hb.timestamp_ny)\"; \
-    echo \" SESSION:      $($hb.session_state)\"; \
-    echo \" POSITION:     $($hb.position_state)\"; \
-    echo \" ATTEMPTS:     $($hb.forced_close_attempts)\"; \
-    echo \"----------------------------------------------------------------------\"; \
+:: 4. Summary Table
+if exist "%HEARTBEAT%" (
+    powershell -Command "$hb = Get-Content '%HEARTBEAT%' | ConvertFrom-Json; \
+    echo \"CUENTA: $($hb.account_company) / $($hb.account_mode)\"; \
+    echo \"RUNNER: ACTIVO / PID $($hb.pid)\"; \
+    echo \"MT5:    %MT5_STATUS%\"; \
+    echo \"NEWS:   $($hb.news_gate)\"; \
+    echo \"ULTIMA DECISION: $($hb.last_decision)\"; \
     if($hb.safe_to_turn_off_pc -eq $true){ \
-        Write-Host \" [VERDICT]     SAFE_TO_TURN_OFF_PC (FLAT CONFIRMED)\" -ForegroundColor Green; \
-    } elseif($hb.manual_intervention_required -eq $true){ \
-        Write-Host \" [VERDICT]     MANUAL_CLOSE_REQUIRED (STILL OPEN)\" -ForegroundColor Red; \
+        Write-Host \"SEGURO APAGAR PC: SÍ\" -ForegroundColor Green; \
     } else { \
-        Write-Host \" [VERDICT]     NOT_SAFE_YET (WAITING OR MANAGING)\" -ForegroundColor Yellow; \
+        Write-Host \"SEGURO APAGAR PC: NO\" -ForegroundColor Red; \
     }"
-) else (
-    echo [STATUS]  HEARTBEAT: MISSING
 )
 
 echo ======================================================================
-echo  [C] Cerrar Panel  [R] Reiniciar MT5 (Manual)  [S] Stop Bot
-echo ======================================================================
+echo.
+echo [INFO] Esta ventana es solo de consulta y se puede cerrar.
+echo [INFO] El bot principal corre en la ventana de START.
+echo.
 pause

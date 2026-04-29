@@ -2,7 +2,7 @@
 setlocal EnableExtensions EnableDelayedExpansion
 
 :: ======================================================================
-:: MANIPULANTE FTMO TRIAL AUTO-RUNNER (PHASE 37Y)
+:: MANIPULANTE FTMO TRIAL AUTO-RUNNER (PHASE 37ZC)
 :: ======================================================================
 
 set "ROOT=C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo"
@@ -14,31 +14,33 @@ set "PYTHONPATH=%SRC%;%PYTHONPATH%"
 TITLE MANIPULANTE FTMO TRIAL AUTO-RUNNER
 
 echo ======================================================================
-echo MANIPULANTE FTMO TRIAL AUTO-RUNNER [LIFECYCLE]
+echo MANIPULANTE FTMO TRIAL AUTO-RUNNER [INICIO]
 echo ======================================================================
 
-echo [INFO] Validando imports y entorno...
-python -c "import sys; sys.path.insert(0, r'%SRC%'); import phase37_ftmo_trial_support; print('IMPORT_OK')"
-if errorlevel 1 (
-    echo [ERROR] No se pudo importar los modulos de Phase 37. Verifique PYTHONPATH.
+:: 1. Check for active runner
+set RUNNER_COUNT=0
+for /f %%i in ('powershell -NoProfile -ExecutionPolicy Bypass -Command "(Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -like '*phase37_ftmo_trial_bot_runner.py*' }).Count"') do set RUNNER_COUNT=%%i
+
+if %RUNNER_COUNT% GTR 0 (
+    echo.
+    echo [AVISO] BOT YA ESTÁ CORRIENDO - NO SE INICIÓ OTRO.
+    echo [INFO] No abra esta ventana varias veces.
+    echo [INFO] Use STATUS_MANIPULANTE.bat para ver el estado.
+    echo.
     pause
-    exit /b 1
+    exit /b 0
 )
 
 echo [INFO] Validando cuenta MT5 antes de iniciar...
 python -c "import sys; sys.path.insert(0, r'%SRC%'); from phase37_ftmo_trial_support import account_gate; res = account_gate(); print(f'Company: {res.get(\"company\")} | Server: {res.get(\"server\")}'); sys.exit(0 if res.get('ftmo_demo_trial_confirmed') else 1)"
 if errorlevel 1 (
     echo [ERROR] No se detecto cuenta FTMO Demo activa o conexion fallida.
-    echo [AVISO] Prohibido operar en cuentas reales o servidores no autorizados.
     pause
     exit /b 1
 )
 
-echo [INFO] Politica Horaria:
-echo   - 07:00 NY: Inicio Sesion
-echo   - 16:30 NY: Fin nuevas entradas
-echo   - 19:45 NY: Cierre forzado obligatorio
-echo   - 20:00 NY: Auto-shutdown (solo si FLAT)
+echo.
+echo [IMPORTANTE] ESTA VENTANA DEBE QUEDAR ABIERTA MIENTRAS EL BOT TRABAJA.
 echo.
 echo [INFO] Iniciando runner visible...
 python -u "%SRC%\phase37_ftmo_trial_bot_runner.py" --ftmo-trial --risk 0.005 --no-real --i-understand-demo-automation --interval-seconds 60

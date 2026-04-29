@@ -38,6 +38,7 @@ LOG_DIR = MANIPULANTE / "10_LOGS_PAPER" / "ftmo_trial_bot"
 DECISION_LOG = LOG_DIR / "decisions.csv"
 HEARTBEAT_JSON = LOG_DIR / "heartbeat.json"
 HEARTBEAT_TXT = LOG_DIR / "heartbeat.txt"
+QUICK_STATUS_TXT = LOG_DIR / "quick_status.txt"
 LOCK_FILE = LOG_DIR / "runner.lock"
 
 
@@ -107,6 +108,23 @@ def write_heartbeat(result: dict[str, Any]) -> None:
     write_json(HEARTBEAT_JSON, hb)
     lines = [f"{k}: {v}" for k, v in hb.items()]
     write_text(HEARTBEAT_TXT, "\n".join(lines))
+    
+    # Phase 37ZC Quick Status
+    state_label = "BOT_ACTIVO_Y_SEGURO"
+    if hb["news_gate"] != "ALLOW" or not hb["can_open_new_trades"]:
+        state_label = "BOT_ACTIVO_PERO_NO_OPERA"
+    if hb["critical_position_still_open"] or hb["manual_intervention_required"]:
+        state_label = "NO_APAGAR_PC"
+    
+    qs_lines = [
+        f"ESTADO={state_label}",
+        f"CUENTA={hb['account_company']}",
+        f"RUNNER=ACTIVO",
+        f"NEWS={hb['news_gate']}",
+        f"SAFE_TO_TURN_OFF_PC={'YES' if hb['safe_to_turn_off_pc'] else 'NO'}",
+        f"LAST_UPDATE={hb['timestamp_ny']}"
+    ]
+    write_text(QUICK_STATUS_TXT, "\n".join(qs_lines))
 
 
 def run_once(args: argparse.Namespace) -> dict[str, Any]:
