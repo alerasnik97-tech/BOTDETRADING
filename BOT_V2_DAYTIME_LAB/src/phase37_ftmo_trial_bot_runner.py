@@ -27,7 +27,7 @@ from phase37_ftmo_trial_support import (
     write_text,
 )
 
-# New Phase37X Modules
+# Phase37X Modules
 import phase37x_session_lifecycle as lifecycle
 import phase37x_position_state as pos_state
 import phase37x_safe_close as safe_close
@@ -85,10 +85,11 @@ def write_heartbeat(result: dict[str, Any]) -> None:
         "position_side": pos.get("side"),
         "position_has_sl": pos.get("has_sl"),
         "position_has_tp": pos.get("has_tp"),
-        "manage_only": result.get("session_state") in {"MANAGE_ONLY", "USER_PC_OFF_PROTECTION_WINDOW"},
+        "manage_only": lifecycle.should_manage_only(),
+        "hard_flat_required_before_pc_off": cfg.get("hard_flat_required_before_pc_off"),
+        "pc_off_deadline_ny": cfg.get("pc_must_be_off_after"),
         "forced_safe_close_time_ny": cfg.get("forced_safe_close"),
-        "verify_flat_time_ny": cfg.get("verify_flat"),
-        "shutdown_time_ny": cfg.get("daily_shutdown"),
+        "verify_flat_time_ny": cfg.get("verify_flat_first"),
         "news_gate": result.get("gates", {}).get("api_live_news_gate"),
         "data_gate": result.get("gates", {}).get("data_quality_gate"),
         "time_gate": result.get("gates", {}).get("time_gate"),
@@ -97,10 +98,12 @@ def write_heartbeat(result: dict[str, Any]) -> None:
         "next_news_block": result.get("next_news_block"),
         "order_sent": result.get("order_sent"),
         "runner_status": "RUNNING",
-        "pc_off_warning": result.get("session_state") == "USER_PC_OFF_PROTECTION_WINDOW",
-        "critical_do_not_turn_off_pc": result.get("critical_do_not_turn_off_pc", False),
-        "shutdown_allowed": result.get("shutdown_allowed", False),
+        "pc_off_warning": result.get("session_state") in {"USER_PC_OFF_PROTECTION_WINDOW", "VERIFY_FLAT_FIRST", "VERIFY_FLAT_SECOND"},
+        "safe_to_turn_off_pc": result.get("shutdown_allowed", False),
+        "critical_position_still_open": result.get("critical_do_not_turn_off_pc", False),
+        "manual_intervention_required": result.get("manual_intervention_required", False),
         "last_safe_close_status": result.get("safe_close_result", {}).get("status") if result.get("safe_close_result") else None,
+        "forced_close_attempts": result.get("safe_close_result", {}).get("attempts") if result.get("safe_close_result") else 0,
     }
     write_json(HEARTBEAT_JSON, hb)
     lines = [f"{k}: {v}" for k, v in hb.items()]
@@ -122,7 +125,7 @@ def run_once(args: argparse.Namespace) -> dict[str, Any]:
         safety = order_send_safety()
         confirmation = confirmation_file_status()
         
-        # Phase37X Modules Integration
+        # Position & Lifecycle
         pos_info = pos_state.get_position_state(symbol.get("symbol", "EURUSD"))
         session_state = lifecycle.get_session_state(position_open=(pos_info["state"] != "FLAT"))
         can_open = lifecycle.can_open_new_trades()
@@ -136,18 +139,11 @@ def run_once(args: argparse.Namespace) -> dict[str, Any]:
         gates = {
             "account_gate": account.get("state"),
             "real_money_gate": "REAL_BLOCKED",
-            "mt5_connection_gate": "ALLOW" if account.get("terminal_connected") else "NO_TRADE",
             "api_live_news_gate": news.get("gate"),
-            "week_news_loaded": news.get("week_news_loaded"),
             "data_quality_gate": symbol.get("state"),
             "time_gate": session_gate.get("state"),
-            "symbol_gate": symbol.get("state"),
-            "spread_gate": "ALLOW" if symbol.get("state") == "ALLOW" else symbol.get("state"),
-            "stoplevel_gate": "ALLOW" if symbol.get("state") == "ALLOW" else symbol.get("state"),
             "lot_gate": lot.get("state"),
             "signal_engine_gate": signal.get("state"),
-            "max_trades_day_gate": "ALLOW",
-            "weekend_gate": "ALLOW" if session_gate.get("state") != "NO_TRADE_WEEKEND" else "NO_TRADE_WEEKEND",
             "order_router_safety": safety.get("state"),
             "confirmation_file": confirmation.get("valid"),
             "lifecycle_state": session_state,
@@ -159,24 +155,23 @@ def run_once(args: argparse.Namespace) -> dict[str, Any]:
         # Lifecycle Logic Overrides
         if session_state == "BEFORE_SESSION_WAIT":
             final_decision = "WAITING_FOR_SESSION"
-            reason = "Market session not yet open (pre-07:00 NY)"
+            reason = "Pre-07:00 NY"
         elif not can_open and pos_info["state"] == "FLAT":
             final_decision = "NO_NEW_TRADES_AFTER_CUTOFF"
-            reason = "Trading window closed for new entries"
+            reason = "Trading window closed"
         elif session_state == "WEEKEND_BLOCK":
             final_decision = "NO_TRADE_WEEKEND"
-            reason = "Weekend market closed"
-        
-        # Normal Checks if session active
+            reason = "Weekend"
+
+        # Trading Checks
         if final_decision not in {"WAITING_FOR_SESSION", "NO_NEW_TRADES_AFTER_CUTOFF", "NO_TRADE_WEEKEND"}:
             checks = [
                 (account.get("state") == "FTMO_DEMO_TRIAL_CONFIRMED", "NO_TRADE_ACCOUNT"),
                 (news.get("gate") == "ALLOW", "NO_TRADE_NEWS_BLOCK"),
-                (news.get("week_news_loaded") is True, "NO_TRADE_WEEK_NEWS_NOT_LOADED"),
-                (symbol.get("state") == "ALLOW", "NO_TRADE_DATA_OR_SYMBOL"),
+                (symbol.get("state") == "ALLOW", "NO_TRADE_DATA"),
                 (session_gate.get("state") == "ALLOW", "NO_TRADE_TIME"),
                 (lot.get("state") == "ALLOW", "NO_TRADE_LOT"),
-                (signal.get("state") == "MANIPULANTE_SIGNAL_SYNC_OK", "NO_TRADE_SIGNAL_SYNC"),
+                (signal.get("state") == "MANIPULANTE_SIGNAL_SYNC_OK", "NO_TRADE_SIGNAL"),
                 (safety.get("state") == "PASS", "NO_TRADE_ORDER_ROUTER"),
                 (confirmation.get("valid") is True, "CONFIRMATION_MISSING"),
             ]
@@ -186,37 +181,30 @@ def run_once(args: argparse.Namespace) -> dict[str, Any]:
                     reason = fail_reason
                     break
             
-            if final_decision == "DRY_RUN_NO_SIGNAL" and signal.get("signal_status") == "SIGNAL_READY":
-                final_decision = "DRY_RUN_ALLOW_SIGNAL_READY"
-                reason = "DRY_RUN_NO_ORDER_SEND"
-            elif final_decision == "NO_TRADE" and signal.get("signal_status") == "SIGNAL_READY":
-                # Only allow if we are in SESSION_ACTIVE
-                if session_state == "SESSION_ACTIVE":
-                    final_decision = "ALLOW"
-                    reason = "SIGNAL_READY_GATES_ALLOW"
-                else:
-                    final_decision = "NO_TRADE_OUTSIDE_ENTRY_WINDOW"
-                    reason = f"Signal ready but session state is {session_state}"
+            if final_decision == "ALLOW" and session_state != "SESSION_ACTIVE":
+                final_decision = "NO_TRADE_OUTSIDE_ENTRY_WINDOW"
+                reason = f"State {session_state} forbids entries"
 
-        # Forced Safe Close Execution
+        # Phase37X-C Forced Close & Retries
         safe_close_res = None
         if not args.dry_run and lifecycle.should_force_safe_close() and pos_info["state"] != "FLAT":
-            print(f"[CRITICAL] Forced safe close triggered by lifecycle: {session_state}")
-            safe_close_res = safe_close.execute_safe_close(symbol.get("symbol", "EURUSD"))
-            final_decision = "FORCED_CLOSE_EXECUTED"
+            print(f"[CRITICAL] Executing Safe Close Retry Logic: {session_state}")
+            safe_close_res = safe_close.execute_safe_close(symbol.get("symbol", "EURUSD"), max_attempts=5)
+            final_decision = "FORCED_CLOSE_ATTEMPTED"
             reason = safe_close_res.get("status")
-            # Refresh position info after close
             pos_info = pos_state.get_position_state(symbol.get("symbol", "EURUSD"))
 
         shutdown_allowed = False
         critical_pc = False
+        manual_req = False
         if lifecycle.should_daily_shutdown():
             if pos_info["state"] == "FLAT":
                 shutdown_allowed = True
             else:
                 critical_pc = True
-                final_decision = "CRITICAL_DO_NOT_TURN_OFF_PC"
-                reason = "Position still open during shutdown window"
+                manual_req = True
+                final_decision = "CRITICAL_MANUAL_INTERVENTION_REQUIRED"
+                reason = "Position still open at deadline"
 
         result = {
             "timestamp_ny": datetime.now(NY).isoformat(),
@@ -234,9 +222,9 @@ def run_once(args: argparse.Namespace) -> dict[str, Any]:
             "next_news_block": news.get("next_blocking_event", {}).get("event_time_ny") if news.get("next_blocking_event") else None,
             "signal_sync": signal,
             "gates": gates,
-            "api_news_primary": api_mode,
             "shutdown_allowed": shutdown_allowed,
             "critical_do_not_turn_off_pc": critical_pc,
+            "manual_intervention_required": manual_req,
             "safe_close_result": safe_close_res,
         }
         
@@ -256,24 +244,7 @@ def run_once(args: argparse.Namespace) -> dict[str, Any]:
 
     except Exception as exc:
         print(f"Error in run_once: {exc}")
-        import traceback
-        traceback.print_exc()
         return {"final_decision": "ERROR", "reason": str(exc), "order_sent": False}
-
-
-def write_dry_run_outputs(result: dict[str, Any]) -> None:
-    out_dir = OUT / "dry_run"
-    write_json(out_dir / "phase37_dry_run.json", result)
-    write_text(
-        out_dir / "phase37_dry_run.md",
-        f"""
-# Phase37 FTMO Trial Dry-Run
-- decision: {result.get('final_decision')}
-- reason: {result.get('reason')}
-- session: {result.get('session_state')}
-- order_sent: {result.get('order_sent')}
-""",
-    )
 
 
 def build_arg_parser() -> argparse.ArgumentParser:
@@ -281,10 +252,10 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument("--ftmo-trial", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--risk", type=float, default=0.005)
-    parser.add_argument("--i-understand-demo-automation", action="store_true", default=True)
-    parser.add_argument("--no-real", action="store_true", default=True)
     parser.add_argument("--once", action="store_true", default=False)
     parser.add_argument("--interval-seconds", type=int, default=60)
+    parser.add_argument("--i-understand-demo-automation", action="store_true", default=True)
+    parser.add_argument("--no-real", action="store_true", default=True)
     return parser
 
 
@@ -307,18 +278,15 @@ def acquire_lock() -> bool:
                 if handle:
                     kernel32.CloseHandle(handle)
                     return False
-        except Exception:
-            pass
+        except Exception: pass
     LOCK_FILE.write_text(str(os.getpid()))
     return True
 
 
 def release_lock():
     if LOCK_FILE.exists():
-        try:
-            LOCK_FILE.unlink()
-        except Exception:
-            pass
+        try: LOCK_FILE.unlink()
+        except: pass
 
 
 def main(argv: list[str] | None = None) -> dict[str, Any]:
@@ -326,13 +294,12 @@ def main(argv: list[str] | None = None) -> dict[str, Any]:
     args = parser.parse_args(argv)
     
     if not args.dry_run and not acquire_lock():
-        print("DUPLICATE_RUNNER_DETECTION: Another instance is running. Aborting.")
+        print("DUPLICATE_RUNNER_DETECTION. Aborting.")
         sys.exit(1)
 
     try:
         if args.once or args.dry_run:
             result = run_once(args)
-            if args.dry_run: write_dry_run_outputs(result)
             print(safe_dumps(result))
             return result
         
@@ -340,18 +307,16 @@ def main(argv: list[str] | None = None) -> dict[str, Any]:
         last: dict[str, Any] = {}
         while not STOP_FILE.exists():
             last = run_once(args)
-            print(f"[{datetime.now().strftime('%H:%M:%S')}] Decision: {last.get('final_decision')} | Reason: {last.get('reason')} | Session: {last.get('session_state')}")
+            print(f"[{datetime.now().strftime('%H:%M:%S')}] Decision: {last.get('final_decision')} | Session: {last.get('session_state')}")
             
             if last.get("shutdown_allowed"):
-                print("DAILY_AUTO_SHUTDOWN reached and FLAT. Shutting down runner.")
+                print("DAILY_AUTO_SHUTDOWN REACHED and FLAT. Shutting down.")
                 break
             
             time.sleep(max(10, args.interval_seconds))
         
-        if not last:
-            last = {"final_decision": "STOP_BOT_ACTIVE", "order_sent": False}
-        print("Runner loop ended safely.")
-        return last
+        print("Runner finished safely.")
+        return last or {"final_decision": "STOP_BOT_ACTIVE"}
     finally:
         if not args.dry_run: release_lock()
 
