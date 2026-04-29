@@ -2,21 +2,23 @@
 setlocal EnableExtensions EnableDelayedExpansion
 
 :: ======================================================================
-:: MANIPULANTE FTMO TRIAL START LAUNCHER (PHASE 37ZD)
+:: MANIPULANTE START LAUNCHER (PHASE 37ZE)
 :: ======================================================================
 
 set "ROOT=C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo"
 set "SRC=%ROOT%\BOT_V2_DAYTIME_LAB\src"
-set "QUICK_STATUS=%ROOT%\MANIPULANTE\10_LOGS_PAPER\ftmo_trial_bot\quick_status.txt"
 
 cd /d "%ROOT%"
 set "PYTHONPATH=%SRC%;%PYTHONPATH%"
 
-TITLE MANIPULANTE FTMO TRIAL - START
+TITLE MANIPULANTE — INICIO
+
+:: Set console to UTF-8
+chcp 65001 > nul
 
 cls
 echo ======================================================================
-echo MANIPULANTE FTMO TRIAL -- START
+echo MANIPULANTE — INICIO
 echo ======================================================================
 
 :: 1. Check for active runner (Idempotency)
@@ -26,66 +28,54 @@ for /f "tokens=*" %%i in ('powershell -NoProfile -ExecutionPolicy Bypass -Comman
 )
 
 if NOT "!RUNNER_PID!"=="0" (
-    echo STATUS: BOT ALREADY RUNNING
+    echo ESTADO: BOT YA ESTÁ PRENDIDO
     echo.
-    echo A runner is already active ^(PID: !RUNNER_PID!^).
-    echo No new instance was started.
+    echo No se inició otro bot.
+    echo No hay riesgo duplicado ^(PID activo: !RUNNER_PID!^).
     echo.
-    if exist "%QUICK_STATUS%" (
-        echo Quick Status:
-        type "%QUICK_STATUS%"
-        echo.
-    )
-    echo What to do now:
-    echo 1. Close this window.
-    echo 2. Open STATUS_MANIPULANTE.bat to check health.
-    echo 3. Do not open START multiple times.
+    echo Abrí STATUS_MANIPULANTE.bat para ver el estado.
     echo.
-    echo Safety:
-    echo - Duplicate runner blocked.
-    echo - No order was sent.
-    echo - Strategy unchanged.
     echo ======================================================================
     pause
     exit /b 0
 )
 
-echo [INFO] Validating account and environment...
-python -c "import sys; sys.path.insert(0, r'%SRC%'); from phase37_ftmo_trial_support import account_gate; res = account_gate(); sys.exit(0 if res.get('ftmo_demo_trial_confirmed') else 1)"
+:: 2. Pre-flight Checks (New Instance)
+echo ESTADO: INICIANDO BOT
+echo.
+python -c "import sys; sys.path.insert(0, r'%SRC%'); from phase37_ftmo_trial_support import account_gate; res = account_gate(); print(f'Cuenta: {res.get(\"company\")} OK'); sys.exit(0 if res.get('ftmo_demo_trial_confirmed') else 1)"
 if errorlevel 1 (
+    cls
+    echo ======================================================================
+    echo MANIPULANTE — BLOQUEADO
+    echo ======================================================================
     echo.
-    echo STATUS: BLOCKED
+    echo Motivo: cuenta FTMO Demo no confirmada
     echo.
-    echo Reason:
-    echo FTMO Demo account was not confirmed.
+    echo No se inició el bot.
+    echo No se envió ninguna orden.
     echo.
-    echo No runner was started.
-    echo No order was sent.
-    echo.
-    echo Check:
-    echo 1. MT5 is open.
-    echo 2. Account is FTMO-Demo.
-    echo 3. Exness is not active in this terminal.
+    echo Revisa:
+    echo 1. MT5 abierto
+    echo 2. Cuenta FTMO-Demo
+    echo 3. No Exness / No real
     echo ======================================================================
     pause
     exit /b 1
 )
 
+echo Riesgo: 0.50%%
+echo Modo: Trial / Demo
+echo Estrategia: MANIPULANTE
 echo.
-echo STATUS: BOT STARTED
-echo.
-echo Keep this window open while the bot is running.
-echo.
-echo Use STATUS_MANIPULANTE.bat anytime to check:
-echo - account
-echo - runner health
-echo - news gate
-echo - safe to turn off PC
+echo IMPORTANTE:
+echo Deja esta ventana abierta mientras el bot trabaja.
+echo Para ver el estado usa STATUS_MANIPULANTE.bat
 echo ======================================================================
 echo.
 
 python -u "%SRC%\phase37_ftmo_trial_bot_runner.py" --ftmo-trial --risk 0.005 --no-real --i-understand-demo-automation --interval-seconds 60
 
 echo.
-echo [INFO] Runner stopped safely.
+echo [INFO] El bot se ha detenido.
 pause
