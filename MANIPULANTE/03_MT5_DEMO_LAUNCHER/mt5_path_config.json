@@ -1,9 +1,13 @@
 {
-  "mt5_terminal_path": "",
-  "mode": "DEMO_ONLY",
+  "mt5_terminal_path": "C:\\Program Files\\MetaTrader 5\\terminal64.exe",
+  "mode": "WATCH_ONLY_DRY_RUN",
   "allow_live": false,
+  "allow_real_orders": false,
   "auto_order_execution": false,
+  "order_send_enabled": false,
   "open_runbook": true,
   "open_trade_log_template": true,
-  "warning": "DEMO/PAPER ONLY. NO REAL TRADING. NO AUTO ORDERS. GLOBAL HARD CLOSE FRIDAY 16:55 NY."
+  "news_gate_required": true,
+  "data_mask_required": true,
+  "warning": "PHASE36 DRY-RUN ONLY. NO REAL ORDERS. NO AUTOTRADING. GLOBAL HARD CLOSE FRIDAY 16:55 NY."
 }

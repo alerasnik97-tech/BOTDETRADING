@@ -1,17 +1,12 @@
 Write-Host "==============================================================" -ForegroundColor Yellow
-Write-Host "MANIPULANTE MT5 DEMO LAUNCHER" -ForegroundColor Cyan
+Write-Host "MANIPULANTE WATCH-ONLY DRY-RUN LAUNCHER" -ForegroundColor Cyan
 Write-Host "==============================================================" -ForegroundColor Yellow
-Write-Host "WARNING: DEMO/PAPER ONLY. NO REAL TRADING." -ForegroundColor Red
-Write-Host "NO AUTO ORDERS." -ForegroundColor Red
-Write-Host "GLOBAL HARD CLOSE FRIDAY 16:55 NY." -ForegroundColor Red
+Write-Host "PHASE36: DRY-RUN ONLY. NO REAL ORDERS. NO AUTOTRADING." -ForegroundColor Red
+Write-Host "News Gate and Data Mask are mandatory. If unavailable => NO TRADE." -ForegroundColor Red
+Write-Host "Global hard close Friday 16:55 NY. No weekend holding." -ForegroundColor Red
 Write-Host "==============================================================" -ForegroundColor Yellow
 Write-Host ""
-Read-Host "Presione Enter para confirmar que entiende que esto es SOLO DEMO..."
-
-Write-Host "Abriendo Checklists y Runbook..."
-Start-Process "..\04_OPERACION_DIARIA\MANIPULANTE_DAILY_RUNBOOK.md"
-Start-Process "..\06_TEMPLATES\MANIPULANTE_DAILY_TRADE_LOG.csv"
-
+Write-Host "This launcher does not activate AutoTrading and does not send orders."
+Write-Host "Configure MT5 path manually in mt5_path_config.json only for future demo observation."
 Write-Host ""
-Write-Host "Para abrir MT5 debe configurar la ruta en mt5_path_config.json"
-Read-Host "Presione Enter para salir"
+Read-Host "Press Enter to exit"
