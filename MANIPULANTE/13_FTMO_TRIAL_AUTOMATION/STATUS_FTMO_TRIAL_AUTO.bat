@@ -30,7 +30,6 @@ if exist %LOCK_FILE% (
 if exist %HEARTBEAT_JSON% (
     echo [STATUS]  HEARTBEAT: FOUND
     
-    :: Basic extraction using powershell for the status dashboard
     powershell -Command "$hb = Get-Content %HEARTBEAT_JSON% | ConvertFrom-Json; \
     echo \"----------------------------------------------------------------------\"; \
     echo \" NY TIME:      $($hb.timestamp_ny)\"; \
@@ -38,9 +37,12 @@ if exist %HEARTBEAT_JSON% (
     echo \" ENTRIES:      $(if($hb.can_open_new_trades){'ALLOWED'}else{'BLOCKED'})\"; \
     echo \" POSITION:     $($hb.position_state)\"; \
     echo \" TICKETS:      $($hb.position_ticket)\"; \
-    echo \" PROX NOTICIA: $($hb.next_news_block)\"; \
+    echo \" ATTEMPTS:     $($hb.forced_close_attempts)\"; \
     echo \"----------------------------------------------------------------------\"; \
     echo \" DEADLINE NY:  $($hb.pc_off_deadline_ny)\"; \
+    echo \" FLAT 19:50:   $($hb.flat_confirmed_1950)\"; \
+    echo \" FLAT 19:55:   $($hb.flat_confirmed_1955)\"; \
+    echo \"----------------------------------------------------------------------\"; \
     if($hb.safe_to_turn_off_pc -eq $true){ \
         Write-Host \" [VERDICT]     SAFE_TO_TURN_OFF_PC (FLAT CONFIRMED)\" -ForegroundColor Green; \
     } elseif($hb.manual_intervention_required -eq $true){ \
