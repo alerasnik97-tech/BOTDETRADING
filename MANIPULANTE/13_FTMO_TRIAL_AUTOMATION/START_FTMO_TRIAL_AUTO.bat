@@ -36,6 +36,26 @@ if not "%RUNNER_COUNT%"=="0" (
     exit /b 0
 )
 
+set "STOP_FILE=%ROOT%\MANIPULANTE\13_FTMO_TRIAL_AUTOMATION\STOP_BOT.txt"
+if not exist "%STOP_FILE%" goto :start_bot
+
+echo ESTADO: BOT DETENIDO POR STOP_BOT
+echo.
+echo Se encontro un archivo de parada activa.
+echo.
+echo Presione una tecla para REINICIAR el bot (se borrara el bloqueo).
+echo O cierre esta ventana para mantener el bot apagado.
+echo.
+echo ============================================================
+pause > nul
+del "%STOP_FILE%"
+cls
+echo ============================================================
+echo MANIPULANTE - REINICIANDO
+echo ============================================================
+echo.
+
+:start_bot
 echo ESTADO: INICIANDO BOT
 echo.
 "%PY_EXE%" -c "import sys; sys.path.insert(0, r'%SRC%'); from phase37_ftmo_trial_support import account_gate; r=account_gate(); sys.exit(0 if r.get('ftmo_demo_trial_confirmed') else 1)"
