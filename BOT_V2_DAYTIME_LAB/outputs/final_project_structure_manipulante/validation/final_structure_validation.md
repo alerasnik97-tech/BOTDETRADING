@@ -1,0 +1,19 @@
+# FINAL STRUCTURE VALIDATION
+Timestamp: 2026-04-29T03:11:40.928125Z
+All Passed: True
+
+| Item | Path | Exists |
+|---|---|---|
+| MANIPULANTE folder | MANIPULANTE | True |
+| ESTRATEGIAS folder | ESTRATEGIAS | True |
+| manipulante_config.json | MANIPULANTE\01_ESTRATEGIA_AUTORIDAD\manipulante_config.json | True |
+| README_MANIPULANTE.md | MANIPULANTE\00_LEER_PRIMERO\README_MANIPULANTE.md | True |
+| launcher bat | MANIPULANTE\03_MT5_DEMO_LAUNCHER\ABRIR_MANIPULANTE_DEMO.bat | True |
+| checklist | MANIPULANTE\08_CHECKLISTS\CHECKLIST_ANTES_DE_OPERAR.md | True |
+| templates | MANIPULANTE\06_TEMPLATES\MANIPULANTE_DAILY_TRADE_LOG.csv | True |
+| ESTRATEGIAS_INDEX.md | ESTRATEGIAS\00_LEER_PRIMERO\ESTRATEGIAS_INDEX.md | True |
+| Phase25 config | BOT_V2_DAYTIME_LAB\configs\phase25_forward_demo_candidate_config.json | True |
+| Phase25 hash | BOT_V2_DAYTIME_LAB\configs\phase25_forward_demo_candidate_config_hash.txt | True |
+| BOT_V2_DAYTIME_LAB folder | BOT_V2_DAYTIME_LAB | True |
+| Phase32E report | BOT_V2_DAYTIME_LAB\reports\PHASE32E_GLOBAL_WEEKEND_HARD_CLOSE_POLICY_REPORT.md | True |
+| No duplicate ZIPs | N/A | True |

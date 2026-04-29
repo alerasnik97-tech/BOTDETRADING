@@ -1,0 +1,14 @@
+ESTRATEGIA PRINCIPAL: MANIPULANTE
+RUTA: C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\MANIPULANTE
+
+Para iniciar su sesión de trading manual asistido:
+1. Diríjase a la carpeta MANIPULANTE\03_MT5_DEMO_LAUNCHER
+2. Ejecute ABRIR_MANIPULANTE_DEMO.bat
+
+REGLAS DE ORO:
+- NO TRADING REAL. Solo Paper/Demo.
+- NO AUTOTRADING.
+- Riesgo Base: 0.50%.
+- GLOBAL HARD CLOSE: Viernes a las 16:55 NY cierre TODO.
+
+NOTA: La carpeta ESTRATEGIAS contiene investigación antigua, variantes fallidas y backups. No opere lo que está en ESTRATEGIAS.

@@ -1,36 +1,16 @@
 {
-  "authority_hierarchy": {
-    "primary": {
-      "id": "SCBI_M5_GLOBAL",
-      "role": "overnight_authority",
-      "status": "protected_unchanged"
-    },
-    "daytime_baseline": {
-      "id": "Phase18_H1_Fractal_Sweep_First_M3_CHOCH",
-      "pf": 1.63,
-      "sample": 1040,
-      "status": "validated_for_forward_demo_baseline_protected"
-    },
-    "data_foundation": {
-      "id": "M3_BID_ASK_DATA_QUALITY_MASK",
-      "status": "M3_CERTIFIED_WITH_MASK_PHASE19_READY_FOR_RETEST",
-      "phase19_repaired_preflight": "PHASE19_REPAIRED_PREFLIGHT_PASSED_MASKED",
-      "mask_required": true
-    },
-    "quarantined_or_rejected": [
-      {
-        "id": "Phase19_Expanded_Sweep",
-        "status": "PHASE19_INVALIDATED"
-      },
-      {
-        "id": "Phase12",
-        "status": "invalidated_not_authority"
-      }
-    ]
+  "timestamp": "2026-04-29T03:10:00+00:00",
+  "authority": "MANIPULANTE",
+  "authority_location": "MANIPULANTE/",
+  "components": {
+    "core": "PHASE25",
+    "policy": "GLOBAL_WEEKEND_HARD_CLOSE"
   },
-  "lab_status": {
-    "id": "BOT_V2_DAYTIME_LAB",
-    "role": "research_only",
-    "authority": "none_production"
-  }
+  "shadow_only": "TP1.4_BE0.5_BF70",
+  "archived": "PHASE19",
+  "baselines": ["PHASE18", "PHASE24"],
+  "experiments": ["PHASE28", "PHASE29"],
+  "real_blocked": true,
+  "mt5_real_blocked": true,
+  "auto_orders_blocked": true
 }

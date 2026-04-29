@@ -1,0 +1,9 @@
+{
+  "mt5_terminal_path": "",
+  "mode": "DEMO_ONLY",
+  "allow_live": false,
+  "auto_order_execution": false,
+  "open_runbook": true,
+  "open_trade_log_template": true,
+  "warning": "DEMO/PAPER ONLY. NO REAL TRADING. NO AUTO ORDERS. GLOBAL HARD CLOSE FRIDAY 16:55 NY."
+}
