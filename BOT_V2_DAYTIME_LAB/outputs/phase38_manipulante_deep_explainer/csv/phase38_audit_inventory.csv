@@ -1,0 +1,15 @@
+fase,objetivo,resultado_veredicto,estado,impacto_en_manipulante
+Phase18,H1 Fractal Sweep + First M3 CHOCH,PHASE18_VALIDATED_FOR_FORWARD_DEMO,Base protegida,"Funda la logica, luego superada."
+Phase20,News Fortress + recuperacion de frecuencia,PHASE20_SAFE_CANDIDATE_FOUND,Benchmark,Aporta ventana amplia y News Fortress.
+Phase22,High WR / bajo DD,PHASE22_HIGH_WR_CANDIDATE_FOUND,Superada,"Mejor WR, no queda autoridad final."
+Phase24,Plateau robusto,PHASE24_ROBUST_IMPROVEMENT_FOUND,Backup fuerte,Encuentra zona TP/BE robusta.
+Phase25,Cierre institucional y autoridad,PHASE25_FINAL_CLOSEOUT_COMPLETE_READY_FOR_PAPER_DEMO_WITH_WARNINGS,Authority,Define MANIPULANTE TP1.4 BE0.4 BF70.
+Phase27,Validacion historica 2015-2026,PHASE27_PHASE25_VALIDATED_2015_2026_STRONG,Confirma autoridad,Extiende evidencia a 2625 trades.
+Phase28,Winrate/frecuencia,PHASE28_BALANCED_IMPROVEMENT_FOUND,Shadow research,"Encuentra candidatos, no reemplaza Phase25."
+Phase29,WR y compresion de rachas,PHASE29_BALANCED_WR_STREAK_IMPROVEMENT_FOUND,Shadow research,BE0.5 mejora rachas pero sigue no autoridad.
+Phase30,Forense BE0.5,PHASE30_CANDIDATE_READY_FOR_PAPER_DEMO_WITH_WARNINGS,Shadow,Phase25 sigue autoridad.
+Phase31,Prop firm survival,PHASE31_PROP_FIRM_READY_CONSERVATIVE_RISK,Riesgo/fondeo,"0.50 pct prudente, 1 pct prohibido."
+Phase32A,FTMO 1-Step,PHASE32A_FTMO_1STEP_SUPPORTED_WITH_WARNINGS,Paper only,FTMO 2-Step/Swing preferible; 0.50 pct base.
+Phase32E,Global Weekend Hard Close,PHASE32E_GLOBAL_WEEKEND_HARD_CLOSE_IMPLEMENTED,Seguridad operativa,Viernes 16:55 NY global.
+Phase37X-A,Cierre diario 19:45 NY,SHADOW_APPROVED,Seguridad operativa,"Impacto insignificante, no cambia estrategia."
+Phase37ZH,AutoTrading / order_check readiness,BLOCKED_AUTOTRADING_DISABLED,Operativo demo,Order_send gateado; MT5 bloquea AutoTrading.

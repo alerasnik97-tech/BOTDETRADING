@@ -1,0 +1,2 @@
+name,sample,pf,expectancy_r,winrate_r_positive_pct,tp_only_winrate_pct,winrate_excluding_be_pct,tp_rate_excluding_be_pct,max_drawdown_r,total_r,tp_count,be_exit_count,sl_pure_count,forced_close_count,be_trigger_count,gross_profit_r,gross_loss_r
+PHASE25_2015_2026,2625,2.793,0.2809,32.53,30.51,65.9,61.81,-5.584,737.474,801,1329,395,100,2108,1148.791,-411.317
