@@ -2,7 +2,7 @@
 
 ## Identidad
 - **Nombre de la Estrategia**: MANIPULANTE
-- **Origen de Autoridad**: PHASE25_AUTHORITY
+- **Origen de Autoridad**: MANIPULANTE (Origen: Phase25)
 - **Símbolo**: EURUSD
 - **Estado**: CURRENT_AUTHORITY (Solo Paper/Demo)
 
