@@ -92,6 +92,9 @@ def run_once(args: argparse.Namespace) -> dict[str, Any]:
         if final_decision == "DRY_RUN_NO_SIGNAL" and signal.get("signal_status") == "SIGNAL_READY":
             final_decision = "DRY_RUN_ALLOW_SIGNAL_READY"
             reason = "DRY_RUN_NO_ORDER_SEND"
+        elif final_decision == "NO_TRADE" and signal.get("signal_status") == "SIGNAL_READY":
+            final_decision = "ALLOW"
+            reason = "SIGNAL_READY_GATES_ALLOW"
         decision = type("Decision", (), {"gates": gates})()
         sync = signal
     except Exception:
@@ -171,13 +174,23 @@ def build_arg_parser() -> argparse.ArgumentParser:
     return parser
 
 
+def safe_dumps(obj: Any) -> str:
+    def default(o: Any) -> str:
+        if hasattr(o, "isoformat"):
+            return o.isoformat()
+        if hasattr(o, "item"):
+            return o.item()
+        return str(o)
+    return json.dumps(obj, default=default, indent=2, ensure_ascii=False)
+
+
 def main(argv: list[str] | None = None) -> dict[str, Any]:
     parser = build_arg_parser()
     args = parser.parse_args(argv)
     if args.once or args.dry_run:
         result = run_once(args)
         write_dry_run_outputs(result)
-        print(json.dumps(result, indent=2, ensure_ascii=False))
+        print(safe_dumps(result))
         return result
     last: dict[str, Any] = {}
     while not STOP_FILE.exists():
@@ -185,7 +198,7 @@ def main(argv: list[str] | None = None) -> dict[str, Any]:
         time.sleep(max(10, args.interval_seconds))
     if not last:
         last = {"final_decision": "STOP_BOT_ACTIVE", "order_sent": False, "reason": "STOP_BOT.txt present before loop"}
-    print(json.dumps(last, indent=2, ensure_ascii=False))
+    print(safe_dumps(last))
     return last
 
 
