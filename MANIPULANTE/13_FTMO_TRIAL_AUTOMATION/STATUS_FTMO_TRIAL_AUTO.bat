@@ -3,79 +3,79 @@ setlocal EnableExtensions EnableDelayedExpansion
 title MANIPULANTE FTMO TRIAL STATUS
 
 :: ======================================================================
-:: MANIPULANTE FTMO TRIAL STATUS (PHASE 37Z)
+:: MANIPULANTE FTMO TRIAL STATUS (PHASE 37ZB)
 :: ======================================================================
 
 set "ROOT=C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo"
 set "SRC=%ROOT%\BOT_V2_DAYTIME_LAB\src"
-set "LOG=%ROOT%\MANIPULANTE\10_LOGS_PAPER\ftmo_trial_bot\status_debug.log"
-set "HEARTBEAT_TXT=%ROOT%\MANIPULANTE\10_LOGS_PAPER\ftmo_trial_bot\heartbeat.txt"
-set "DECISIONS=%ROOT%\MANIPULANTE\10_LOGS_PAPER\ftmo_trial_bot\decisions.csv"
+set "HEARTBEAT_JSON=%ROOT%\MANIPULANTE\10_LOGS_PAPER\ftmo_trial_bot\heartbeat.json"
+set "LOCK_FILE=%ROOT%\MANIPULANTE\10_LOGS_PAPER\ftmo_trial_bot\runner.lock"
 
 cd /d "%ROOT%"
 set "PYTHONPATH=%SRC%;%PYTHONPATH%"
 
+cls
 echo ======================================================================
-echo MANIPULANTE FTMO TRIAL STATUS
+echo           MANIPULANTE FTMO TRIAL - CONTROL PANEL (PHASE 37ZB)
 echo ======================================================================
-echo ROOT: %ROOT%
-echo SRC : %SRC%
-echo.
 
-echo [INFO] Fecha/hora:
-date /t
-time /t
-echo.
+:: 1. Check Duplicate Runners
+set RUNNER_COUNT=0
+for /f "tokens=2 delims=," %%a in ('tasklist /FI "IMAGENAME eq python.exe" /NH /FO CSV') do (
+    set /a RUNNER_COUNT+=1
+)
+:: We subtract 1 or 2 depending on how many pythons are usually there (VSCode, etc)
+:: Better to use powershell to count exact runners
+for /f %%i in ('powershell -NoProfile -ExecutionPolicy Bypass -Command "(Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -like '*phase37_ftmo_trial_bot_runner.py*' }).Count"') do set RUNNER_COUNT=%%i
 
-echo [INFO] Probando import Python...
-python -c "import sys; sys.path.insert(0, r'%SRC%'); import phase37_ftmo_trial_support; print('IMPORT_OK')" 2>&1
+if "%RUNNER_COUNT%"=="" set RUNNER_COUNT=0
+if %RUNNER_COUNT% GTR 1 (
+    powershell -Command "Write-Host \" [ALERTA] SE DETECTARON %RUNNER_COUNT% RUNNERS ACTIVOS (DUPLICADOS)\" -ForegroundColor Red"
+)
+
+:: 2. Check Account Gate
+echo [ACCOUNT] Validando MT5...
+python -c "import sys; sys.path.insert(0, r'%SRC%'); from phase37_ftmo_trial_support import account_gate; res = account_gate(); print(f' Company: {res.get(\"company\")} | Server: {res.get(\"server\")}'); sys.exit(0 if res.get('ftmo_demo_trial_confirmed') else 1)"
 if errorlevel 1 (
-    echo.
-    echo [ERROR] Fallo importando modulos del bot.
-    echo Revisar PYTHONPATH o instalacion Python.
-    echo.
-    pause
-    exit /b 1
+    echo [ERROR] No se detecto cuenta FTMO Demo activa.
 )
 
-echo.
-echo [INFO] Validando cuenta MT5...
-python -c "import sys; sys.path.insert(0, r'%SRC%'); from phase37_ftmo_trial_support import account_gate; res=account_gate(); print(res)" 2>&1
-
-echo.
-echo [INFO] Buscando runner Python activo...
-powershell -NoProfile -ExecutionPolicy Bypass -Command "Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -like '*phase37_ftmo_trial_bot_runner.py*' } | Select-Object ProcessId, CommandLine" 2>&1
-
-echo.
-echo [INFO] Buscando MT5 activo...
-powershell -NoProfile -ExecutionPolicy Bypass -Command "Get-Process terminal64 -ErrorAction SilentlyContinue | Select-Object Id, ProcessName, StartTime" 2>&1
-
-echo.
-echo [INFO] Heartbeat:
-if exist "%HEARTBEAT_TXT%" (
-    type "%HEARTBEAT_TXT%"
+:: 3. Check Runner Process
+if exist "%LOCK_FILE%" (
+    set /p PID=<"%LOCK_FILE%"
+    tasklist /FI "PID eq !PID!" 2>NUL | find /I "!PID!" >NUL
+    if !ERRORLEVEL! == 0 (
+        echo [STATUS]  RUNNER: ACTIVE (PID: !PID!)
+    ) else (
+        echo [STATUS]  RUNNER: STALE LOCK (CRITICAL)
+    )
 ) else (
-    echo [WARNING] No existe heartbeat.txt
+    echo [STATUS]  RUNNER: NOT RUNNING
 )
 
-echo.
-echo [INFO] Ultimas decisiones:
-if exist "%DECISIONS%" (
-    powershell -NoProfile -ExecutionPolicy Bypass -Command "Get-Content '%DECISIONS%' -Tail 10" 2>&1
+:: 4. Parse Heartbeat
+if exist "%HEARTBEAT_JSON%" (
+    echo [STATUS]  HEARTBEAT: FOUND
+    
+    powershell -NoProfile -ExecutionPolicy Bypass -Command "$hb = Get-Content '%HEARTBEAT_JSON%' | ConvertFrom-Json; \
+    echo \"----------------------------------------------------------------------\"; \
+    echo \" NY TIME:      $($hb.timestamp_ny)\"; \
+    echo \" SESSION:      $($hb.session_state)\"; \
+    echo \" POSITION:     $($hb.position_state)\"; \
+    echo \" ATTEMPTS:     $($hb.forced_close_attempts)\"; \
+    echo \"----------------------------------------------------------------------\"; \
+    if($hb.safe_to_turn_off_pc -eq $true){ \
+        Write-Host \" [VERDICT]     SAFE_TO_TURN_OFF_PC (FLAT CONFIRMED)\" -ForegroundColor Green; \
+    } elseif($hb.manual_intervention_required -eq $true){ \
+        Write-Host \" [VERDICT]     MANUAL_CLOSE_REQUIRED (STILL OPEN)\" -ForegroundColor Red; \
+    } else { \
+        Write-Host \" [VERDICT]     NOT_SAFE_YET (WAITING OR MANAGING)\" -ForegroundColor Yellow; \
+    }"
 ) else (
-    echo [WARNING] No existe decisions.csv
+    echo [STATUS]  HEARTBEAT: MISSING
 )
 
-echo.
 echo ======================================================================
-echo INTERPRETACION RAPIDA
+echo  [C] Cerrar Panel  [R] Reiniciar MT5 (Manual)  [S] Stop Bot
 echo ======================================================================
-echo SAFE_TO_TURN_OFF_PC  = podes apagar PC (FLAT CONFIRMED)
-echo NOT_SAFE_YET         = esperar y revisar de nuevo (ACTIVE RISK)
-echo MANUAL_CLOSE_REQUIRED= cerrar manualmente antes de apagar (ERROR)
-echo ======================================================================
-echo.
-
-echo [INFO] Status finalizado. Esta ventana debe quedar abierta.
 pause
-exit /b 0
