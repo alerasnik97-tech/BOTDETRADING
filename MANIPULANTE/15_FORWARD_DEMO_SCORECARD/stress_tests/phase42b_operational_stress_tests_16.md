@@ -1,0 +1,38 @@
+# PHASE 42B - OPERATIONAL STRESS TESTS (16 SCENARIOS)
+
+## Resumen Ejecutivo
+- **Veredicto**: STRESS_16_PASS_ALL
+- **Total Tests**: 16
+- **Pass**: 16
+- **Fail**: 0
+- **Seguridad**: 100% (No orders, No real touched)
+
+## Tabla de Resultados
+| test_id | test_name | expected_decision | pass_fail | severity |
+| :--- | :--- | :--- | :--- | :--- |
+| ST_01 | MT5_CLOSED_SIM | NO_TRADE_MT5_CONNECTION | PASS | CRITICAL |
+| ST_02 | AUTOTRADING_DISABLED_SIM | NO_TRADE_AUTOTRADING_DISABLED | PASS | CRITICAL |
+| ST_03 | NEWS_CACHE_MISSING_SIM | NO_TRADE_NEWS_SOURCE_UNAVAILABLE | PASS | HIGH |
+| ST_04 | HIGH_IMPACT_NEWS_WINDOW_SIM | NO_TRADE_NEWS_BLOCK | PASS | HIGH |
+| ST_05 | STOP_BOT_ACTIVE_SIM | STOP_BOT_ACTIVE | PASS | MEDIUM |
+| ST_06 | DUPLICATE_RUNNER_SIM | DUPLICADO - LIMPIAR RUNNERS | PASS | CRITICAL |
+| ST_07 | OUTSIDE_SESSION_BEFORE_07_SIM | NO_TRADE_BEFORE_SESSION | PASS | LOW |
+| ST_08 | AFTER_1630_CUTOFF_SIM | NO_NEW_TRADES_AFTER_CUTOFF | PASS | LOW |
+| ST_09 | SPREAD_TOO_HIGH_SIM | NO_TRADE_SPREAD | PASS | MEDIUM |
+| ST_10 | DATA_M3_MISSING_SIM | NO_TRADE_DATA_QUALITY | PASS | HIGH |
+| ST_11 | DATA_H1_MISSING_SIM | NO_TRADE_DATA_QUALITY | PASS | HIGH |
+| ST_12 | FRIDAY_1655_HARD_CLOSE_SIM | FRIDAY_HARD_CLOSE_REQUIRED | PASS | HIGH |
+| ST_13 | POSITION_OPEN_2000_SIM | PELIGRO - NO APAGAR PC | PASS | CRITICAL |
+| ST_14 | ORDER_CHECK_FAIL_SIM | NO_TRADE_ORDER_CHECK_FAILED | PASS | HIGH |
+| ST_15 | REAL_ACCOUNT_SIM | EMERGENCY_ABORT_REAL_MONEY_DETECTED | PASS | BLOCKER |
+| ST_16 | EXNESS_ACCOUNT_SIM | EMERGENCY_ABORT_EXNESS_DETECTED | PASS | BLOCKER |
+
+## Seguridad Operativa
+- **Order Sent**: False
+- **Strategy Modified**: False
+- **Real Account Touched**: False
+- **Exness Touched**: False
+- **MT5 Live Touched**: False
+
+## Conclusion
+MANIPULANTE demuestra un comportamiento robusto de tipo 'Fail-Closed' ante todos los escenarios de riesgo operativo simulados.
