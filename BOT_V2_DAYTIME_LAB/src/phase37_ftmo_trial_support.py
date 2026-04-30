@@ -1,10 +1,13 @@
 from __future__ import annotations
 
+import argparse
 import csv
 import hashlib
 import json
 import math
+import os
 import re
+import shutil
 import subprocess
 import zipfile
 from datetime import datetime, time, timedelta, timezone
@@ -30,6 +33,10 @@ SECRET_TOKENS = [
     "api_key",
     "apikey",
 ]
+
+RUNNER_SCRIPT = "phase37_ftmo_trial_bot_runner.py"
+STATUS_SCRIPT = "phase37ze_quick_status_panel.py"
+STOP_BOT_PATH = MANIPULANTE / "13_FTMO_TRIAL_AUTOMATION" / "STOP_BOT.txt"
 
 
 def now_utc() -> datetime:
@@ -986,3 +993,437 @@ def include_file_for_zip(path: Path) -> bool:
         "02_STRATEGY_AUTHORITY_MAP.json",
         "ZIP_CONTENTS_MANIFEST.md",
     }
+
+
+def _as_process_list(value: Any) -> list[Any]:
+    if value is None:
+        return []
+    if isinstance(value, list):
+        return value
+    return [value]
+
+
+def _is_runner_process(proc: dict[str, Any]) -> bool:
+    name = str(proc.get("Name") or "").lower()
+    command_line = str(proc.get("CommandLine") or "")
+    command_lower = command_line.lower()
+    if name not in {"python.exe", "pythonw.exe"}:
+        return False
+    if RUNNER_SCRIPT.lower() not in command_lower:
+        return False
+    blocked_tokens = [
+        STATUS_SCRIPT.lower(),
+        "status_manipulante",
+        "status_ftmo_trial_auto",
+        "get-ciminstance",
+        "powershell",
+    ]
+    return not any(token in command_lower for token in blocked_tokens)
+
+
+def find_ftmo_trial_runner_processes() -> list[dict[str, Any]]:
+    command = [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-Command",
+        (
+            "Get-CimInstance Win32_Process | "
+            "Select-Object ProcessId,Name,CommandLine | "
+            "ConvertTo-Json -Compress"
+        ),
+    ]
+    try:
+        completed = subprocess.run(
+            command,
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=12,
+            check=False,
+        )
+        if completed.returncode != 0 or not completed.stdout.strip():
+            return []
+        processes = _as_process_list(json.loads(completed.stdout))
+    except Exception:
+        return []
+
+    runners: list[dict[str, Any]] = []
+    for proc in processes:
+        if not isinstance(proc, dict) or not _is_runner_process(proc):
+            continue
+        try:
+            pid = int(proc.get("ProcessId"))
+        except Exception:
+            continue
+        runners.append(
+            {
+                "pid": pid,
+                "name": str(proc.get("Name") or ""),
+                "command_line": str(proc.get("CommandLine") or ""),
+            }
+        )
+    return sorted(runners, key=lambda item: item["pid"])
+
+
+def open_position_status() -> dict[str, Any]:
+    status: dict[str, Any] = {
+        "timestamp_utc": now_iso(),
+        "state": "BLOCKED_MT5_UNAVAILABLE",
+        "position_open": None,
+        "positions_total": None,
+        "symbols": [],
+        "tickets": [],
+        "reason": "",
+    }
+    mt5, error = ensure_mt5()
+    if mt5 is None:
+        status["reason"] = error
+        return status
+    try:
+        positions = mt5.positions_get()
+    except Exception as exc:
+        status["state"] = "BLOCKED_POSITIONS_UNAVAILABLE"
+        status["reason"] = str(exc)
+        return status
+    if positions is None:
+        status["state"] = "BLOCKED_POSITIONS_UNAVAILABLE"
+        status["reason"] = f"positions_get returned None: {mt5.last_error() if hasattr(mt5, 'last_error') else 'unknown'}"
+        return status
+
+    open_positions = list(positions)
+    symbols: list[str] = []
+    tickets: list[Any] = []
+    for item in open_positions:
+        symbol = getattr(item, "symbol", None)
+        ticket = getattr(item, "ticket", None)
+        if symbol is not None:
+            symbols.append(str(symbol))
+        if ticket is not None:
+            tickets.append(ticket)
+    status.update(
+        {
+            "state": "POSITION_OPEN" if open_positions else "FLAT_CONFIRMED",
+            "position_open": bool(open_positions),
+            "positions_total": len(open_positions),
+            "symbols": sorted(set(symbols)),
+            "tickets": tickets,
+            "reason": "Open MT5 position detected" if open_positions else "No open MT5 positions",
+        }
+    )
+    return status
+
+
+def _text_for_account_detection(account_status: dict[str, Any]) -> str:
+    return " ".join(
+        str(account_status.get(key) or "")
+        for key in ("company", "server", "name", "trade_mode_label", "state", "reason")
+    ).lower()
+
+
+def _yes_no_text(value: Any) -> str:
+    if value is True:
+        return "SI"
+    if value is False:
+        return "NO"
+    return "UNKNOWN"
+
+
+def _safe_kv_value(value: Any) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, (list, tuple, set)):
+        raw = ",".join(str(item) for item in value)
+    else:
+        raw = str(value)
+    cleaned = raw.replace("\r", " ").replace("\n", " ").replace("=", ":")
+    for token in "&|<>^%":
+        cleaned = cleaned.replace(token, " ")
+    return cleaned.encode("ascii", errors="ignore").decode("ascii").strip()
+
+
+def write_key_value_file(path: Path, payload: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    lines = [f"{key}={_safe_kv_value(payload.get(key))}" for key in sorted(payload)]
+    path.write_text("\n".join(lines) + "\n", encoding="ascii")
+
+
+def start_safety_preflight(
+    *,
+    stop_file: Path = STOP_BOT_PATH,
+    runners: list[dict[str, Any]] | None = None,
+    account_status: dict[str, Any] | None = None,
+    position_status: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    runners = find_ftmo_trial_runner_processes() if runners is None else runners
+    runner_count = len(runners)
+    runner_pids = [item.get("pid") for item in runners]
+    stop_active = stop_file.exists()
+    result: dict[str, Any] = {
+        "timestamp_utc": now_iso(),
+        "decision": "BLOCKED_UNKNOWN",
+        "can_start": False,
+        "can_clear_stop_bot": False,
+        "stop_bot_active": stop_active,
+        "stop_bot_path": str(stop_file),
+        "runner_count": runner_count,
+        "runner_pids": runner_pids,
+        "position_open": None,
+        "position_state": "UNKNOWN",
+        "positions_total": None,
+        "ftmo_demo": False,
+        "exness_detected": False,
+        "real_detected": False,
+        "autotrading_ok": None,
+        "account_state": "NOT_CHECKED",
+        "account_label": "",
+        "mode": "",
+        "reason": "",
+        "order_sent": False,
+        "strategy_modified": False,
+        "real_touched": False,
+        "exness_touched": False,
+    }
+
+    if runner_count > 0:
+        result.update(
+            {
+                "decision": "ALREADY_RUNNING",
+                "reason": "Runner already active",
+            }
+        )
+        return result
+
+    account_status = account_gate() if account_status is None else account_status
+    account_text = _text_for_account_detection(account_status)
+    trade_mode_label = str(account_status.get("trade_mode_label") or "").upper()
+    exness_detected = "exness" in account_text
+    real_detected = (
+        trade_mode_label == "REAL"
+        or "real_account_detected" in account_text
+        or (" real" in f" {account_text}" and "demo" not in account_text and "trial" not in account_text)
+    )
+    ftmo_demo = bool(account_status.get("ftmo_demo_trial_confirmed")) and not exness_detected and not real_detected
+    autotrading_ok = account_status.get("terminal_trade_allowed")
+    result.update(
+        {
+            "ftmo_demo": ftmo_demo,
+            "exness_detected": exness_detected,
+            "real_detected": real_detected,
+            "autotrading_ok": autotrading_ok,
+            "account_state": account_status.get("state"),
+            "account_label": account_status.get("server") or "FTMO-Demo",
+            "mode": trade_mode_label or "UNKNOWN",
+        }
+    )
+
+    if exness_detected or real_detected:
+        result.update(
+            {
+                "decision": "EMERGENCY_ABORT_REAL_OR_EXNESS",
+                "reason": account_status.get("reason") or "Real or Exness account detected",
+            }
+        )
+        return result
+    if not ftmo_demo:
+        result.update(
+            {
+                "decision": "BLOCKED_ACCOUNT_NOT_FTMO_DEMO",
+                "reason": account_status.get("reason") or "Account is not confirmed as FTMO Demo",
+            }
+        )
+        return result
+
+    position_status = open_position_status() if position_status is None else position_status
+    position_open = position_status.get("position_open")
+    result.update(
+        {
+            "position_open": position_open,
+            "position_state": position_status.get("state") or "UNKNOWN",
+            "positions_total": position_status.get("positions_total"),
+        }
+    )
+    if position_open is True:
+        result.update(
+            {
+                "decision": "BLOCKED_POSITION_OPEN",
+                "reason": "Open position detected",
+            }
+        )
+        return result
+    if position_open is not False:
+        result.update(
+            {
+                "decision": "BLOCKED_POSITION_UNKNOWN",
+                "reason": position_status.get("reason") or "Could not confirm flat account",
+            }
+        )
+        return result
+
+    result.update(
+        {
+            "decision": "START_ALLOWED",
+            "can_start": True,
+            "can_clear_stop_bot": stop_active,
+            "reason": "Safe to start",
+        }
+    )
+    return result
+
+
+def _preflight_for_kv(preflight: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "ACCOUNT_LABEL": preflight.get("account_label"),
+        "ACCOUNT_STATE": preflight.get("account_state"),
+        "AUTOTRADING_OK": _yes_no_text(preflight.get("autotrading_ok")),
+        "CAN_CLEAR_STOP_BOT": _yes_no_text(preflight.get("can_clear_stop_bot")),
+        "CAN_START": _yes_no_text(preflight.get("can_start")),
+        "DECISION": preflight.get("decision"),
+        "EXNESS_DETECTED": _yes_no_text(preflight.get("exness_detected")),
+        "FTMO_DEMO": _yes_no_text(preflight.get("ftmo_demo")),
+        "MODE": preflight.get("mode"),
+        "POSITION_OPEN": _yes_no_text(preflight.get("position_open")),
+        "POSITION_STATE": preflight.get("position_state"),
+        "POSITIONS_TOTAL": preflight.get("positions_total"),
+        "REAL_DETECTED": _yes_no_text(preflight.get("real_detected")),
+        "REASON": preflight.get("reason"),
+        "RUNNER_COUNT": preflight.get("runner_count"),
+        "RUNNER_PIDS": preflight.get("runner_pids"),
+        "STOP_BOT_ACTIVE": _yes_no_text(preflight.get("stop_bot_active")),
+        "STOP_BOT_PATH": preflight.get("stop_bot_path"),
+    }
+
+
+def acquire_start_lock(
+    lock_dir: Path,
+    *,
+    stale_seconds: int = 60,
+    runners: list[dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    runners = find_ftmo_trial_runner_processes() if runners is None else runners
+    if runners:
+        return {
+            "acquired": False,
+            "state": "RUNNER_ALREADY_ACTIVE",
+            "reason": "Runner already active",
+            "runner_count": len(runners),
+            "runner_pids": [item.get("pid") for item in runners],
+            "lock_dir": str(lock_dir),
+        }
+
+    now = now_utc()
+    try:
+        lock_dir.mkdir(parents=True, exist_ok=False)
+        acquired = True
+        state = "LOCK_ACQUIRED"
+        reason = "Start lock acquired"
+    except FileExistsError:
+        age_seconds = None
+        try:
+            age_seconds = max(0.0, now.timestamp() - lock_dir.stat().st_mtime)
+        except Exception:
+            pass
+        if age_seconds is not None and age_seconds > stale_seconds:
+            try:
+                if lock_dir.is_dir():
+                    shutil.rmtree(lock_dir)
+                else:
+                    lock_dir.unlink()
+                lock_dir.mkdir(parents=True, exist_ok=False)
+                acquired = True
+                state = "STALE_LOCK_REPLACED"
+                reason = "Stale start lock replaced"
+            except Exception as exc:
+                acquired = False
+                state = "LOCK_ACTIVE"
+                reason = f"Could not replace stale lock: {exc}"
+        else:
+            acquired = False
+            state = "LOCK_ACTIVE"
+            reason = "Another start is already in progress"
+    except Exception as exc:
+        acquired = False
+        state = "LOCK_ERROR"
+        reason = str(exc)
+
+    if acquired:
+        try:
+            write_json(
+                lock_dir / "owner.json",
+                {
+                    "timestamp_utc": now.isoformat(),
+                    "pid": os.getpid(),
+                    "purpose": "MANIPULANTE_START_IDEMPOTENCE",
+                },
+            )
+        except Exception:
+            pass
+    return {
+        "acquired": acquired,
+        "state": state,
+        "reason": reason,
+        "runner_count": 0,
+        "runner_pids": [],
+        "lock_dir": str(lock_dir),
+    }
+
+
+def release_start_lock(lock_dir: Path) -> dict[str, Any]:
+    try:
+        if lock_dir.exists():
+            if lock_dir.is_dir():
+                shutil.rmtree(lock_dir)
+            else:
+                lock_dir.unlink()
+        return {"released": True, "state": "LOCK_RELEASED", "lock_dir": str(lock_dir)}
+    except Exception as exc:
+        return {"released": False, "state": "LOCK_RELEASE_FAILED", "reason": str(exc), "lock_dir": str(lock_dir)}
+
+
+def _lock_for_kv(lock_status: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "ACQUIRED": _yes_no_text(lock_status.get("acquired")),
+        "LOCK_DIR": lock_status.get("lock_dir"),
+        "REASON": lock_status.get("reason"),
+        "RUNNER_COUNT": lock_status.get("runner_count"),
+        "RUNNER_PIDS": lock_status.get("runner_pids"),
+        "STATE": lock_status.get("state"),
+    }
+
+
+def _main() -> int:
+    parser = argparse.ArgumentParser(description="FTMO trial safety helpers")
+    parser.add_argument("--start-guard-kv")
+    parser.add_argument("--acquire-start-lock-kv")
+    parser.add_argument("--release-start-lock", action="store_true")
+    parser.add_argument("--lock-dir")
+    args = parser.parse_args()
+
+    if args.acquire_start_lock_kv:
+        if not args.lock_dir:
+            raise SystemExit("--lock-dir is required")
+        status = acquire_start_lock(Path(args.lock_dir))
+        write_key_value_file(Path(args.acquire_start_lock_kv), _lock_for_kv(status))
+        return 0 if status.get("acquired") else 2
+    if args.release_start_lock:
+        if not args.lock_dir:
+            raise SystemExit("--lock-dir is required")
+        status = release_start_lock(Path(args.lock_dir))
+        return 0 if status.get("released") else 1
+    if args.start_guard_kv:
+        preflight = start_safety_preflight()
+        write_key_value_file(Path(args.start_guard_kv), _preflight_for_kv(preflight))
+        if preflight.get("decision") == "START_ALLOWED":
+            return 0
+        if preflight.get("decision") == "ALREADY_RUNNING":
+            return 2
+        return 3
+    parser.print_help()
+    return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(_main())

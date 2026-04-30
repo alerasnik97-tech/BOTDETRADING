@@ -14,10 +14,12 @@ LOG_DIR = ROOT / "MANIPULANTE" / "10_LOGS_PAPER" / "ftmo_trial_bot"
 QUICK_STATUS = LOG_DIR / "quick_status.txt"
 HEARTBEAT = LOG_DIR / "heartbeat.json"
 DECISIONS = LOG_DIR / "decisions.csv"
+STOP_BOT = ROOT / "MANIPULANTE" / "13_FTMO_TRIAL_AUTOMATION" / "STOP_BOT.txt"
 
 RUNNER_SCRIPT = "phase37_ftmo_trial_bot_runner.py"
 STATUS_SCRIPT = "phase37ze_quick_status_panel.py"
 STATUS_OK = "OK - BOT LISTO"
+STATUS_STOPPED = "BOT DETENIDO"
 STATUS_BLOCKED_HOURS = "BLOQUEADO - FUERA DE HORARIO"
 STATUS_BLOCKED_NEWS = "BLOQUEADO - NOTICIAS"
 STATUS_BLOCKED_SIGNAL = "BLOQUEADO - SIN SENAL"
@@ -28,6 +30,7 @@ STATUS_DUPLICATE = "DUPLICADO - LIMPIAR RUNNERS"
 
 VALID_STATES = {
     STATUS_OK,
+    STATUS_STOPPED,
     STATUS_BLOCKED_HOURS,
     STATUS_BLOCKED_NEWS,
     STATUS_BLOCKED_SIGNAL,
@@ -240,6 +243,8 @@ def _operation_open(qs: dict[str, str], hb: dict[str, Any]) -> str:
 
 
 def _safe_to_turn_off(qs: dict[str, str], hb: dict[str, Any], operation_open: str, runner_count: int) -> str:
+    if runner_count == 0 and operation_open == "NO":
+        return "SI"
     from_qs = _yes_no(qs.get("SEGURO_APAGAR_PC") or qs.get("SAFE_TO_TURN_OFF_PC"))
     if from_qs:
         return from_qs
@@ -250,6 +255,31 @@ def _safe_to_turn_off(qs: dict[str, str], hb: dict[str, Any], operation_open: st
         return from_hb
     # Si no hay operacion abierta, es seguro apagar (el usuario decide si cierra el bot)
     return "SI"
+
+
+def _live_position_open() -> str | None:
+    try:
+        from phase37_ftmo_trial_support import account_gate, open_position_status
+
+        account = account_gate()
+        account_text = " ".join(
+            str(account.get(key) or "") for key in ("company", "server", "name", "trade_mode_label", "state")
+        ).lower()
+        if (
+            not account.get("ftmo_demo_trial_confirmed")
+            or "exness" in account_text
+            or str(account.get("trade_mode_label") or "").upper() == "REAL"
+        ):
+            return None
+        status = open_position_status()
+    except Exception:
+        return None
+    value = status.get("position_open")
+    if value is True:
+        return "SI"
+    if value is False:
+        return "NO"
+    return None
 
 
 def build_status(
@@ -266,6 +296,7 @@ def build_status(
     mt5 = get_mt5_status() if mt5 is None else mt5
 
     runner_count = len(runners)
+    stop_bot_active = STOP_BOT.exists()
     pids = ", ".join(str(proc.pid) for proc in runners) if runners else "---"
     runner_state = "ACTIVO" if runner_count > 0 else "APAGADO"
     news = str(qs.get("NEWS") or hb.get("news_gate") or "---").strip() or "---"
@@ -275,7 +306,8 @@ def build_status(
         or last_decision_row.get("final_decision")
         or "---"
     ).strip()
-    operation_open = _operation_open(qs, hb)
+    live_position = _live_position_open()
+    operation_open = "SI" if live_position == "SI" else _operation_open(qs, hb)
     safe_off = _safe_to_turn_off(qs, hb, operation_open, runner_count)
     motivo = str(qs.get("MOTIVO") or "").strip().upper()
     orders_message = str(qs.get("ORDENES") or hb.get("orders_message") or "---").strip() or "---"
@@ -295,10 +327,13 @@ def build_status(
         estado = STATUS_OK
     if runner_count > 1:
         estado = STATUS_DUPLICATE
-    elif runner_count == 0:
-        estado = STATUS_ERROR
     elif operation_open == "SI" or _yes_no(hb.get("critical_position_still_open")) == "SI":
         estado = STATUS_DANGER
+    elif runner_count == 0 and stop_bot_active:
+        estado = STATUS_STOPPED
+        action = "Use START_MANIPULANTE.bat para iniciar"
+    elif runner_count == 0:
+        estado = STATUS_ERROR
     elif motivo == "AUTOTRADING_DESHABILITADO" or hb.get("order_readiness_state") == "BLOCKED_AUTOTRADING_DISABLED":
         estado = STATUS_BLOCKED_AUTOTRADING
     elif news not in {"ALLOW", "---"}:
@@ -343,6 +378,8 @@ def build_status(
         "TRADEAPI_DISABLED": tradeapi_disabled,
         "PERMISSION_CONCLUSION": permission_conclusion,
         "ACCION": action,
+        "STOP_BOT_ACTIVO": "SI" if stop_bot_active else "NO",
+        "MOTIVO": "STOP_BOT ACTIVO" if stop_bot_active else (motivo or "---"),
         "NEWS": news,
         "ULTIMA_DECISION": decision or "---",
         "OPERACION_ABIERTA": operation_open,
@@ -359,11 +396,33 @@ def render_panel(status: dict[str, str], mode: str = "clean") -> str:
 
 
 def render_panel_clean(status: dict[str, str]) -> str:
+    if status["ESTADO_GENERAL"] == STATUS_STOPPED:
+        lines = [
+            "=" * 60,
+            "MANIPULANTE - ESTADO DEL BOT",
+            "Actualiza cada 30 segundos",
+            "=" * 60,
+            "",
+            "ESTADO: BOT DETENIDO",
+            "BOT: APAGADO",
+            "MOTIVO: STOP_BOT ACTIVO",
+            "ACCION: Use START_MANIPULANTE.bat para iniciar",
+            "",
+            f"CUENTA: {status['CUENTA'].split(' / ')[0]}",
+            f"OPERACION ABIERTA: {status['OPERACION_ABIERTA']}",
+            f"SEGURO APAGAR PC: {status['SEGURO_APAGAR_PC']}",
+            "",
+            "=" * 60,
+            "CTRL+C para cerrar este panel. El bot NO se apaga.",
+            "=" * 60,
+        ]
+        return "\n".join(lines)
+
     # Mapeo de noticias
     noticias = "BLOQUEADO" if status["NEWS"] not in {"ALLOW", "---"} else "PERMITIDO"
     # Mapeo de ordenes
     ordenes = "LISTAS"
-    if status["ESTADO_GENERAL"] in {STATUS_BLOCKED_AUTOTRADING, STATUS_ERROR, STATUS_DUPLICATE}:
+    if status["ESTADO_GENERAL"] in {STATUS_STOPPED, STATUS_BLOCKED_AUTOTRADING, STATUS_ERROR, STATUS_DUPLICATE}:
         ordenes = "BLOQUEADAS"
     elif status["ESTADO_GENERAL"] in {STATUS_BLOCKED_HOURS, STATUS_BLOCKED_NEWS}:
         ordenes = "BLOQUEADAS"
@@ -400,6 +459,7 @@ def render_panel_clean(status: dict[str, str]) -> str:
         "BLOQUEADO = Bot activo pero no opera por regla",
         "PELIGRO   = No apagar PC",
         "ERROR     = Revisar sistema",
+        "DETENIDO  = STOP_BOT activo; START lo reactiva si es seguro",
         "DUPLICADO = Limpiar runners",
         "=" * 60,
         "",
@@ -431,6 +491,8 @@ def render_panel_technical(status: dict[str, str]) -> str:
         f"PYTHON API BLOQUEADA: {status['TRADEAPI_DISABLED']}",
         f"CONCLUSION: {status['PERMISSION_CONCLUSION']}",
         f"ACCION: {status['ACCION']}",
+        f"STOP_BOT ACTIVO: {status['STOP_BOT_ACTIVO']}",
+        f"MOTIVO: {status['MOTIVO']}",
         "",
         f"NEWS: {status['NEWS']}",
         f"ULTIMA DECISION: {status['ULTIMA_DECISION']}",

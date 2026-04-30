@@ -15,9 +15,11 @@ Bienvenido a la documentacion oficial de **MANIPULANTE**. Siga el orden de lectu
 - **[MANIPULANTE_DEEP_EXPLAINER_REPORT.md](file:///c:/Users/alera/Desktop/Bot/BOT%20DE%20TRADING%20ultimo/MANIPULANTE/14_ANALISIS/MANIPULANTE_DEEP_EXPLAINER_REPORT.md)**: Analisis cualitativo de la ventaja estadistica.
 
 ## Uso Diario (Ciclo Seguro - 3 Botones)
-- **START_MANIPULANTE.bat**: Encender.
+- **START_MANIPULANTE.bat**: Encender. Si `STOP_BOT.txt` estaba activo y no hay riesgo abierto, lo limpia y prende. Si ya esta prendido, no duplica.
 - **STATUS_MANIPULANTE.bat**: Mirar.
 - **STOP_MANIPULANTE.bat**: Apagar.
+
+START es idempotente: tocarlo una vez o varias veces solo puede iniciar un runner, avisar que ya esta prendido, o bloquear por seguridad. Nunca debe usarse para operar cuentas reales ni Exness.
 
 ---
 *MANIPULANTE: Disciplina, Estadistica y Preservacion.*

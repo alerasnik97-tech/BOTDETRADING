@@ -1,0 +1,236 @@
+{
+  "timestamp_utc": "2026-04-30T11:00:52.826759+00:00",
+  "phase": "PHASE42C_START_ALWAYS_SAFE_IDEMPOTENT",
+  "total": 8,
+  "pass": 8,
+  "fail": 0,
+  "tests": [
+    {
+      "name": "START con STOP_BOT activo y sin posicion permite limpiar e iniciar",
+      "pass": true,
+      "details": {
+        "timestamp_utc": "2026-04-30T11:00:52.822335+00:00",
+        "decision": "START_ALLOWED",
+        "can_start": true,
+        "can_clear_stop_bot": true,
+        "stop_bot_active": true,
+        "stop_bot_path": "C:\\Users\\alera\\AppData\\Local\\Temp\\tmp794lzruu\\STOP_BOT.txt",
+        "runner_count": 0,
+        "runner_pids": [],
+        "position_open": false,
+        "position_state": "FLAT_CONFIRMED",
+        "positions_total": 0,
+        "ftmo_demo": true,
+        "exness_detected": false,
+        "real_detected": false,
+        "autotrading_ok": true,
+        "account_state": "FTMO_DEMO_TRIAL_CONFIRMED",
+        "account_label": "FTMO-Demo",
+        "mode": "DEMO",
+        "reason": "Safe to start",
+        "order_sent": false,
+        "strategy_modified": false,
+        "real_touched": false,
+        "exness_touched": false
+      }
+    },
+    {
+      "name": "START con bot activo no duplica",
+      "pass": true,
+      "details": {
+        "timestamp_utc": "2026-04-30T11:00:52.822992+00:00",
+        "decision": "ALREADY_RUNNING",
+        "can_start": false,
+        "can_clear_stop_bot": false,
+        "stop_bot_active": true,
+        "stop_bot_path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\13_FTMO_TRIAL_AUTOMATION\\STOP_BOT.txt",
+        "runner_count": 1,
+        "runner_pids": [
+          4242
+        ],
+        "position_open": null,
+        "position_state": "UNKNOWN",
+        "positions_total": null,
+        "ftmo_demo": false,
+        "exness_detected": false,
+        "real_detected": false,
+        "autotrading_ok": null,
+        "account_state": "NOT_CHECKED",
+        "account_label": "",
+        "mode": "",
+        "reason": "Runner already active",
+        "order_sent": false,
+        "strategy_modified": false,
+        "real_touched": false,
+        "exness_touched": false
+      }
+    },
+    {
+      "name": "START tocado 3 veces conserva un solo permiso de arranque",
+      "pass": true,
+      "details": {
+        "first": {
+          "acquired": true,
+          "state": "LOCK_ACQUIRED",
+          "reason": "Start lock acquired",
+          "runner_count": 0,
+          "runner_pids": [],
+          "lock_dir": "C:\\Users\\alera\\AppData\\Local\\Temp\\tmppp2s3_z5\\start.lock"
+        },
+        "second": {
+          "acquired": false,
+          "state": "LOCK_ACTIVE",
+          "reason": "Another start is already in progress",
+          "runner_count": 0,
+          "runner_pids": [],
+          "lock_dir": "C:\\Users\\alera\\AppData\\Local\\Temp\\tmppp2s3_z5\\start.lock"
+        },
+        "third": {
+          "acquired": false,
+          "state": "LOCK_ACTIVE",
+          "reason": "Another start is already in progress",
+          "runner_count": 0,
+          "runner_pids": [],
+          "lock_dir": "C:\\Users\\alera\\AppData\\Local\\Temp\\tmppp2s3_z5\\start.lock"
+        }
+      }
+    },
+    {
+      "name": "STATUS con STOP_BOT activo muestra BOT DETENIDO",
+      "pass": true,
+      "details": {
+        "ESTADO_GENERAL": "BOT DETENIDO",
+        "CUENTA": "FTMO-Demo / DEMO",
+        "BOT": "APAGADO",
+        "RUNNER": "APAGADO",
+        "PID_RUNNER": "---",
+        "MT5": "CERRADO",
+        "ORDENES": "---",
+        "ORDER_CHECK": "---",
+        "ORDER_SEND": "GATEADO",
+        "ACCOUNT_TRADE_ALLOWED": null,
+        "TERMINAL_TRADE_ALLOWED": null,
+        "TRADEAPI_DISABLED": null,
+        "PERMISSION_CONCLUSION": "---",
+        "ACCION": "Use START_MANIPULANTE.bat para iniciar",
+        "STOP_BOT_ACTIVO": "SI",
+        "MOTIVO": "STOP_BOT ACTIVO",
+        "NEWS": "---",
+        "ULTIMA_DECISION": "---",
+        "OPERACION_ABIERTA": "NO",
+        "SEGURO_APAGAR_PC": "SI",
+        "ULTIMA_ACTUALIZACION_ARG": "---",
+        "ULTIMA_ACTUALIZACION_NY": "---"
+      }
+    },
+    {
+      "name": "START con cuenta real simulada hace emergency abort",
+      "pass": true,
+      "details": {
+        "timestamp_utc": "2026-04-30T11:00:52.826446+00:00",
+        "decision": "EMERGENCY_ABORT_REAL_OR_EXNESS",
+        "can_start": false,
+        "can_clear_stop_bot": false,
+        "stop_bot_active": true,
+        "stop_bot_path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\13_FTMO_TRIAL_AUTOMATION\\STOP_BOT.txt",
+        "runner_count": 0,
+        "runner_pids": [],
+        "position_open": null,
+        "position_state": "UNKNOWN",
+        "positions_total": null,
+        "ftmo_demo": false,
+        "exness_detected": false,
+        "real_detected": true,
+        "autotrading_ok": true,
+        "account_state": "BLOCKED_REAL_ACCOUNT_DETECTED",
+        "account_label": "FTMO-Demo",
+        "mode": "REAL",
+        "reason": "ok",
+        "order_sent": false,
+        "strategy_modified": false,
+        "real_touched": false,
+        "exness_touched": false
+      }
+    },
+    {
+      "name": "START con Exness simulado hace emergency abort",
+      "pass": true,
+      "details": {
+        "timestamp_utc": "2026-04-30T11:00:52.826500+00:00",
+        "decision": "EMERGENCY_ABORT_REAL_OR_EXNESS",
+        "can_start": false,
+        "can_clear_stop_bot": false,
+        "stop_bot_active": true,
+        "stop_bot_path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\13_FTMO_TRIAL_AUTOMATION\\STOP_BOT.txt",
+        "runner_count": 0,
+        "runner_pids": [],
+        "position_open": null,
+        "position_state": "UNKNOWN",
+        "positions_total": null,
+        "ftmo_demo": false,
+        "exness_detected": true,
+        "real_detected": false,
+        "autotrading_ok": true,
+        "account_state": "FTMO_DEMO_TRIAL_CONFIRMED",
+        "account_label": "Exness-Demo",
+        "mode": "DEMO",
+        "reason": "ok",
+        "order_sent": false,
+        "strategy_modified": false,
+        "real_touched": false,
+        "exness_touched": false
+      }
+    },
+    {
+      "name": "START con posicion abierta no limpia ni reinicia",
+      "pass": true,
+      "details": {
+        "timestamp_utc": "2026-04-30T11:00:52.826534+00:00",
+        "decision": "BLOCKED_POSITION_OPEN",
+        "can_start": false,
+        "can_clear_stop_bot": false,
+        "stop_bot_active": true,
+        "stop_bot_path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\13_FTMO_TRIAL_AUTOMATION\\STOP_BOT.txt",
+        "runner_count": 0,
+        "runner_pids": [],
+        "position_open": true,
+        "position_state": "POSITION_OPEN",
+        "positions_total": 1,
+        "ftmo_demo": true,
+        "exness_detected": false,
+        "real_detected": false,
+        "autotrading_ok": true,
+        "account_state": "FTMO_DEMO_TRIAL_CONFIRMED",
+        "account_label": "FTMO-Demo",
+        "mode": "DEMO",
+        "reason": "Open position detected",
+        "order_sent": false,
+        "strategy_modified": false,
+        "real_touched": false,
+        "exness_touched": false
+      }
+    },
+    {
+      "name": "Seguridad estatica de START",
+      "pass": true,
+      "details": {
+        "order_sent": false,
+        "strategy_modified": false,
+        "real_touched": false,
+        "exness_touched": false,
+        "runner_invocations_in_start_bat": 1,
+        "contains_no_real_flag": true,
+        "contains_order_send_call": false
+      }
+    }
+  ],
+  "security": {
+    "order_sent": false,
+    "strategy_modified": false,
+    "real_touched": false,
+    "exness_touched": false,
+    "runner_invocations_in_start_bat": 1,
+    "contains_no_real_flag": true,
+    "contains_order_send_call": false
+  }
+}
