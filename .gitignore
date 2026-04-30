@@ -82,3 +82,8 @@ Terminal/
 *.dat
 *.sqlite
 *.db
+
+# --- MANIPULANTE OBSERVABILITY LOCAL DATA ---
+MANIPULANTE/16_OBSERVABILITY/db/*.sqlite
+MANIPULANTE/16_OBSERVABILITY/jsonl/*.jsonl
+MANIPULANTE/16_OBSERVABILITY/daily/*_daily_observability_report.json
