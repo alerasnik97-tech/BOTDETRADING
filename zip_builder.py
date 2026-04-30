@@ -9,7 +9,7 @@ VAL_DIR = ROOT / 'BOT_V2_DAYTIME_LAB' / 'outputs' / 'final_project_structure_man
 VAL_DIR.mkdir(parents=True, exist_ok=True)
 
 banned_extensions = {'.zip', '.zipbak', '.building', '.pkl', '.parquet', '.bi5', '.db', '.sqlite', '.dll', '.exe'}
-banned_names = {'.env', 'mt5_local_config.json', '.gitignore'}
+banned_names = {'.env', 'mt5_local_config.json', '.gitignore', 'alert_state.json'}
 banned_tokens = ['secret', 'password', 'token', 'credential', 'apikey', 'api_key']
 
 # Banned sub-dirs inside BOT_V2_DAYTIME_LAB
@@ -82,7 +82,7 @@ def should_include(path):
                 return False
             include_patterns = ['phase18_h1_fractal_sweep', 'phase18_first_3m_choch',
                                'phase26', 'phase27', 'phase28', 'phase29', 'phase30',
-                               'phase31', 'phase32', 'phase37', 'run_phase25', 'run_phase24',
+                               'phase31', 'phase32', 'phase37', 'phase45', 'run_phase25', 'run_phase24',
                                'canonical_zip', 'rebuild', 'debug', 'cleanup']
             return any(p in name for p in include_patterns)
         return False
