@@ -1,0 +1,236 @@
+# Phase44 Preflight
+
+- timestamp_utc: 2026-04-30T11:37:37.137470+00:00
+- cwd: `C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo`
+- cwd_correct: True
+- branch: `main`
+- remote_origin: `https://github.com/alerasnik97-tech/bottrading.git`
+- verdict: PREFLIGHT_PASS_WITH_DIRTY_WORKTREE
+
+## Required files
+- MANIPULANTE: True
+- START_MANIPULANTE.bat: True
+- STATUS_MANIPULANTE.bat: True
+- STOP_MANIPULANTE.bat: True
+- 15_FORWARD_DEMO_SCORECARD: True
+- quick_status: True
+- heartbeat: True
+- decisions: True
+
+## Logs actuales
+- `MANIPULANTE/10_LOGS_PAPER/dry_run_decisions/2026-04-29_decisions.csv` (1592 bytes)
+- `MANIPULANTE/10_LOGS_PAPER/ftmo_trial_bot/decisions.csv` (293258 bytes)
+- `MANIPULANTE/10_LOGS_PAPER/ftmo_trial_bot/forward_scorecard_status.txt` (345 bytes)
+- `MANIPULANTE/10_LOGS_PAPER/ftmo_trial_bot/heartbeat.json` (1515 bytes)
+- `MANIPULANTE/10_LOGS_PAPER/ftmo_trial_bot/heartbeat.txt` (1255 bytes)
+- `MANIPULANTE/10_LOGS_PAPER/ftmo_trial_bot/quick_status.txt` (582 bytes)
+- `MANIPULANTE/10_LOGS_PAPER/ftmo_trial_bot/runner.lock` (5 bytes)
+
+## Safety
+- no_mt5_touch: True
+- no_live_execution_touch: True
+- no_strategy_changes: True
+- no_orders: True
+- observability_only: True
+
+## Git status
+- `M BOT_V2_DAYTIME_LAB/ZIP_CONTENTS_MANIFEST.md`
+- ` M BOT_V2_DAYTIME_LAB/outputs/final_project_structure_manipulante/zip_validation/final_structure_zip_entries.txt`
+- ` M BOT_V2_DAYTIME_LAB/outputs/final_project_structure_manipulante/zip_validation/final_structure_zip_validation.json`
+- ` M BOT_V2_DAYTIME_LAB/outputs/final_project_structure_manipulante/zip_validation/final_structure_zip_validation.md`
+- ` M MANIPULANTE/04_OPERACION_DIARIA/MANIPULANTE_DAILY_RUNBOOK.md`
+- ` M MANIPULANTE/04_OPERACION_DIARIA/MANIPULANTE_KILL_SWITCH.md`
+- ` M MANIPULANTE/09_COMPLIANCE/MT5_LIVE_NEWS_ADAPTER/MANIPULANTE_CalendarBootstrapEA.mq5`
+- ` M MANIPULANTE/12_MICRO_REAL_READINESS/MICRO_REAL_KILL_SWITCH.md`
+- ` M MANIPULANTE/12_MICRO_REAL_READINESS/MICRO_REAL_POSITION_SIZE_POLICY.md`
+- ` D MANIPULANTE/STATUS_TECNICO_MANIPULANTE.bat`
+- ` M ZIP_CONTENTS_MANIFEST.md`
+- ` M legacy_archive_2026/_audit_dest_extras.ps1`
+- ` M mt5_demo_executor_lab/mt5_order_router.py`
+- ` M reports/canonical_context_master_20260416_163108/AGENTS.md`
+- ` M reports/canonical_context_master_20260416_163108/RESEARCH_OPERATING_SYSTEM.md`
+- ` M reports/canonical_context_master_20260416_163108/RISK_PROTOCOL.md`
+- ` M reports/canonical_microstructure_iter2_20260416_172155/AGENTS.md`
+- ` M reports/canonical_microstructure_iter2_20260416_172155/RESEARCH_OPERATING_SYSTEM.md`
+- ` M reports/canonical_microstructure_iter2_20260416_172155/RISK_PROTOCOL.md`
+- ` M research_lab/README.md`
+- `?? BOT_V2_DAYTIME_LAB/ZIP_UPLOAD_IDENTITY_MARKER.md`
+- `?? BOT_V2_DAYTIME_LAB/configs/phase24_forward_demo_candidate_config.json`
+- `?? BOT_V2_DAYTIME_LAB/configs/phase24_forward_demo_candidate_config_hash.txt`
+- `?? BOT_V2_DAYTIME_LAB/configs/phase25_forward_demo_candidate_config.json`
+- `?? BOT_V2_DAYTIME_LAB/configs/phase25_forward_demo_candidate_config_hash.txt`
+- `?? BOT_V2_DAYTIME_LAB/configs/prop_firm_rules_config.json`
+- `?? BOT_V2_DAYTIME_LAB/docs/CANONICAL_ZIP_CHECKLIST.md`
+- `?? BOT_V2_DAYTIME_LAB/docs/CANONICAL_ZIP_OPERATING_STANDARD.md`
+- `?? BOT_V2_DAYTIME_LAB/docs/PHASE25_DAILY_RUNBOOK.md`
+- `?? BOT_V2_DAYTIME_LAB/docs/PHASE25_FORWARD_DEMO_PROTOCOL.md`
+- `?? BOT_V2_DAYTIME_LAB/docs/PHASE25_FORWARD_REVIEW_CRITERIA.md`
+- `?? BOT_V2_DAYTIME_LAB/docs/PHASE25_KILL_SWITCH_POLICY.md`
+- `?? BOT_V2_DAYTIME_LAB/docs/PHASE26B_DATA_ACQUISITION_REQUIREMENTS_2015_2019.md`
+- `?? BOT_V2_DAYTIME_LAB/docs/PHASE26B_DATA_CERTIFICATION_CHECKLIST_2015_2019.md`
+- `?? BOT_V2_DAYTIME_LAB/docs/PHASE32C_FUNDEDNEXT_CHECKOUT_VERIFICATION_CHECKLIST.md`
+- `?? BOT_V2_DAYTIME_LAB/docs/PHASE32C_FUNDEDNEXT_KILL_SWITCH.md`
+- `?? BOT_V2_DAYTIME_LAB/docs/PHASE32C_FUNDEDNEXT_PRE_TRADE_CHECKLIST.md`
+- `?? BOT_V2_DAYTIME_LAB/docs/PHASE32C_FUNDEDNEXT_STELLAR_LITE_OPERATIONAL_RULEBOOK.md`
+- `?? BOT_V2_DAYTIME_LAB/docs/PHASE32C_FUNDEDNEXT_WEEKEND_POLICY.md`
+- `?? BOT_V2_DAYTIME_LAB/docs/PHASE32_DAILY_RUNBOOK.md`
+- `?? BOT_V2_DAYTIME_LAB/docs/PHASE32_DUAL_LEDGER_PROTOCOL.md`
+- `?? BOT_V2_DAYTIME_LAB/docs/PHASE32_FTMO_PAPER_EVALUATION_PLAN.md`
+- `?? BOT_V2_DAYTIME_LAB/docs/PHASE32_KILL_SWITCH_POLICY.md`
+- `?? BOT_V2_DAYTIME_LAB/docs/PHASE32_REVIEW_CRITERIA.md`
+- `?? BOT_V2_DAYTIME_LAB/docs/PHASE32_RISK_POLICY.md`
+- `?? BOT_V2_DAYTIME_LAB/reports/PHASE36R_37A_ORDER_SEND_REPAIR_MICRO_REAL_GATE_REPORT.json`
+- `?? BOT_V2_DAYTIME_LAB/reports/PHASE36R_37A_ORDER_SEND_REPAIR_MICRO_REAL_GATE_REPORT.md`
+- `?? BOT_V2_DAYTIME_LAB/reports/PHASE36S_LIVE_NEWS_LOT_FEASIBILITY_REPORT.json`
+- `?? BOT_V2_DAYTIME_LAB/reports/PHASE36S_LIVE_NEWS_LOT_FEASIBILITY_REPORT.md`
+- `?? BOT_V2_DAYTIME_LAB/reports/PHASE36_LIVE_NEWS_MT5_DRYRUN_READINESS_REPORT.json`
+- `?? BOT_V2_DAYTIME_LAB/reports/PHASE36_LIVE_NEWS_MT5_DRYRUN_READINESS_REPORT.md`
+- `?? BOT_V2_DAYTIME_LAB/reports/PHASE37B_FTMO_TRIAL_NEWS_SIGNAL_FINALIZATION_REPORT.json`
+- `?? BOT_V2_DAYTIME_LAB/reports/PHASE37B_FTMO_TRIAL_NEWS_SIGNAL_FINALIZATION_REPORT.md`
+- `?? BOT_V2_DAYTIME_LAB/reports/PHASE37C_FULL_AUTO_FTMO_TRIAL_BOOTSTRAP_REPORT.json`
+- `?? BOT_V2_DAYTIME_LAB/reports/PHASE37C_FULL_AUTO_FTMO_TRIAL_BOOTSTRAP_REPORT.md`
+- `?? BOT_V2_DAYTIME_LAB/reports/PHASE37D_FTMO_TRIAL_API_NEWS_SIGNAL_AUTO_REPORT.json`
+- `?? BOT_V2_DAYTIME_LAB/reports/PHASE37D_FTMO_TRIAL_API_NEWS_SIGNAL_AUTO_REPORT.md`
+- `?? BOT_V2_DAYTIME_LAB/reports/PHASE37_FTMO_SWING_FREE_TRIAL_AUTOMATION_REPORT.json`
+- `?? BOT_V2_DAYTIME_LAB/reports/PHASE37_FTMO_SWING_FREE_TRIAL_AUTOMATION_REPORT.md`
+- `?? BOT_V2_DAYTIME_LAB/src/BOT_V2_DAYTIME_LAB/`
+- `?? BOT_V2_DAYTIME_LAB/src/phase36_exness_lot_validator.py`
+- `?? BOT_V2_DAYTIME_LAB/src/phase36_exness_symbol_gate.py`
+- `?? BOT_V2_DAYTIME_LAB/src/phase36_live_data_quality_gate.py`
+- `?? BOT_V2_DAYTIME_LAB/src/phase36_live_news_fortress.py`
+- `?? BOT_V2_DAYTIME_LAB/src/phase36_manipulante_dry_run_engine.py`
+- `?? BOT_V2_DAYTIME_LAB/src/phase36_readiness_orchestrator.py`
+- `?? BOT_V2_DAYTIME_LAB/src/phase36_server_time_validator.py`
+- `?? BOT_V2_DAYTIME_LAB/src/phase36_time_gate_validator.py`
+- `?? BOT_V2_DAYTIME_LAB/src/phase36r_37a_micro_real_gate_orchestrator.py`
+- `?? BOT_V2_DAYTIME_LAB/src/phase36s_live_news_lot_feasibility_orchestrator.py`
+- `?? BOT_V2_DAYTIME_LAB/src/phase36s_lot_feasibility_100usd.py`
+- `?? BOT_V2_DAYTIME_LAB/src/phase41_compare_replay.py`
+- `?? BOT_V2_DAYTIME_LAB/src/phase41_excel.py`
+- `?? BOT_V2_DAYTIME_LAB/src/phase41_manipulante_hybrid_replay.py`
+- `?? BOT_V2_DAYTIME_LAB/src/phase41_metrics.py`
+- `?? BOT_V2_profile_bootstrap_hack.py`
+- `?? "DATA MANUAL/analytics (1).csv"`
+- `?? LEER_PARA_SUBIR_ZIP.txt`
+- `?? MANIPULANTE/08_CHECKLISTS/CHECKLIST_LIVE_NEWS_GATE.md`
+- `?? MANIPULANTE/09_COMPLIANCE/API_LIVE_NEWS_PROVIDER/`
+- `?? MANIPULANTE/09_COMPLIANCE/LIVE_NEWS_FORTRESS_POLICY.md`
+- `?? MANIPULANTE/09_COMPLIANCE/live_news_cache/`
+- `?? MANIPULANTE/09_COMPLIANCE/live_news_fortress_config.json`
+- `?? MANIPULANTE/09_COMPLIANCE/news_automation_status.json`
+- `?? MANIPULANTE/10_LOGS_PAPER/dry_run_decisions/`
+- `?? MANIPULANTE/10_LOGS_PAPER/ftmo_trial_bot/decisions.csv`
+- `?? MANIPULANTE/10_LOGS_PAPER/ftmo_trial_bot/heartbeat.json`
+- `?? MANIPULANTE/10_LOGS_PAPER/ftmo_trial_bot/heartbeat.txt`
+- `?? MANIPULANTE/10_LOGS_PAPER/ftmo_trial_bot/quick_status.txt`
+- `?? MANIPULANTE/10_LOGS_PAPER/ftmo_trial_bot/runner.lock`
+- `?? MANIPULANTE/12_MICRO_REAL_READINESS/MICRO_REAL_ACTIVATION_PROTOCOL.md`
+- `?? MANIPULANTE/12_MICRO_REAL_READINESS/NO_REAL_UNTIL_CONFIRMATION.md`
+- `?? SUBIR_ESTE_ZIP_A_CHATGPT.txt`
+- `?? ZIP_VALIDADO_SUBIR_ESTE.txt`
+- `?? audits/sunday_gap_audit/sunday_gap_counts.csv`
+- `?? audits/sunday_gap_audit/sunday_to_monday_case_studies.csv`
+- `?? bootstrap.ini`
+- `?? bypass_zip_output.json`
+- `?? data_precision/dukascopy/EURUSD_M1_ASK.csv`
+- `?? data_precision/dukascopy/EURUSD_M1_BID.csv`
+- `?? data_precision/dukascopy/EURUSD_M1_MID.csv`
+- `?? data_precision_raw/dukascopy/EURUSD_M1_ASK.csv`
+- `?? data_precision_raw/dukascopy/EURUSD_M1_BID.csv`
+- `?? data_precision_raw/dukascopy_probe2/EURUSD_M1_ASK.csv`
+- `?? data_precision_raw/dukascopy_probe2/EURUSD_M1_BID.csv`
+- `?? data_precision_raw/dukascopy_probe3/EURUSD_M1_ASK.csv`
+- `?? data_precision_raw/dukascopy_probe3/EURUSD_M1_BID.csv`
+- `?? data_usdjpy_2016_2019/prepared/USDJPY_H1.csv`
+- `?? data_usdjpy_2016_2019/prepared/USDJPY_M15.csv`
+- `?? data_usdjpy_2016_2019/prepared/USDJPY_M5.csv`
+- `?? data_usdjpy_2016_2021/prepared/USDJPY_H1.csv`
+- `?? data_usdjpy_2016_2021/prepared/USDJPY_M15.csv`
+- `?? data_usdjpy_2016_2021/prepared/USDJPY_M5.csv`
+- `?? data_usdjpy_2022_2025/prepared/USDJPY_H1.csv`
+- `?? data_usdjpy_2022_2025/prepared/USDJPY_M15.csv`
+- `?? data_usdjpy_2022_2025/prepared/USDJPY_M5.csv`
+- `?? debug_zip_identity_output.json`
+- `?? desktop_bypass_output.json`
+- `?? ecb_stage2_checkpoints/stage2_2020/equity_curve.csv`
+- `?? ecb_stage2_checkpoints/stage2_2020/monthly_stats.csv`
+- `?? ecb_stage2_checkpoints/stage2_2020/signal_log.csv`
+- `?? ecb_stage2_checkpoints/stage2_2020/trades.csv`
+- `?? ecb_stage2_checkpoints/stage2_2020/yearly_stats.csv`
+- `?? external_scbi_research_harness/outputs/baseline_truth_model/baseline_sweep_audit.csv`
+- `?? external_scbi_research_harness/outputs/baseline_truth_model/baseline_trades.csv`
+- `?? external_scbi_research_harness/outputs/matrix_axis_scan/research_matrix_results.csv`
+- `?? external_scbi_research_harness/outputs/matrix_axis_scan/research_top_variants.csv`
+- `?? external_scbi_research_harness/outputs/matrix_axis_scan/summary_refresh/research_matrix_results.csv`
+- `?? external_scbi_research_harness/outputs/matrix_axis_scan/summary_refresh/research_top_variants.csv`
+- `?? force_visible_zip_output.json`
+- `?? git_operations.py`
+- `?? institutional_research_candidate_lab/outputs/baseline_sweep_audit.csv`
+- `?? institutional_research_candidate_lab/outputs/baseline_trades.csv`
+- `?? institutional_research_candidate_lab/outputs/period_validation_2015_01_01_to_2019_12_31/drawdown_curve_2015_2019.csv`
+- `?? institutional_research_candidate_lab/outputs/period_validation_2015_01_01_to_2019_12_31/hourly_breakdown_2015_2019.csv`
+- `?? institutional_research_candidate_lab/outputs/period_validation_2015_01_01_to_2019_12_31/level_breakdown_2015_2019.csv`
+- `?? institutional_research_candidate_lab/outputs/period_validation_2015_01_01_to_2019_12_31/monthly_breakdown_2015_2019.csv`
+- `?? institutional_research_candidate_lab/outputs/period_validation_2015_01_01_to_2019_12_31/news_filter_breakdown_2015_2019.csv`
+- `?? institutional_research_candidate_lab/outputs/period_validation_2015_01_01_to_2019_12_31/session_breakdown_2015_2019.csv`
+- `?? institutional_research_candidate_lab/outputs/period_validation_2015_01_01_to_2019_12_31/trades_2015_2019.csv`
+- `?? institutional_research_candidate_lab/outputs/period_validation_2015_01_01_to_2019_12_31/weekday_breakdown_2015_2019.csv`
+- `?? institutional_research_candidate_lab/outputs/period_validation_2015_01_01_to_2019_12_31/yearly_breakdown_2015_2019.csv`
+- `?? institutional_research_candidate_lab/outputs/period_validation_2026_01_01_to_2026_04_23/level_breakdown_2026_q1_q2_partial.csv`
+- `?? institutional_research_candidate_lab/outputs/period_validation_2026_01_01_to_2026_04_23/monthly_breakdown_2026_q1_q2_partial.csv`
+- `?? institutional_research_candidate_lab/outputs/period_validation_2026_01_01_to_2026_04_23/news_filter_breakdown_2026_q1_q2_partial.csv`
+- `?? institutional_research_candidate_lab/outputs/period_validation_2026_01_01_to_2026_04_23/trades_2026_01_01_to_2026_04_23.csv`
+- `?? institutional_research_candidate_lab/outputs/period_validation_2026_01_01_to_2026_04_23/weekday_breakdown_2026_q1_q2_partial.csv`
+- `?? institutional_research_candidate_lab/outputs/period_validation_2026_01_01_to_2026_04_23_after_sunday_fix/level_breakdown_after_sunday_fix.csv`
+- `?? institutional_research_candidate_lab/outputs/period_validation_2026_01_01_to_2026_04_23_after_sunday_fix/monday_impact_before_vs_after.csv`
+- `?? institutional_research_candidate_lab/outputs/period_validation_2026_01_01_to_2026_04_23_after_sunday_fix/monthly_breakdown_after_sunday_fix.csv`
+- `?? institutional_research_candidate_lab/outputs/period_validation_2026_01_01_to_2026_04_23_after_sunday_fix/trades_after_sunday_fix.csv`
+- `?? institutional_research_candidate_lab/outputs/period_validation_2026_01_01_to_2026_04_23_after_sunday_fix/weekday_breakdown_after_sunday_fix.csv`
+- `?? institutional_research_candidate_lab/outputs/research_matrix_results.csv`
+- `?? institutional_research_candidate_lab/outputs/research_top_variants.csv`
+- `?? inventory_check.py`
+- `?? legacy_archive_2026/000_PARA_CHATGPT_BACKUP_20260421_211526.zipbak`
+- `?? legacy_archive_2026/_test.zipbak`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/EURUSD/design/context_summary.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/EURUSD/design/data_quality.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/EURUSD/design/equity_curve.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/EURUSD/design/monthly_summary.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/EURUSD/design/news_events.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/EURUSD/design/optimization_ranking.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/EURUSD/design/pair_summary.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/EURUSD/design/setup_summary.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/EURUSD/design/trades.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/EURUSD/design/yearly_summary.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/EURUSD/oos/context_summary.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/EURUSD/oos/data_quality.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/EURUSD/oos/equity_curve.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/EURUSD/oos/monthly_summary.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/EURUSD/oos/news_events.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/EURUSD/oos/pair_summary.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/EURUSD/oos/setup_summary.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/EURUSD/oos/trades.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/EURUSD/oos/yearly_summary.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/USDJPY/design/context_summary.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/USDJPY/design/data_quality.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/USDJPY/design/equity_curve.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/USDJPY/design/monthly_summary.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/USDJPY/design/news_events.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/USDJPY/design/optimization_ranking.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/USDJPY/design/pair_summary.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/USDJPY/design/setup_summary.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/USDJPY/design/trades.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/USDJPY/design/yearly_summary.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/USDJPY/oos/context_summary.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/USDJPY/oos/data_quality.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/USDJPY/oos/equity_curve.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/USDJPY/oos/monthly_summary.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/USDJPY/oos/news_events.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/USDJPY/oos/pair_summary.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/USDJPY/oos/setup_summary.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/USDJPY/oos/trades.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/USDJPY/oos/yearly_summary.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/candidate_lab_ranking.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_compression_release/candidate_lab_summary.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_pemr_partial/EURUSD/design/context_summary.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_pemr_partial/EURUSD/design/data_quality.csv`
+- `?? legacy_archive_2026/reports_candidate_block_lab_pemr_partial/EURUSD/design/equity_curve.csv`

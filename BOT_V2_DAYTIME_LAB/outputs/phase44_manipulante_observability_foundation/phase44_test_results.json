@@ -1,0 +1,82 @@
+{
+  "timestamp_utc": "2026-04-30T11:46:56.174001+00:00",
+  "total": 11,
+  "pass": 11,
+  "fail": 0,
+  "warnings": [
+    {
+      "name": "Ingestar logs actuales",
+      "pass": true,
+      "evidence": "counts={'bot_heartbeats': 4, 'decisions': 673, 'daily_scorecards': 1, 'incidents': 2, 'fills_manual': 0}; invalid_legacy_rows_filtered_in_views=372",
+      "warning": "Hay filas antiguas mal mapeadas preservadas en SQLite, filtradas por health/dashboard."
+    }
+  ],
+  "tests": [
+    {
+      "name": "Crear/compilar scripts Phase44",
+      "pass": true,
+      "evidence": "",
+      "warning": null
+    },
+    {
+      "name": "Crear SQLite",
+      "pass": true,
+      "evidence": "db=C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\16_OBSERVABILITY\\db\\manipulante_observability.sqlite; tables=['bot_heartbeats', 'daily_scorecards', 'decisions', 'fills_manual', 'incidents', 'sqlite_sequence']; size=339968",
+      "warning": null
+    },
+    {
+      "name": "Ingestar logs actuales",
+      "pass": true,
+      "evidence": "counts={'bot_heartbeats': 4, 'decisions': 673, 'daily_scorecards': 1, 'incidents': 2, 'fills_manual': 0}; invalid_legacy_rows_filtered_in_views=372",
+      "warning": "Hay filas antiguas mal mapeadas preservadas en SQLite, filtradas por health/dashboard."
+    },
+    {
+      "name": "Generar health snapshot",
+      "pass": true,
+      "evidence": "health=HEALTH_BLOCKED_BY_RULE; path=C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\16_OBSERVABILITY\\daily\\latest_health_snapshot.json",
+      "warning": null
+    },
+    {
+      "name": "Generar daily report",
+      "pass": true,
+      "evidence": "verdict=OBS_DAY_CLEAN_NO_TRADE; path=C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\16_OBSERVABILITY\\daily\\2026-04-30_daily_observability_report.json",
+      "warning": null
+    },
+    {
+      "name": "Crear dashboard o fallback HTML",
+      "pass": true,
+      "evidence": "streamlit_available=True; html=C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\16_OBSERVABILITY\\dashboard\\dashboard.html; size=9419",
+      "warning": null
+    },
+    {
+      "name": "Confirmar no toca MT5",
+      "pass": true,
+      "evidence": "No imports/calls to MetaTrader5 found in Phase44 scripts.",
+      "warning": null
+    },
+    {
+      "name": "Confirmar no envia ordenes",
+      "pass": true,
+      "evidence": "No order_send call found in Phase44 scripts.",
+      "warning": null
+    },
+    {
+      "name": "Confirmar no modifica estrategia/runner/START/STATUS/STOP",
+      "pass": true,
+      "evidence": "strategy_touched=[]",
+      "warning": null
+    },
+    {
+      "name": "Confirmar no guarda secretos",
+      "pass": true,
+      "evidence": "secret_hits=[]",
+      "warning": null
+    },
+    {
+      "name": "Confirmar tolera logs faltantes",
+      "pass": true,
+      "evidence": "missing_log_helpers_ok",
+      "warning": null
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MANIPULANTE Observability</title>
+  <style>
+    body { font-family: Segoe UI, Arial, sans-serif; margin: 0; background: #f6f7f9; color: #17202a; }
+    header { background: #17202a; color: white; padding: 18px 28px; }
+    main { padding: 22px 28px; max-width: 1200px; margin: 0 auto; }
+    section { background: white; border: 1px solid #d7dce2; border-radius: 6px; padding: 16px; margin-bottom: 16px; }
+    h1 { font-size: 24px; margin: 0; }
+    h2 { font-size: 18px; margin: 0 0 12px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; }
+    .metric { border: 1px solid #dfe4ea; border-radius: 6px; padding: 10px; background: #fbfcfd; min-height: 54px; }
+    .metric span { display: block; color: #5b6673; font-size: 12px; margin-bottom: 6px; }
+    .metric strong { font-size: 15px; word-break: break-word; }
+    table { border-collapse: collapse; width: 100%; font-size: 13px; }
+    th, td { border-bottom: 1px solid #e4e8ed; text-align: left; padding: 8px; vertical-align: top; }
+    th { background: #f0f3f6; }
+    .muted { color: #6b7683; }
+    .notice { color: #5b6673; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>MANIPULANTE Observability</h1>
+    <div class="notice">Read-only local dashboard. No envia ordenes. No modifica estrategia.</div>
+  </header>
+  <main>
+    <section>
+      <h2>Estado actual</h2>
+      <div class="grid">
+        <div class='metric'><span>Health</span><strong>HEALTH_BLOCKED_BY_RULE</strong></div>
+        <div class='metric'><span>Bot status</span><strong>RUNNING</strong></div>
+        <div class='metric'><span>Cuenta</span><strong>FTMO-Demo</strong></div>
+        <div class='metric'><span>Modo</span><strong>DEMO</strong></div>
+        <div class='metric'><span>Runner PID</span><strong></strong></div>
+        <div class='metric'><span>Noticias</span><strong>NO_TRADE</strong></div>
+        <div class='metric'><span>Ordenes</span><strong>ORDENES: LISTAS EN DEMO</strong></div>
+        <div class='metric'><span>Operacion abierta</span><strong>NO</strong></div>
+        <div class='metric'><span>Seguro apagar PC</span><strong>NO</strong></div>
+        <div class='metric'><span>Ultima decision</span><strong>NO_TRADE_NEWS_BLOCK</strong></div>
+      </div>
+    </section>
+    <section>
+      <h2>Scorecard diario</h2>
+      <div class="grid">
+        <div class='metric'><span>Fecha</span><strong>2026-04-30</strong></div>
+        <div class='metric'><span>Veredicto</span><strong>OBS_DAY_CLEAN_NO_TRADE</strong></div>
+        <div class='metric'><span>Trades</span><strong>0</strong></div>
+        <div class='metric'><span>No trade</span><strong>36</strong></div>
+        <div class='metric'><span>Warnings</span><strong>0</strong></div>
+        <div class='metric'><span>Criticos</span><strong>0</strong></div>
+      </div>
+    </section>
+    <section>
+      <h2>Stress tests y promotion gate</h2>
+      <div class="grid">
+        <div class='metric'><span>Stress status</span><strong>- **Veredicto**: **STRESS_16_PASS_ALL**</strong></div>
+        <div class='metric'><span>Promotion progress</span><strong>- **Hacia 20 Trades**: [0%] .................... | - **Hacia 30 Trades**: [0%] ....................</strong></div>
+        <div class='metric'><span>Promotion gate</span><strong># MANIPULANTE - PROMOTION GATE (REGRESO A CUENTA PAGA) | No se puede considerar una cuenta paga sin cumplir el 100% de estos puntos: | - [ ] **20 Trades Demo Reales**: Ejecutados por el bot actual en modo Demo/Trial. | - [ ] **0 Trades Fuera de Regla**: Ni uno solo. | - [ ] **0 Detecciones de Real/Exness**: El `account_gate` debe haber bloqueado intentos de conexion erroneos. | - [ ] **Slippage y Comision medidos**: Se debe haber auditado que los costos reales no destruyen el edge (Phase 38B logic).</strong></div>
+      </div>
+    </section>
+    <section>
+      <h2>Ultimas 20 decisiones</h2>
+      <table><thead><tr><th>timestamp_ny</th><th>decision</th><th>reason</th><th>news_gate</th><th>data_gate</th><th>signal_gate</th><th>order_sent</th></tr></thead><tbody><tr><td>2026-04-30T07:45:16.443441-04:00</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE</td><td>ALLOW</td><td>MANIPULANTE_SIGNAL_SYNC_OK</td><td>NO</td></tr><tr><td>2026-04-30T07:44:15.240733-04:00</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE</td><td>ALLOW</td><td>MANIPULANTE_SIGNAL_SYNC_OK</td><td>NO</td></tr><tr><td>2026-04-30T07:43:14.031905-04:00</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE</td><td>ALLOW</td><td>MANIPULANTE_SIGNAL_SYNC_OK</td><td>NO</td></tr><tr><td>2026-04-30T07:42:12.787257-04:00</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE</td><td>ALLOW</td><td>MANIPULANTE_SIGNAL_SYNC_OK</td><td>NO</td></tr><tr><td>2026-04-30T07:41:11.348358-04:00</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE</td><td>ALLOW</td><td>MANIPULANTE_SIGNAL_SYNC_OK</td><td>NO</td></tr><tr><td>2026-04-30T07:40:10.098207-04:00</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE</td><td>ALLOW</td><td>MANIPULANTE_SIGNAL_SYNC_OK</td><td>NO</td></tr><tr><td>2026-04-30T07:39:09.128149-04:00</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE</td><td>ALLOW</td><td>MANIPULANTE_SIGNAL_SYNC_OK</td><td>NO</td></tr><tr><td>2026-04-30T07:38:08.211744-04:00</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE</td><td>ALLOW</td><td>MANIPULANTE_SIGNAL_SYNC_OK</td><td>NO</td></tr><tr><td>2026-04-30T07:37:07.087825-04:00</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE</td><td>ALLOW</td><td>MANIPULANTE_SIGNAL_SYNC_OK</td><td>NO</td></tr><tr><td>2026-04-30T07:36:06.254008-04:00</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE</td><td>ALLOW</td><td>MANIPULANTE_SIGNAL_SYNC_OK</td><td>NO</td></tr><tr><td>2026-04-30T07:35:04.947339-04:00</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE</td><td>ALLOW</td><td>MANIPULANTE_SIGNAL_SYNC_OK</td><td>NO</td></tr><tr><td>2026-04-30T07:34:03.970860-04:00</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE</td><td>ALLOW</td><td>MANIPULANTE_SIGNAL_SYNC_OK</td><td>NO</td></tr><tr><td>2026-04-30T07:33:03.080183-04:00</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE</td><td>ALLOW</td><td>MANIPULANTE_SIGNAL_SYNC_OK</td><td>NO</td></tr><tr><td>2026-04-30T07:32:02.069325-04:00</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE</td><td>ALLOW</td><td>MANIPULANTE_SIGNAL_SYNC_OK</td><td>NO</td></tr><tr><td>2026-04-30T07:31:01.111432-04:00</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE_NEWS_BLOCK</td><td>NO_TRADE</td><td>ALLOW</td><td>MANIPULANTE_SIGNAL_SYNC_OK</td><td>NO</td></tr><tr><td>2026-04-30T07:29:59.998271-04:00</td><td>NO_TRADE</td><td>SIGNAL_READY</td><td>ALLOW</td><td>ALLOW</td><td>MANIPULANTE_SIGNAL_SYNC_OK</td><td>NO</td></tr><tr><td>2026-04-30T07:28:58.293252-04:00</td><td>NO_TRADE</td><td>SIGNAL_READY</td><td>ALLOW</td><td>ALLOW</td><td>MANIPULANTE_SIGNAL_SYNC_OK</td><td>NO</td></tr><tr><td>2026-04-30T07:27:56.411131-04:00</td><td>NO_TRADE</td><td>SIGNAL_READY</td><td>ALLOW</td><td>ALLOW</td><td>MANIPULANTE_SIGNAL_SYNC_OK</td><td>NO</td></tr><tr><td>2026-04-30T07:26:55.121499-04:00</td><td>NO_TRADE</td><td>SIGNAL_READY</td><td>ALLOW</td><td>ALLOW</td><td>MANIPULANTE_SIGNAL_SYNC_OK</td><td>NO</td></tr><tr><td>2026-04-30T07:25:53.945334-04:00</td><td>NO_TRADE</td><td>SIGNAL_READY</td><td>ALLOW</td><td>ALLOW</td><td>MANIPULANTE_SIGNAL_SYNC_OK</td><td>NO</td></tr></tbody></table>
+    </section>
+    <section>
+      <h2>Incidents</h2>
+      <table><thead><tr><th>timestamp_utc</th><th>severity</th><th>category</th><th>description</th><th>resolved</th><th>source</th></tr></thead><tbody><tr><td>2026-04-29T21:01:49.494744+00:00</td><td>WARNING</td><td>log_error_keyword</td><td>NO_TRADE_ORDER_CHECK_FAILED: BLOCKED_MT5_UNAVAILABLE</td><td>NO</td><td>MANIPULANTE\10_LOGS_PAPER\ftmo_trial_bot\decisions.csv</td></tr><tr><td>2026-04-29T21:01:49.494750+00:00</td><td>WARNING</td><td>log_error_keyword</td><td>2026-04-29T17:01:49.494744-04:00: NO_TRADE_ORDER_CHECK_FAILED</td><td>NO</td><td>MANIPULANTE\10_LOGS_PAPER\ftmo_trial_bot\decisions.csv</td></tr></tbody></table>
+    </section>
+    <section>
+      <h2>Trades / fills manuales</h2>
+      <div class="grid">
+        <div class='metric'><span>BE netos / net R</span><strong>0</strong></div>
+        <div class='metric'><span>Comisiones</span><strong>0</strong></div>
+      </div>
+      <p class='muted'>Sin datos.</p>
+    </section>
+    <section>
+      <h2>DB</h2>
+      <div class="grid">
+        <div class='metric'><span>DB path</span><strong>C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\MANIPULANTE\16_OBSERVABILITY\db\manipulante_observability.sqlite</strong></div>
+        <div class='metric'><span>Heartbeats</span><strong>4</strong></div>
+        <div class='metric'><span>Decisiones</span><strong>673</strong></div>
+        <div class='metric'><span>Incidents</span><strong>2</strong></div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
