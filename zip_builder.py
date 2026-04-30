@@ -8,7 +8,7 @@ BUILD_PATH = ROOT / '000_PARA_CHATGPT.phase32e_building'
 VAL_DIR = ROOT / 'BOT_V2_DAYTIME_LAB' / 'outputs' / 'final_project_structure_manipulante' / 'zip_validation'
 VAL_DIR.mkdir(parents=True, exist_ok=True)
 
-banned_extensions = {'.zip', '.zipbak', '.building', '.pkl', '.parquet', '.bi5', '.db', '.sqlite', '.dll', '.exe'}
+banned_extensions = {'.zip', '.zipbak', '.building', '.pkl', '.parquet', '.bi5', '.db', '.sqlite', '.dll', '.exe', '.local.json'}
 banned_names = {'.env', 'mt5_local_config.json', '.gitignore', 'alert_state.json'}
 banned_tokens = ['secret', 'password', 'token', 'credential', 'apikey', 'api_key']
 
@@ -44,7 +44,7 @@ def should_include(path):
     suffix = path.suffix.lower()
     if suffix in banned_extensions:
         return False
-    if name in banned_names or any(tok in name for tok in banned_tokens):
+    if name in banned_names or name.endswith('.local.json') or any(tok in name for tok in banned_tokens):
         return False
 
     rel = path.relative_to(ROOT)

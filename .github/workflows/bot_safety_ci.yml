@@ -1,0 +1,40 @@
+name: BOT Safety CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  safety:
+    name: Structural and Safety Security Audit
+    runs-on: windows-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Display Python version
+        run: python --version
+
+      - name: Run CI Safety Check
+        run: |
+          # Use the absolute path if needed, but relative should work since we are at root
+          python BOT_V2_DAYTIME_LAB/src/phase46_ci_safety_check.py
+        shell: bash
+
+      - name: Archive CI Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-safety-report
+          path: BOT_V2_DAYTIME_LAB/reports/PHASE46_GITHUB_CI_SAFETY_TESTS_REPORT.*
