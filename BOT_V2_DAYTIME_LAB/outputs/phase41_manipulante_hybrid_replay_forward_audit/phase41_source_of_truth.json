@@ -1,0 +1,7 @@
+{
+  "source_file": "BOT_V2_DAYTIME_LAB\\outputs\\phase27_full_historical_validation_2015_2026\\validation_2015_2026_full\\phase27_2015_2026_trades.csv",
+  "expected_n": 2625,
+  "expected_pf": 2.793,
+  "expected_wr": 0.3253,
+  "net_pf_ftmo_5": 2.24
+}

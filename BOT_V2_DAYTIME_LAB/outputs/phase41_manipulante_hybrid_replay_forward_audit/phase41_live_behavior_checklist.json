@@ -1,0 +1,10 @@
+{
+  "rules_validated": {
+    "max_trades_day": true,
+    "trading_window": true,
+    "tp_be_logic": true,
+    "body_filter": true,
+    "forced_close_lifecycle": true
+  },
+  "verdict": "HIGH_CONFIDENCE_BEHAVIOR_MATCH"
+}
