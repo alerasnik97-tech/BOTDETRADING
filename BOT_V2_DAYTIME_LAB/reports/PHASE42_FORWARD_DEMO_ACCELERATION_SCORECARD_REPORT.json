@@ -1,0 +1,12 @@
+{
+  "phase": "42",
+  "verdict": "FORWARD_DEMO_SCORECARD_READY",
+  "components": [
+    "daily_scorecard",
+    "stress_tests",
+    "promotion_gate",
+    "dashboard"
+  ],
+  "min_trades_for_real": 20,
+  "ideal_trades_for_real": 30
+}
