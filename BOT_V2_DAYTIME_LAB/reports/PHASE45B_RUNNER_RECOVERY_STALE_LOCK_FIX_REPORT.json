@@ -1,0 +1,13 @@
+{
+  "phase": "45B",
+  "title": "Runner Recovery & Stale Lock Fix",
+  "verdict": "RUNNER_RECOVERY_READY",
+  "timestamp": "2026-04-30T14:40:44-03:00",
+  "causa_encontrada": "LOCK_STALE",
+  "start_idempotente": true,
+  "recupera_lock_viejo": true,
+  "stop_limpia_stale": true,
+  "status_detecta_orphan": true,
+  "seguridad_mt5_preservada": true,
+  "estrategia_intacta": true
+}

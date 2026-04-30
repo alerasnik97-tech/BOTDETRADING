@@ -1161,6 +1161,14 @@ def start_safety_preflight(
     runners = find_ftmo_trial_runner_processes() if runners is None else runners
     runner_count = len(runners)
     runner_pids = [item.get("pid") for item in runners]
+    
+    # Check for runner.lock
+    lock_file = MANIPULANTE / "10_LOGS_PAPER" / "ftmo_trial_bot" / "runner.lock"
+    lock_pid = None
+    if lock_file.exists():
+        try: lock_pid = int(lock_file.read_text().strip())
+        except: lock_pid = -1
+        
     stop_active = stop_file.exists()
     result: dict[str, Any] = {
         "timestamp_utc": now_iso(),
@@ -1171,6 +1179,8 @@ def start_safety_preflight(
         "stop_bot_path": str(stop_file),
         "runner_count": runner_count,
         "runner_pids": runner_pids,
+        "runner_lock_exists": lock_file.exists(),
+        "runner_lock_pid": lock_pid,
         "position_open": None,
         "position_state": "UNKNOWN",
         "positions_total": None,
@@ -1196,6 +1206,11 @@ def start_safety_preflight(
             }
         )
         return result
+        
+    # If no runners are active but lock exists, it's safe to clear if flat
+    can_clear_lock = False
+    if lock_file.exists() and runner_count == 0:
+        can_clear_lock = True
 
     account_status = account_gate() if account_status is None else account_status
     account_text = _text_for_account_detection(account_status)
@@ -1268,6 +1283,7 @@ def start_safety_preflight(
             "decision": "START_ALLOWED",
             "can_start": True,
             "can_clear_stop_bot": stop_active,
+            "can_clear_runner_lock": can_clear_lock,
             "reason": "Safe to start",
         }
     )
@@ -1292,6 +1308,9 @@ def _preflight_for_kv(preflight: dict[str, Any]) -> dict[str, Any]:
         "REASON": preflight.get("reason"),
         "RUNNER_COUNT": preflight.get("runner_count"),
         "RUNNER_PIDS": preflight.get("runner_pids"),
+        "RUNNER_LOCK_EXISTS": _yes_no_text(preflight.get("runner_lock_exists")),
+        "RUNNER_LOCK_PID": preflight.get("runner_lock_pid"),
+        "CAN_CLEAR_RUNNER_LOCK": _yes_no_text(preflight.get("can_clear_runner_lock")),
         "STOP_BOT_ACTIVE": _yes_no_text(preflight.get("stop_bot_active")),
         "STOP_BOT_PATH": preflight.get("stop_bot_path"),
     }

@@ -56,16 +56,12 @@ if "%RUNNER_COUNT%"=="" set "RUNNER_COUNT=0"
 
 if not "%RUNNER_COUNT%"=="0" (
     echo El bot no cerro solo. Forzando cierre del proceso runner...
-    :: Intentar obtener PIDs y matarlos
-    "%PY_EXE%" "%SRC%\phase37ze_quick_status_panel.py" --runner-pids > "%STATUS_TMP%"
-    set /p PIDS=<"%STATUS_TMP%"
-    if not "%PIDS%"=="" (
-        for %%P in (%PIDS:,= %) do (
-            echo Matando proceso runner PID: %%P
-            taskkill /PID %%P /F > nul 2>&1
-        )
-    )
+    "%PY_EXE%" "%SRC%\phase45b_runner_recovery.py" --stop-runner-safe
 )
+
+:: Limpiar lock si quedo huerfano o stale
+echo Verificando limpieza de locks...
+"%PY_EXE%" "%SRC%\phase45b_runner_recovery.py" --clean-stale-lock
 
 echo.
 echo ============================================================
