@@ -1,15 +1,8 @@
 # READ THIS FIRST
 
-- **MANIPULANTE** es la única estrategia principal y actual. Se encuentra en la carpeta raíz `MANIPULANTE`.
-- **MANIPULANTE** = Phase25 Authority + Global Weekend Hard Close (Viernes 16:55 NY).
-- Todo lo demás (fases antiguas, backups, shadow ledgers, variantes rechazadas) se encuentra archivado en la carpeta `ESTRATEGIAS`.
-- **TP1.4_BE0.5_BF70** es puramente "shadow only".
-- **Phase19** está archivada y prohibida (bug de lookahead).
-- Trading real bloqueado. MT5 real bloqueado. Launcher demo no opera en real.
-- Todo desarrollo posterior debe compararse contra la autoridad de `MANIPULANTE`.
-
-- **Ruta Oficial Única**: `C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo`
-- **Ejecución Manual**: La ejecución actual es manual y temporal. El operador humano NO TIENE discrecionalidad estratégica. Solo ejecuta la estrategia 100% programada (MANIPULANTE).
-- **Audit Status**: Phase 35 Final Readiness Audit Completed.
-- **Veredicto**: READY_FOR_MICRO_REAL_WITH_WARNINGS.
-- **Riesgo Inicial Real**: 0.10% a 0.25% únicamente.
+- Phase37D verdict: `FTMO_TRIAL_BLOCKED_NEWS_PROVIDER`.
+- MANIPULANTE remains Phase25 Authority.
+- FTMO Trial uses API news provider as primary source.
+- MQL5 CalendarBridge is fallback/legacy only.
+- Real remains blocked.
+- Strategy unchanged.

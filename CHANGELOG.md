@@ -71,7 +71,7 @@ Formato: [YYYY-MM-DD] Categoría: Descripción
 - Estructura inicial de `data_free_2020/` y `data_candidates_2022_2025/`
 
 ### Changed
-- Migración desde versión escritorio a `C:\BOT DE TRADING` como fuente oficial
+- Migración desde versión escritorio a `C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo` como fuente oficial
 
 ---
 

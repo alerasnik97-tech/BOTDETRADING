@@ -1,23 +1,10 @@
 {
-  "timestamp": "2026-04-29T03:10:00+00:00",
-  "authority": "MANIPULANTE",
-  "authority_location": "MANIPULANTE/",
-  "components": {
-    "core": "PHASE25",
-    "policy": "GLOBAL_WEEKEND_HARD_CLOSE"
-  },
-  "shadow_only": "TP1.4_BE0.5_BF70",
-  "archived": "PHASE19",
-  "baselines": [
-    "PHASE18",
-    "PHASE24"
-  ],
-  "experiments": [
-    "PHASE28",
-    "PHASE29"
-  ],
-  "real_blocked": true,
-  "mt5_real_blocked": true,
-  "auto_orders_blocked": true,
-  "manual_execution_rule": "100_percent_programmable_no_human_edge"
+  "timestamp_utc": "2026-04-29T13:56:36.935463+00:00",
+  "authority": "MANIPULANTE_PHASE25",
+  "phase37d": "FTMO_TRIAL_BLOCKED_NEWS_PROVIDER",
+  "tp": 1.4,
+  "be": 0.4,
+  "bf": 70,
+  "be05": "SHADOW_ONLY",
+  "strategy_changed": false
 }

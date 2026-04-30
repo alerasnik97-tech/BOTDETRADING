@@ -1,0 +1,16 @@
+metric,value,note
+sample,1080,Trades 2022-2025
+pf,2.44,Global Baseline
+expectancy,0.43R,Promedio por operacion
+wr,62.1%,Win Rate global
+max_dd,-9.6R,Drawdown maximo historico
+max_loss_streak,8,Racha de SL
+max_non_win_streak,8,Racha sin ganar
+trades_month,22.5,Frecuencia promedio
+best_year,2024,PF 3.43 (Increible)
+worst_year,2023,PF 2.02 (Sigue siendo excelente)
+months_negative,1,De 48 meses testeados
+commissions,SI,Consideradas en stress metrics
+news,NO,Pendiente auditoria de impacto live
+spread_slippage,0.3 pips base,Analizada con stress de 1.2 pips
+status,VALIDATED_FOR_FULL_CAMPAIGN,Aprobada por matriz de robustez

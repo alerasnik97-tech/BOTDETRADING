@@ -1,0 +1,100 @@
+# GitHub Exclude Manifest
+
+## Explicit Git tracking removals
+- `000_PARA_CHATGPT.zip` (5639517 bytes): zip is duplicative local handoff artifact; keep local, remove from Git tracking
+
+## Explicit local-only source candidates
+- `BOT_V2_DAYTIME_LAB/src/phase41_compare_replay.py` (2811 bytes): left local: pre-commit whitespace hygiene warning; no source edit performed in curation pass
+- `BOT_V2_DAYTIME_LAB/src/phase41_excel.py` (2201 bytes): left local: pre-commit whitespace hygiene warning; no source edit performed in curation pass
+- `BOT_V2_DAYTIME_LAB/src/phase41_manipulante_hybrid_replay.py` (6558 bytes): left local: pre-commit whitespace hygiene warning; no source edit performed in curation pass
+- `BOT_V2_DAYTIME_LAB/src/phase41_metrics.py` (2903 bytes): left local: pre-commit whitespace hygiene warning; no source edit performed in curation pass
+
+## Exclusion Groups
+- data pesada/raw/tick: excluded by data/data_intake/raw/tick patterns
+- secretos/local credentials: excluded by .env/key/token/secret/password/credentials/local.json patterns
+- MT5/broker account files: excluded by MetaQuotes/Terminal/MQL5 logs and broker/account patterns
+- logs/caches: excluded by logs/cache/tmp/__pycache__/.venv/vendor patterns
+- zips: excluded; 000_PARA_CHATGPT.zip kept local and removed from Git tracking
+- source candidates with pre-commit hygiene warnings: left local until cleaned intentionally
+
+## Excluded File Sample
+- `.pkg/bin/f2py.exe` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/bin/fonttools.exe` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/bin/numpy-config.exe` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/bin/pyftmerge.exe` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/bin/pyftsubset.exe` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/bin/ttx.exe` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/contourpy-1.3.3.dist-info/INSTALLER` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/contourpy-1.3.3.dist-info/LICENSE` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/contourpy-1.3.3.dist-info/METADATA` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/contourpy-1.3.3.dist-info/RECORD` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/contourpy-1.3.3.dist-info/WHEEL` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/contourpy/__init__.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/contourpy/_contourpy.cp314-win_amd64.lib` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/contourpy/_contourpy.cp314-win_amd64.pyd` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/contourpy/_contourpy.pyi` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/contourpy/_version.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/contourpy/array.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/contourpy/chunk.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/contourpy/convert.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/contourpy/dechunk.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/contourpy/enum_util.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/contourpy/py.typed` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/contourpy/typecheck.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/contourpy/types.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/contourpy/util/__init__.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/contourpy/util/_build_config.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/contourpy/util/bokeh_renderer.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/contourpy/util/bokeh_util.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/contourpy/util/data.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/contourpy/util/mpl_renderer.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/contourpy/util/mpl_util.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/contourpy/util/renderer.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/cycler-0.12.1.dist-info/INSTALLER` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/cycler-0.12.1.dist-info/LICENSE` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/cycler-0.12.1.dist-info/METADATA` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/cycler-0.12.1.dist-info/RECORD` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/cycler-0.12.1.dist-info/top_level.txt` - docs - not selected for lightweight safe GitHub surface
+- `.pkg/cycler-0.12.1.dist-info/WHEEL` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/cycler/__init__.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/cycler/py.typed` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/dateutil/__init__.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/dateutil/_common.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/dateutil/_version.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/dateutil/easter.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/dateutil/parser/__init__.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/dateutil/parser/_parser.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/dateutil/parser/isoparser.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/dateutil/relativedelta.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/dateutil/rrule.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/dateutil/tz/__init__.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/dateutil/tz/_common.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/dateutil/tz/_factories.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/dateutil/tz/tz.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/dateutil/tz/win.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/dateutil/tzwin.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/dateutil/utils.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/dateutil/zoneinfo/__init__.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/dateutil/zoneinfo/dateutil-zoneinfo.tar.gz` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/dateutil/zoneinfo/rebuild.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/fonttools-4.62.1.dist-info/entry_points.txt` - docs - not selected for lightweight safe GitHub surface
+- `.pkg/fonttools-4.62.1.dist-info/INSTALLER` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/fonttools-4.62.1.dist-info/licenses/LICENSE` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/fonttools-4.62.1.dist-info/licenses/LICENSE.external` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/fonttools-4.62.1.dist-info/METADATA` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/fonttools-4.62.1.dist-info/RECORD` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/fonttools-4.62.1.dist-info/top_level.txt` - docs - not selected for lightweight safe GitHub surface
+- `.pkg/fonttools-4.62.1.dist-info/WHEEL` - unknown - not selected for lightweight safe GitHub surface
+- `.pkg/fontTools/__init__.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/fontTools/__main__.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/fontTools/afmLib.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/fontTools/agl.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/fontTools/annotations.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/fontTools/cffLib/__init__.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/fontTools/cffLib/CFF2ToCFF.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/fontTools/cffLib/CFFToCFF2.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/fontTools/cffLib/specializer.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/fontTools/cffLib/transforms.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/fontTools/cffLib/width.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/fontTools/colorLib/__init__.py` - source_code - not selected for lightweight safe GitHub surface
+- `.pkg/fontTools/colorLib/builder.py` - source_code - not selected for lightweight safe GitHub surface

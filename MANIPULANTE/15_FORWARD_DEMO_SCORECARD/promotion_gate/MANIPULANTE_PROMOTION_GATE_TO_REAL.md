@@ -17,7 +17,13 @@ No se puede considerar una cuenta paga sin cumplir el 100% de estos puntos:
 - [ ] **BE Netos Monitoreados**: Confirmar que el bot gestiona los BE adecuadamente ante la comision de FTMO.
 - [ ] **Expectancy Positiva**: El resultado neto de los 20 trades demo debe ser coherente con el backtest (considerando la varianza).
 
-## 3. Bloqueos Absolutos (Abortar si ocurre)
+## 3. Requisitos Tecnicos (Stress Tests)
+- [ ] **Phase 42B Stress 16 Scenarios**: Debe estar en estado **PASS_ALL**.
+- [ ] **Order Sent en Stress**: Debe ser estrictamente **False**.
+- [ ] **Real/Exness Touched en Stress**: Debe ser estrictamente **False**.
+- [ ] **Fallo Critico**: Si algun stress test critico falla, la promocion queda bloqueada hasta su reparacion y re-test.
+
+## 4. Bloqueos Absolutos (Abortar si ocurre)
 - [ ] Modificacion manual de parametros de MANIPULANTE.
 - [ ] Intervencion manual en trades abiertos (cerrar antes de tiempo, mover SL).
 - [ ] Perdida de confianza en el sistema de logs.

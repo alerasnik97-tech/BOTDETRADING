@@ -1,6 +1,6 @@
 # BOT DE TRADING — Laboratorio de Research Cuantitativo
 
-> **Fuente oficial del proyecto:** `C:\BOT DE TRADING`
+> **Fuente oficial del proyecto:** `C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo`
 > **Runner oficial:** `run_canonical.py`
 > **Rama estable Git:** `main`
 > **Remote:** `https://github.com/alerasnik97-tech/bottrading.git`
@@ -11,7 +11,7 @@
 
 | Regla | Descripción |
 |---|---|
-| **Fuente de verdad** | Solo `C:\BOT DE TRADING`. No trabajar desde copias del escritorio. |
+| **Fuente de verdad** | Solo `C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo`. No trabajar desde copias del escritorio. |
 | **Git es la fuente de sincronización** | Antes de pasar trabajo importante a la nube: `git commit && git push`. |
 | **El ZIP no es el repo** | `handoff/000_PARA_CHATGPT.zip` es un snapshot de handoff para ChatGPT, no la fuente principal. |
 | **No editar en paralelo** | No editar en local y en la nube al mismo tiempo sin push/pull previo. |
@@ -22,7 +22,7 @@
 ## Estructura del proyecto
 
 ```
-C:\BOT DE TRADING\
+C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\
 ├── research_lab/           ← Motor oficial, estrategias, validación, tests
 │   ├── main.py             ← Orquestador canónico
 │   ├── engine.py           ← Motor de backtesting

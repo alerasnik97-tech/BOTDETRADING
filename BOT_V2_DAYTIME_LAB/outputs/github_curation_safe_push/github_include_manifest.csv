@@ -1,0 +1,36 @@
+path,size_bytes,reason,already_tracked_yes_no
+.gitignore,1035,hardened GitHub safety ignore rules,yes
+00_READ_THIS_FIRST.md,272,principal project documentation/state,yes
+01_CURRENT_PROJECT_STATUS.json,503,principal project documentation/state,yes
+01_CURRENT_PROJECT_STATUS.md,174,principal project documentation/state,yes
+02_STRATEGY_AUTHORITY_MAP.json,246,principal project documentation/state,yes
+02_STRATEGY_AUTHORITY_MAP.md,149,principal project documentation/state,yes
+BOT_V2_DAYTIME_LAB/outputs/github_curation_safe_push/full_file_inventory.csv,4618751,GitHub curation manifest/inventory artifact,no
+BOT_V2_DAYTIME_LAB/outputs/github_curation_safe_push/git_add_plan.json,1441,GitHub curation audit artifact,no
+BOT_V2_DAYTIME_LAB/outputs/github_curation_safe_push/git_add_plan.md,9098,GitHub curation audit artifact,no
+BOT_V2_DAYTIME_LAB/outputs/github_curation_safe_push/github_curation_preflight.json,70649,GitHub curation audit artifact,no
+BOT_V2_DAYTIME_LAB/outputs/github_curation_safe_push/github_curation_preflight.md,40520,GitHub curation audit artifact,no
+BOT_V2_DAYTIME_LAB/outputs/github_curation_safe_push/github_exclude_manifest.csv,4353070,GitHub curation manifest/inventory artifact,no
+BOT_V2_DAYTIME_LAB/outputs/github_curation_safe_push/github_exclude_manifest.txt,53016,GitHub curation audit artifact,no
+BOT_V2_DAYTIME_LAB/outputs/github_curation_safe_push/github_include_manifest.csv,7175,GitHub curation manifest/inventory artifact,no
+BOT_V2_DAYTIME_LAB/outputs/github_curation_safe_push/github_include_manifest.txt,4114,GitHub curation audit artifact,no
+BOT_V2_DAYTIME_LAB/outputs/github_curation_safe_push/inventory_summary.json,460,GitHub curation audit artifact,no
+BOT_V2_DAYTIME_LAB/outputs/github_curation_safe_push/manifest_summary.json,3256,GitHub curation audit artifact,no
+BOT_V2_DAYTIME_LAB/outputs/github_curation_safe_push/pre_commit_review.json,6783,GitHub curation audit artifact,no
+BOT_V2_DAYTIME_LAB/outputs/github_curation_safe_push/pre_commit_review.md,5116,GitHub curation audit artifact,no
+BOT_V2_DAYTIME_LAB/outputs/github_curation_safe_push/secret_scan_report.json,142345,GitHub curation audit artifact,no
+BOT_V2_DAYTIME_LAB/outputs/github_curation_safe_push/secret_scan_report.md,3051,GitHub curation audit artifact,no
+BOT_V2_DAYTIME_LAB/reports/GITHUB_CURATION_SAFE_PUSH_REPORT.json,4692,GitHub curation final report,no
+BOT_V2_DAYTIME_LAB/reports/GITHUB_CURATION_SAFE_PUSH_REPORT.md,4181,GitHub curation final report,no
+BOT_V2_DAYTIME_LAB/reports/PHASE41_MANIPULANTE_HYBRID_REPLAY_FORWARD_AUDIT_REPORT.json,183,selected lightweight final phase report,no
+BOT_V2_DAYTIME_LAB/reports/PHASE41_MANIPULANTE_HYBRID_REPLAY_FORWARD_AUDIT_REPORT.md,617,selected lightweight final phase report,no
+CHANGELOG.md,3081,principal project documentation/state,yes
+CLOUD_WORKFLOW.md,3019,principal project documentation/state,yes
+MANIPULANTE/00_LEER_PRIMERO/MANIPULANTE_REPLAY_FORWARD_RESUMEN.md,943,MANIPULANTE lightweight docs/analysis/scorecard,no
+MANIPULANTE/14_ANALISIS/MANIPULANTE_HYBRID_REPLAY_FORWARD_AUDIT_REPORT.md,2155,MANIPULANTE lightweight docs/analysis/scorecard,no
+MANIPULANTE/15_FORWARD_DEMO_SCORECARD/promotion_gate/MANIPULANTE_PROMOTION_GATE_TO_REAL.md,2178,MANIPULANTE lightweight docs/analysis/scorecard,yes
+MANIPULANTE/15_FORWARD_DEMO_SCORECARD/stress_tests/phase42_operational_stress_tests.csv,563,MANIPULANTE lightweight docs/analysis/scorecard,no
+MANIPULANTE/15_FORWARD_DEMO_SCORECARD/stress_tests/phase42b_operational_stress_tests_16.csv,4132,MANIPULANTE lightweight docs/analysis/scorecard,no
+README.md,3874,principal project documentation/state,yes
+ROCKI_AM/01_ORIGEN_HISTORICO/ROCKI_AM_SOURCE_MANIFEST.csv,718,ROCKI_AM lightweight manifest/metrics,no
+ROCKI_AM/03_METRICAS/ROCKI_AM_METRICS_SUMMARY.csv,624,ROCKI_AM lightweight manifest/metrics,no
