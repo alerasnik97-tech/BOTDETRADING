@@ -371,20 +371,30 @@ def _other_runner_pids() -> list[int]:
 
 
 def _pid_is_running(pid: int) -> bool:
+    """Check if a PID is active and belongs to a python process (if possible)."""
     if pid <= 0:
         return False
     if os.name == "nt":
         try:
-            import ctypes
-
-            kernel32 = ctypes.windll.kernel32
-            handle = kernel32.OpenProcess(0x1000, False, pid)
-            if handle:
-                kernel32.CloseHandle(handle)
-                return True
+            # More robust check on Windows using tasklist or similar
+            # OpenProcess can be misleading if PID is reused or process is zombie
+            output = subprocess.check_output(
+                ["tasklist", "/FI", f"PID eq {pid}", "/NH"],
+                text=True, stderr=subprocess.STDOUT
+            )
+            return str(pid) in output and "python" in output.lower()
         except Exception:
+            # Fallback to ctypes if tasklist fails
+            try:
+                import ctypes
+                kernel32 = ctypes.windll.kernel32
+                handle = kernel32.OpenProcess(0x1000, False, pid)
+                if handle:
+                    kernel32.CloseHandle(handle)
+                    return True
+            except:
+                pass
             return False
-        return False
     try:
         os.kill(pid, 0)
         return True
@@ -393,18 +403,41 @@ def _pid_is_running(pid: int) -> bool:
 
 
 def acquire_lock() -> bool:
+    """Try to acquire runner.lock. Handles stale locks automatically."""
     LOG_DIR.mkdir(parents=True, exist_ok=True)
-    if _other_runner_pids():
+    
+    other_pids = _other_runner_pids()
+    if other_pids:
+        print(f"[LOCK] Detectado otro runner activo con PID: {other_pids}")
         return False
+        
     if LOCK_FILE.exists():
         try:
-            pid = int(LOCK_FILE.read_text().strip())
-            if _pid_is_running(pid):
-                return False
-        except Exception:
-            pass
-    LOCK_FILE.write_text(str(os.getpid()))
-    return True
+            content = LOCK_FILE.read_text().strip()
+            if content:
+                pid = int(content)
+                if _pid_is_running(pid):
+                    print(f"[LOCK] El archivo runner.lock indica un PID activo: {pid}")
+                    return False
+                else:
+                    print(f"[LOCK] Limpiando lock viejo/stale (PID {pid} no existe).")
+            else:
+                print("[LOCK] Limpiando lock vacio.")
+        except Exception as e:
+            print(f"[LOCK] Error leyendo lock (limpiando): {e}")
+            
+        try:
+            LOCK_FILE.unlink()
+        except Exception as e:
+            print(f"[LOCK] Error eliminando lock stale: {e}")
+            return False
+
+    try:
+        LOCK_FILE.write_text(str(os.getpid()))
+        return True
+    except Exception as e:
+        print(f"[LOCK] Error creando nuevo lock: {e}")
+        return False
 
 
 def release_lock():

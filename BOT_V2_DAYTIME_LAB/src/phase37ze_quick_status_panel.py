@@ -27,6 +27,7 @@ STATUS_BLOCKED_AUTOTRADING = "BLOQUEADO - AUTOTRADING"
 STATUS_ERROR = "ERROR - REVISAR SISTEMA"
 STATUS_DANGER = "PELIGRO - NO APAGAR PC"
 STATUS_DUPLICATE = "DUPLICADO - LIMPIAR RUNNERS"
+STATUS_STALE_LOCK = "LOCK VIEJO - START LO PUEDE REPARAR"
 
 VALID_STATES = {
     STATUS_OK,
@@ -38,6 +39,7 @@ VALID_STATES = {
     STATUS_ERROR,
     STATUS_DANGER,
     STATUS_DUPLICATE,
+    STATUS_STALE_LOCK,
 }
 LEGACY_STATE_MAP = {
     "VERDE": STATUS_OK,
@@ -349,6 +351,14 @@ def build_status(
         else:
             estado = STATUS_BLOCKED_SIGNAL
 
+    # Check for stale lock if bot is off
+    if runner_count == 0:
+        # If lock exists but no runner, it's stale
+        lock_file = LOG_DIR / "runner.lock"
+        if lock_file.exists():
+            estado = STATUS_STALE_LOCK
+            action = "Use STOP y luego START para limpiar"
+
     arg_time = (
         _hhmm(qs.get("ULTIMA_ACTUALIZACION_ARG"))
         or _hhmm(hb.get("timestamp_local"))
@@ -461,6 +471,7 @@ def render_panel_clean(status: dict[str, str]) -> str:
         "ERROR     = Revisar sistema",
         "DETENIDO  = STOP_BOT activo; START lo reactiva si es seguro",
         "DUPLICADO = Limpiar runners",
+        "LOCK VIEJO = El bot se cerro mal; START lo puede reparar",
         "=" * 60,
         "",
         "CTRL+C para cerrar este panel. El bot NO se apaga.",

@@ -13,6 +13,7 @@ if not exist "%PY_EXE%" set "PY_EXE=python"
 
 cd /d "%ROOT%"
 set "PYTHONPATH=%SRC%;%PYTHONPATH%"
+set "RUNNER_LOCK_FILE=%ROOT%\MANIPULANTE\10_LOGS_PAPER\ftmo_trial_bot\runner.lock"
 title MANIPULANTE - INICIO
 
 "%PY_EXE%" "%SRC%\phase37ze_quick_status_panel.py" --runner-count > "%COUNT_FILE%" 2>nul
@@ -64,6 +65,12 @@ if "%G_CAN_CLEAR_STOP_BOT%"=="SI" (
     set "STOP_CLEANED=SI"
 )
 
+set "LOCK_CLEANED=NO"
+if "%G_CAN_CLEAR_RUNNER_LOCK%"=="SI" (
+    del /f /q "%RUNNER_LOCK_FILE%" >nul 2>nul
+    if not exist "%RUNNER_LOCK_FILE%" set "LOCK_CLEANED=SI"
+)
+
 cls
 echo ============================================================
 echo MANIPULANTE - INICIO
@@ -72,6 +79,7 @@ echo.
 echo ESTADO: BOT INICIADO
 echo.
 if "%STOP_CLEANED%"=="SI" echo Se limpio STOP_BOT de forma segura.
+if "%LOCK_CLEANED%"=="SI" echo Se limpio lock viejo de forma segura.
 echo Cuenta: FTMO-Demo
 echo Modo: DEMO
 echo.
@@ -96,8 +104,9 @@ echo ============================================================
 echo MANIPULANTE - INICIO
 echo ============================================================
 echo.
-echo ESTADO: BOT YA ESTA PRENDIDO
+echo ESTADO: BOT YA ESTA CORRIENDO
 echo.
+echo PID: %RUNNER_COUNT% (o multiples)
 echo No se inicio otro bot.
 echo No hay riesgo duplicado.
 echo.

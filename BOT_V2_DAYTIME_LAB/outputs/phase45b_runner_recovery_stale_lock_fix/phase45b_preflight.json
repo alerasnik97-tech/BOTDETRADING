@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-04-30T14:40:44-03:00",
+  "git_status": "dirty",
+  "mt5_account": "FTMO-Demo",
+  "ftmo_demo": true,
+  "real_detected": false,
+  "exness_detected": false,
+  "position_open": false,
+  "runner_lock_exists": true,
+  "runner_lock_pid": 17844,
+  "heartbeat_exists": true,
+  "heartbeat_age_seconds": 840,
+  "quick_status": "BLOQUEADO - BOT ACTIVO PERO NO OPERA",
+  "active_python_pids": []
+}

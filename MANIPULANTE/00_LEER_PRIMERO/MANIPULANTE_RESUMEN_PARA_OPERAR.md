@@ -40,5 +40,15 @@ Este es el manual rapido para la operacion diaria del bot oficial **MANIPULANTE*
 - **Hard Close Diario**: 19:45 NY.
 - **Hard Close Semanal**: Viernes 16:55 NY.
 
+## 6. Que hacer si cerre la ventana de START sin querer
+Si cerraste la ventana negra de `START_MANIPULANTE.bat` pero el bot seguia trabajando:
+
+1. **Abrir STATUS**: Mira el panel de estado.
+2. **Si dice BOT: ACTIVO**: No hagas nada. El bot sigue operando en segundo plano aunque hayas cerrado la ventana.
+3. **Si dice LOCK VIEJO**: Significa que el bot se cerro mal y dejo un rastro.
+4. **Solucion**: Ejecuta `STOP_MANIPULANTE.bat` y luego vuelve a ejecutar `START_MANIPULANTE.bat`.
+5. **Seguridad**: START ahora detecta rastros viejos y los limpia automaticamente si la cuenta esta libre de operaciones.
+6. **Importante**: STOP no cierra MT5, solo detiene el proceso del bot de forma segura.
+
 ---
 *Para mas detalle, consulte `MANIPULANTE_BOT_OFICIAL.md`.*
