@@ -2,13 +2,18 @@
 __pycache__/
 *.py[cod]
 *$py.class
+.pytest_cache/
+.mypy_cache/
 .venv*/
 venv*/
 env*/
+node_modules/
 .pkg/
 .codex/
 .vendor*/
 .tmp/
+tmp/
+cache/
 .idea/
 .vscode/
 .DS_Store
@@ -20,10 +25,13 @@ DATA/
 data/
 data_candidates_*/
 data_free_*/
-*.csv
 *.csv.gz
 *.parquet
 *.jsonl
+data/raw/
+data/tick/
+datasets/raw/
+outputs/**/raw/
 
 # --- BASURA HISTÓRICA Y TEMPORALES ---
 ARCHIVE_SUPERSEDED/
@@ -33,20 +41,44 @@ _zip_clean*/
 results/
 BOT_V2_DAYTIME_LAB/outputs/
 000_PARA_CHATGPT/
+logs/
+*.bak
+*.phase_github_curation_backup
 
 # --- CREDENCIALES Y SECRETOS (CRÍTICO) ---
 mt5_local_config.json
 .env
 .env.*
+*.env
 secrets*
+*secret*
 credentials*
+*credential*
 account.json
 login.json
 *.key
 *.pem
+*token*
+*password*
+*passwd*
+api_news_provider_config.local.json
+MANIPULANTE/09_COMPLIANCE/API_LIVE_NEWS_PROVIDER/*.local.json
 
 # --- ARTEFACTOS ---
 *.zip
-!000_PARA_CHATGPT.zip
+*.7z
+*.rar
 *.log
 *.tmp
+
+# --- MT5 / BROKER LOCAL ---
+MQL5/Logs/
+MetaQuotes/
+Terminal/
+*.hst
+*.hcc
+*.fxt
+*.srv
+*.dat
+*.sqlite
+*.db

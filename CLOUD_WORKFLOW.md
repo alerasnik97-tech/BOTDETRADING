@@ -4,7 +4,7 @@ Este documento define el flujo operativo estándar para trabajar con **BOT DE TR
 
 ## Esquema de Entornos
 
-1. **Local (Fuente de Verdad)**: `C:\BOT DE TRADING`
+1. **Local (Fuente de Verdad)**: `C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo`
    * Aquí se desarrolla, se hacen pruebas pequeñas y se sella la infraestructura.
    * Es la única fuente autorizada para modificar código core.
 
@@ -41,3 +41,7 @@ Este documento define el flujo operativo estándar para trabajar con **BOT DE TR
 4. **Nube:** Lanzas la corrida masiva: `python -m research_lab.main run-all ...` y te vas a dormir.
 5. **Nube:** Al terminar, descargas el .csv de ranking y los JSONs de metadata usando SFTP o bajando el ZIP de outputs que generes manualmente. *No hacer commit de los resultados masivos.*
 6. **Local:** Revisas los resultados y repites el ciclo.
+
+
+> **ESTE ARCHIVO ES UN SNAPSHOT HISTÓRICO.**
+> La fuente viva y canónica está en: `BOT_V2_DAYTIME_LAB/docs/CORE_PROTOCOLS/CLOUD_WORKFLOW.MD`

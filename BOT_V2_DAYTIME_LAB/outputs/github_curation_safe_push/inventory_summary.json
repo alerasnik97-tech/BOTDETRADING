@@ -1,0 +1,22 @@
+{
+  "total_files": 35748,
+  "selected_should_track": 1850,
+  "sensitive_risk": 17,
+  "heavy_gt_25mb": 56,
+  "already_tracked": 6687,
+  "category_counts": {
+    "unknown": 9290,
+    "docs": 3424,
+    "source_code": 6419,
+    "cache": 14677,
+    "mt5_sensitive": 7,
+    "raw_data": 220,
+    "secrets_risk": 10,
+    "zip": 1,
+    "analysis_outputs": 1282,
+    "reports": 335,
+    "scorecard": 42,
+    "logs": 18,
+    "strategy_docs": 23
+  }
+}

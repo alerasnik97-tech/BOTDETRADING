@@ -1,15 +1,6 @@
-# CURRENT PROJECT STATUS
+# Current Project Status
 
-- **Estructura Reorganizada**: SÍ. Dividida en MANIPULANTE (Autoridad) y ESTRATEGIAS (Archivo).
-- **Autoridad Actual**: MANIPULANTE (TP 1.4R / BE 0.4R / BF 70% / Global Weekend Hard Close).
-- **Shadow Comparator**: TP1.4_BE0.5_BF70.
-- **Rutas de Fondeo Aprobadas**: FTMO 2-Step Swing (Principal), FundedNext Stellar Lite (Secundaria, estricta).
-- **Riesgo Recomendado**: 0.50%.
-- **Trading Real**: BLOQUEADO.
-- **MT5 Real**: BLOQUEADO.
-- **GitHub Sync**: Preparado para sincronización segura sin data pesada.
-
-- **Ruta Oficial Única**: Consolidada en `C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo`.
-- **Fase de Ejecución**: Manual Temporal (Sin discrecionalidad estratégica).
-- **Phase Active**: PHASE35 Completed.
-- **Real Readiness**: Sí (Micro Real Manual).
+- Latest phase: Phase37D FTMO Trial API News + Signal.
+- Verdict: `FTMO_TRIAL_BLOCKED_NEWS_PROVIDER`.
+- Real: blocked.
+- Strategy: unchanged.

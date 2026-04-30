@@ -1,0 +1,8 @@
+{
+  "phase": "41",
+  "verdict": "HYBRID_REPLAY_PASS_HIGH_CONFIDENCE",
+  "signal_match_pct": 100.0,
+  "replay_pf": 2.12,
+  "score": 84,
+  "limitations": ["news_gate_offline_replay"]
+}

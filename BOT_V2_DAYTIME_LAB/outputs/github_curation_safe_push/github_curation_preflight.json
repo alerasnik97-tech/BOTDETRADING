@@ -1,0 +1,1642 @@
+{
+  "timestamp_utc": "2026-04-30T11:12:34.854906+00:00",
+  "cwd": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo",
+  "branch": "main",
+  "remote": "origin\thttps://github.com/alerasnik97-tech/bottrading.git (fetch)\norigin\thttps://github.com/alerasnik97-tech/bottrading.git (push)",
+  "git_status_short": [
+    "M .gitignore",
+    " M 00_READ_THIS_FIRST.md",
+    " M 01_CURRENT_PROJECT_STATUS.json",
+    " M 01_CURRENT_PROJECT_STATUS.md",
+    " M 02_STRATEGY_AUTHORITY_MAP.json",
+    " M 02_STRATEGY_AUTHORITY_MAP.md",
+    " M BOT_V2_DAYTIME_LAB/ZIP_CONTENTS_MANIFEST.md",
+    " M BOT_V2_DAYTIME_LAB/outputs/final_project_structure_manipulante/zip_validation/final_structure_zip_entries.txt",
+    " M BOT_V2_DAYTIME_LAB/outputs/final_project_structure_manipulante/zip_validation/final_structure_zip_validation.json",
+    " M BOT_V2_DAYTIME_LAB/outputs/final_project_structure_manipulante/zip_validation/final_structure_zip_validation.md",
+    " M CHANGELOG.md",
+    " M CLOUD_WORKFLOW.md",
+    " M MANIPULANTE/04_OPERACION_DIARIA/MANIPULANTE_DAILY_RUNBOOK.md",
+    " M MANIPULANTE/04_OPERACION_DIARIA/MANIPULANTE_KILL_SWITCH.md",
+    " M MANIPULANTE/09_COMPLIANCE/MT5_LIVE_NEWS_ADAPTER/MANIPULANTE_CalendarBootstrapEA.mq5",
+    " M MANIPULANTE/12_MICRO_REAL_READINESS/MICRO_REAL_KILL_SWITCH.md",
+    " M MANIPULANTE/12_MICRO_REAL_READINESS/MICRO_REAL_POSITION_SIZE_POLICY.md",
+    " M MANIPULANTE/15_FORWARD_DEMO_SCORECARD/promotion_gate/MANIPULANTE_PROMOTION_GATE_TO_REAL.md",
+    " D MANIPULANTE/STATUS_TECNICO_MANIPULANTE.bat",
+    " M README.md",
+    " M ZIP_CONTENTS_MANIFEST.md",
+    " M legacy_archive_2026/_audit_dest_extras.ps1",
+    " M mt5_demo_executor_lab/mt5_order_router.py",
+    " M reports/canonical_context_master_20260416_163108/AGENTS.md",
+    " M reports/canonical_context_master_20260416_163108/RESEARCH_OPERATING_SYSTEM.md",
+    " M reports/canonical_context_master_20260416_163108/RISK_PROTOCOL.md",
+    " M reports/canonical_microstructure_iter2_20260416_172155/AGENTS.md",
+    " M reports/canonical_microstructure_iter2_20260416_172155/RESEARCH_OPERATING_SYSTEM.md",
+    " M reports/canonical_microstructure_iter2_20260416_172155/RISK_PROTOCOL.md",
+    " M research_lab/README.md",
+    "?? BOT_V2_DAYTIME_LAB/ZIP_UPLOAD_IDENTITY_MARKER.md",
+    "?? BOT_V2_DAYTIME_LAB/configs/phase24_forward_demo_candidate_config.json",
+    "?? BOT_V2_DAYTIME_LAB/configs/phase24_forward_demo_candidate_config_hash.txt",
+    "?? BOT_V2_DAYTIME_LAB/configs/phase25_forward_demo_candidate_config.json",
+    "?? BOT_V2_DAYTIME_LAB/configs/phase25_forward_demo_candidate_config_hash.txt",
+    "?? BOT_V2_DAYTIME_LAB/configs/prop_firm_rules_config.json",
+    "?? BOT_V2_DAYTIME_LAB/docs/CANONICAL_ZIP_CHECKLIST.md",
+    "?? BOT_V2_DAYTIME_LAB/docs/CANONICAL_ZIP_OPERATING_STANDARD.md",
+    "?? BOT_V2_DAYTIME_LAB/docs/PHASE25_DAILY_RUNBOOK.md",
+    "?? BOT_V2_DAYTIME_LAB/docs/PHASE25_FORWARD_DEMO_PROTOCOL.md",
+    "?? BOT_V2_DAYTIME_LAB/docs/PHASE25_FORWARD_REVIEW_CRITERIA.md",
+    "?? BOT_V2_DAYTIME_LAB/docs/PHASE25_KILL_SWITCH_POLICY.md",
+    "?? BOT_V2_DAYTIME_LAB/docs/PHASE26B_DATA_ACQUISITION_REQUIREMENTS_2015_2019.md",
+    "?? BOT_V2_DAYTIME_LAB/docs/PHASE26B_DATA_CERTIFICATION_CHECKLIST_2015_2019.md",
+    "?? BOT_V2_DAYTIME_LAB/docs/PHASE32C_FUNDEDNEXT_CHECKOUT_VERIFICATION_CHECKLIST.md",
+    "?? BOT_V2_DAYTIME_LAB/docs/PHASE32C_FUNDEDNEXT_KILL_SWITCH.md",
+    "?? BOT_V2_DAYTIME_LAB/docs/PHASE32C_FUNDEDNEXT_PRE_TRADE_CHECKLIST.md",
+    "?? BOT_V2_DAYTIME_LAB/docs/PHASE32C_FUNDEDNEXT_STELLAR_LITE_OPERATIONAL_RULEBOOK.md",
+    "?? BOT_V2_DAYTIME_LAB/docs/PHASE32C_FUNDEDNEXT_WEEKEND_POLICY.md",
+    "?? BOT_V2_DAYTIME_LAB/docs/PHASE32_DAILY_RUNBOOK.md",
+    "?? BOT_V2_DAYTIME_LAB/docs/PHASE32_DUAL_LEDGER_PROTOCOL.md",
+    "?? BOT_V2_DAYTIME_LAB/docs/PHASE32_FTMO_PAPER_EVALUATION_PLAN.md",
+    "?? BOT_V2_DAYTIME_LAB/docs/PHASE32_KILL_SWITCH_POLICY.md",
+    "?? BOT_V2_DAYTIME_LAB/docs/PHASE32_REVIEW_CRITERIA.md",
+    "?? BOT_V2_DAYTIME_LAB/docs/PHASE32_RISK_POLICY.md",
+    "?? BOT_V2_DAYTIME_LAB/reports/PHASE36R_37A_ORDER_SEND_REPAIR_MICRO_REAL_GATE_REPORT.json",
+    "?? BOT_V2_DAYTIME_LAB/reports/PHASE36R_37A_ORDER_SEND_REPAIR_MICRO_REAL_GATE_REPORT.md",
+    "?? BOT_V2_DAYTIME_LAB/reports/PHASE36S_LIVE_NEWS_LOT_FEASIBILITY_REPORT.json",
+    "?? BOT_V2_DAYTIME_LAB/reports/PHASE36S_LIVE_NEWS_LOT_FEASIBILITY_REPORT.md",
+    "?? BOT_V2_DAYTIME_LAB/reports/PHASE36_LIVE_NEWS_MT5_DRYRUN_READINESS_REPORT.json",
+    "?? BOT_V2_DAYTIME_LAB/reports/PHASE36_LIVE_NEWS_MT5_DRYRUN_READINESS_REPORT.md",
+    "?? BOT_V2_DAYTIME_LAB/reports/PHASE37B_FTMO_TRIAL_NEWS_SIGNAL_FINALIZATION_REPORT.json",
+    "?? BOT_V2_DAYTIME_LAB/reports/PHASE37B_FTMO_TRIAL_NEWS_SIGNAL_FINALIZATION_REPORT.md",
+    "?? BOT_V2_DAYTIME_LAB/reports/PHASE37C_FULL_AUTO_FTMO_TRIAL_BOOTSTRAP_REPORT.json",
+    "?? BOT_V2_DAYTIME_LAB/reports/PHASE37C_FULL_AUTO_FTMO_TRIAL_BOOTSTRAP_REPORT.md",
+    "?? BOT_V2_DAYTIME_LAB/reports/PHASE37D_FTMO_TRIAL_API_NEWS_SIGNAL_AUTO_REPORT.json",
+    "?? BOT_V2_DAYTIME_LAB/reports/PHASE37D_FTMO_TRIAL_API_NEWS_SIGNAL_AUTO_REPORT.md",
+    "?? BOT_V2_DAYTIME_LAB/reports/PHASE37_FTMO_SWING_FREE_TRIAL_AUTOMATION_REPORT.json",
+    "?? BOT_V2_DAYTIME_LAB/reports/PHASE37_FTMO_SWING_FREE_TRIAL_AUTOMATION_REPORT.md",
+    "?? BOT_V2_DAYTIME_LAB/reports/PHASE41_MANIPULANTE_HYBRID_REPLAY_FORWARD_AUDIT_REPORT.json",
+    "?? BOT_V2_DAYTIME_LAB/reports/PHASE41_MANIPULANTE_HYBRID_REPLAY_FORWARD_AUDIT_REPORT.md",
+    "?? BOT_V2_DAYTIME_LAB/src/BOT_V2_DAYTIME_LAB/",
+    "?? BOT_V2_DAYTIME_LAB/src/phase36_exness_lot_validator.py",
+    "?? BOT_V2_DAYTIME_LAB/src/phase36_exness_symbol_gate.py",
+    "?? BOT_V2_DAYTIME_LAB/src/phase36_live_data_quality_gate.py",
+    "?? BOT_V2_DAYTIME_LAB/src/phase36_live_news_fortress.py",
+    "?? BOT_V2_DAYTIME_LAB/src/phase36_manipulante_dry_run_engine.py",
+    "?? BOT_V2_DAYTIME_LAB/src/phase36_readiness_orchestrator.py",
+    "?? BOT_V2_DAYTIME_LAB/src/phase36_server_time_validator.py",
+    "?? BOT_V2_DAYTIME_LAB/src/phase36_time_gate_validator.py",
+    "?? BOT_V2_DAYTIME_LAB/src/phase36r_37a_micro_real_gate_orchestrator.py",
+    "?? BOT_V2_DAYTIME_LAB/src/phase36s_live_news_lot_feasibility_orchestrator.py",
+    "?? BOT_V2_DAYTIME_LAB/src/phase36s_lot_feasibility_100usd.py",
+    "?? BOT_V2_DAYTIME_LAB/src/phase41_compare_replay.py",
+    "?? BOT_V2_DAYTIME_LAB/src/phase41_excel.py",
+    "?? BOT_V2_DAYTIME_LAB/src/phase41_manipulante_hybrid_replay.py",
+    "?? BOT_V2_DAYTIME_LAB/src/phase41_metrics.py",
+    "?? BOT_V2_profile_bootstrap_hack.py",
+    "?? LEER_PARA_SUBIR_ZIP.txt",
+    "?? MANIPULANTE/00_LEER_PRIMERO/MANIPULANTE_REPLAY_FORWARD_RESUMEN.md",
+    "?? MANIPULANTE/08_CHECKLISTS/CHECKLIST_LIVE_NEWS_GATE.md",
+    "?? MANIPULANTE/09_COMPLIANCE/API_LIVE_NEWS_PROVIDER/",
+    "?? MANIPULANTE/09_COMPLIANCE/LIVE_NEWS_FORTRESS_POLICY.md",
+    "?? MANIPULANTE/09_COMPLIANCE/live_news_cache/",
+    "?? MANIPULANTE/09_COMPLIANCE/live_news_fortress_config.json",
+    "?? MANIPULANTE/09_COMPLIANCE/news_automation_status.json",
+    "?? MANIPULANTE/10_LOGS_PAPER/ftmo_trial_bot/heartbeat.json",
+    "?? MANIPULANTE/10_LOGS_PAPER/ftmo_trial_bot/heartbeat.txt",
+    "?? MANIPULANTE/10_LOGS_PAPER/ftmo_trial_bot/quick_status.txt",
+    "?? MANIPULANTE/10_LOGS_PAPER/ftmo_trial_bot/runner.lock",
+    "?? MANIPULANTE/12_MICRO_REAL_READINESS/MICRO_REAL_ACTIVATION_PROTOCOL.md",
+    "?? MANIPULANTE/12_MICRO_REAL_READINESS/NO_REAL_UNTIL_CONFIRMATION.md",
+    "?? MANIPULANTE/14_ANALISIS/MANIPULANTE_HYBRID_REPLAY_FORWARD_AUDIT_REPORT.md",
+    "?? SUBIR_ESTE_ZIP_A_CHATGPT.txt",
+    "?? ZIP_VALIDADO_SUBIR_ESTE.txt",
+    "?? bootstrap.ini",
+    "?? bypass_zip_output.json",
+    "?? debug_zip_identity_output.json",
+    "?? desktop_bypass_output.json",
+    "?? force_visible_zip_output.json",
+    "?? git_operations.py",
+    "?? inventory_check.py",
+    "?? legacy_archive_2026/000_PARA_CHATGPT_BACKUP_20260421_211526.zipbak",
+    "?? legacy_archive_2026/_test.zipbak",
+    "?? mt5_demo_executor_lab/mt5_order_router.py.phase36r_backup",
+    "?? phase34_core_docs_audit.py",
+    "?? phase34_git_push.py",
+    "?? phase34_manipulante_shadow_sync.py",
+    "?? phase34_manipulante_validation.py",
+    "?? phase34_path_audit.py",
+    "?? phase34_preflight.py",
+    "?? phase34_python_path_audit.py",
+    "?? phase34_report_generator.py",
+    "?? phase34_update_master_docs.py",
+    "?? phase35_structure_audit.py",
+    "?? phase37e_run_mql5_calendar_script.py",
+    "?? preflight_check.py",
+    "?? validation_check.py"
+  ],
+  "project_total_size_bytes": 11655658504,
+  "project_total_size_mb": 11115.702,
+  "file_count": 35746,
+  "files_gt_10mb": [
+    {
+      "path": "BOT_V2_DAYTIME_LAB/outputs/same_name_zip_rebuild/quarantine/000_PARA_CHATGPT.previous_phase26b.zipbak",
+      "size_bytes": 199065444
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/outputs/same_name_zip_rebuild/quarantine/000_PARA_CHATGPT.zipbak",
+      "size_bytes": 199064658
+    },
+    {
+      "path": "data_precision/dukascopy/EURUSD_M1_MID.csv",
+      "size_bytes": 188006189
+    },
+    {
+      "path": ".vendor_duka2/_polars_runtime_32/_polars_runtime.pyd",
+      "size_bytes": 165237760
+    },
+    {
+      "path": "data_intake_2015_2019/prepared_m1_full/EURUSD_M1_MID.csv",
+      "size_bytes": 158171736
+    },
+    {
+      "path": "data_intake_2020_2026_bidask/raw/EURUSD_M1_BID_FULL_2020_2026.csv",
+      "size_bytes": 152232541
+    },
+    {
+      "path": "data_intake_2020_2026_bidask/raw/EURUSD_M1_ASK_FULL_2020_2026.csv",
+      "size_bytes": 152175235
+    },
+    {
+      "path": "data_precision_raw/dukascopy/EURUSD_M1_BID.csv",
+      "size_bytes": 144824490
+    },
+    {
+      "path": "data_precision/dukascopy/EURUSD_M1_BID.csv",
+      "size_bytes": 144824490
+    },
+    {
+      "path": "data_intake_2020_2026_bidask/raw/EURUSD_M1_BID_2020_2025.csv",
+      "size_bytes": 144824490
+    },
+    {
+      "path": "data_precision_raw/dukascopy/EURUSD_M1_ASK.csv",
+      "size_bytes": 144762209
+    },
+    {
+      "path": "data_precision/dukascopy/EURUSD_M1_ASK.csv",
+      "size_bytes": 144762209
+    },
+    {
+      "path": "data_intake_2020_2026_bidask/raw/EURUSD_M1_ASK_2020_2025.csv",
+      "size_bytes": 144762209
+    },
+    {
+      "path": "data_intake_2015_2019/prepared_m1_full/EURUSD_M1_BID.csv",
+      "size_bytes": 121460531
+    },
+    {
+      "path": "data_intake_2015_2019/raw_m1/EURUSD_M1_BID.csv",
+      "size_bytes": 121460531
+    },
+    {
+      "path": "data_intake_2015_2019/raw_m1_merged/EURUSD_M1_BID.csv",
+      "size_bytes": 121460531
+    },
+    {
+      "path": "data_intake_2015_2019/prepared_m1_full/EURUSD_M1_ASK.csv",
+      "size_bytes": 121458984
+    },
+    {
+      "path": "data_intake_2015_2019/raw_m1/EURUSD_M1_ASK.csv",
+      "size_bytes": 121458984
+    },
+    {
+      "path": "data_intake_2015_2019/raw_m1_merged/EURUSD_M1_ASK.csv",
+      "size_bytes": 121458984
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/data/certified_m3/EURUSD_M3_SPREAD_2020_2026.csv",
+      "size_bytes": 81916912
+    },
+    {
+      "path": "data_intake_2015_2019/prepared/EURUSD_M5_2015_2019_BID_ASK_MID_SPREAD.csv",
+      "size_bytes": 77087618
+    },
+    {
+      "path": "data/forex_factory_cache.csv",
+      "size_bytes": 68231084
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/data/processed_2015_2019/eurusd_m1_certified_candidate/2016/EURUSD_M1_2016.csv",
+      "size_bytes": 59909463
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/data/processed_2015_2019/eurusd_m1_certified_candidate/2018/EURUSD_M1_2018.csv",
+      "size_bytes": 59798063
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/data/processed_2015_2019/eurusd_m1_certified_candidate/2019/EURUSD_M1_2019.csv",
+      "size_bytes": 59686722
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/data/processed_2015_2019/eurusd_m1_certified_candidate/2017/EURUSD_M1_2017.csv",
+      "size_bytes": 59658732
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/data/processed_2015_2019/eurusd_m1_certified_candidate/2015/EURUSD_M1_2015.csv",
+      "size_bytes": 59543054
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/data/certified_m3/EURUSD_M3_BID_2020_2026.csv",
+      "size_bytes": 53100694
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/data/certified_m3/EURUSD_M3_ASK_2020_2026.csv",
+      "size_bytes": 53100419
+    },
+    {
+      "path": "results/eurusd_am_post_news_external_liquidity_shift/20260420_114634_eurusd_am_post_news_external_liquidity_shift/eurusd_am_post_news_external_liquidity_shift/equity_curve.csv",
+      "size_bytes": 43611476
+    },
+    {
+      "path": "results/eurusd_am_post_news_external_liquidity_shift/20260418_130554_eurusd_am_post_news_external_liquidity_shift/eurusd_am_post_news_external_liquidity_shift/equity_curve.csv",
+      "size_bytes": 43611476
+    },
+    {
+      "path": "results/eurusd_am_post_news_external_liquidity_shift/20260418_114630_eurusd_am_post_news_external_liquidity_shift/eurusd_am_post_news_external_liquidity_shift/equity_curve.csv",
+      "size_bytes": 43611476
+    },
+    {
+      "path": "results/pm_micro_reclaim_m3/20260416_161425_pm_micro_reclaim_m3/pm_micro_reclaim_m3/equity_curve.csv",
+      "size_bytes": 42663708
+    },
+    {
+      "path": "results/pm_micro_reclaim_m3/20260416_160702_pm_micro_reclaim_m3/pm_micro_reclaim_m3/equity_curve.csv",
+      "size_bytes": 42663708
+    },
+    {
+      "path": "reports/canonical_microstructure_iter2_20260416_172155/results/20260416_161425_pm_micro_reclaim_m3/pm_micro_reclaim_m3/equity_curve.csv",
+      "size_bytes": 42663708
+    },
+    {
+      "path": "data_intake_2020_2026_bidask/prepared/EURUSD_M5_MID.csv",
+      "size_bytes": 40094744
+    },
+    {
+      "path": "data_usdjpy_2016_2021/prepared/USDJPY_M5.csv",
+      "size_bytes": 34531567
+    },
+    {
+      "path": "results/pm_micro_reclaim_m3/20260416_145640_pm_micro_reclaim_m3/pm_micro_reclaim_m3/equity_curve.csv",
+      "size_bytes": 34172460
+    },
+    {
+      "path": "results/pm_micro_reclaim_m3/20260416_144633_pm_micro_reclaim_m3/pm_micro_reclaim_m3/equity_curve.csv",
+      "size_bytes": 34172460
+    },
+    {
+      "path": "reports/canonical_microstructure_iter2_20260416_172155/results/20260416_145640_pm_micro_reclaim_m3/pm_micro_reclaim_m3/equity_curve.csv",
+      "size_bytes": 34172460
+    },
+    {
+      "path": "reports/canonical_forensic_next_step_20260416_160901/results/pm_micro_reclaim_m3/20260416_145640_pm_micro_reclaim_m3/pm_micro_reclaim_m3/equity_curve.csv",
+      "size_bytes": 34172460
+    },
+    {
+      "path": "reports/canonical_context_master_20260416_163108/results/20260416_145640_pm_micro_reclaim_m3/pm_micro_reclaim_m3/equity_curve.csv",
+      "size_bytes": 34172460
+    },
+    {
+      "path": "data_intake_2020_2026_bidask/prepared/EURUSD_M5_BID.csv",
+      "size_bytes": 31810544
+    },
+    {
+      "path": "data_intake_2020_2026_bidask/prepared/EURUSD_M5_ASK.csv",
+      "size_bytes": 31802732
+    },
+    {
+      "path": "data_intake_2015_2019/prepared_m1/EURUSD_M1_MID.csv",
+      "size_bytes": 31419110
+    },
+    {
+      "path": "legacy_archive_2026/reports_core_reversion_context_lab_2016_2021/short_only/design/equity_curve.csv",
+      "size_bytes": 29245243
+    },
+    {
+      "path": "legacy_archive_2026/reports_survivor_stress_test/baseline_no_shock/design/equity_curve.csv",
+      "size_bytes": 29245242
+    },
+    {
+      "path": "legacy_archive_2026/reports_core_reversion_context_lab_2016_2021/wed_thu_fri_core/design/equity_curve.csv",
+      "size_bytes": 29245242
+    },
+    {
+      "path": "legacy_archive_2026/reports_core_reversion_context_lab_2016_2021/core_only/design/equity_curve.csv",
+      "size_bytes": 29200317
+    },
+    {
+      "path": "legacy_archive_2026/reports_core_reversion_context_lab_2016_2021/core_short_only/design/equity_curve.csv",
+      "size_bytes": 29175536
+    },
+    {
+      "path": "legacy_archive_2026/reports_survivor_stress_test/production_layered/design/equity_curve.csv",
+      "size_bytes": 29015396
+    },
+    {
+      "path": "legacy_archive_2026/reports_core_reversion_context_lab_2016_2021/base/design/equity_curve.csv",
+      "size_bytes": 28994562
+    },
+    {
+      "path": "data_intake_2015_2019/prepared/EURUSD_M5_MID.csv",
+      "size_bytes": 28973994
+    },
+    {
+      "path": "legacy_archive_2026/reports_survivor_stress_test/high_costs_layered/design/equity_curve.csv",
+      "size_bytes": 28821786
+    },
+    {
+      "path": "legacy_archive_2026/reports_survivor_stress_test/extreme_costs_layered/design/equity_curve.csv",
+      "size_bytes": 28617876
+    },
+    {
+      "path": "results/pm_volatility_squeeze_retest_m5/20260417_085837_pm_volatility_squeeze_retest_m5/pm_volatility_squeeze_retest_m5/equity_curve.csv",
+      "size_bytes": 26277709
+    },
+    {
+      "path": "results/ict_atomic_setups/20260416_183745_ict_atomic_setups/ict_atomic_sweep_displacement_pm/equity_curve.csv",
+      "size_bytes": 26108452
+    },
+    {
+      "path": "results/ict_atomic_setups/20260416_182454_ict_atomic_setups/ict_atomic_sweep_displacement_pm/equity_curve.csv",
+      "size_bytes": 26108452
+    },
+    {
+      "path": "results/ifvg_repricing_pm/20260416_212523_ifvg_repricing_pm/ict_ifvg_repricing_pm/equity_curve.csv",
+      "size_bytes": 25786867
+    },
+    {
+      "path": "results/pm_micro_reclaim_m3/20260416_134031_pm_micro_reclaim_m3/pm_micro_reclaim_m3/equity_curve.csv",
+      "size_bytes": 25420337
+    },
+    {
+      "path": "data_intake_2015_2019/prepared/EURUSD_M5_BID.csv",
+      "size_bytes": 25216014
+    },
+    {
+      "path": "data_intake_2015_2019/prepared/EURUSD_M5_ASK.csv",
+      "size_bytes": 25212348
+    },
+    {
+      "path": "data/coverage_pipeline/backups/20260423T185411Z/EURUSD_M5.csv",
+      "size_bytes": 24754739
+    },
+    {
+      "path": "data/coverage_pipeline/backups/20260423T152227Z/EURUSD_M5.csv",
+      "size_bytes": 24753239
+    },
+    {
+      "path": "data_intake_2015_2019/raw_m1/2016/EURUSD_M1_ASK.csv",
+      "size_bytes": 24379587
+    },
+    {
+      "path": "data_intake_2015_2019/raw_m1/2016/EURUSD_M1_BID.csv",
+      "size_bytes": 24379084
+    },
+    {
+      "path": "data_intake_2015_2019/raw_m1/2018/EURUSD_M1_ASK.csv",
+      "size_bytes": 24329065
+    },
+    {
+      "path": "data_intake_2015_2019/raw_m1/2018/EURUSD_M1_BID.csv",
+      "size_bytes": 24326918
+    },
+    {
+      "path": "data_intake_2015_2019/raw_m1/2019/EURUSD_M1_BID.csv",
+      "size_bytes": 24281306
+    },
+    {
+      "path": "data_intake_2015_2019/raw_m1/2019/EURUSD_M1_ASK.csv",
+      "size_bytes": 24276745
+    },
+    {
+      "path": "data_intake_2015_2019/raw_m1/2017/EURUSD_M1_BID.csv",
+      "size_bytes": 24267315
+    },
+    {
+      "path": "data_intake_2015_2019/raw_m1/2017/EURUSD_M1_ASK.csv",
+      "size_bytes": 24262676
+    },
+    {
+      "path": "data_intake_2015_2019/prepared_m1/EURUSD_M1_ASK.csv",
+      "size_bytes": 24211063
+    },
+    {
+      "path": "data_intake_2015_2019/raw_m1/2015/EURUSD_M1_ASK.csv",
+      "size_bytes": 24211063
+    },
+    {
+      "path": "data_intake_2015_2019/prepared_m1/EURUSD_M1_BID.csv",
+      "size_bytes": 24206060
+    },
+    {
+      "path": "data_intake_2015_2019/raw_m1/2015/EURUSD_M1_BID.csv",
+      "size_bytes": 24206060
+    },
+    {
+      "path": "results/research_lab_audit/20260410_111945_news_closure/news_eurusd_m15_audit.csv",
+      "size_bytes": 24100978
+    },
+    {
+      "path": "data/news_eurusd_m15_audit.csv",
+      "size_bytes": 23124821
+    },
+    {
+      "path": "research_lab/data/news/news_events_audit.csv",
+      "size_bytes": 23123294
+    },
+    {
+      "path": "data/news_eurusd_v2_utc_audit.csv",
+      "size_bytes": 23108590
+    },
+    {
+      "path": "data_usdjpy_2022_2025/prepared/USDJPY_M5.csv",
+      "size_bytes": 23052540
+    },
+    {
+      "path": "data_candidates_2022_2025/prepared/USDJPY_M5.csv",
+      "size_bytes": 23052540
+    },
+    {
+      "path": "data_candidates_2022_2025/prepared/EURUSD_M5_BACKUP_20260421_222515.csv",
+      "size_bytes": 23015312
+    },
+    {
+      "path": "data_usdjpy_2016_2019/prepared/USDJPY_M5.csv",
+      "size_bytes": 23011116
+    },
+    {
+      "path": "data_candidates_2022_2025/prepared/USDCHF_M5.csv",
+      "size_bytes": 22991474
+    },
+    {
+      "path": "data_candidates_2022_2025/prepared/USDCAD_M5.csv",
+      "size_bytes": 22989048
+    },
+    {
+      "path": "data_intake_2020_2026_bidask/prepared/EURUSD_M5_SPREAD.csv",
+      "size_bytes": 21843447
+    },
+    {
+      "path": "results/research_lab_audit/20260410_132039_audit/news_eurusd_m15_audit.csv",
+      "size_bytes": 21539708
+    },
+    {
+      "path": "results/research_lab_audit/20260410_153029_audit/news_eurusd_m15_audit.csv",
+      "size_bytes": 21539708
+    },
+    {
+      "path": "results/research_lab_audit/20260411_092033_audit/news_eurusd_m15_audit.csv",
+      "size_bytes": 21539708
+    },
+    {
+      "path": ".venv_fixed/Lib/site-packages/numpy.libs/libscipy_openblas64_-63c857e738469261263c764a36be9436.dll",
+      "size_bytes": 20415488
+    },
+    {
+      "path": ".vendor_duka/numpy.libs/libscipy_openblas64_-63c857e738469261263c764a36be9436.dll",
+      "size_bytes": 20415488
+    },
+    {
+      "path": ".pkg/numpy.libs/libscipy_openblas64_-63c857e738469261263c764a36be9436.dll",
+      "size_bytes": 20415488
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_family_screen/20260408_214716_simple_screen/trend_pullback/USDCAD/oos/equity_curve.csv",
+      "size_bytes": 19039760
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_family_screen/20260408_214716_simple_screen/trend_pullback/USDCHF/oos/equity_curve.csv",
+      "size_bytes": 19018768
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_family_screen/20260408_214716_simple_screen/mean_reversion/EURUSD/oos/equity_curve.csv",
+      "size_bytes": 18982451
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_family_screen/20260408_214716_simple_screen/trend_pullback/EURUSD/oos/equity_curve.csv",
+      "size_bytes": 18968406
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_vwap_screen/20260408_222302_simple_screen/vwap_mean_reversion/USDCAD/oos/equity_curve.csv",
+      "size_bytes": 18942368
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_context_lab_usdcad_vwap/20260409_085717_simple_context_lab/base/oos/equity_curve.csv",
+      "size_bytes": 18942368
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_family_screen/20260408_214716_simple_screen/trend_pullback/USDJPY/oos/equity_curve.csv",
+      "size_bytes": 18936575
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_family_screen/20260408_214716_simple_screen/mean_reversion/USDCHF/oos/equity_curve.csv",
+      "size_bytes": 18910004
+    },
+    {
+      "path": "legacy_archive_2026/reports_usdjpy_2022_2025_opt_winrate_calendar/20260408_112222_optimize/equity_curve.csv",
+      "size_bytes": 18887111
+    },
+    {
+      "path": "legacy_archive_2026/reports_usdjpy_2022_2025_opt_consistency_calendar/20260408_112223_optimize/equity_curve.csv",
+      "size_bytes": 18857840
+    },
+    {
+      "path": "legacy_archive_2026/reports_candidate_block_lab_compression_release/EURUSD/oos/equity_curve.csv",
+      "size_bytes": 18856607
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_family_screen/20260408_214716_simple_screen/mean_reversion/USDJPY/oos/equity_curve.csv",
+      "size_bytes": 18855112
+    },
+    {
+      "path": "legacy_archive_2026/reports_candidate_block_lab_trend_reclaim/EURUSD/oos/equity_curve.csv",
+      "size_bytes": 18845374
+    },
+    {
+      "path": "legacy_archive_2026/reports_candidate_block_lab_trend_reclaim/USDJPY/oos/equity_curve.csv",
+      "size_bytes": 18837630
+    },
+    {
+      "path": "legacy_archive_2026/reports_playbook_setup_lab/compression_breakout/oos/equity_curve.csv",
+      "size_bytes": 18833250
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_context_lab_usdcad_vwap/20260409_085717_simple_context_lab/mon_tue_early_short/oos/equity_curve.csv",
+      "size_bytes": 18785875
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_context_lab_usdcad_vwap/20260409_085717_simple_context_lab/mon_tue_early/oos/equity_curve.csv",
+      "size_bytes": 18785875
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_context_lab_usdcad_vwap/20260409_085717_simple_context_lab/mon_tue_short/oos/equity_curve.csv",
+      "size_bytes": 18785869
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_context_lab_usdcad_vwap/20260409_085717_simple_context_lab/mon_tue_fri_short/oos/equity_curve.csv",
+      "size_bytes": 18785869
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_context_lab_usdcad_vwap/20260409_085717_simple_context_lab/mon_tue/oos/equity_curve.csv",
+      "size_bytes": 18785869
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_family_screen/20260408_214716_simple_screen/mean_reversion/USDCAD/oos/equity_curve.csv",
+      "size_bytes": 18763495
+    },
+    {
+      "path": "legacy_archive_2026/reports_usdjpy_news_guard_2022_2025/unprotected/equity_curve.csv",
+      "size_bytes": 18734054
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_context_lab_usdcad_vwap/20260409_085717_simple_context_lab/mon_tue_fri_early/oos/equity_curve.csv",
+      "size_bytes": 18718516
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_context_lab_usdcad_vwap/20260409_085717_simple_context_lab/mon_tue_fri/oos/equity_curve.csv",
+      "size_bytes": 18718514
+    },
+    {
+      "path": "legacy_archive_2026/reports_usdjpy_news_guard_2022_2025/calendar_only/equity_curve.csv",
+      "size_bytes": 18710068
+    },
+    {
+      "path": "legacy_archive_2026/reports_usdjpy_news_guard_2022_2025/layered_guard/equity_curve.csv",
+      "size_bytes": 18710068
+    },
+    {
+      "path": "legacy_archive_2026/reports_playbook_setup_lab/late_continuation/oos/equity_curve.csv",
+      "size_bytes": 18648614
+    },
+    {
+      "path": "legacy_archive_2026/reports_survivor_pair_screen/USDCAD/oos/equity_curve.csv",
+      "size_bytes": 18546879
+    },
+    {
+      "path": "legacy_archive_2026/reports_candidate_block_lab_pemr_partial/USDJPY/oos/equity_curve.csv",
+      "size_bytes": 18393649
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_family_screen/20260408_214716_simple_screen/post_expansion_reversion/USDJPY/oos/equity_curve.csv",
+      "size_bytes": 18393646
+    },
+    {
+      "path": "legacy_archive_2026/reports_core_reversion_context_lab_2016_2021/core_only/oos/equity_curve.csv",
+      "size_bytes": 18391670
+    },
+    {
+      "path": "legacy_archive_2026/reports_core_reversion_context_lab/core_only/oos/equity_curve.csv",
+      "size_bytes": 18391670
+    },
+    {
+      "path": "legacy_archive_2026/reports_core_reversion_context_lab/core_balanced_or_calm/oos/equity_curve.csv",
+      "size_bytes": 18391670
+    },
+    {
+      "path": "legacy_archive_2026/reports_candidate_block_lab_compression_release/USDJPY/oos/equity_curve.csv",
+      "size_bytes": 18353783
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_family_screen/20260408_214716_simple_screen/post_expansion_reversion/USDCAD/oos/equity_curve.csv",
+      "size_bytes": 18349983
+    },
+    {
+      "path": "legacy_archive_2026/reports_playbook_setup_lab/core_reversion/oos/equity_curve.csv",
+      "size_bytes": 18336254
+    },
+    {
+      "path": "legacy_archive_2026/reports_core_reversion_context_lab_2016_2021/base/oos/equity_curve.csv",
+      "size_bytes": 18336254
+    },
+    {
+      "path": "legacy_archive_2026/reports_core_reversion_context_lab/base/oos/equity_curve.csv",
+      "size_bytes": 18336254
+    },
+    {
+      "path": "legacy_archive_2026/reports_candidate_block_lab_pemr_partial/USDCAD/oos/equity_curve.csv",
+      "size_bytes": 18299790
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_context_lab_eurusd_vwap/20260408_225309_simple_context_lab/mon_tue_fri_short/oos/equity_curve.csv",
+      "size_bytes": 18267169
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_eurusd_vwap_quality_oos_calendar/20260409_090958_simple_run/equity_curve.csv",
+      "size_bytes": 18231443
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_eurusd_vwap_quality_oos/20260409_090747_simple_run/equity_curve.csv",
+      "size_bytes": 18231443
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_eurusd_vwap_candidate_oos/20260408_225935_simple_run/equity_curve.csv",
+      "size_bytes": 18231443
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_context_lab_eurusd_vwap/20260408_225309_simple_context_lab/mon_tue_fri_early/oos/equity_curve.csv",
+      "size_bytes": 18231443
+    },
+    {
+      "path": "results/ict_atomic_setups/20260416_183745_ict_atomic_setups/ict_atomic_sweep_fvg_pm/equity_curve.csv",
+      "size_bytes": 18165778
+    },
+    {
+      "path": "results/ict_atomic_setups/20260416_182454_ict_atomic_setups/ict_atomic_sweep_fvg_pm/equity_curve.csv",
+      "size_bytes": 18165778
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_vwap_screen/20260408_222302_simple_screen/vwap_mean_reversion/EURUSD/oos/equity_curve.csv",
+      "size_bytes": 18164399
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_eurusd_vwap_frequency_oos_calendar/20260409_090958_simple_run/equity_curve.csv",
+      "size_bytes": 18164399
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_eurusd_vwap_frequency_oos/20260409_090747_simple_run/equity_curve.csv",
+      "size_bytes": 18164399
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_context_lab_eurusd_vwap/20260408_225309_simple_context_lab/mon_tue_fri/oos/equity_curve.csv",
+      "size_bytes": 18164399
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_context_lab_eurusd_vwap/20260408_225309_simple_context_lab/base/oos/equity_curve.csv",
+      "size_bytes": 18164399
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_family_screen/20260408_214716_simple_screen/post_expansion_reversion/EURUSD/oos/equity_curve.csv",
+      "size_bytes": 18161582
+    },
+    {
+      "path": "legacy_archive_2026/reports_playbook_core_lab_frequency/core_reversion/oos/equity_curve.csv",
+      "size_bytes": 18153783
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_context_lab_eurusd_vwap/20260408_225309_simple_context_lab/mon_tue_early_short/oos/equity_curve.csv",
+      "size_bytes": 18101137
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_context_lab_eurusd_vwap/20260408_225309_simple_context_lab/mon_tue/oos/equity_curve.csv",
+      "size_bytes": 18101137
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_context_lab_eurusd_vwap/20260408_225309_simple_context_lab/mon_tue_short/oos/equity_curve.csv",
+      "size_bytes": 18101136
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_context_lab_eurusd_vwap/20260408_225309_simple_context_lab/mon_tue_early/oos/equity_curve.csv",
+      "size_bytes": 18101136
+    },
+    {
+      "path": "legacy_archive_2026/reports_survivor_pair_screen/USDCHF/oos/equity_curve.csv",
+      "size_bytes": 18092567
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/data/certification_2015_2019/masks/EURUSD_M3_DATA_QUALITY_MASK_2015_2019.csv",
+      "size_bytes": 18059221
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_vwap_screen/20260408_222302_simple_screen/vwap_mean_reversion/USDJPY/oos/equity_curve.csv",
+      "size_bytes": 18026747
+    },
+    {
+      "path": "legacy_archive_2026/reports_candidate_block_lab_pemr_partial/EURUSD/oos/equity_curve.csv",
+      "size_bytes": 17982468
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_vwap_screen/20260408_222302_simple_screen/core_reversion/USDCHF/oos/equity_curve.csv",
+      "size_bytes": 17971103
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_family_screen/20260408_214716_simple_screen/core_reversion/USDCHF/oos/equity_curve.csv",
+      "size_bytes": 17971103
+    },
+    {
+      "path": "legacy_archive_2026/reports_survivor_pair_screen/EURUSD/oos/equity_curve.csv",
+      "size_bytes": 17665256
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_vwap_rsi7__mr_strict__core__balanced/equity_curve.csv",
+      "size_bytes": 17597953
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/trend_ema_rsi7__trend_balanced__core__balanced/equity_curve.csv",
+      "size_bytes": 17568465
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_usdjpy_core_oos_calendar/20260409_090955_simple_run/equity_curve.csv",
+      "size_bytes": 17550588
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_usdjpy_core_oos/20260409_090556_simple_run/equity_curve.csv",
+      "size_bytes": 17550588
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_bot_oos/20260408_212512_simple_run/equity_curve.csv",
+      "size_bytes": 17550588
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/trend_ema_rsi7__trend_active__core__balanced/equity_curve.csv",
+      "size_bytes": 17512971
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/trend_ema_rsi7__trend_active__core__tight/equity_curve.csv",
+      "size_bytes": 17512460
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/trend_ema_rsi7__trend_balanced__early__balanced/equity_curve.csv",
+      "size_bytes": 17503514
+    },
+    {
+      "path": "results/baseline_smr_dev/20260412_215222_robust_lab/strategy_smr/PARA CHATGPT/equity_curve.csv",
+      "size_bytes": 17499180
+    },
+    {
+      "path": "results/baseline_smr_dev_v2/20260412_221416_robust_lab/strategy_smr/PARA CHATGPT/equity_curve.csv",
+      "size_bytes": 17498651
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/trend_ema_rsi7__trend_balanced__early__tight/equity_curve.csv",
+      "size_bytes": 17489296
+    },
+    {
+      "path": "results/baseline_src_dev/20260413_094542_robust_lab/strategy_src/PARA CHATGPT/equity_curve.csv",
+      "size_bytes": 17485501
+    },
+    {
+      "path": "results/baseline_ls_sr_dev/20260413_083440_robust_lab/strategy_ls_sr/PARA CHATGPT/equity_curve.csv",
+      "size_bytes": 17483594
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/trend_ema_rsi7__trend_balanced__core__tight/equity_curve.csv",
+      "size_bytes": 17477085
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_vwap_rsi2__mr_balanced__full__balanced/equity_curve.csv",
+      "size_bytes": 17453489
+    },
+    {
+      "path": "results/ict_atomic_setups/20260416_183745_ict_atomic_setups/ict_atomic_sweep_choch_fvg_pm/equity_curve.csv",
+      "size_bytes": 17448184
+    },
+    {
+      "path": "results/ict_atomic_setups/20260416_182454_ict_atomic_setups/ict_atomic_sweep_choch_fvg_pm/equity_curve.csv",
+      "size_bytes": 17448184
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_vwap_screen/20260408_222302_simple_screen/core_reversion/USDCAD/oos/equity_curve.csv",
+      "size_bytes": 17447721
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_validate_usdcad/20260408_213702_oos_run/equity_curve.csv",
+      "size_bytes": 17447721
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_family_screen/20260408_214716_simple_screen/core_reversion/USDCAD/oos/equity_curve.csv",
+      "size_bytes": 17447721
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_vwap_rsi2__mr_balanced__early__tight/equity_curve.csv",
+      "size_bytes": 17445670
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_vwap_screen/20260408_222302_simple_screen/core_reversion/EURUSD/oos/equity_curve.csv",
+      "size_bytes": 17436181
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_validate_eurusd/20260408_213424_oos_run/equity_curve.csv",
+      "size_bytes": 17436181
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_family_screen/20260408_214716_simple_screen/core_reversion/EURUSD/oos/equity_curve.csv",
+      "size_bytes": 17436181
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_vwap_rsi2__mr_balanced__full__tight/equity_curve.csv",
+      "size_bytes": 17425871
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/trend_ema_rsi7__trend_active__early__balanced/equity_curve.csv",
+      "size_bytes": 17406486
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_vwap_rsi7__mr_balanced__early__balanced/equity_curve.csv",
+      "size_bytes": 17394425
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_vwap_rsi2__mr_balanced__early__balanced/equity_curve.csv",
+      "size_bytes": 17383013
+    },
+    {
+      "path": "results/20260413_105627_robust_lab/strategy_vse/PARA CHATGPT/equity_curve.csv",
+      "size_bytes": 17382511
+    },
+    {
+      "path": "results/20260413_104444_robust_lab/strategy_vse/PARA CHATGPT/equity_curve.csv",
+      "size_bytes": 17382511
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_bb_stoch__mr_balanced__core__balanced/equity_curve.csv",
+      "size_bytes": 17373423
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/trend_ema_rsi7__trend_active__early__tight/equity_curve.csv",
+      "size_bytes": 17371371
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_vwap_rsi7__mr_balanced__full__balanced/equity_curve.csv",
+      "size_bytes": 17363161
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_vwap_rsi2__mr_strict__full__balanced/equity_curve.csv",
+      "size_bytes": 17345639
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_vwap_rsi7__mr_balanced__full__tight/equity_curve.csv",
+      "size_bytes": 17341589
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_bb_stoch__mr_balanced__full__balanced/equity_curve.csv",
+      "size_bytes": 17310804
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_vwap_rsi2__mr_balanced__core__tight/equity_curve.csv",
+      "size_bytes": 17309724
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_vwap_rsi2__mr_balanced__core__balanced/equity_curve.csv",
+      "size_bytes": 17289943
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_vwap_rsi7__mr_balanced__core__tight/equity_curve.csv",
+      "size_bytes": 17277812
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_vwap_rsi7__mr_balanced__core__balanced/equity_curve.csv",
+      "size_bytes": 17272708
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_vwap_rsi2__mr_strict__early__balanced/equity_curve.csv",
+      "size_bytes": 17268473
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_vwap_rsi2__mr_strict__full__tight/equity_curve.csv",
+      "size_bytes": 17257788
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_vwap_rsi2__mr_strict__early__tight/equity_curve.csv",
+      "size_bytes": 17245363
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_vwap_rsi7__mr_strict__full__balanced/equity_curve.csv",
+      "size_bytes": 17201659
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_vwap_rsi2__mr_strict__core__balanced/equity_curve.csv",
+      "size_bytes": 17112293
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_bb_stoch__mr_strict__full__balanced/equity_curve.csv",
+      "size_bytes": 17097442
+    },
+    {
+      "path": "data_intake_2015_2019/prepared/EURUSD_M5_SPREAD.csv",
+      "size_bytes": 16979025
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_bb_stoch__mr_strict__core__balanced/equity_curve.csv",
+      "size_bytes": 16897210
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_vwap_rsi2__mr_strict__core__tight/equity_curve.csv",
+      "size_bytes": 16883532
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_bb_stoch__mr_balanced__full__tight/equity_curve.csv",
+      "size_bytes": 16854233
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_bb_stoch__mr_balanced__core__tight/equity_curve.csv",
+      "size_bytes": 16722357
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_bb_stoch__mr_balanced__early__balanced/equity_curve.csv",
+      "size_bytes": 16338395
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_bb_stoch__mr_strict__core__tight/equity_curve.csv",
+      "size_bytes": 16284403
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_bb_stoch__mr_balanced__early__tight/equity_curve.csv",
+      "size_bytes": 16260581
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_bb_stoch__mr_strict__full__tight/equity_curve.csv",
+      "size_bytes": 16244078
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_vwap_rsi7__mr_balanced__early__tight/equity_curve.csv",
+      "size_bytes": 16095787
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_vwap_rsi7__mr_strict__early__balanced/equity_curve.csv",
+      "size_bytes": 16091482
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_family_screen/20260408_214716_simple_screen/post_expansion_reversion/USDCHF/oos/equity_curve.csv",
+      "size_bytes": 15740440
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_vwap_screen/20260408_222302_simple_screen/vwap_mean_reversion/USDCHF/oos/equity_curve.csv",
+      "size_bytes": 15652277
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_vwap_rsi7__mr_strict__full__tight/equity_curve.csv",
+      "size_bytes": 15649724
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_bb_stoch__mr_strict__early__balanced/equity_curve.csv",
+      "size_bytes": 15614835
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_bb_stoch__mr_strict__early__tight/equity_curve.csv",
+      "size_bytes": 15462967
+    },
+    {
+      "path": "results/source_integration_audit/20260411_165500_dukascopy_m1_auto/EURUSD_M1_MID_prepared.csv",
+      "size_bytes": 15340721
+    },
+    {
+      "path": "legacy_archive_2026/reports_survivor_stress_test/production_layered/oos/equity_curve.csv",
+      "size_bytes": 15004872
+    },
+    {
+      "path": "legacy_archive_2026/reports_survivor_stress_test/baseline_no_shock/oos/equity_curve.csv",
+      "size_bytes": 15004872
+    },
+    {
+      "path": "legacy_archive_2026/reports_survivor_pair_screen/USDJPY/oos/equity_curve.csv",
+      "size_bytes": 15004872
+    },
+    {
+      "path": "legacy_archive_2026/reports_core_reversion_context_lab_2016_2021/wed_thu_fri_core/oos/equity_curve.csv",
+      "size_bytes": 15004872
+    },
+    {
+      "path": "legacy_archive_2026/reports_core_reversion_context_lab/wed_thu_fri_core_balanced_or_calm/oos/equity_curve.csv",
+      "size_bytes": 15004872
+    },
+    {
+      "path": "legacy_archive_2026/reports_core_reversion_context_lab/wed_thu_fri_core/oos/equity_curve.csv",
+      "size_bytes": 15004872
+    },
+    {
+      "path": "legacy_archive_2026/reports_survivor_stress_test/high_costs_layered/oos/equity_curve.csv",
+      "size_bytes": 15004871
+    },
+    {
+      "path": "legacy_archive_2026/reports_survivor_stress_test/extreme_costs_layered/oos/equity_curve.csv",
+      "size_bytes": 15004871
+    },
+    {
+      "path": "legacy_archive_2026/reports_core_reversion_context_lab_2016_2021/short_only/oos/equity_curve.csv",
+      "size_bytes": 14549491
+    },
+    {
+      "path": "legacy_archive_2026/reports_core_reversion_context_lab_2016_2021/core_short_only/oos/equity_curve.csv",
+      "size_bytes": 14549491
+    },
+    {
+      "path": "legacy_archive_2026/reports_core_reversion_context_lab/short_only/oos/equity_curve.csv",
+      "size_bytes": 14549491
+    },
+    {
+      "path": "legacy_archive_2026/reports_core_reversion_context_lab/core_short_only/oos/equity_curve.csv",
+      "size_bytes": 14549491
+    },
+    {
+      "path": "legacy_archive_2026/reports_usdjpy_2022_2025_opt_core_reversion/20260408_121427_optimize/equity_curve.csv",
+      "size_bytes": 14016065
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v2/20260409_094957_fast_combo_lab/oos/vwap_rsi2__loose/equity_curve.csv",
+      "size_bytes": 13919435
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v2/20260409_094957_fast_combo_lab/oos/vwap_rsi2__balanced/equity_curve.csv",
+      "size_bytes": 13917875
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v2/20260409_094957_fast_combo_lab/oos/vwap_rsi2__tight/equity_curve.csv",
+      "size_bytes": 13885344
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v2/20260409_094957_fast_combo_lab/oos/bb_rsi7__loose/equity_curve.csv",
+      "size_bytes": 13871203
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v2/20260409_094957_fast_combo_lab/oos/bb_rsi2__loose/equity_curve.csv",
+      "size_bytes": 13869282
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v2/20260409_094957_fast_combo_lab/oos/bb_stoch__loose/equity_curve.csv",
+      "size_bytes": 13866729
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v2/20260409_094957_fast_combo_lab/oos/vwap_rsi7__loose/equity_curve.csv",
+      "size_bytes": 13853624
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v2/20260409_094957_fast_combo_lab/oos/bb_rsi7__balanced/equity_curve.csv",
+      "size_bytes": 13846219
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v2/20260409_094957_fast_combo_lab/oos/vwap_rsi7__tight/equity_curve.csv",
+      "size_bytes": 13842722
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v2/20260409_094957_fast_combo_lab/oos/bb_rsi2__balanced/equity_curve.csv",
+      "size_bytes": 13842655
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v2/20260409_094957_fast_combo_lab/oos/bb_vwap_rsi7__loose/equity_curve.csv",
+      "size_bytes": 13839830
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v2/20260409_094957_fast_combo_lab/oos/bb_stoch__balanced/equity_curve.csv",
+      "size_bytes": 13839488
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v2/20260409_094957_fast_combo_lab/oos/vwap_rsi7__balanced/equity_curve.csv",
+      "size_bytes": 13837179
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v2/20260409_094957_fast_combo_lab/oos/bb_rsi2__tight/equity_curve.csv",
+      "size_bytes": 13831603
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v2/20260409_094957_fast_combo_lab/oos/bb_stoch__tight/equity_curve.csv",
+      "size_bytes": 13829312
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v2/20260409_094957_fast_combo_lab/oos/bb_vwap_rsi2__loose/equity_curve.csv",
+      "size_bytes": 13828540
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v2/20260409_094957_fast_combo_lab/oos/bb_rsi7__tight/equity_curve.csv",
+      "size_bytes": 13806668
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v2/20260409_094957_fast_combo_lab/oos/bb_vwap_rsi2__tight/equity_curve.csv",
+      "size_bytes": 13779761
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v2/20260409_094957_fast_combo_lab/oos/bb_vwap_rsi7__balanced/equity_curve.csv",
+      "size_bytes": 13769519
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v2/20260409_094957_fast_combo_lab/oos/bb_vwap_rsi2__balanced/equity_curve.csv",
+      "size_bytes": 13751546
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v2/20260409_094957_fast_combo_lab/oos/bb_vwap_rsi7__tight/equity_curve.csv",
+      "size_bytes": 13716157
+    },
+    {
+      "path": "results/am_silver_bullet_ny_v2/20260417_163932_am_silver_bullet_ny_v2/am_silver_bullet_ny_v2/equity_curve.csv",
+      "size_bytes": 13531333
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_vwap_screen/20260408_222302_simple_screen/core_reversion/USDJPY/oos/equity_curve.csv",
+      "size_bytes": 13517303
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_validate_usdjpy/20260408_213424_oos_run/equity_curve.csv",
+      "size_bytes": 13517303
+    },
+    {
+      "path": "legacy_archive_2026/reports_simple_family_screen/20260408_214716_simple_screen/core_reversion/USDJPY/oos/equity_curve.csv",
+      "size_bytes": 13517303
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_vwap_rsi7__mr_strict__early__tight/equity_curve.csv",
+      "size_bytes": 13102950
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd_v3/20260409_101647_fast_combo_lab/oos/mr_vwap_rsi7__mr_strict__core__tight/equity_curve.csv",
+      "size_bytes": 12313873
+    },
+    {
+      "path": "results/source_integration_audit/20260411_165500_dukascopy_m1_auto/EURUSD_M1_ASK_prepared.csv",
+      "size_bytes": 11944912
+    },
+    {
+      "path": "results/source_integration_audit/20260411_165500_dukascopy_m1_auto/EURUSD_M1_ASK_raw.csv",
+      "size_bytes": 11944912
+    },
+    {
+      "path": "results/source_integration_audit/20260411_165500_dukascopy_m1_auto/EURUSD_M1_BID_prepared.csv",
+      "size_bytes": 11944397
+    },
+    {
+      "path": "results/source_integration_audit/20260411_165500_dukascopy_m1_auto/EURUSD_M1_BID_raw.csv",
+      "size_bytes": 11944397
+    },
+    {
+      "path": "data_usdjpy_2016_2021/prepared/USDJPY_M15.csv",
+      "size_bytes": 11553736
+    },
+    {
+      "path": "data_free_2020/prepared/USDJPY_M5.csv",
+      "size_bytes": 11520477
+    },
+    {
+      "path": "data_free_2020/prepared/GBPUSD_M5.csv",
+      "size_bytes": 11513452
+    },
+    {
+      "path": "data_free_2020/prepared/AUDUSD_M5.csv",
+      "size_bytes": 11504771
+    },
+    {
+      "path": "data_free_2020/prepared/GBPJPY_M5.csv",
+      "size_bytes": 11490734
+    },
+    {
+      "path": "data_free_2020/prepared/USDCAD_M5.csv",
+      "size_bytes": 11481426
+    },
+    {
+      "path": "data_free_2020/prepared/USDCHF_M5.csv",
+      "size_bytes": 11472633
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/data/processed_2015_2019/eurusd_m3_from_m1/2016/EURUSD_M3_2016.csv",
+      "size_bytes": 11236663
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/data/processed_2015_2019/eurusd_m3_from_m1/2019/EURUSD_M3_2019.csv",
+      "size_bytes": 11219338
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/data/processed_2015_2019/eurusd_m3_from_m1/2018/EURUSD_M3_2018.csv",
+      "size_bytes": 11214615
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/data/processed_2015_2019/eurusd_m3_from_m1/2017/EURUSD_M3_2017.csv",
+      "size_bytes": 11214218
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/data/processed_2015_2019/eurusd_m3_from_m1/2015/EURUSD_M3_2015.csv",
+      "size_bytes": 11209321
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd/20260409_093731_fast_combo_lab/oos/bb_rsi2__balanced/equity_curve.csv",
+      "size_bytes": 10814598
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd/20260409_093731_fast_combo_lab/oos/bb_rsi2__loose/equity_curve.csv",
+      "size_bytes": 10814598
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd/20260409_093731_fast_combo_lab/oos/bb_rsi2__tight/equity_curve.csv",
+      "size_bytes": 10814598
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd/20260409_093731_fast_combo_lab/oos/bb_rsi7__balanced/equity_curve.csv",
+      "size_bytes": 10814598
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd/20260409_093731_fast_combo_lab/oos/bb_rsi7__loose/equity_curve.csv",
+      "size_bytes": 10814598
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd/20260409_093731_fast_combo_lab/oos/bb_rsi7__tight/equity_curve.csv",
+      "size_bytes": 10814598
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd/20260409_093731_fast_combo_lab/oos/bb_stoch__balanced/equity_curve.csv",
+      "size_bytes": 10814598
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd/20260409_093731_fast_combo_lab/oos/bb_stoch__loose/equity_curve.csv",
+      "size_bytes": 10814598
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd/20260409_093731_fast_combo_lab/oos/bb_stoch__tight/equity_curve.csv",
+      "size_bytes": 10814598
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd/20260409_093731_fast_combo_lab/oos/bb_vwap_rsi2__balanced/equity_curve.csv",
+      "size_bytes": 10814598
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd/20260409_093731_fast_combo_lab/oos/bb_vwap_rsi2__loose/equity_curve.csv",
+      "size_bytes": 10814598
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd/20260409_093731_fast_combo_lab/oos/bb_vwap_rsi2__tight/equity_curve.csv",
+      "size_bytes": 10814598
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd/20260409_093731_fast_combo_lab/oos/bb_vwap_rsi7__balanced/equity_curve.csv",
+      "size_bytes": 10814598
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd/20260409_093731_fast_combo_lab/oos/bb_vwap_rsi7__loose/equity_curve.csv",
+      "size_bytes": 10814598
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd/20260409_093731_fast_combo_lab/oos/bb_vwap_rsi7__tight/equity_curve.csv",
+      "size_bytes": 10814598
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd/20260409_093731_fast_combo_lab/oos/vwap_rsi2__balanced/equity_curve.csv",
+      "size_bytes": 10814598
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd/20260409_093731_fast_combo_lab/oos/vwap_rsi2__loose/equity_curve.csv",
+      "size_bytes": 10814598
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd/20260409_093731_fast_combo_lab/oos/vwap_rsi2__tight/equity_curve.csv",
+      "size_bytes": 10814598
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd/20260409_093731_fast_combo_lab/oos/vwap_rsi7__balanced/equity_curve.csv",
+      "size_bytes": 10814598
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd/20260409_093731_fast_combo_lab/oos/vwap_rsi7__loose/equity_curve.csv",
+      "size_bytes": 10814598
+    },
+    {
+      "path": "legacy_archive_2026/reports_fast_indicator_combo_lab_eurusd/20260409_093731_fast_combo_lab/oos/vwap_rsi7__tight/equity_curve.csv",
+      "size_bytes": 10814598
+    },
+    {
+      "path": "results/research_lab_main_v2/20260409_142825_lab/donchian_breakout/PARA CHATGPT/equity_curve.csv",
+      "size_bytes": 10664109
+    },
+    {
+      "path": "results/research_lab_main_v2/20260409_141810_lab/donchian_breakout/PARA CHATGPT/equity_curve.csv",
+      "size_bytes": 10664109
+    },
+    {
+      "path": "results/research_lab_main/20260409_134207_lab/range_break_retest/PARA CHATGPT/equity_curve.csv",
+      "size_bytes": 10561519
+    }
+  ],
+  "files_gt_25mb": [
+    {
+      "path": "BOT_V2_DAYTIME_LAB/outputs/same_name_zip_rebuild/quarantine/000_PARA_CHATGPT.previous_phase26b.zipbak",
+      "size_bytes": 199065444
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/outputs/same_name_zip_rebuild/quarantine/000_PARA_CHATGPT.zipbak",
+      "size_bytes": 199064658
+    },
+    {
+      "path": "data_precision/dukascopy/EURUSD_M1_MID.csv",
+      "size_bytes": 188006189
+    },
+    {
+      "path": ".vendor_duka2/_polars_runtime_32/_polars_runtime.pyd",
+      "size_bytes": 165237760
+    },
+    {
+      "path": "data_intake_2015_2019/prepared_m1_full/EURUSD_M1_MID.csv",
+      "size_bytes": 158171736
+    },
+    {
+      "path": "data_intake_2020_2026_bidask/raw/EURUSD_M1_BID_FULL_2020_2026.csv",
+      "size_bytes": 152232541
+    },
+    {
+      "path": "data_intake_2020_2026_bidask/raw/EURUSD_M1_ASK_FULL_2020_2026.csv",
+      "size_bytes": 152175235
+    },
+    {
+      "path": "data_precision_raw/dukascopy/EURUSD_M1_BID.csv",
+      "size_bytes": 144824490
+    },
+    {
+      "path": "data_precision/dukascopy/EURUSD_M1_BID.csv",
+      "size_bytes": 144824490
+    },
+    {
+      "path": "data_intake_2020_2026_bidask/raw/EURUSD_M1_BID_2020_2025.csv",
+      "size_bytes": 144824490
+    },
+    {
+      "path": "data_precision_raw/dukascopy/EURUSD_M1_ASK.csv",
+      "size_bytes": 144762209
+    },
+    {
+      "path": "data_precision/dukascopy/EURUSD_M1_ASK.csv",
+      "size_bytes": 144762209
+    },
+    {
+      "path": "data_intake_2020_2026_bidask/raw/EURUSD_M1_ASK_2020_2025.csv",
+      "size_bytes": 144762209
+    },
+    {
+      "path": "data_intake_2015_2019/prepared_m1_full/EURUSD_M1_BID.csv",
+      "size_bytes": 121460531
+    },
+    {
+      "path": "data_intake_2015_2019/raw_m1/EURUSD_M1_BID.csv",
+      "size_bytes": 121460531
+    },
+    {
+      "path": "data_intake_2015_2019/raw_m1_merged/EURUSD_M1_BID.csv",
+      "size_bytes": 121460531
+    },
+    {
+      "path": "data_intake_2015_2019/prepared_m1_full/EURUSD_M1_ASK.csv",
+      "size_bytes": 121458984
+    },
+    {
+      "path": "data_intake_2015_2019/raw_m1/EURUSD_M1_ASK.csv",
+      "size_bytes": 121458984
+    },
+    {
+      "path": "data_intake_2015_2019/raw_m1_merged/EURUSD_M1_ASK.csv",
+      "size_bytes": 121458984
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/data/certified_m3/EURUSD_M3_SPREAD_2020_2026.csv",
+      "size_bytes": 81916912
+    },
+    {
+      "path": "data_intake_2015_2019/prepared/EURUSD_M5_2015_2019_BID_ASK_MID_SPREAD.csv",
+      "size_bytes": 77087618
+    },
+    {
+      "path": "data/forex_factory_cache.csv",
+      "size_bytes": 68231084
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/data/processed_2015_2019/eurusd_m1_certified_candidate/2016/EURUSD_M1_2016.csv",
+      "size_bytes": 59909463
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/data/processed_2015_2019/eurusd_m1_certified_candidate/2018/EURUSD_M1_2018.csv",
+      "size_bytes": 59798063
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/data/processed_2015_2019/eurusd_m1_certified_candidate/2019/EURUSD_M1_2019.csv",
+      "size_bytes": 59686722
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/data/processed_2015_2019/eurusd_m1_certified_candidate/2017/EURUSD_M1_2017.csv",
+      "size_bytes": 59658732
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/data/processed_2015_2019/eurusd_m1_certified_candidate/2015/EURUSD_M1_2015.csv",
+      "size_bytes": 59543054
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/data/certified_m3/EURUSD_M3_BID_2020_2026.csv",
+      "size_bytes": 53100694
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/data/certified_m3/EURUSD_M3_ASK_2020_2026.csv",
+      "size_bytes": 53100419
+    },
+    {
+      "path": "results/eurusd_am_post_news_external_liquidity_shift/20260420_114634_eurusd_am_post_news_external_liquidity_shift/eurusd_am_post_news_external_liquidity_shift/equity_curve.csv",
+      "size_bytes": 43611476
+    },
+    {
+      "path": "results/eurusd_am_post_news_external_liquidity_shift/20260418_130554_eurusd_am_post_news_external_liquidity_shift/eurusd_am_post_news_external_liquidity_shift/equity_curve.csv",
+      "size_bytes": 43611476
+    },
+    {
+      "path": "results/eurusd_am_post_news_external_liquidity_shift/20260418_114630_eurusd_am_post_news_external_liquidity_shift/eurusd_am_post_news_external_liquidity_shift/equity_curve.csv",
+      "size_bytes": 43611476
+    },
+    {
+      "path": "results/pm_micro_reclaim_m3/20260416_161425_pm_micro_reclaim_m3/pm_micro_reclaim_m3/equity_curve.csv",
+      "size_bytes": 42663708
+    },
+    {
+      "path": "results/pm_micro_reclaim_m3/20260416_160702_pm_micro_reclaim_m3/pm_micro_reclaim_m3/equity_curve.csv",
+      "size_bytes": 42663708
+    },
+    {
+      "path": "reports/canonical_microstructure_iter2_20260416_172155/results/20260416_161425_pm_micro_reclaim_m3/pm_micro_reclaim_m3/equity_curve.csv",
+      "size_bytes": 42663708
+    },
+    {
+      "path": "data_intake_2020_2026_bidask/prepared/EURUSD_M5_MID.csv",
+      "size_bytes": 40094744
+    },
+    {
+      "path": "data_usdjpy_2016_2021/prepared/USDJPY_M5.csv",
+      "size_bytes": 34531567
+    },
+    {
+      "path": "results/pm_micro_reclaim_m3/20260416_145640_pm_micro_reclaim_m3/pm_micro_reclaim_m3/equity_curve.csv",
+      "size_bytes": 34172460
+    },
+    {
+      "path": "results/pm_micro_reclaim_m3/20260416_144633_pm_micro_reclaim_m3/pm_micro_reclaim_m3/equity_curve.csv",
+      "size_bytes": 34172460
+    },
+    {
+      "path": "reports/canonical_microstructure_iter2_20260416_172155/results/20260416_145640_pm_micro_reclaim_m3/pm_micro_reclaim_m3/equity_curve.csv",
+      "size_bytes": 34172460
+    },
+    {
+      "path": "reports/canonical_forensic_next_step_20260416_160901/results/pm_micro_reclaim_m3/20260416_145640_pm_micro_reclaim_m3/pm_micro_reclaim_m3/equity_curve.csv",
+      "size_bytes": 34172460
+    },
+    {
+      "path": "reports/canonical_context_master_20260416_163108/results/20260416_145640_pm_micro_reclaim_m3/pm_micro_reclaim_m3/equity_curve.csv",
+      "size_bytes": 34172460
+    },
+    {
+      "path": "data_intake_2020_2026_bidask/prepared/EURUSD_M5_BID.csv",
+      "size_bytes": 31810544
+    },
+    {
+      "path": "data_intake_2020_2026_bidask/prepared/EURUSD_M5_ASK.csv",
+      "size_bytes": 31802732
+    },
+    {
+      "path": "data_intake_2015_2019/prepared_m1/EURUSD_M1_MID.csv",
+      "size_bytes": 31419110
+    },
+    {
+      "path": "legacy_archive_2026/reports_core_reversion_context_lab_2016_2021/short_only/design/equity_curve.csv",
+      "size_bytes": 29245243
+    },
+    {
+      "path": "legacy_archive_2026/reports_survivor_stress_test/baseline_no_shock/design/equity_curve.csv",
+      "size_bytes": 29245242
+    },
+    {
+      "path": "legacy_archive_2026/reports_core_reversion_context_lab_2016_2021/wed_thu_fri_core/design/equity_curve.csv",
+      "size_bytes": 29245242
+    },
+    {
+      "path": "legacy_archive_2026/reports_core_reversion_context_lab_2016_2021/core_only/design/equity_curve.csv",
+      "size_bytes": 29200317
+    },
+    {
+      "path": "legacy_archive_2026/reports_core_reversion_context_lab_2016_2021/core_short_only/design/equity_curve.csv",
+      "size_bytes": 29175536
+    },
+    {
+      "path": "legacy_archive_2026/reports_survivor_stress_test/production_layered/design/equity_curve.csv",
+      "size_bytes": 29015396
+    },
+    {
+      "path": "legacy_archive_2026/reports_core_reversion_context_lab_2016_2021/base/design/equity_curve.csv",
+      "size_bytes": 28994562
+    },
+    {
+      "path": "data_intake_2015_2019/prepared/EURUSD_M5_MID.csv",
+      "size_bytes": 28973994
+    },
+    {
+      "path": "legacy_archive_2026/reports_survivor_stress_test/high_costs_layered/design/equity_curve.csv",
+      "size_bytes": 28821786
+    },
+    {
+      "path": "legacy_archive_2026/reports_survivor_stress_test/extreme_costs_layered/design/equity_curve.csv",
+      "size_bytes": 28617876
+    },
+    {
+      "path": "results/pm_volatility_squeeze_retest_m5/20260417_085837_pm_volatility_squeeze_retest_m5/pm_volatility_squeeze_retest_m5/equity_curve.csv",
+      "size_bytes": 26277709
+    }
+  ],
+  "sensitive_name_candidates": [
+    {
+      "path": "BOT_V2_DAYTIME_LAB/src/phase37h_ftmo_demo_account_gate.py",
+      "size_bytes": 2977
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/src/phase37_ftmo_account_gate.py",
+      "size_bytes": 918
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/src/__pycache__/phase37_ftmo_account_gate.cpython-314.pyc",
+      "size_bytes": 1772
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/outputs/phase37_ftmo_swing_trial_auto/account_gate/phase37_ftmo_account_gate.json",
+      "size_bytes": 559
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/outputs/phase37_ftmo_swing_trial_auto/account_gate/phase37_ftmo_account_gate.md",
+      "size_bytes": 383
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/outputs/phase37h_demo_only_terminal_isolation/account_gate/phase37h_account_gate.json",
+      "size_bytes": 68
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/outputs/phase36s_live_news_lot_feasibility/micro_account_options/phase36s_micro_account_options.json",
+      "size_bytes": 876
+    },
+    {
+      "path": "BOT_V2_DAYTIME_LAB/outputs/phase36s_live_news_lot_feasibility/micro_account_options/phase36s_micro_account_options.md",
+      "size_bytes": 317
+    },
+    {
+      "path": ".venv_fixed/Lib/site-packages/packaging/_tokenizer.py",
+      "size_bytes": 5421
+    },
+    {
+      "path": ".venv_fixed/Lib/site-packages/pygments/token.py",
+      "size_bytes": 6229
+    },
+    {
+      "path": ".venv_fixed/Lib/site-packages/pip/_vendor/packaging/_tokenizer.py",
+      "size_bytes": 5310
+    },
+    {
+      "path": ".venv_fixed/Lib/site-packages/pip/_vendor/pygments/token.py",
+      "size_bytes": 6226
+    },
+    {
+      "path": ".vendor_duka2/markdown_it/token.py",
+      "size_bytes": 6559
+    },
+    {
+      "path": ".vendor_duka2/pygments/token.py",
+      "size_bytes": 6443
+    },
+    {
+      "path": ".vendor_duka2/polars/io/cloud/credential_provider/_builder.py",
+      "size_bytes": 17684
+    },
+    {
+      "path": ".vendor_duka2/polars/io/cloud/credential_provider/_providers.py",
+      "size_bytes": 19929
+    },
+    {
+      "path": ".vendor_duka2/polars/io/cloud/credential_provider/__init__.py",
+      "size_bytes": 461
+    },
+    {
+      "path": ".pkg/packaging/_tokenizer.py",
+      "size_bytes": 5421
+    }
+  ],
+  "gitignore_current": "# --- REGLAS EST\u00c1NDAR ---\n__pycache__/\n*.py[cod]\n*$py.class\n.venv*/\nvenv*/\nenv*/\n.pkg/\n.codex/\n.vendor*/\n.tmp/\n.idea/\n.vscode/\n.DS_Store\nThumbs.db\n\n# --- DATOS PESADOS E INTAKE ---\ndata_intake_*/\nDATA/\ndata/\ndata_candidates_*/\ndata_free_*/\n*.csv\n*.csv.gz\n*.parquet\n*.jsonl\n\n# --- BASURA HIST\u00d3RICA Y TEMPORALES ---\nARCHIVE_SUPERSEDED/\ntemp*/\n*_staging*/\n_zip_clean*/\nresults/\nBOT_V2_DAYTIME_LAB/outputs/\n000_PARA_CHATGPT/\n\n# --- CREDENCIALES Y SECRETOS (CR\u00cdTICO) ---\nmt5_local_config.json\n.env\n.env.*\nsecrets*\ncredentials*\naccount.json\nlogin.json\n*.key\n*.pem\napi_news_provider_config.local.json\nMANIPULANTE/09_COMPLIANCE/API_LIVE_NEWS_PROVIDER/*.local.json\n\n# --- ARTEFACTOS ---\n*.zip\n!000_PARA_CHATGPT.zip\n*.log\n*.tmp\n"
+}

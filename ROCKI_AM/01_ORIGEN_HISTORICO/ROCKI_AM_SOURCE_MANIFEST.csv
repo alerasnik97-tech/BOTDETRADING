@@ -1,0 +1,6 @@
+tipo,archivo_original,archivo_en_rocki_am,copiado_si_no,motivo
+Script,scratch/run_scbi_global_validation.py,05_CODIGO_REFERENCIA/ROCKI_AM_validation_runner.py,SI,Rescate de logica de validacion
+Metricas,scratch/scbi_global_validation_results.json,03_METRICAS/ROCKI_AM_validation_results.json,SI,Rescate de rendimiento validado
+Dataset,scratch/real_htf_filter_ab_results.json,06_CSVS/ROCKI_AM_raw_trades.json,SI,Rescate de muestra de trades
+Checkpoint,scbi_global_validation_checkpoints/final_checkpoint.json,01_ORIGEN_HISTORICO/ROCKI_AM_final_checkpoint.json,SI,Estado final de la validacion SCBI
+Auditoria,scratch/run_scbi_cost_model_audit.py,07_AUDITORIAS/ROCKI_AM_cost_model_audit.py,SI,Analisis de costos original

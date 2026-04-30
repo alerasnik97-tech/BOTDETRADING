@@ -1,13 +1,5 @@
-# STRATEGY AUTHORITY MAP
+# Strategy Authority Map
 
-- **MANIPULANTE**: CURRENT AUTHORITY (Phase25 + Global Weekend Hard Close). Ubicación: `MANIPULANTE/`.
-- **TP1.4_BE0.5_BF70**: SHADOW ONLY. Ubicación: `ESTRATEGIAS/02_CANDIDATOS_SHADOW/TP14_BE05_BF70/`.
-- **PHASE18**: BASELINE. Ubicación: `ESTRATEGIAS/01_BASELINES/PHASE18_BASELINE/`.
-- **PHASE24**: BACKUP / SUPERSEDED. Ubicación: `ESTRATEGIAS/01_BASELINES/PHASE24_BACKUP/`.
-- **PHASE19**: ARCHIVED / DO NOT USE. Ubicación: `ESTRATEGIAS/04_ARCHIVADAS/PHASE19/`.
-- **PHASE28 / 29**: EXPERIMENTS. Ubicación: `ESTRATEGIAS/05_EXPERIMENTOS/`.
-- **REAL / MT5 REAL**: BLOCKED.
-- **AUTO ORDERS**: BLOCKED.
-
-- **Aclaración**: El trader actúa como operador de registro. MANIPULANTE es 100% programable.
-- **Status**: MANIPULANTE validada para paper y micro real manual.
+- MANIPULANTE Phase25 remains authority.
+- Phase37D: `FTMO_TRIAL_BLOCKED_NEWS_PROVIDER`.
+- BE0.5 remains shadow only.
