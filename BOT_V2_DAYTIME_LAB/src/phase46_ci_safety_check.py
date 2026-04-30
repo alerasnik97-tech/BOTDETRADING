@@ -9,7 +9,7 @@ from pathlib import Path
 from datetime import datetime
 
 # --- CONFIGURACIÓN ---
-ROOT_PATH = Path(r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo")
+ROOT_PATH = Path(__file__).resolve().parent.parent.parent
 CRITICAL_FILES = [
     "MANIPULANTE/START_MANIPULANTE.bat",
     "MANIPULANTE/STATUS_MANIPULANTE.bat",
