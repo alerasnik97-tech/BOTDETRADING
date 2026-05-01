@@ -1,0 +1,8 @@
+{
+    "phase": "Phase49A",
+    "verdict": "TWO_STAGE_RESEARCH_ENGINE_DESIGNED_OK",
+    "benchmarks": { "id": "MANIPULANTE", "pf": 2.79, "exp_r": 0.28 },
+    "promotion_gate": "Strict",
+    "phase48_promotion": "NONE",
+    "safety_checks": { "phase46": "PASS", "phase47a": "PASS" }
+}

@@ -1,0 +1,10 @@
+{
+    "phase": "Phase49B",
+    "verdict": "TICK_PILOT_OK_FULL_READY",
+    "source": "Dukascopy_Native_Hourly",
+    "pilot_range": "2025-01-01 to 2025-01-03",
+    "storage_location": "C:\\Users\\alera\\Desktop\\Bot\\BOT_MARKET_DATA\\tick\\EURUSD",
+    "storage_format": "Parquet_Snappy",
+    "git_isolation": "Verified",
+    "safety_checks": { "phase46": "PASS" }
+}

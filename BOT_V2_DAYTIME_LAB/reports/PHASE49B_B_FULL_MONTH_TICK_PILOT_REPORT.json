@@ -1,0 +1,10 @@
+{
+    "phase": "Phase49B-B",
+    "verdict": "TICK_FULL_MONTH_PILOT_OK_FULL_READY",
+    "pilot_month": "2025-01",
+    "total_ticks": 2185933,
+    "avg_spread_pips": 0.3401,
+    "file_size_mb": 38.15,
+    "sha256": "b5b3478697a9bed2854adf33e9a1bd720008832ac42e246f2d69f1c6d773f84f",
+    "safety_checks": { "phase46": "PASS", "git_status": "CLEAN" }
+}
