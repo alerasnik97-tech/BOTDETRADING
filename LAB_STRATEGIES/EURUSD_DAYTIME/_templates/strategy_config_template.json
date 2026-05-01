@@ -1,0 +1,15 @@
+{
+  "strategy_name": "TEMPLATE_DO_NOT_TRADE",
+  "status": "BACKTEST_ONLY",
+  "symbol": "EURUSD",
+  "session_start_ny": "07:00",
+  "session_end_ny": "20:00",
+  "max_trades_per_day": 2,
+  "max_trades_per_day_research_cap": 3,
+  "live_trading_allowed": false,
+  "paper_demo_allowed": false,
+  "real_trading_allowed": false,
+  "touches_manipulante": false,
+  "requires_news_fortress": true,
+  "requires_data_quality_mask": true
+}
