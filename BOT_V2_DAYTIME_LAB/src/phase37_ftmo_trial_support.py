@@ -133,10 +133,31 @@ def load_mt5() -> Any:
         return None
 
 
-def ensure_mt5() -> tuple[Any, str | None]:
+def _terminal64_running() -> tuple[bool, str | None]:
+    try:
+        res = subprocess.run(
+            ["tasklist", "/FI", "IMAGENAME eq terminal64.exe", "/NH"],
+            capture_output=True,
+            text=True,
+            timeout=5,
+            check=False,
+        )
+    except Exception as exc:
+        return False, f"MT5 terminal process check failed: {exc}"
+    return "terminal64.exe" in res.stdout.lower(), None
+
+
+def ensure_mt5(passive: bool = False) -> tuple[Any, str | None]:
     mt5 = load_mt5()
     if mt5 is None:
         return None, "MetaTrader5 Python module unavailable"
+    if passive:
+        running, error = _terminal64_running()
+        if error:
+            return None, error
+        if not running:
+            return None, "MT5 terminal is not running (prevented auto-launch)"
+
     try:
         if not mt5.initialize():
             return None, f"mt5.initialize failed: {mt5.last_error() if hasattr(mt5, 'last_error') else 'unknown'}"
@@ -145,7 +166,7 @@ def ensure_mt5() -> tuple[Any, str | None]:
     return mt5, None
 
 
-def account_gate() -> dict[str, Any]:
+def account_gate(passive: bool = False) -> dict[str, Any]:
     status: dict[str, Any] = {
         "timestamp_utc": now_iso(),
         "state": "BLOCKED_NO_MT5_CONNECTION",
@@ -163,7 +184,7 @@ def account_gate() -> dict[str, Any]:
         "terminal_trade_allowed": None,
         "reason": "",
     }
-    mt5, error = ensure_mt5()
+    mt5, error = ensure_mt5(passive=passive)
     if mt5 is None:
         status["reason"] = error
         return status
@@ -1069,7 +1090,7 @@ def find_ftmo_trial_runner_processes() -> list[dict[str, Any]]:
     return sorted(runners, key=lambda item: item["pid"])
 
 
-def open_position_status() -> dict[str, Any]:
+def open_position_status(passive: bool = False) -> dict[str, Any]:
     status: dict[str, Any] = {
         "timestamp_utc": now_iso(),
         "state": "BLOCKED_MT5_UNAVAILABLE",
@@ -1079,7 +1100,7 @@ def open_position_status() -> dict[str, Any]:
         "tickets": [],
         "reason": "",
     }
-    mt5, error = ensure_mt5()
+    mt5, error = ensure_mt5(passive=passive)
     if mt5 is None:
         status["reason"] = error
         return status

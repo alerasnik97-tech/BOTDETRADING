@@ -1,0 +1,99 @@
+{
+  "phase": "PHASE47D",
+  "generated_at": "2026-04-30T21:30:20-03:00",
+  "verdict_final_exact": "MT5_REOPEN_MINIMAL_FIX_COMMITTED_OK",
+  "scope": "minimal_mt5_reopen_and_stop_false_positive_fix",
+  "root_cause_confirmed": "STATUS/panel could query live MT5 position state through support code that called mt5.initialize; if MT5 was closed, that status query could relaunch terminal.",
+  "stop_false_positive": {
+    "confirmed_open_position_reproduced": false,
+    "final_open_position_status": "NO_OPEN_POSITION_CONFIRMED",
+    "final_operation_open": "NO",
+    "final_mt5_status": "CERRADO",
+    "fix": "STOP now reads an explicit OPEN_POSITION_STATUS instead of relying on fragile text matching of OPERACION_ABIERTA."
+  },
+  "files_reviewed": [
+    "BOT_V2_DAYTIME_LAB/src/phase37_ftmo_trial_support.py",
+    "BOT_V2_DAYTIME_LAB/src/phase37ze_quick_status_panel.py",
+    "MANIPULANTE/STOP_MANIPULANTE.bat",
+    "MANIPULANTE/13_FTMO_TRIAL_AUTOMATION/safe_stop_manipulante_processes.ps1"
+  ],
+  "files_modified": [
+    "BOT_V2_DAYTIME_LAB/src/phase37_ftmo_trial_support.py",
+    "BOT_V2_DAYTIME_LAB/src/phase37ze_quick_status_panel.py",
+    "MANIPULANTE/STOP_MANIPULANTE.bat",
+    "MANIPULANTE/13_FTMO_TRIAL_AUTOMATION/safe_stop_manipulante_processes.ps1",
+    "BOT_V2_DAYTIME_LAB/reports/PHASE47D_MT5_REOPEN_MINIMAL_FIX_REPORT.md",
+    "BOT_V2_DAYTIME_LAB/reports/PHASE47D_MT5_REOPEN_MINIMAL_FIX_REPORT.json"
+  ],
+  "changes_applied": [
+    "Added passive MT5 terminal check mode in phase37_ftmo_trial_support.py.",
+    "Quick status panel skips live position checks when terminal64.exe is closed.",
+    "Quick status panel reports OPEN_POSITION_CONFIRMED, OPEN_POSITION_UNKNOWN, or NO_OPEN_POSITION_CONFIRMED.",
+    "STOP_MANIPULANTE.bat leaves STOP_BOT active before checks and uses explicit OPEN_POSITION_STATUS.",
+    "STOP_MANIPULANTE.bat calls the canonical safe stop script under MANIPULANTE/13_FTMO_TRIAL_AUTOMATION.",
+    "safe_stop_manipulante_processes.ps1 only targets project-specific python/cmd processes by script name and project path."
+  ],
+  "changes_excluded": [
+    "Telegram/alerts changes",
+    "Phase47A lab isolation",
+    "Phase46 generated reports",
+    "runtime/logs/data/cache",
+    "MANIPULANTE/13_FTMO_TRIAL_AUTOMATION/STOP_BOT.txt",
+    "BOT_V2_DAYTIME_LAB/reports/PHASE47D_MIXED_CHANGES_NOT_COMMITTED.patch.txt"
+  ],
+  "tests": {
+    "py_compile_phase37_support": "PASS",
+    "py_compile_phase37ze_panel": "PASS",
+    "status_panel_json": {
+      "result": "PASS",
+      "mt5": "CERRADO",
+      "open_position_status": "NO_OPEN_POSITION_CONFIRMED",
+      "operation_open": "NO",
+      "safe_to_turn_off": "SI"
+    },
+    "status_bat": {
+      "result": "OBSERVED_AS_LOOPING_PANEL",
+      "note": "STATUS_MANIPULANTE.bat delegates to STATUS_FTMO_TRIAL_AUTO.bat, which loops every 30 seconds; non-interactive evidence used the underlying panel."
+    },
+    "stop_bat": {
+      "result": "PASS",
+      "exit_code": 0,
+      "open_position_status": "NO_OPEN_POSITION_CONFIRMED",
+      "safe_stop_result": "No project process candidates found."
+    },
+    "post_stop_processes": {
+      "result": "PASS",
+      "project_processes_detected": 0,
+      "terminal64_detected": false
+    },
+    "phase46_local": {
+      "result": "PASS_WITH_WARNINGS",
+      "exit_code": 0,
+      "verdict": "GITHUB_CI_READY_WITH_WARNINGS",
+      "warning_note": "Existing heuristic keyword warnings; not part of Phase47D commit."
+    }
+  },
+  "git": {
+    "branch": "main",
+    "commit_message": "Fix Manipulante MT5 reopen stop behavior",
+    "commit_hash": "assigned_after_selective_commit",
+    "push": "pending_after_selective_commit",
+    "github_actions": "pending_after_push"
+  },
+  "safety": {
+    "strategy_changed": false,
+    "mt5_opened_by_phase": false,
+    "orders_sent": false,
+    "orders_closed": false,
+    "real_account_touched": false,
+    "exness_touched": false,
+    "tp_be_bf_changed": false,
+    "risk_changed": false,
+    "hours_changed": false,
+    "secrets_committed": false,
+    "git_add_dot_used": false,
+    "reset_hard_used": false,
+    "git_clean_used": false
+  },
+  "next_step_unique": "Verify push and GitHub Actions for the selective Phase47D commit, then continue working-tree cleanup before Phase47A commit."
+}

@@ -250,7 +250,7 @@ def _safe_to_turn_off(qs: dict[str, str], hb: dict[str, Any], operation_open: st
     from_qs = _yes_no(qs.get("SEGURO_APAGAR_PC") or qs.get("SAFE_TO_TURN_OFF_PC"))
     if from_qs:
         return from_qs
-    if operation_open == "SI":
+    if operation_open in {"SI", "DESCONOCIDO"}:
         return "NO"
     from_hb = _yes_no(hb.get("safe_to_turn_off_pc"))
     if from_hb:
@@ -259,11 +259,13 @@ def _safe_to_turn_off(qs: dict[str, str], hb: dict[str, Any], operation_open: st
     return "SI"
 
 
-def _live_position_open() -> str | None:
+def _live_position_open(mt5_running: bool = True) -> str | None:
+    if not mt5_running:
+        return None
     try:
         from phase37_ftmo_trial_support import account_gate, open_position_status
 
-        account = account_gate()
+        account = account_gate(passive=True)
         account_text = " ".join(
             str(account.get(key) or "") for key in ("company", "server", "name", "trade_mode_label", "state")
         ).lower()
@@ -273,7 +275,7 @@ def _live_position_open() -> str | None:
             or str(account.get("trade_mode_label") or "").upper() == "REAL"
         ):
             return None
-        status = open_position_status()
+        status = open_position_status(passive=True)
     except Exception:
         return None
     value = status.get("position_open")
@@ -282,6 +284,18 @@ def _live_position_open() -> str | None:
     if value is False:
         return "NO"
     return None
+
+
+def _open_position_status(mt5_status: str, live_position: str | None, local_operation_open: str) -> str:
+    if live_position == "SI":
+        return "OPEN_POSITION_CONFIRMED"
+    if live_position == "NO":
+        return "NO_OPEN_POSITION_CONFIRMED"
+    if local_operation_open == "SI":
+        return "OPEN_POSITION_UNKNOWN"
+    if mt5_status in {"CERRADO", "DESCONOCIDO"}:
+        return "NO_OPEN_POSITION_CONFIRMED"
+    return "OPEN_POSITION_UNKNOWN"
 
 
 def build_status(
@@ -308,8 +322,16 @@ def build_status(
         or last_decision_row.get("final_decision")
         or "---"
     ).strip()
-    live_position = _live_position_open()
-    operation_open = "SI" if live_position == "SI" else _operation_open(qs, hb)
+    local_operation_open = _operation_open(qs, hb)
+    mt5_running = (mt5 == "ABIERTO")
+    live_position = _live_position_open(mt5_running=mt5_running)
+    open_position_status = _open_position_status(mt5, live_position, local_operation_open)
+    if open_position_status == "OPEN_POSITION_CONFIRMED":
+        operation_open = "SI"
+    elif open_position_status == "OPEN_POSITION_UNKNOWN":
+        operation_open = "DESCONOCIDO"
+    else:
+        operation_open = "NO"
     safe_off = _safe_to_turn_off(qs, hb, operation_open, runner_count)
     motivo = str(qs.get("MOTIVO") or "").strip().upper()
     orders_message = str(qs.get("ORDENES") or hb.get("orders_message") or "---").strip() or "---"
@@ -393,6 +415,7 @@ def build_status(
         "NEWS": news,
         "ULTIMA_DECISION": decision or "---",
         "OPERACION_ABIERTA": operation_open,
+        "OPEN_POSITION_STATUS": open_position_status,
         "SEGURO_APAGAR_PC": safe_off,
         "ULTIMA_ACTUALIZACION_ARG": arg_time,
         "ULTIMA_ACTUALIZACION_NY": ny_time,
@@ -526,6 +549,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="MANIPULANTE quick status panel")
     parser.add_argument("--runner-count", action="store_true")
     parser.add_argument("--runner-pids", action="store_true")
+    parser.add_argument("--open-position-status", action="store_true")
     parser.add_argument("--json", action="store_true")
     parser.add_argument("--mode", choices=["clean", "technical"], default="clean")
     args = parser.parse_args()
@@ -539,6 +563,9 @@ def main() -> int:
         return 0
 
     status = build_status(runners=runners)
+    if args.open_position_status:
+        print(status["OPEN_POSITION_STATUS"])
+        return 0
     if args.json:
         print(json.dumps(status, indent=2, ensure_ascii=True))
     else:
