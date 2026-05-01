@@ -1,0 +1,39 @@
+{
+    "phase": "Phase48G",
+    "title": "EMA_TPC V1 Deep Research and Backtest",
+    "timestamp": "2026-05-01T12:11:00Z",
+    "verdict": "EMA_TPC_V1_REJECTED",
+    "worktree": {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT_RESEARCH_WORKTREES\\eurusd-daytime-strategy-01",
+        "branch": "research/eurusd-daytime-strategy-01"
+    },
+    "dataset": {
+        "file": "EURUSD_M1_BID_2020_2025.csv",
+        "range": "2020-2025",
+        "quality": "High Precision"
+    },
+    "strategy_07_ema_tpc_v1": {
+        "logic": "EMA Trend Pullback Continuation",
+        "results_best_config": {
+            "ema_pair": "50/100",
+            "tp_ratio": 2.0,
+            "pullback_mode": "zone",
+            "trades": 1746,
+            "gross_pf": 0.925,
+            "net_pf": 0.689,
+            "net_expectancy_r": -0.256,
+            "winrate_pct": 31.62
+        },
+        "status": "REJECTED_NEGATIVE_NET_EDGE"
+    },
+    "validations": {
+        "phase46_ci": "PASS",
+        "phase47a_guard": "PASS"
+    },
+    "safety": {
+        "manipulante_protected": true,
+        "no_mt5_interaction": true,
+        "no_lookahead": true
+    },
+    "next_step": "Reject EMA_TPC V1 and proceed to 08_NY_OPEN_FADE_V1."
+}

@@ -1,0 +1,41 @@
+{
+    "phase": "Phase48C",
+    "title": "NMCB V1 Deep Research and Backtest",
+    "timestamp": "2026-05-01T11:41:00Z",
+    "verdict": "NMCB_V1_REJECTED",
+    "worktree": {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT_RESEARCH_WORKTREES\\eurusd-daytime-strategy-01",
+        "branch": "research/eurusd-daytime-strategy-01"
+    },
+    "dataset": {
+        "file": "EURUSD_M1_BID_2020_2025.csv",
+        "range": "2020-2025",
+        "quality": "High Precision",
+        "spread_available": false
+    },
+    "strategy_03_nmcb_v1": {
+        "logic": "NY Midday Compression Breakout",
+        "results_best_config": {
+            "window": "12:00-13:30 NY",
+            "max_comp_pips": 12,
+            "tp_ratio": 1.0,
+            "trades": 74,
+            "gross_pf": 1.0,
+            "net_pf": 0.761,
+            "net_expectancy_r": -0.136,
+            "max_drawdown_r": 10.0,
+            "winrate_pct": 50.0
+        },
+        "status": "REJECTED_NEGATIVE_NET_EDGE"
+    },
+    "validations": {
+        "phase46_ci": "PASS",
+        "phase47a_guard": "PASS"
+    },
+    "safety": {
+        "manipulante_protected": true,
+        "no_mt5_interaction": true,
+        "no_lookahead": true
+    },
+    "next_step": "Reject NMCB V1 and proceed to 04_NY_AM_EXPANSION_V1."
+}

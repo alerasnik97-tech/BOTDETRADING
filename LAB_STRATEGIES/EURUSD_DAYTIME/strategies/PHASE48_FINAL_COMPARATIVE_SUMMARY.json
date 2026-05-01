@@ -1,0 +1,102 @@
+[
+    {
+        "ID": "01_ORB_V1",
+        "Veredicto": "ORB_V1_REJECTED",
+        "Trades": 1011,
+        "PF Bruto": 1.063,
+        "PF Neto": "N/A",
+        "Exp Neta R": "N/A",
+        "DD R": "N/A",
+        "Winrate": "N/A"
+    },
+    {
+        "ID": "02_LCF_V1",
+        "Veredicto": "LCF_V1_REJECTED",
+        "Trades": 325,
+        "PF Bruto": 0.763,
+        "PF Neto": "N/A",
+        "Exp Neta R": "N/A",
+        "DD R": "N/A",
+        "Winrate": "N/A"
+    },
+    {
+        "ID": "03_NMCB_V1",
+        "Veredicto": "NMCB_V1_REJECTED",
+        "Trades": 74,
+        "PF Bruto": 1.0,
+        "PF Neto": 0.761,
+        "Exp Neta R": -0.136,
+        "DD R": 10.0,
+        "Winrate": 50.0
+    },
+    {
+        "ID": "04_AVE_V1",
+        "Veredicto": "AVE_V1_REJECTED",
+        "Trades": 1150,
+        "PF Bruto": 0.915,
+        "PF Neto": 0.364,
+        "Exp Neta R": -0.728,
+        "DD R": "N/A",
+        "Winrate": 31.39
+    },
+    {
+        "ID": "05_MTLR_V1",
+        "Veredicto": "MTLR_V1_REJECTED",
+        "Trades": 1757,
+        "PF Bruto": 0.911,
+        "PF Neto": 0.645,
+        "Exp Neta R": -0.303,
+        "DD R": "N/A",
+        "Winrate": 31.3
+    },
+    {
+        "ID": "06_VWAP_DMR_V1",
+        "Veredicto": "VWAP_DMR_V1_REJECTED",
+        "Trades": 1223,
+        "PF Bruto": 1.142,
+        "PF Neto": 0.806,
+        "Exp Neta R": -0.106,
+        "DD R": "N/A",
+        "Winrate": 53.31
+    },
+    {
+        "ID": "07_EMA_TPC_V1",
+        "Veredicto": "EMA_TPC_V1_REJECTED",
+        "Trades": 1746,
+        "PF Bruto": 0.925,
+        "PF Neto": 0.689,
+        "Exp Neta R": -0.256,
+        "DD R": "N/A",
+        "Winrate": 31.62
+    },
+    {
+        "ID": "08_PDM_RECLAIM_V1",
+        "Veredicto": "PDM_RECLAIM_V1_REJECTED",
+        "Trades": 544,
+        "PF Bruto": 0.974,
+        "PF Neto": 0.739,
+        "Exp Neta R": -0.2,
+        "DD R": "N/A",
+        "Winrate": 35.11
+    },
+    {
+        "ID": "09_POST_NEWS_DRIFT_V1",
+        "Veredicto": "REJECTED_CONFIRMED",
+        "Trades": 708,
+        "PF Bruto": 1.088,
+        "PF Neto": 0.964,
+        "Exp Neta R": -0.013,
+        "DD R": -23.22,
+        "Winrate": 0.508
+    },
+    {
+        "ID": "10_NY_PM_ROTATION_V1",
+        "Veredicto": "NY_PM_ROTATION_V1_REJECTED",
+        "Trades": 315,
+        "PF Bruto": "N/A",
+        "PF Neto": 0.518,
+        "Exp Neta R": "N/A",
+        "DD R": -126.97,
+        "Winrate": 0.397
+    }
+]

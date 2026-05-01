@@ -1,0 +1,34 @@
+{
+    "phase": "Phase48B",
+    "title": "LCF V1 Strategy Research and Backtest",
+    "timestamp": "2026-05-01T11:18:00Z",
+    "verdict": "LCF_V1_REJECTED",
+    "worktree": {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT_RESEARCH_WORKTREES\\eurusd-daytime-strategy-01",
+        "branch": "research/eurusd-daytime-strategy-01"
+    },
+    "dataset": {
+        "file": "EURUSD_M1_BID_2020_2025.csv",
+        "source": "Official Production Folder (Read-Only)",
+        "timeframe": "M1",
+        "range": "2020-2025",
+        "quality": "High Precision"
+    },
+    "strategy_02_lcf_v1": {
+        "logic": "London Close Fade (Reversion post 11:00 NY)",
+        "results": {
+            "best_pf": 0.763,
+            "total_trades": 325,
+            "status": "REJECTED_NEGATIVE_EDGE"
+        }
+    },
+    "validations": {
+        "phase46_ci": "PASS_WITH_WARNINGS",
+        "phase47a_guard": "PASS"
+    },
+    "safety": {
+        "manipulante_protected": true,
+        "no_mt5_interaction": true
+    },
+    "next_step": "Reject LCF V1 and proceed to 03_NMCB_V1 (NY Midday Compression Breakout)."
+}

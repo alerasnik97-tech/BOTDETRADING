@@ -1,0 +1,40 @@
+{
+    "phase": "Phase48H",
+    "title": "PDM_RECLAIM V1 Deep Research and Backtest",
+    "timestamp": "2026-05-01T12:47:00Z",
+    "verdict": "PDM_RECLAIM_V1_REJECTED",
+    "worktree": {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT_RESEARCH_WORKTREES\\eurusd-daytime-strategy-01",
+        "branch": "research/eurusd-daytime-strategy-01"
+    },
+    "dataset": {
+        "file": "EURUSD_M1_BID_2020_2025.csv",
+        "range": "2020-2025",
+        "quality": "High Precision"
+    },
+    "strategy_08_pdm_reclaim_v1": {
+        "logic": "Previous Day Midpoint Reclaim",
+        "results_best_config": {
+            "wait_time_mins": 60,
+            "body_filter_pct": 60,
+            "tp_ratio": 1.8,
+            "sl_mode": "candle_extreme",
+            "trades": 544,
+            "gross_pf": 0.974,
+            "net_pf": 0.739,
+            "net_expectancy_r": -0.2,
+            "winrate_pct": 35.11
+        },
+        "status": "REJECTED_NEGATIVE_NET_EDGE"
+    },
+    "validations": {
+        "phase46_ci": "PASS",
+        "phase47a_guard": "PASS"
+    },
+    "safety": {
+        "manipulante_protected": true,
+        "no_mt5_interaction": true,
+        "no_lookahead": true
+    },
+    "next_step": "Reject PDM_RECLAIM V1 and proceed to 09_NY_OPEN_FADE_V1."
+}

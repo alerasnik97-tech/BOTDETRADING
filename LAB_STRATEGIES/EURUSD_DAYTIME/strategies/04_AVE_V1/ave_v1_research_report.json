@@ -1,0 +1,39 @@
+{
+    "phase": "Phase48D",
+    "title": "AVE V1 Deep Research and Backtest",
+    "timestamp": "2026-05-01T11:52:00Z",
+    "verdict": "AVE_V1_REJECTED",
+    "worktree": {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT_RESEARCH_WORKTREES\\eurusd-daytime-strategy-01",
+        "branch": "research/eurusd-daytime-strategy-01"
+    },
+    "dataset": {
+        "file": "EURUSD_M1_BID_2020_2025.csv",
+        "range": "2020-2025",
+        "quality": "High Precision"
+    },
+    "strategy_04_ave_v1": {
+        "logic": "ATR Volatility Expansion",
+        "results_best_config": {
+            "ratio": 0.6,
+            "expansion_mult": 1.5,
+            "tp_ratio": 2.0,
+            "trades": 1150,
+            "gross_pf": 0.915,
+            "net_pf": 0.364,
+            "net_expectancy_r": -0.728,
+            "winrate_pct": 31.39
+        },
+        "status": "REJECTED_SEVERE_NEGATIVE_EDGE"
+    },
+    "validations": {
+        "phase46_ci": "PASS",
+        "phase47a_guard": "PASS"
+    },
+    "safety": {
+        "manipulante_protected": true,
+        "no_mt5_interaction": true,
+        "no_lookahead": true
+    },
+    "next_step": "Reject AVE V1 and proceed to 05_NY_OPEN_FADE_V1."
+}

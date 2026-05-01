@@ -1,0 +1,39 @@
+{
+    "phase": "Phase48F",
+    "title": "VWAP_DMR V1 Deep Research and Backtest",
+    "timestamp": "2026-05-01T12:04:00Z",
+    "verdict": "VWAP_DMR_V1_REJECTED",
+    "worktree": {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT_RESEARCH_WORKTREES\\eurusd-daytime-strategy-01",
+        "branch": "research/eurusd-daytime-strategy-01"
+    },
+    "dataset": {
+        "file": "EURUSD_M1_BID_2020_2025.csv",
+        "range": "2020-2025",
+        "quality": "High Precision",
+        "volume": "Using TWAP proxy (no real volume)"
+    },
+    "strategy_06_vwap_dmr_v1": {
+        "logic": "VWAP Deviation Mean Reversion",
+        "results_best_config": {
+            "deviation_pips": 25,
+            "tp_ratio": 1.0,
+            "trades": 1223,
+            "gross_pf": 1.142,
+            "net_pf": 0.806,
+            "net_expectancy_r": -0.106,
+            "winrate_pct": 53.31
+        },
+        "status": "REJECTED_INSUFFICIENT_NET_EDGE"
+    },
+    "validations": {
+        "phase46_ci": "PASS",
+        "phase47a_guard": "PASS"
+    },
+    "safety": {
+        "manipulante_protected": true,
+        "no_mt5_interaction": true,
+        "no_lookahead": true
+    },
+    "next_step": "Reject VWAP_DMR V1 and proceed to 07_NY_OPEN_FADE_V1."
+}

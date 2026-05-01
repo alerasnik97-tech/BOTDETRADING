@@ -1,0 +1,39 @@
+{
+    "phase": "Phase48E",
+    "title": "MTLR V1 Deep Research and Backtest",
+    "timestamp": "2026-05-01T11:58:00Z",
+    "verdict": "MTLR_V1_REJECTED",
+    "worktree": {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT_RESEARCH_WORKTREES\\eurusd-daytime-strategy-01",
+        "branch": "research/eurusd-daytime-strategy-01"
+    },
+    "dataset": {
+        "file": "EURUSD_M1_BID_2020_2025.csv",
+        "range": "2020-2025",
+        "quality": "High Precision"
+    },
+    "strategy_05_mtlr_v1": {
+        "logic": "Multi-Touch Level Rejection",
+        "results_best_config": {
+            "swing_window": 3,
+            "zone_pips": 3,
+            "tp_ratio": 2.0,
+            "trades": 1757,
+            "gross_pf": 0.911,
+            "net_pf": 0.645,
+            "net_expectancy_r": -0.303,
+            "winrate_pct": 31.3
+        },
+        "status": "REJECTED_NEGATIVE_NET_EDGE"
+    },
+    "validations": {
+        "phase46_ci": "PASS",
+        "phase47a_guard": "PASS"
+    },
+    "safety": {
+        "manipulante_protected": true,
+        "no_mt5_interaction": true,
+        "no_lookahead": true
+    },
+    "next_step": "Reject MTLR V1 and proceed to 06_NY_OPEN_FADE_V1."
+}

@@ -1,0 +1,25 @@
+{
+    "strategy": "10_NY_PM_ROTATION_V1",
+    "verdict": "NY_PM_ROTATION_V1_REJECTED",
+    "best_config": {
+        "range_start_h": 12,
+        "range_start_m": 0,
+        "range_end_h": 14,
+        "range_end_m": 0,
+        "min_range_pips": 15,
+        "max_range_pips": 40,
+        "wick_perc": 0.35,
+        "tp_mode": "midpoint",
+        "tp_ratio": 1.5,
+        "sl_buffer_pips": 5,
+        "adx_threshold": 30,
+        "slope_threshold": 1.0
+    },
+    "metrics": {
+        "n_trades": 315,
+        "total_net_r": -127.12487074011086,
+        "pf_net": 0.5180406317561349,
+        "winrate": 0.3968253968253968,
+        "max_dd_r": -126.97036154711208
+    }
+}

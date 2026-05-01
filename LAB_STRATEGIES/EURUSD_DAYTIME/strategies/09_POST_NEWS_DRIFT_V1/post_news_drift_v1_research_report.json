@@ -1,0 +1,64 @@
+{
+    "strategy": "09_POST_NEWS_DRIFT_V1",
+    "audit_news": {
+        "file": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\data_intake_2020_2026_bidask\\news\\EURUSD_NEWS_2020_2026.csv",
+        "total_events": 1104,
+        "usd_high_impact": 1068,
+        "eur_high_impact": 36,
+        "date_range": [
+            "2020-01-02 13:30:00+00:00",
+            "2026-04-14 12:30:00+00:00"
+        ],
+        "families": [
+            "unemployment claims",
+            "unemployment rate",
+            "non-farm employment change",
+            "ism manufacturing pmi",
+            "fomc meeting minutes",
+            "adp non-farm employment change",
+            "cpi m/m",
+            "core cpi m/m",
+            "ppi m/m",
+            "retail sales m/m",
+            "core retail sales m/m",
+            "fomc press conference",
+            "advance gdp q/q",
+            "ism services pmi",
+            "fomc statement",
+            "cpi y/y",
+            "prelim gdp q/q",
+            "core ppi m/m",
+            "final gdp q/q",
+            "main refinancing rate",
+            "ecb press conference",
+            "federal funds rate"
+        ]
+    },
+    "best_config": {
+        "params": {
+            "wt": 30,
+            "rd": 45,
+            "bf": 0.5,
+            "tpr": 1.0,
+            "slb_pips": 2
+        },
+        "metrics": {
+            "n_trades": 708,
+            "pf_net": 0.9641024456698696,
+            "pf_gross": 1.0883763653458736,
+            "total_net_r": -9.208265586600621,
+            "winrate": 0.5084745762711864,
+            "expectancy_net": -0.013006024839831386,
+            "max_dd_r": -23.21635738352847,
+            "avg_win_r": 0.6869634945334718,
+            "avg_loss_r": -0.7371124241915243,
+            "max_win_streak": 11,
+            "max_loss_streak": 7,
+            "exit_types_perc": {
+                "TIME_EXIT": 0.4505649717514124,
+                "TP": 0.288135593220339,
+                "SL": 0.2612994350282486
+            }
+        }
+    }
+}

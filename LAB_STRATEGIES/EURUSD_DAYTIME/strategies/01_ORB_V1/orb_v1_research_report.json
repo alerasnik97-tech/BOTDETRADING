@@ -1,0 +1,36 @@
+{
+    "phase": "Phase48A",
+    "title": "ORB V1 Strategy Research and Backtest",
+    "timestamp": "2026-05-01T02:51:00Z",
+    "verdict": "ORB_V1_REJECTED",
+    "worktree": {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT_RESEARCH_WORKTREES\\eurusd-daytime-strategy-01",
+        "branch": "research/eurusd-daytime-strategy-01"
+    },
+    "dataset": {
+        "file": "EURUSD_M1_BID_2020_2025.csv",
+        "source": "Official Production Folder (Read-Only)",
+        "timeframe": "M1",
+        "range": "2020-2025",
+        "quality": "High Precision (Dukascopy/Bid)"
+    },
+    "strategy_01_orb_v1": {
+        "logic": "Opening Range Breakout (07:00-08:00 NY)",
+        "results": {
+            "best_tp": 1.0,
+            "total_trades": 1011,
+            "gross_pf": 1.063,
+            "gross_expectancy_r": 0.03,
+            "status": "REJECTED_LOW_PF"
+        }
+    },
+    "validations": {
+        "phase46_ci": "PASS_WITH_WARNINGS",
+        "phase47a_guard": "PASS"
+    },
+    "safety": {
+        "manipulante_protected": true,
+        "no_mt5_interaction": true
+    },
+    "next_step": "Reject ORB V1 as standalone strategy and proceed to evaluate 02_LCF_V1 (London Close Fade)."
+}
