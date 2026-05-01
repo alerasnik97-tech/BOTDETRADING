@@ -21,8 +21,8 @@ Este sistema monitorea el estado del bot MANIPULANTE de forma pasiva (read-only)
 ## 5. Como configurar variables de entorno en Windows
 Abrir CMD (como Administrador preferentemente) y ejecutar:
 ```cmd
-setx MANIPULANTE_TELEGRAM_BOT_TOKEN "TU_TOKEN_AQUI"
-setx MANIPULANTE_TELEGRAM_CHAT_ID "TU_CHAT_ID_AQUI"
+setx TELEGRAM_BOT_TOKEN "TU_TOKEN_AQUI"
+setx TELEGRAM_CHAT_ID "TU_CHAT_ID_AQUI"
 ```
 **IMPORTANTE**: Reiniciar la terminal (o el PC) para que los cambios surtan efecto.
 

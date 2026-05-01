@@ -9,6 +9,7 @@ set "STOP_FILE=%ROOT%\MANIPULANTE\13_FTMO_TRIAL_AUTOMATION\STOP_BOT.txt"
 set "STATUS_TMP=%TEMP%\manipulante_stop_status.json"
 set "OPEN_STATUS_TMP=%TEMP%\manipulante_stop_open_position_status.txt"
 set "SAFE_STOP_SCRIPT=%ROOT%\MANIPULANTE\13_FTMO_TRIAL_AUTOMATION\safe_stop_manipulante_processes.ps1"
+set "ALERTS_STOP=%ROOT%\MANIPULANTE\16_OBSERVABILITY\alerts\STOP_ALERTS_LOOP_MANIPULANTE.bat"
 
 title MANIPULANTE - DETENER BOT
 
@@ -96,6 +97,14 @@ if exist "%SAFE_STOP_SCRIPT%" (
     powershell -NoProfile -ExecutionPolicy Bypass -File "%SAFE_STOP_SCRIPT%" -OpenPositionStatus NO_OPEN_POSITION_CONFIRMED
 ) else (
     echo [ADVERTENCIA] No se encontro safe_stop_manipulante_processes.ps1
+)
+
+echo.
+echo Deteniendo alertas Telegram...
+if exist "%ALERTS_STOP%" (
+    call "%ALERTS_STOP%"
+) else (
+    echo [ADVERTENCIA] No se encontro STOP_ALERTS_LOOP_MANIPULANTE.bat
 )
 
 echo.

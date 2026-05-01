@@ -18,4 +18,14 @@ if not exist "%TARGET%" (
     exit /b 1
 )
 
+echo.
+set "ALERTS_START=C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\MANIPULANTE\16_OBSERVABILITY\alerts\START_ALERTS_LOOP_MANIPULANTE.bat"
+if exist "%ALERTS_START%" (
+    echo Preparando sistema de alertas...
+    call "%ALERTS_START%"
+) else (
+    echo [ADVERTENCIA] No se encontro el script de inicio de alertas.
+)
+
+echo.
 call "%TARGET%"
