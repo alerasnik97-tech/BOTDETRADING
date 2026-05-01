@@ -1,7 +1,7 @@
 {
   "telegram_enabled": false,
-  "telegram_bot_token_env": "MANIPULANTE_TELEGRAM_BOT_TOKEN",
-  "telegram_chat_id_env": "MANIPULANTE_TELEGRAM_CHAT_ID",
+  "telegram_bot_token_env": "TELEGRAM_BOT_TOKEN",
+  "telegram_chat_id_env": "TELEGRAM_CHAT_ID",
   "email_enabled": false,
   "email_provider": "disabled",
   "alert_cooldown_minutes": 10,
