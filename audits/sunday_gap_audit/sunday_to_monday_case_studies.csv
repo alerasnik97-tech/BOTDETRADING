@@ -1,0 +1,23 @@
+# Sunday Gap Audit: Case Studies
+
+## Case Study 1: April 2026 Transition
+- **Monday Target:** 2026-04-13
+- **Friday Range:** 1.16773 - 1.17392 (High Volatility)
+- **Sunday Range:** 1.16638 - 1.16900 (Low Volatility, only 2-3 bars)
+- **Observed PDH for Monday:** 1.16900 (Sunday High)
+- **Observed PDL for Monday:** 1.16638 (Sunday Low)
+- **Expected PDH (Institutional):** 1.17392 (Friday High)
+- **Expected PDL (Institutional):** 1.16773 (Friday Low)
+- **Result:** Monday levels are **polluted** by Sunday's low-liquidity range. Any sweep of Friday's levels on Monday is **not detected** because the lab is looking at Sunday's tiny range.
+
+## Case Study 2: January 2022 Transition
+- **Monday Target:** 2022-01-03
+- **Sunday Sample:** 2022-01-02 18:00 NY, 19:00 NY.
+- **Problem:** Only 2 bars of Sunday exist before the Monday 00:00 UTC bar.
+- **Impact:** Monday starts with levels from a 2-hour window on Sunday, ignoring the entire previous Friday.
+
+## Summary of Findings
+1. **Continuous Data:** The data is physically present (no physical gap in timestamps).
+2. **Labeling Error:** Sunday bars are assigned to `date = Sunday`.
+3. **Logic Failure:** `compute_session_levels` treats Sunday as a full trading day.
+4. **Distortion:** Monday's reference levels (PDH/PDL) are calculated from Sunday's 2-7 bars instead of Friday's 24 bars.

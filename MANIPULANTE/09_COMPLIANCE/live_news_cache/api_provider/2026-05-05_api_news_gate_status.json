@@ -1,0 +1,40 @@
+{
+  "timestamp_utc": "2026-05-05T16:55:42.118599+00:00",
+  "state": "ALLOW",
+  "gate": "ALLOW",
+  "provider_used": "MQL5_BOOTSTRAP",
+  "api_key_present": true,
+  "today_news_loaded": true,
+  "week_news_loaded": true,
+  "today_events_count": 25,
+  "week_events_count": 83,
+  "next_blocking_event": null,
+  "blocking_event": null,
+  "window_blocked": false,
+  "cache_age_minutes": 0,
+  "today_fetch": {
+    "provider": "MQL5_BOOTSTRAP",
+    "attempts": [
+      {
+        "provider": "MQL5_BOOTSTRAP",
+        "status": "OK",
+        "error": null,
+        "normalized_count": 55
+      }
+    ],
+    "status": "OK"
+  },
+  "week_fetch": {
+    "provider": "MQL5_BOOTSTRAP",
+    "attempts": [
+      {
+        "provider": "MQL5_BOOTSTRAP",
+        "status": "OK",
+        "error": null,
+        "normalized_count": 187
+      }
+    ],
+    "status": "OK"
+  },
+  "fail_closed": true
+}

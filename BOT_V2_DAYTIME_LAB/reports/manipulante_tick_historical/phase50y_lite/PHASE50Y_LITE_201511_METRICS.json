@@ -1,0 +1,14 @@
+{
+    "sample": 16,
+    "auditables": 16,
+    "no_auditables": 0,
+    "pf": 0.9504455628405207,
+    "expectancy": -0.026831249999999973,
+    "drawdown": 4.4742999999999995,
+    "winrate": 0.25,
+    "total_r": -0.42929999999999957,
+    "outcomes": {
+        "TIME_EXIT": 16
+    },
+    "max_losing_streak": 0
+}

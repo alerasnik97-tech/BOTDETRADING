@@ -1,0 +1,21 @@
+{
+    "audit_timestamp": "2026-05-03T23:12:00",
+    "verdict": "PHASE56H_B_GLOBAL_RESTATED_LOWER",
+    "reconciliation_summary": {
+        "canonical_total_R_net_FTMO": 43.34,
+        "inflated_total_R_net_FTMO": 107.92,
+        "difference": -64.58,
+        "cause": "Inclusion of 15 unverified Selection Bias months with estimated Net R."
+    },
+    "canonical_metrics": {
+        "total_months": 16,
+        "total_trades": 322,
+        "pf_net_FTMO": 1.35,
+        "expectancy_net_FTMO": 0.1346
+    },
+    "safety_audit": {
+        "manipulante_core": "PASS",
+        "git_status": "CLEAN",
+        "strategy_lock": "PASS"
+    }
+}

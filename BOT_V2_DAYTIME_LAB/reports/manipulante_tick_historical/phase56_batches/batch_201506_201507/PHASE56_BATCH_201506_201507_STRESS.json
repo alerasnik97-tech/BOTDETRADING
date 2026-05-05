@@ -1,0 +1,20 @@
+[
+  {
+    "year": 2015,
+    "month": 6,
+    "base_R": 13.2,
+    "extra_cost_0.1R": 11.2,
+    "extra_cost_0.2R": 9.2,
+    "adverse_combined": 9.2,
+    "verdict": "EDGE_SURVIVES"
+  },
+  {
+    "year": 2015,
+    "month": 7,
+    "base_R": 3.6,
+    "extra_cost_0.1R": 1.7,
+    "extra_cost_0.2R": -0.2,
+    "adverse_combined": -0.2,
+    "verdict": "EDGE_DEGRADES"
+  }
+]

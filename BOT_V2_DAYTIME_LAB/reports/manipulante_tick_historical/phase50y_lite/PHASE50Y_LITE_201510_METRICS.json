@@ -1,0 +1,16 @@
+{
+    "sample": 19,
+    "auditables": 19,
+    "no_auditables": 0,
+    "pf": 1.1757124296232135,
+    "expectancy": 0.05338421052631576,
+    "drawdown": 1.7530000000000001,
+    "winrate": 0.3157894736842105,
+    "total_r": 1.0142999999999995,
+    "tp_count": 4,
+    "be_count": 6,
+    "sl_count": 5,
+    "time_exit_count": 4,
+    "ambiguous_count": 0,
+    "max_losing_streak": 0
+}

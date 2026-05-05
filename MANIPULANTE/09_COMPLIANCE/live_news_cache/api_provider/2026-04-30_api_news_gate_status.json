@@ -1,0 +1,52 @@
+{
+  "timestamp_utc": "2026-04-30T21:16:55.674189+00:00",
+  "state": "ALLOW",
+  "gate": "ALLOW",
+  "provider_used": "MQL5_BOOTSTRAP",
+  "api_key_present": true,
+  "today_news_loaded": true,
+  "week_news_loaded": true,
+  "today_events_count": 25,
+  "week_events_count": 83,
+  "next_blocking_event": {
+    "event_id": "MQL5_166_1777653900",
+    "provider": "MQL5_BOOTSTRAP",
+    "event_name": "PMI de Manufacturación de S&P Global",
+    "currency": "USD",
+    "impact": "HIGH",
+    "event_time_utc": "2026-05-01T16:45:00+00:00",
+    "event_time_ny": "2026-05-01T12:45:00-04:00",
+    "country": "US",
+    "timezone_validated": true,
+    "guard_start_ny": "2026-05-01T12:15:00-04:00",
+    "guard_end_ny": "2026-05-01T13:15:00-04:00"
+  },
+  "blocking_event": null,
+  "window_blocked": false,
+  "cache_age_minutes": 0,
+  "today_fetch": {
+    "provider": "MQL5_BOOTSTRAP",
+    "attempts": [
+      {
+        "provider": "MQL5_BOOTSTRAP",
+        "status": "OK",
+        "error": null,
+        "normalized_count": 55
+      }
+    ],
+    "status": "OK"
+  },
+  "week_fetch": {
+    "provider": "MQL5_BOOTSTRAP",
+    "attempts": [
+      {
+        "provider": "MQL5_BOOTSTRAP",
+        "status": "OK",
+        "error": null,
+        "normalized_count": 187
+      }
+    ],
+    "status": "OK"
+  },
+  "fail_closed": true
+}

@@ -1,0 +1,52 @@
+{
+  "timestamp_utc": "2026-05-01T18:09:06.954294+00:00",
+  "state": "ALLOW",
+  "gate": "ALLOW",
+  "provider_used": "MQL5_BOOTSTRAP",
+  "api_key_present": true,
+  "today_news_loaded": true,
+  "week_news_loaded": true,
+  "today_events_count": 25,
+  "week_events_count": 83,
+  "next_blocking_event": {
+    "event_id": "MQL5_173_1777665600",
+    "provider": "MQL5_BOOTSTRAP",
+    "event_name": "Recuento de Plataformas Petrolíferas de EE.UU de Baker Hughes",
+    "currency": "USD",
+    "impact": "MODERATE",
+    "event_time_utc": "2026-05-01T20:00:00+00:00",
+    "event_time_ny": "2026-05-01T16:00:00-04:00",
+    "country": "US",
+    "timezone_validated": true,
+    "guard_start_ny": "2026-05-01T15:30:00-04:00",
+    "guard_end_ny": "2026-05-01T16:30:00-04:00"
+  },
+  "blocking_event": null,
+  "window_blocked": false,
+  "cache_age_minutes": 0,
+  "today_fetch": {
+    "provider": "MQL5_BOOTSTRAP",
+    "attempts": [
+      {
+        "provider": "MQL5_BOOTSTRAP",
+        "status": "OK",
+        "error": null,
+        "normalized_count": 55
+      }
+    ],
+    "status": "OK"
+  },
+  "week_fetch": {
+    "provider": "MQL5_BOOTSTRAP",
+    "attempts": [
+      {
+        "provider": "MQL5_BOOTSTRAP",
+        "status": "OK",
+        "error": null,
+        "normalized_count": 187
+      }
+    ],
+    "status": "OK"
+  },
+  "fail_closed": true
+}

@@ -1,0 +1,13 @@
+{
+  "month": "2018-03",
+  "sample_total": 21,
+  "auditables": 21,
+  "non_auditables": 0,
+  "total_R_base": 0.6,
+  "PF_base": 1.05,
+  "total_R_net_FTMO": 0.5,
+  "PF_net_FTMO": 1.04,
+  "verdict_net_FTMO": "NET_FTMO_FAILS",
+  "batch_id": "BATCH_19",
+  "completed_at": "2026-05-04T12:48:36.897225"
+}

@@ -1,0 +1,28 @@
+{
+  "profile": "MANIPULANTE_LIVE_NEWS_FORTRESS",
+  "currencies": [
+    "EUR",
+    "USD"
+  ],
+  "impact_filter": [
+    "HIGH"
+  ],
+  "guard_minutes_before": 30,
+  "guard_minutes_after": 30,
+  "fail_closed": true,
+  "allow_trade_if_news_source_unavailable": false,
+  "manual_override_allowed": false,
+  "cache_enabled": true,
+  "cache_max_age_minutes": 60,
+  "today_required": true,
+  "week_ahead_required": true,
+  "mode": "DRY_RUN_ONLY",
+  "cache_dir": "MANIPULANTE/09_COMPLIANCE/live_news_cache",
+  "primary_source": "MT5_MQL5_ECONOMIC_CALENDAR",
+  "fallback_source": "MANUAL_EMERGENCY_VERIFIED_ONLY",
+  "mql5_reference_urls": [
+    "https://www.mql5.com/en/docs/calendar",
+    "https://www.mql5.com/en/docs/calendar/calendarvaluehistory",
+    "https://www.mql5.com/en/docs/calendar/calendareventbyid"
+  ]
+}

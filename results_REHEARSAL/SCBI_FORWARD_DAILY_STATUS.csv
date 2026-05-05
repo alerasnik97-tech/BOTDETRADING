@@ -1,0 +1,3 @@
+session_date,sweeps_detected,sweeps_blocked_news,sweeps_blocked_daily_limit,sweeps_no_scbi,sweeps_data_issue,trades_paper,result,pnl_r,cumulative_n,cumulative_pf,cumulative_exp,cumulative_dd,incidents,notes
+2026-04-20,0,0,0,0,0,0,NO_TRADE,0,0,0,0,0,None,
+2026-04-21,6,0,5,0,0,1,TRADE,1.5,1,999,1.5,0,None,

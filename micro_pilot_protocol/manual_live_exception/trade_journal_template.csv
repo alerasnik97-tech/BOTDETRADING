@@ -1,0 +1,2 @@
+date,pair,session,setup_validated_yes_no,trade_taken_yes_no,entry,sl,tp,result_r,pnl_percent,news_context,rules_respected_yes_no,emotional_state,kill_switch_triggered_yes_no,notes
+2026-04-24,EURUSD,NY,yes,yes,1.1750,1.1745,1.17575,1.5,0.25,none,yes,neutral,no,Test entry example

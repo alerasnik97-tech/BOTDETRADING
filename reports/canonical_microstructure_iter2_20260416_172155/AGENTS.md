@@ -84,3 +84,7 @@ Nota importante:
 - No usar el motor de noticias como maquillaje estadistico.
 - No presentar una estrategia como "viva" si solo sobrevivio por muestra minima o por OOS fragil.
 - No perder el contexto historico de lo que ya fracaso.
+
+
+> **ESTE ARCHIVO ES UN SNAPSHOT HISTÓRICO.**
+> La fuente viva y canónica está en: `BOT_V2_DAYTIME_LAB/docs/CORE_PROTOCOLS/AGENTS.MD`

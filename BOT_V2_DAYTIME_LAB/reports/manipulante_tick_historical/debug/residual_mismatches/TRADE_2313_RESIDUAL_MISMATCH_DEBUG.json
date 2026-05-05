@@ -1,0 +1,46 @@
+{
+  "trade_id": 2313,
+  "date": "2025-01-09",
+  "direction": "LONG",
+  "entry_time_ny": "2025-01-09T11:42:00-05:00",
+  "entry_time_utc": "2025-01-09T16:42:00+00:00",
+  "exit_time_ny": "2025-01-09T20:00:00-05:00",
+  "historical_entry": 1.03008,
+  "sl": 1.0289999999999997,
+  "computed_initial_sl": 1.0289999999999997,
+  "tp": 1.0315920000000007,
+  "be_level": 1.03008,
+  "be_trigger": 1.0305120000000003,
+  "nearest_bid": 1.02968,
+  "nearest_ask": 1.0297,
+  "diff_bid_pips": -4.0,
+  "diff_ask_pips": -3.8,
+  "spread_at_entry_pips": 0.2,
+  "bar_outcome": "FORCED_CLOSE",
+  "tick_outcome": "NONE",
+  "recomputed_tick_outcome": "NONE",
+  "first_touch": "NONE",
+  "first_touch_time": null,
+  "events": {
+    "tick_outcome": "NONE",
+    "first_touch": null,
+    "first_events": {
+      "TP_TOUCH": null,
+      "SL_TOUCH": null,
+      "BE_TRIGGER": null,
+      "BE_STOP_TOUCH": null
+    },
+    "ordered_events_head": [],
+    "same_timestamp_ambiguity": false
+  },
+  "window": {
+    "ticks_loaded": 11686,
+    "gaps_gt_60s": 20,
+    "max_gap_seconds": 158.837,
+    "max_spread_pips": 4.3,
+    "p95_spread_pips": 1.6
+  },
+  "category": "EXIT_TIME_MISSING_OR_UNCLEAR",
+  "cause": "No hubo TP/SL/BE por tick; el cierre forzado requiere capa de salida horaria.",
+  "mismatch_type_preliminar": "EXIT_TIME_MISSING_OR_UNCLEAR"
+}

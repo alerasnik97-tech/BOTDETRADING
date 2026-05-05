@@ -1,0 +1,16 @@
+{
+    "evaluation": {
+        "log_completeness": 20,
+        "fill_availability": 0,
+        "spread_capture": 0,
+        "slippage_capture": 0,
+        "commission_capture": 0,
+        "close_reason_capture": 0,
+        "timestamp_quality": 80,
+        "reconciliation_readiness": 10,
+        "safety_compliance": 100
+    },
+    "global_score": 23,
+    "classification": "NOT_READY_MISSING_EXECUTION_FIELDS",
+    "notes": "The system correctly enforces safety gates and session lifecycles (19:45 NY), but it is functionally blind to the execution metrics required to validate the fragile edge. High priority logging patch required."
+}

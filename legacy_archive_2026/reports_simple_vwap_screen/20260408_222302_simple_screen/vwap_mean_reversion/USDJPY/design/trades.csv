@@ -1,0 +1,2 @@
+pair,direction,entry_time,exit_time,entry_price,exit_price,units,gross_pnl_usd,net_pnl_usd,r_multiple,commission_usd,exit_reason,strategy_family,context_key,setup_tag,context_trades_before,context_win_rate_before,context_expectancy_before
+USDJPY,short,2020-04-02 11:15:00-04:00,2020-04-02 11:25:00-04:00,107.7295,107.68033730919512,1228000,560.5134651872585,511.3934651872584,0.5115454183632359,49.120000000000005,take_profit,post_expansion_mean_reversion,,post_expansion_mean_reversion,0,0.0,0.0

@@ -18,6 +18,15 @@ MANIFESTS_PATH = os.path.join(TICK_PATH, "manifests")
 UTC = pytz.UTC
 NY = pytz.timezone("America/New_York")
 
+def _coerce_timestamp_utc(series):
+    ts = pd.to_datetime(series)
+    if ts.dt.tz is None:
+        return ts.dt.tz_localize("UTC")
+    return ts.dt.tz_convert("UTC")
+
+def _timestamp_ny_from_utc(series):
+    return _coerce_timestamp_utc(series).dt.tz_convert("America/New_York")
+
 def _get_sha256(file_path):
     import hashlib
     sha256_hash = hashlib.sha256()
@@ -38,6 +47,11 @@ class TickPerformanceEngine:
         if not os.path.exists(file_path): return None, "File not found"
         start_t = time.time()
         df = pd.read_parquet(file_path, columns=columns)
+        if 'timestamp_utc' in df.columns:
+            df['timestamp_utc'] = _coerce_timestamp_utc(df['timestamp_utc'])
+            df['timestamp_ny'] = _timestamp_ny_from_utc(df['timestamp_utc'])
+        elif 'timestamp_ny' in df.columns:
+            df['timestamp_ny'] = pd.to_datetime(df['timestamp_ny'])
         if ny_window:
             start_h, end_h = ny_window
             df = df[(df['timestamp_ny'].dt.hour >= start_h) & (df['timestamp_ny'].dt.hour < end_h)]
@@ -47,6 +61,8 @@ class TickPerformanceEngine:
     def build_ohlc_cache(self, df, timeframe='M1'):
         if df is None or df.empty: return None
         pd_tf = self.tf_map.get(timeframe, timeframe)
+        df = df.copy()
+        df['timestamp_utc'] = _coerce_timestamp_utc(df['timestamp_utc'])
         df = df.set_index('timestamp_utc')
         resampler = df.resample(pd_tf)
         ohlc = pd.DataFrame()
@@ -61,7 +77,7 @@ class TickPerformanceEngine:
         ohlc['spread_mean'] = resampler['spread_pips'].mean()
         ohlc['tick_count'] = resampler['bid'].count()
         ohlc = ohlc.dropna(subset=['bid_open'])
-        ohlc['timestamp_ny'] = ohlc.index.tz_convert(NY)
+        ohlc['timestamp_ny'] = ohlc.index.tz_convert("America/New_York")
         return ohlc
 
     def save_cache(self, ohlc, year, month, timeframe):

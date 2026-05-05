@@ -1,0 +1,26 @@
+rank,trade_id,timestamp_ny,outcome,side,time_block,entry_price,chart_filename,chart_path
+1,181996635,2020-01-31 05:25:45,SL,sell,5am-6am,1.106,FS_001_181996635.png,manual_trade_chartpacks\fast_signal\FS_001_181996635.png
+2,205478381,2024-01-19 05:06:05,TP,buy,5am-6am,1.08785,FS_002_205478381.png,manual_trade_chartpacks\fast_signal\FS_002_205478381.png
+3,205198611,2023-12-14 05:48:45,SL,sell,5am-6am,1.098,FS_003_205198611.png,manual_trade_chartpacks\fast_signal\FS_003_205198611.png
+4,205477673,2024-01-18 05:45:30,SL,buy,5am-6am,1.08619,FS_004_205477673.png,manual_trade_chartpacks\fast_signal\FS_004_205477673.png
+5,204986276,2023-11-07 05:03:15,BE,buy,5am-6am,1.06744,FS_005_204986276.png,manual_trade_chartpacks\fast_signal\FS_005_204986276.png
+6,185065029,2021-10-08 05:16:40,TP,buy,5am-6am,1.15671,FS_006_185065029.png,manual_trade_chartpacks\fast_signal\FS_006_185065029.png
+7,181599938,2025-12-15 05:32:40,TP,sell,5am-6am,1.17621,FS_007_181599938.png,manual_trade_chartpacks\fast_signal\FS_007_181599938.png
+8,203945311,2023-10-19 05:14:45,SL,sell,5am-6am,1.05729,FS_008_203945311.png,manual_trade_chartpacks\fast_signal\FS_008_203945311.png
+9,203334391,2023-08-14 05:26:30,TP,buy,5am-6am,1.08977,FS_009_203334391.png,manual_trade_chartpacks\fast_signal\FS_009_203334391.png
+10,181630147,2025-12-22 05:17:10,SL,sell,5am-6am,1.17608,FS_010_181630147.png,manual_trade_chartpacks\fast_signal\FS_010_181630147.png
+11,205249983,2023-12-29 04:47:45,TP,sell,4am-5am,1.10641,FS_011_205249983.png,manual_trade_chartpacks\fast_signal\FS_011_205249983.png
+12,202583140,2023-06-09 04:33:15,TP,sell,4am-5am,1.07703,FS_012_202583140.png,manual_trade_chartpacks\fast_signal\FS_012_202583140.png
+13,183246232,2020-06-23 04:28:35,SL,sell,4am-5am,1.13246,FS_013_183246232.png,manual_trade_chartpacks\fast_signal\FS_013_183246232.png
+14,184779381,2021-07-09 04:51:05,SL,sell,4am-5am,1.18648,FS_014_184779381.png,manual_trade_chartpacks\fast_signal\FS_014_184779381.png
+15,184265650,2020-10-14 04:17:25,SL,sell,4am-5am,1.17602,FS_015_184265650.png,manual_trade_chartpacks\fast_signal\FS_015_184265650.png
+16,186890481,2022-03-22 04:01:20,SL,sell,4am-5am,1.10215,FS_016_186890481.png,manual_trade_chartpacks\fast_signal\FS_016_186890481.png
+17,182163577,2020-02-28 04:00:05,SL,buy,4am-5am,1.09856,FS_017_182163577.png,manual_trade_chartpacks\fast_signal\FS_017_182163577.png
+18,179935463,2025-06-17 04:13:10,TP,sell,4am-5am,1.1563,FS_018_179935463.png,manual_trade_chartpacks\fast_signal\FS_018_179935463.png
+19,183239883,2020-06-17 03:44:25,BE,buy,3am-4am,1.12337,FS_019_183239883.png,manual_trade_chartpacks\fast_signal\FS_019_183239883.png
+20,179939976,2025-06-25 03:18:15,TP,sell,3am-4am,1.16033,FS_020_179939976.png,manual_trade_chartpacks\fast_signal\FS_020_179939976.png
+21,184779020,2021-07-07 03:38:20,TP,sell,3am-4am,1.18242,FS_021_184779020.png,manual_trade_chartpacks\fast_signal\FS_021_184779020.png
+22,199966249,2023-05-17 03:59:00,BE,buy,3am-4am,1.08238,FS_022_199966249.png,manual_trade_chartpacks\fast_signal\FS_022_199966249.png
+23,206436175,2024-02-19 03:16:15,SL,buy,3am-4am,1.0776,FS_023_206436175.png,manual_trade_chartpacks\fast_signal\FS_023_206436175.png
+24,206461894,2024-02-26 03:15:00,BE,sell,3am-4am,1.08527,FS_024_206461894.png,manual_trade_chartpacks\fast_signal\FS_024_206461894.png
+25,180146828,2025-07-21 03:54:15,SL,sell,3am-4am,1.16661,FS_025_180146828.png,manual_trade_chartpacks\fast_signal\FS_025_180146828.png

@@ -1,0 +1,16 @@
+{
+    "sample_total": 19,
+    "auditables": 15,
+    "no_auditables": 4,
+    "PF_real": 3.3173668174056674,
+    "expectancy_real": 0.3645958235220617,
+    "DD_secuencial_real": 1.233312475070576,
+    "winrate_real": 53.333333333333336,
+    "total_R_real": 5.468937352830926,
+    "TP_count": 0,
+    "BE_count": 1,
+    "SL_count": 0,
+    "TIME_EXIT_count": 14,
+    "AMBIGUOUS_count": 0,
+    "max_losing_streak": 3
+}

@@ -1,0 +1,46 @@
+{
+  "trade_id": 2327,
+  "date": "2025-01-29",
+  "direction": "SHORT",
+  "entry_time_ny": "2025-01-29T08:06:00-05:00",
+  "entry_time_utc": "2025-01-29T13:06:00+00:00",
+  "exit_time_ny": "2025-01-29T08:24:00-05:00",
+  "historical_entry": 1.0397,
+  "sl": 1.0397,
+  "computed_initial_sl": 1.0406600000000001,
+  "tp": 1.038356,
+  "be_level": 1.0397,
+  "be_trigger": 1.0393160000000001,
+  "nearest_bid": 1.0404,
+  "nearest_ask": 1.04043,
+  "diff_bid_pips": 7.0,
+  "diff_ask_pips": 7.3,
+  "spread_at_entry_pips": 0.3,
+  "bar_outcome": "TP",
+  "tick_outcome": "NONE",
+  "recomputed_tick_outcome": "NONE",
+  "first_touch": "NONE",
+  "first_touch_time": null,
+  "events": {
+    "tick_outcome": "NONE",
+    "first_touch": null,
+    "first_events": {
+      "TP_TOUCH": null,
+      "SL_TOUCH": null,
+      "BE_TRIGGER": null,
+      "BE_STOP_TOUCH": null
+    },
+    "ordered_events_head": [],
+    "same_timestamp_ambiguity": false
+  },
+  "window": {
+    "ticks_loaded": 466,
+    "gaps_gt_60s": 0,
+    "max_gap_seconds": 7.442,
+    "max_spread_pips": 0.6,
+    "p95_spread_pips": 0.4
+  },
+  "category": "ENTRY_PRICE_FEED_DIFFERENCE",
+  "cause": "El precio historico de entrada queda lejos del bid/ask tick cercano.",
+  "mismatch_type_preliminar": "ENTRY_PRICE_FEED_DIFFERENCE"
+}

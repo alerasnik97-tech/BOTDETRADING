@@ -1,0 +1,33 @@
+{
+    "verdict": "MANIPULANTE_RESEARCH_ADVANCED_FORWARD_DEMO_REQUIRED",
+    "status": "RESEARCH_COMPLETE_AUDITED",
+    "policy_lock": {
+        "time_exit": "19:45 NY",
+        "instrument": "EURUSD",
+        "tp": 1.4,
+        "be": 0.4,
+        "sl": 1.0
+    },
+    "metrics_group_b_canonical": {
+        "sample": 163,
+        "base": {
+            "pf": 1.59,
+            "total_r": 32.29,
+            "expectancy": 0.1981,
+            "dd": 4.47
+        },
+        "conservative_cost": {
+            "pf": 1.26,
+            "total_r": 17.69,
+            "expectancy": 0.1085,
+            "estimated_cost_r": 0.0896
+        }
+    },
+    "classification": {
+        "is_fragile": true,
+        "is_cost_sensitive": true,
+        "is_real_ready": false,
+        "is_forward_required": true
+    },
+    "next_milestone": "FORWARD_DEMO_COST_RECONCILIATION"
+}

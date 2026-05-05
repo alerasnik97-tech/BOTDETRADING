@@ -1,0 +1,26 @@
+[
+  {
+    "year": 2015,
+    "month": 4,
+    "sample": 19,
+    "PF": 3.64,
+    "expectancy": 0.6947,
+    "total_R": 13.2,
+    "TP": 13,
+    "BE": 1,
+    "SL": 5,
+    "TIME_EXIT": 0
+  },
+  {
+    "year": 2015,
+    "month": 5,
+    "sample": 19,
+    "PF": 2.57,
+    "expectancy": 0.4947,
+    "total_R": 9.4,
+    "TP": 11,
+    "BE": 2,
+    "SL": 6,
+    "TIME_EXIT": 0
+  }
+]

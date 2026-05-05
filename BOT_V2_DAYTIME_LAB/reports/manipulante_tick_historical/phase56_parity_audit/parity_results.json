@@ -1,0 +1,46 @@
+{
+    "2018-09": {
+        "optimized": {
+            "sample_total": 16,
+            "auditables": 16,
+            "total_R_net_FTMO": 12.7156,
+            "expectancy_net_FTMO": 0.7947,
+            "PF_net_FTMO": 4.18
+        },
+        "canonical": {
+            "month": "2018-09",
+            "sample_total": 16,
+            "auditables": 16,
+            "non_auditables": 0,
+            "total_R_base": 12.8,
+            "PF_base": 4.2,
+            "total_R_net_FTMO": 12.72,
+            "PF_net_FTMO": 4.18,
+            "verdict_net_FTMO": "NET_FTMO_STRONG",
+            "batch_id": "BATCH_22",
+            "completed_at": "2026-05-04T14:16:57.247137"
+        }
+    },
+    "2018-04": {
+        "optimized": {
+            "sample_total": 18,
+            "auditables": 18,
+            "total_R_net_FTMO": -8.4523,
+            "expectancy_net_FTMO": -0.4696,
+            "PF_net_FTMO": 0.4
+        },
+        "canonical": {
+            "month": "2018-04",
+            "sample_total": 18,
+            "auditables": 18,
+            "non_auditables": 0,
+            "total_R_base": -8.4,
+            "PF_base": 0.4,
+            "total_R_net_FTMO": -8.45,
+            "PF_net_FTMO": 0.4,
+            "verdict_net_FTMO": "NET_FTMO_FAILS",
+            "batch_id": "BATCH_19",
+            "completed_at": "2026-05-04T13:02:21.809312"
+        }
+    }
+}

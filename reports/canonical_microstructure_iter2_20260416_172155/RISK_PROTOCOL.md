@@ -114,3 +114,7 @@ Ningun bot puede considerarse apto para real/fondeo si no demuestra, como minimo
 - ausencia de exposicion floja frente a high impact news
 
 La meta economica de 20 USD no anula ninguna de estas exigencias.
+
+
+> **ESTE ARCHIVO ES UN SNAPSHOT HISTÓRICO.**
+> La fuente viva y canónica está en: `BOT_V2_DAYTIME_LAB/docs/CORE_PROTOCOLS/RISK_PROTOCOL.MD`

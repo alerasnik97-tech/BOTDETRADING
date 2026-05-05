@@ -1,0 +1,2 @@
+train_period,test_period,params_used,trades,win_rate,pnl_r,pnl_usd,max_drawdown_pct,profit_factor
+,,"{""label"": ""mr_vwap_rsi7__mr_balanced__full__tight"", ""style"": ""mr_vwap_rsi7"", ""variant"": ""tight"", ""regime"": ""mr_balanced"", ""session"": ""full""}",23,60.86956521739131,-1.929672505446078,-1929.6725054460785,2.9425376755711086,0.7389502631229894

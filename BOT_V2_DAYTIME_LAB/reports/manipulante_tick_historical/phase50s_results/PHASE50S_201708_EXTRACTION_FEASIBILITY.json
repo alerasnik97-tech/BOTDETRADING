@@ -1,0 +1,25 @@
+{
+    "phase": "50S",
+    "pilot_month": "2017-08",
+    "feasibility_check": "COMPLETED_WITH_LIMITATION",
+    "raw_trades_global_exists": true,
+    "raw_trades_path": "BOT_V2_DAYTIME_LAB/outputs/phase38_manipulante_deep_explainer/csv/phase38_raw_trades_enriched.csv",
+    "trades_2017_08_found": 19,
+    "pipeline_tick_exists": true,
+    "pipeline_path": "BOT_V2_DAYTIME_LAB/src/phase49b_tick_data_pipeline.py",
+    "pipeline_supports_year_month": true,
+    "extraction_executed": true,
+    "extraction_status": "TIMEOUT",
+    "extraction_error": "300 seconds timeout exceeded",
+    "tick_data_exists_after": false,
+    "security": {
+        "no_manipulant": true,
+        "no_mt5": true,
+        "no_orders": true,
+        "no_real": true,
+        "no_exness": true,
+        "no_git_mod": true,
+        "no_file_deletion": true
+    },
+    "next_action": "INCREASE_TIMEOUT_OR_USE_ALTERNATIVE_SOURCE"
+}

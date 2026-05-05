@@ -1,0 +1,6 @@
+artifact_path,filename,status,mismatch_reason,trade_count,month_count,total_R_tick,PF_tick,winrate_tick
+"BOT_V2_DAYTIME_LAB/reports/manipulante_tick_historical/PHASE50H_MULTI_MONTH_TRADE_LEVEL_RESULTS.csv","PHASE50H_MULTI_MONTH_TRADE_LEVEL_RESULTS.csv","MISMATCH_MONTH_SET","Missing 2024-06, Extra 2025-08",185,9,-153.42,0.049,5.23
+"BOT_V2_DAYTIME_LAB/reports/manipulante_tick_historical/PHASE50H_MULTI_MONTH_MONTHLY_METRICS.csv","PHASE50H_MULTI_MONTH_MONTHLY_METRICS.csv","MISMATCH_MONTH_SET","Missing 2024-06, Extra 2025-08",185,9,-153.42,0.049,5.23
+"BOT_V2_DAYTIME_LAB/reports/manipulante_tick_historical/PHASE50H_EXECUTION_CHECKPOINT.json","PHASE50H_EXECUTION_CHECKPOINT.json","MISMATCH_METRICS","Reported metrics are abysmal vs expected 4.66 PF",185,9,-153.42,0.049,5.23
+"BOT_V2_DAYTIME_LAB/reports/PHASE50H_MULTI_MONTH_TICK_VALIDATION_STAGE_REPORT.json","PHASE50H_MULTI_MONTH_TICK_VALIDATION_STAGE_REPORT.json","STALE_ARTIFACT","Reflects the contaminated state",185,9,-153.42,0.049,5.23
+"BOT_V2_DAYTIME_LAB/reports/PHASE50I_ADVERSARIAL_VALIDATION_REPORT.json","PHASE50I_ADVERSARIAL_VALIDATION_REPORT.json","CONSISTENT","Valid adversarial audit of the contaminated state",185,9,-153.42,0.049,5.23

@@ -1,0 +1,6 @@
+{
+  "pid": 6184,
+  "started_at": "2026-05-05T08:39:30.093024",
+  "command": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase45_run_alert_check.py --loop --interval-seconds 60",
+  "cwd": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo"
+}

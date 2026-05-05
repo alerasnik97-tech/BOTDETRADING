@@ -1,0 +1,14 @@
+{
+  "outcome": "TP",
+  "R": 1.4,
+  "entry_p": 1.07162,
+  "entry_ts": "2025-03-05T14:03:00.663000+00:00",
+  "sl": 1.0691199999999998,
+  "tp": 1.07512,
+  "be_trig": 1.0726200000000001,
+  "first_touch_time": "2025-03-05T14:29:24.998000+00:00",
+  "be_active": true,
+  "trade_id": 2351,
+  "original_outcome": "TP",
+  "original_R": 1.4
+}

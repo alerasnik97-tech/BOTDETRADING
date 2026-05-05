@@ -1,0 +1,40 @@
+{
+  "provider_priority": [
+    "MQL5_BOOTSTRAP",
+    "TRADING_ECONOMICS",
+    "FMP",
+    "FINNHUB",
+    "EODHD"
+  ],
+  "currencies": [
+    "EUR",
+    "USD"
+  ],
+  "impact_filter": [
+    "HIGH",
+    "MODERATE"
+  ],
+  "guard_minutes_before": 30,
+  "guard_minutes_after": 30,
+  "today_required": true,
+  "week_required": true,
+  "cache_max_age_minutes": 60,
+  "fail_closed": true,
+  "allow_trade_if_provider_unavailable": false,
+  "manual_override_allowed": false,
+  "mode": "FTMO_TRIAL_ONLY",
+  "providers": {
+    "TRADING_ECONOMICS": {
+      "env_var": "TRADING_ECONOMICS_API_KEY"
+    },
+    "FMP": {
+      "env_var": "FMP_API_KEY"
+    },
+    "FINNHUB": {
+      "env_var": "FINNHUB_API_KEY"
+    },
+    "EODHD": {
+      "env_var": "EODHD_API_KEY"
+    }
+  }
+}

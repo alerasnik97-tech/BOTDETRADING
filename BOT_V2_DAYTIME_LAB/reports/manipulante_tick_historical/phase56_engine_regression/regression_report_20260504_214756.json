@@ -1,0 +1,154 @@
+[
+    {
+        "month": "2018-09",
+        "checkpoint": {
+            "auditables": 16,
+            "total_R": 12.72,
+            "verdict": "NET_FTMO_STRONG"
+        },
+        "corrected_engine": {
+            "auditables": 16,
+            "total_R": 8.506,
+            "PF": 4.62
+        },
+        "diffs": {
+            "total_R_diff": -4.214,
+            "expectancy_diff": 0.5316,
+            "auditables_diff": 0
+        },
+        "classification": "REQUIRES_MANUAL_REVIEW"
+    },
+    {
+        "month": "2018-04",
+        "checkpoint": {
+            "auditables": 18,
+            "total_R": -8.45,
+            "verdict": "NET_FTMO_FAILS"
+        },
+        "corrected_engine": {
+            "auditables": 18,
+            "total_R": 8.4091,
+            "PF": 4.47
+        },
+        "diffs": {
+            "total_R_diff": 16.8591,
+            "expectancy_diff": 0.4672,
+            "auditables_diff": 0
+        },
+        "classification": "REQUIRES_MANUAL_REVIEW"
+    },
+    {
+        "month": "2019-07",
+        "checkpoint": {
+            "auditables": 19,
+            "total_R": 3.4324,
+            "verdict": "NET_FTMO_SURVIVES"
+        },
+        "corrected_engine": {
+            "auditables": 18,
+            "total_R": 0.5592,
+            "PF": 1.12
+        },
+        "diffs": {
+            "total_R_diff": -2.8732,
+            "expectancy_diff": -0.1496,
+            "auditables_diff": -1
+        },
+        "classification": "RESTATED_BY_VALID_BUGFIX"
+    },
+    {
+        "month": "2020-01",
+        "checkpoint": {
+            "auditables": 20,
+            "total_R": -1.8865,
+            "verdict": "NET_FTMO_FAILS"
+        },
+        "corrected_engine": {
+            "auditables": 20,
+            "total_R": -1.8865,
+            "PF": 0.68
+        },
+        "diffs": {
+            "total_R_diff": 0.0,
+            "expectancy_diff": 0.0,
+            "auditables_diff": 0
+        },
+        "classification": "UNCHANGED"
+    },
+    {
+        "month": "2020-02",
+        "checkpoint": {
+            "auditables": 17,
+            "total_R": 8.9131,
+            "verdict": "NET_FTMO_SURVIVES"
+        },
+        "corrected_engine": {
+            "auditables": 17,
+            "total_R": 8.9131,
+            "PF": 6.6
+        },
+        "diffs": {
+            "total_R_diff": 0.0,
+            "expectancy_diff": 0.0,
+            "auditables_diff": 0
+        },
+        "classification": "UNCHANGED"
+    },
+    {
+        "month": "2017-08",
+        "checkpoint": {
+            "auditables": 15,
+            "total_R": 11.12,
+            "verdict": "INCONCLUSIVE_WITH_WARNINGS"
+        },
+        "corrected_engine": {
+            "auditables": 15,
+            "total_R": -0.5844,
+            "PF": 0.92
+        },
+        "diffs": {
+            "total_R_diff": -11.7044,
+            "expectancy_diff": -0.039,
+            "auditables_diff": 0
+        },
+        "classification": "REQUIRES_MANUAL_REVIEW"
+    },
+    {
+        "month": "2016-08",
+        "checkpoint": {
+            "auditables": 21,
+            "total_R": 9.13,
+            "verdict": "NET_FTMO_STRONG"
+        },
+        "corrected_engine": {
+            "auditables": 21,
+            "total_R": 2.1487,
+            "PF": 1.45
+        },
+        "diffs": {
+            "total_R_diff": -6.9813,
+            "expectancy_diff": -0.3323,
+            "auditables_diff": 0
+        },
+        "classification": "REQUIRES_MANUAL_REVIEW"
+    },
+    {
+        "month": "2016-07",
+        "checkpoint": {
+            "auditables": 21,
+            "total_R": -8.95,
+            "verdict": "NET_FTMO_FAILS"
+        },
+        "corrected_engine": {
+            "auditables": 21,
+            "total_R": 1.9016,
+            "PF": 1.31
+        },
+        "diffs": {
+            "total_R_diff": 10.8516,
+            "expectancy_diff": 0.5169,
+            "auditables_diff": 0
+        },
+        "classification": "REQUIRES_MANUAL_REVIEW"
+    }
+]

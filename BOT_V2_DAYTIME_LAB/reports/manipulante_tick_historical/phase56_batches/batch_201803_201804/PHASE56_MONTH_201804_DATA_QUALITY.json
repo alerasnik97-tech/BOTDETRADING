@@ -1,0 +1,9 @@
+{
+  "month": "2018-04",
+  "parquet_exists": true,
+  "sample_total": 18,
+  "auditables": 18,
+  "non_auditables": 0,
+  "non_auditable_pct": 0.0,
+  "reasons": {}
+}

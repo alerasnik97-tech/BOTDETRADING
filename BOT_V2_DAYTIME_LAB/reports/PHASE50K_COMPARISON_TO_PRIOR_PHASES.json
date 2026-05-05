@@ -1,0 +1,34 @@
+{
+  "comparison": {
+    "PHASE50H": {
+      "status": "INVALIDATED",
+      "pf_tick": 4.66,
+      "expectancy_tick": 0.52
+    },
+    "PHASE50I": {
+      "status": "CONFIRMED_NEGATIVE",
+      "pf_tick": 0.049,
+      "expectancy_tick": -0.89
+    },
+    "PHASE50J": {
+      "status": "CONFIRMED_NEGATIVE",
+      "pf_tick": 0.036,
+      "expectancy_tick": -0.91,
+      "total_r_tick": -140.22
+    },
+    "PHASE50K": {
+      "status": "REPRODUCED_INDEPENDENT",
+      "pf_tick": 0.0476,
+      "expectancy_tick": -0.858,
+      "total_r_tick": -145.17,
+      "winrate_tick": 5.32,
+      "match_rate": 2.21,
+      "contamination_check": {
+        "2025-08_included": false,
+        "2024-06_included": true
+      }
+    }
+  },
+  "verdict": "PHASE50K_INDEPENDENT_REPRODUCTION_CONFIRMS_DEGRADATION"
+}
+ village update

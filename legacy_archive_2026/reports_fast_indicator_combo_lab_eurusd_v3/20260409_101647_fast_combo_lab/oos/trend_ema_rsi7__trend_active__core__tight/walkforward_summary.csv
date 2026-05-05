@@ -1,0 +1,2 @@
+train_period,test_period,params_used,trades,win_rate,pnl_r,pnl_usd,max_drawdown_pct,profit_factor
+,,"{""label"": ""trend_ema_rsi7__trend_active__core__tight"", ""style"": ""trend_ema_rsi7"", ""variant"": ""tight"", ""regime"": ""trend_active"", ""session"": ""core""}",272,44.85294117647059,-64.56686055968274,-64566.86055968273,66.85592005598696,0.6149144804841623

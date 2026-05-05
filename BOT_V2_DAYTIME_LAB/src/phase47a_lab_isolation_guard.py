@@ -143,8 +143,8 @@ def get_status_entries(root, staged_only=False):
         
         # In staged_only mode, we only care about the first column (index)
         # X is status of the index, Y is status of the work tree
-        # If X is ' ', it's not staged.
-        if staged_only and status[0] == " ":
+        # If X is ' ' or '?', it's not staged.
+        if staged_only and status[0] in (" ", "?"):
             continue
             
         entries.append(

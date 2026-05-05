@@ -1,0 +1,2 @@
+pair,direction,entry_time,exit_time,entry_price,exit_price,units,gross_pnl_usd,net_pnl_usd,r_multiple,commission_usd,exit_reason,strategy_family,context_key,setup_tag,context_trades_before,context_win_rate_before,context_expectancy_before
+EURUSD,long,2020-09-11 14:05:00-04:00,2020-09-11 14:10:00-04:00,1.18317,1.1832875526225082,1690000,198.66393203872514,118.67766676008435,0.28555292449040415,79.98626527864079,take_profit,core_session_reversion,fri|core|balanced|deep|long,,0,0.0,0.0

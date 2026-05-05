@@ -1,0 +1,47 @@
+{
+    "Model_A": {
+        "model": "Actual Replay",
+        "sample": 15,
+        "PF": 3.317366817405668,
+        "expectancy": 0.3645958235220617,
+        "DD": 1.233312475070576,
+        "winrate": 53.333333333333336,
+        "total_R": 5.468937352830926
+    },
+    "Model_B": {
+        "model": "TIME_EXIT = Raw Original",
+        "sample": 15,
+        "PF": 1.0,
+        "expectancy": -2.960594732333751e-17,
+        "DD": 4.0,
+        "winrate": 33.33333333333333,
+        "total_R": -4.440892098500626e-16
+    },
+    "Model_C": {
+        "model": "TIME_EXIT = 0R",
+        "sample": 15,
+        "PF": 0.0,
+        "expectancy": 0.0,
+        "DD": 0.0,
+        "winrate": 0.0,
+        "total_R": 0.0
+    },
+    "Model_D": {
+        "model": "TIME_EXIT = -0.2R",
+        "sample": 15,
+        "PF": 0.0,
+        "expectancy": -0.1866666666666667,
+        "DD": 2.6,
+        "winrate": 0.0,
+        "total_R": -2.8000000000000007
+    },
+    "Model_E": {
+        "model": "Exclude TIME_EXIT",
+        "sample": 1,
+        "PF": 0.0,
+        "expectancy": 0.0,
+        "DD": 0.0,
+        "winrate": 0.0,
+        "total_R": 0.0
+    }
+}

@@ -1,0 +1,5 @@
+month,trade_level_exists,time_exit_count,total_trades,parquet_exists
+2017-05,True,20,20,True
+2017-08,True,14,19,True
+2020-04,True,19,19,True
+2024-10,True,8,22,True

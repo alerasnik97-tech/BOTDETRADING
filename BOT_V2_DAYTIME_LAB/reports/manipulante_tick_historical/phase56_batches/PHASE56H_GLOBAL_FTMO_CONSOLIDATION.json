@@ -1,0 +1,24 @@
+{
+    "timestamp": "2026-05-03T22:53:31.266952",
+    "total_months": 31,
+    "total_sample": 592,
+    "total_R_base": 134.1,
+    "total_R_net_FTMO": 107.92,
+    "pf_net_FTMO_global": 8.1,
+    "expectancy_net_FTMO_global": 0.1823,
+    "verdicts_count": {
+        "NET_FTMO_STRONG": 14,
+        "NET_FTMO_SURVIVES": 4,
+        "NET_FTMO_FRAGILE": 8,
+        "NET_FTMO_FAILS": 5
+    },
+    "best_month": {
+        "month": "2015-04",
+        "R": 12.344999999999999
+    },
+    "worst_month": {
+        "month": "2016-07",
+        "R": -8.95
+    },
+    "institutional_verdict": "PHASE56H_GLOBAL_EDGE_CONFIRMED"
+}

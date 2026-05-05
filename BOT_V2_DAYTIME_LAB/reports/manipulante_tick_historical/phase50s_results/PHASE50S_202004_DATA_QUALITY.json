@@ -1,0 +1,8 @@
+{
+    "total_trades": 19,
+    "parquet_missing": false,
+    "gaps_found": 0,
+    "first_tick": "2020-04-01 00:00:00.133000+00:00",
+    "last_tick": "2020-04-30 23:59:54.094000+00:00",
+    "rows": 2696730
+}

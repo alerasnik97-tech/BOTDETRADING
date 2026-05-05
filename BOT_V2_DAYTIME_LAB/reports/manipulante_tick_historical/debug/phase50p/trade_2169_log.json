@@ -1,0 +1,14 @@
+{
+  "outcome": "TIME_EXIT",
+  "R": 0.2685185185184521,
+  "entry_p": 1.08586,
+  "entry_ts": "2024-05-27T14:54:00.346000+00:00",
+  "sl": 1.08478,
+  "tp": 1.087372,
+  "be_trig": 1.086292,
+  "first_touch_time": "2024-05-28T00:00:00.195000+00:00",
+  "be_active": false,
+  "trade_id": 2169,
+  "original_outcome": "FORCED_CLOSE",
+  "original_R": 0.2685185185184348
+}

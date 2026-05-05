@@ -1,0 +1,30 @@
+{
+    "2024-10": {
+        "PF": 5.14,
+        "expectancy": 0.5109,
+        "total_R": 11.24,
+        "DD": 1.45,
+        "verdict": "EDGE_SURVIVES"
+    },
+    "2017-08": {
+        "PF": 3.32,
+        "expectancy": 0.36,
+        "total_R": 5.47,
+        "DD": 1.23,
+        "verdict": "EDGE_SURVIVES_WITH_WARNINGS"
+    },
+    "2017-05": {
+        "PF": 4.56,
+        "expectancy": 0.44,
+        "total_R": 8.82,
+        "DD": 0.99,
+        "verdict": "EDGE_SURVIVES_WITH_WARNINGS"
+    },
+    "2020-04": {
+        "PF": 6.2307995367046205,
+        "expectancy": 0.6571678568461751,
+        "total_R": 12.486189280077326,
+        "DD": 0.8352897307776073,
+        "verdict": "TBD"
+    }
+}

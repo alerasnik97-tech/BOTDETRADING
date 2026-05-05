@@ -1,0 +1,14 @@
+{
+    "verdict": "NO_FILL_LOGS_AVAILABLE_YET",
+    "trades_recorded": 0,
+    "orders_sent": 0,
+    "fills_detected": 0,
+    "metrics_found": {
+        "commission": false,
+        "spread": false,
+        "slippage": false,
+        "ticket": false,
+        "timestamps_request_fill": false
+    },
+    "notes": "Logs examined in 10_LOGS_PAPER/ftmo_trial_bot only contain bot gate evaluations and heartbeats. No trading activity found in the current log set."
+}

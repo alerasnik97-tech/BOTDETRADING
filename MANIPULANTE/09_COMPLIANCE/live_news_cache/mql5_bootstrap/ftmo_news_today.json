@@ -1,0 +1,391 @@
+{
+  "source": "MT5_MQL5_CALENDAR_BOOTSTRAP_EA",
+  "generated_at_utc": "2026.04.29 15:18:03",
+  "events": [
+    {
+      "name": "Discurso de Burkhard Balz, miembro de la Junta Ejecutiva del Bbk",
+      "currency": "EUR",
+      "country": "DE",
+      "importance": "MODERATE",
+      "time_utc": "2026.04.29 09:00"
+    },
+    {
+      "name": "IPC m/m",
+      "currency": "EUR",
+      "country": "ES",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 10:00"
+    },
+    {
+      "name": "IPC a/a",
+      "currency": "EUR",
+      "country": "ES",
+      "importance": "MODERATE",
+      "time_utc": "2026.04.29 10:00"
+    },
+    {
+      "name": "IPCA m/m",
+      "currency": "EUR",
+      "country": "ES",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 10:00"
+    },
+    {
+      "name": "IPCA a/a",
+      "currency": "EUR",
+      "country": "ES",
+      "importance": "MODERATE",
+      "time_utc": "2026.04.29 10:00"
+    },
+    {
+      "name": "Masa Monetaria M3 del BCE a/a",
+      "currency": "EUR",
+      "country": "EU",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 11:00"
+    },
+    {
+      "name": "Préstamos para Hogares del BCE a/a",
+      "currency": "EUR",
+      "country": "EU",
+      "importance": "MODERATE",
+      "time_utc": "2026.04.29 11:00"
+    },
+    {
+      "name": "Préstamos para Empresas no Financieras del BCE a/a",
+      "currency": "EUR",
+      "country": "EU",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 11:00"
+    },
+    {
+      "name": "Préstamos del Sector Privado del BCE a/a",
+      "currency": "EUR",
+      "country": "EU",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 11:00"
+    },
+    {
+      "name": "Índice de Confianza Empresarial",
+      "currency": "EUR",
+      "country": "IT",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 11:00"
+    },
+    {
+      "name": "Índice de Confianza del Consumidor",
+      "currency": "EUR",
+      "country": "IT",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 11:00"
+    },
+    {
+      "name": "Indicador del Clima Empresarial",
+      "currency": "EUR",
+      "country": "EU",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 12:00"
+    },
+    {
+      "name": "Indicador de Confianza Industrial",
+      "currency": "EUR",
+      "country": "EU",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 12:00"
+    },
+    {
+      "name": "Indicador del Sentimiento servicios",
+      "currency": "EUR",
+      "country": "EU",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 12:00"
+    },
+    {
+      "name": "Indicador del Sentimiento Económico",
+      "currency": "EUR",
+      "country": "EU",
+      "importance": "MODERATE",
+      "time_utc": "2026.04.29 12:00"
+    },
+    {
+      "name": "Índice de Confianza del Consumidor",
+      "currency": "EUR",
+      "country": "EU",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 12:00"
+    },
+    {
+      "name": "Expectativas de Precios al Consumidor",
+      "currency": "EUR",
+      "country": "EU",
+      "importance": "HIGH",
+      "time_utc": "2026.04.29 12:00"
+    },
+    {
+      "name": "Expectativas de Precios de Venta de la Industria",
+      "currency": "EUR",
+      "country": "EU",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 12:00"
+    },
+    {
+      "name": "Subasta de Bonos del Estado a 10 Años",
+      "currency": "EUR",
+      "country": "DE",
+      "importance": "MODERATE",
+      "time_utc": "2026.04.29 12:30"
+    },
+    {
+      "name": "Subasta de Deuda a 5 años (BTP)",
+      "currency": "EUR",
+      "country": "IT",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 12:54"
+    },
+    {
+      "name": "Balanza Comercial no Comunitaria",
+      "currency": "EUR",
+      "country": "IT",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 13:00"
+    },
+    {
+      "name": "IPC m/m",
+      "currency": "EUR",
+      "country": "DE",
+      "importance": "MODERATE",
+      "time_utc": "2026.04.29 15:00"
+    },
+    {
+      "name": "IPC a/a",
+      "currency": "EUR",
+      "country": "DE",
+      "importance": "MODERATE",
+      "time_utc": "2026.04.29 15:00"
+    },
+    {
+      "name": "IPCA m/m",
+      "currency": "EUR",
+      "country": "DE",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 15:00"
+    },
+    {
+      "name": "IPCA a/a",
+      "currency": "EUR",
+      "country": "DE",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 15:00"
+    },
+    {
+      "name": "Inventarios mayoristas m/m",
+      "currency": "USD",
+      "country": "US",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 15:30"
+    },
+    {
+      "name": "Balanza Comercial de Mercancías",
+      "currency": "USD",
+      "country": "US",
+      "importance": "MODERATE",
+      "time_utc": "2026.04.29 15:30"
+    },
+    {
+      "name": "Inventarios Minoristas m/m",
+      "currency": "USD",
+      "country": "US",
+      "importance": "MODERATE",
+      "time_utc": "2026.04.29 15:30"
+    },
+    {
+      "name": "Inventarios Minoristas excl. Automóviles m/m",
+      "currency": "USD",
+      "country": "US",
+      "importance": "MODERATE",
+      "time_utc": "2026.04.29 15:30"
+    },
+    {
+      "name": "Inicios de construcción de Nueva Vivienda",
+      "currency": "USD",
+      "country": "US",
+      "importance": "MODERATE",
+      "time_utc": "2026.04.29 15:30"
+    },
+    {
+      "name": "Inicios de construcción de Nueva Vivienda",
+      "currency": "USD",
+      "country": "US",
+      "importance": "MODERATE",
+      "time_utc": "2026.04.29 15:30"
+    },
+    {
+      "name": "Permisos de Construcción",
+      "currency": "USD",
+      "country": "US",
+      "importance": "MODERATE",
+      "time_utc": "2026.04.29 15:30"
+    },
+    {
+      "name": "Permisos de Construcción",
+      "currency": "USD",
+      "country": "US",
+      "importance": "MODERATE",
+      "time_utc": "2026.04.29 15:30"
+    },
+    {
+      "name": "Pedidos de Bienes Duraderos m/m",
+      "currency": "USD",
+      "country": "US",
+      "importance": "HIGH",
+      "time_utc": "2026.04.29 15:30"
+    },
+    {
+      "name": "Pedidos Básicos de Bienes Buraderos m/m",
+      "currency": "USD",
+      "country": "US",
+      "importance": "MODERATE",
+      "time_utc": "2026.04.29 15:30"
+    },
+    {
+      "name": "Inicios de Construcción de nueva vivienda m/m",
+      "currency": "USD",
+      "country": "US",
+      "importance": "MODERATE",
+      "time_utc": "2026.04.29 15:30"
+    },
+    {
+      "name": "Inicios de Construcción de nueva vivienda m/m",
+      "currency": "USD",
+      "country": "US",
+      "importance": "MODERATE",
+      "time_utc": "2026.04.29 15:30"
+    },
+    {
+      "name": "Permisos de Construcción m/m",
+      "currency": "USD",
+      "country": "US",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 15:30"
+    },
+    {
+      "name": "Permisos de Construcción m/m",
+      "currency": "USD",
+      "country": "US",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 15:30"
+    },
+    {
+      "name": "Pedidos de Bienes Duraderos excl. Defensa m/m",
+      "currency": "USD",
+      "country": "US",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 15:30"
+    },
+    {
+      "name": "Pedidos de Bienes de Capital no Relacionados con la Defensa excl. Aeronaves m/m",
+      "currency": "USD",
+      "country": "US",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 15:30"
+    },
+    {
+      "name": "Envíos de Bienes de Capital no Relacionados con la Defensa excl. Aeronaves m/m",
+      "currency": "USD",
+      "country": "US",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 15:30"
+    },
+    {
+      "name": "AIE Cambio en las Reservas de Crudo",
+      "currency": "USD",
+      "country": "US",
+      "importance": "HIGH",
+      "time_utc": "2026.04.29 17:30"
+    },
+    {
+      "name": "AIE Cambio en las Reservas de Crudo en Cushing",
+      "currency": "USD",
+      "country": "US",
+      "importance": "MODERATE",
+      "time_utc": "2026.04.29 17:30"
+    },
+    {
+      "name": "AIE Cambio en la Importación de Petróleo",
+      "currency": "USD",
+      "country": "US",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 17:30"
+    },
+    {
+      "name": "AIE Cambio en la Producción de Combustible Destilado",
+      "currency": "USD",
+      "country": "US",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 17:30"
+    },
+    {
+      "name": "AIE Cambio en las Reservas de Combustible Destilado",
+      "currency": "USD",
+      "country": "US",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 17:30"
+    },
+    {
+      "name": "AIE Cambio en la Producción de Gasolina",
+      "currency": "USD",
+      "country": "US",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 17:30"
+    },
+    {
+      "name": "AIE Cambio en las Reservas de Combustible para Calefacción",
+      "currency": "USD",
+      "country": "US",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 17:30"
+    },
+    {
+      "name": "AIE Cambios en las Reservas de Gasolina",
+      "currency": "USD",
+      "country": "US",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 17:30"
+    },
+    {
+      "name": "Cambio de Entradas Diarias de Petróleo Crudo de Refinería de la EIA",
+      "currency": "USD",
+      "country": "US",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 17:30"
+    },
+    {
+      "name": "Cambio en la Tasa de Utilización de las Refinerías de la EIA",
+      "currency": "USD",
+      "country": "US",
+      "importance": "LOW",
+      "time_utc": "2026.04.29 17:30"
+    },
+    {
+      "name": "Declaración del CFMA",
+      "currency": "USD",
+      "country": "US",
+      "importance": "MODERATE",
+      "time_utc": "2026.04.29 21:00"
+    },
+    {
+      "name": "Decisión de la Tasa de Interés de la Reserva Federal",
+      "currency": "USD",
+      "country": "US",
+      "importance": "HIGH",
+      "time_utc": "2026.04.29 21:00"
+    },
+    {
+      "name": "Conferencia de Prensa del FOMC",
+      "currency": "USD",
+      "country": "US",
+      "importance": "HIGH",
+      "time_utc": "2026.04.29 21:30"
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+timestamp_ny,bid,ask,be_trigger,be_active,event
+2025-01-10 08:30:00.229000-05:00,1.03046,1.03063,1.02463,False,EXIT_SL

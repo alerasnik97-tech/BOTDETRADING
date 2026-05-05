@@ -1,0 +1,64 @@
+{
+  "timestamp": "2026-04-29T11:59:03.739023+00:00",
+  "verdict": "PHASE36_BLOCKED_ORDER_SEND_RISK",
+  "strategy_changed": false,
+  "phase25_authority": true,
+  "live_news": {
+    "created": true,
+    "can_read_today_news": false,
+    "can_read_week_news": false,
+    "source_used": "MT5/MQL5 Economic Calendar cache if available; none available now",
+    "fail_closed": true,
+    "gate_now": "NO_TRADE",
+    "status": "NO_TRADE_NEWS_SOURCE_UNAVAILABLE: no MT5/manual verified cache"
+  },
+  "mt5_dry_run": {
+    "created": true,
+    "real_order_sent": false,
+    "autotrading_activated": false,
+    "order_send_active_for_phase36": false
+  },
+  "lot_validation": {
+    "scenario_count": 120,
+    "balance_100_validated": true,
+    "recommended_risk": "0.10% to 0.25% for future micro-real planning; 0.50% dry-run only until Phase37",
+    "risk_075_authorized": false,
+    "risk_100_authorized": false,
+    "blocked_count": 112,
+    "allowed_dry_run_count": 8,
+    "balance_100_allowed_rows": 0
+  },
+  "order_send_audit": {
+    "timestamp": "2026-04-29T11:59:03.720239+00:00",
+    "findings_count": 1813,
+    "blockers_count": 2,
+    "blockers": [
+      {
+        "path": "mt5_demo_executor_lab\\mt5_order_router.py",
+        "line": 38,
+        "matched": "order_send;mt5.order_send",
+        "classification": "ACTIVE_ORDER_SEND_WITHOUT_LOCAL_BLOCK",
+        "severity": "BLOCKER",
+        "line_text": "result = mt5.order_send(request)"
+      },
+      {
+        "path": "mt5_demo_executor_lab\\mt5_order_router.py",
+        "line": 75,
+        "matched": "order_send;mt5.order_send",
+        "classification": "ACTIVE_ORDER_SEND_WITHOUT_LOCAL_BLOCK",
+        "severity": "BLOCKER",
+        "line_text": "result = mt5.order_send(request)"
+      }
+    ],
+    "verdict": "BLOCKER",
+    "scope_note": "Scanned active project files excluding archives, vendors, virtualenvs, data folders and caches."
+  },
+  "can_run_today_dry_run": true,
+  "can_trade_real_today": false,
+  "reason_real_blocked": "Phase36 dry-run only plus active order_send blocker outside Phase36 perimeter.",
+  "mql5_sources": [
+    "https://www.mql5.com/en/docs/calendar",
+    "https://www.mql5.com/en/docs/calendar/calendarvaluehistory",
+    "https://www.mql5.com/en/docs/calendar/calendareventbyid"
+  ]
+}

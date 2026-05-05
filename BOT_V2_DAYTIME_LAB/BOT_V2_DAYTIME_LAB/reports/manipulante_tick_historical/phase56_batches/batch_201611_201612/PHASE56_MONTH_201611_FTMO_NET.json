@@ -1,0 +1,16 @@
+{
+    "month": "2016-11",
+    "sample": 22,
+    "PF_base": 1.15,
+    "expectancy_base": 0.0727,
+    "total_R_base": 1.6,
+    "PF_net_FTMO": 0.0,
+    "expectancy_net_FTMO": -414.8521,
+    "total_R_net_FTMO": -9126.75,
+    "avg_commission_R": 414.9248,
+    "TP": 9,
+    "BE": 2,
+    "SL": 11,
+    "TIME_EXIT": 0,
+    "verdict_net_FTMO": "NET_FTMO_FAILS"
+}

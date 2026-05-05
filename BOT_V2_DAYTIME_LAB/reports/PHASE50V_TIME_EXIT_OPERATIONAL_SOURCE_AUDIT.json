@@ -1,0 +1,20 @@
+{
+    "verdict": "PHASE50V_TIME_EXIT_REPLICABLE_CONFIRMED",
+    "source_found": {
+        "research": "research_lab/engine.py (forced_session_close, time_exit)",
+        "operational": "phase37x_session_lifecycle.py (FORCED_SAFE_CLOSE_REQUIRED)",
+        "config": "runner_lifecycle_config.json"
+    },
+    "parameters": {
+        "max_hold_bars": "Optional in research, not used in current MANIPULANTE config",
+        "forced_session_close": "Active at 19:45 NY in operational, 20:00 NY in historical",
+        "friday_hard_close": "Active at 16:55 NY"
+    },
+    "determinism_score": 1.0,
+    "forward_evidence": {
+        "trades_executed": 0,
+        "code_ready": true,
+        "logs_compatible": true
+    },
+    "risk_level": "LOW (Rule is mechanical and shared between research and live)"
+}

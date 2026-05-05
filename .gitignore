@@ -34,6 +34,8 @@ datasets/raw/
 outputs/**/raw/
 
 # --- BASURA HISTÓRICA Y TEMPORALES ---
+archive_scratch/
+scratch/
 ARCHIVE_SUPERSEDED/
 temp*/
 *_staging*/

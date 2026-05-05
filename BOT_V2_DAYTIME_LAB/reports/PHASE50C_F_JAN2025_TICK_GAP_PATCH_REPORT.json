@@ -1,0 +1,113 @@
+{
+  "phase": "PHASE50C-F",
+  "verdict": "JAN2025_TICK_GAP_PATCH_OK_READY_FOR_NEXT_MONTH",
+  "patch_window_ny": {
+    "start": "2025-01-14T07:30:00-05:00",
+    "end": "2025-01-14T08:45:00-05:00"
+  },
+  "patch": {
+    "rows_before": 2220449,
+    "rows_patch": 10551,
+    "rows_after": 2231000,
+    "rows_expected_approx": 2231000,
+    "sha256_before": "87ea62859794f406bb087b40e0826a7151dfe250c79ec2c126163f82199fa3f7",
+    "sha256_after": "997edb6d2dde7d19e09cdaf6c8750ad37bc7795677b3dfd7d145d02bf33f3ffb",
+    "first_timestamp_utc": "2025-01-01T22:00:14.647000+00:00",
+    "first_timestamp_ny": "2025-01-01T17:00:14.647000-05:00",
+    "last_timestamp_utc": "2025-01-31T21:59:57.318000+00:00",
+    "last_timestamp_ny": "2025-01-31T16:59:57.318000-05:00",
+    "ticks_patch_window_after": 10551,
+    "ticks_trade_window_after": 5478,
+    "bid_le_ask": true,
+    "spread_ge_0": true,
+    "critical_nulls": 0,
+    "timezone_consistent_spot": true,
+    "jan14_gaps_after": {
+      "ticks_day": 56842,
+      "gaps_gt_1m": 16,
+      "gaps_gt_5m": 2,
+      "gaps_gt_15m": 2,
+      "max_gap_seconds": 18906.108
+    },
+    "backup_path": "C:\\Users\\alera\\Desktop\\Bot\\BOT_MARKET_DATA\\tick\\EURUSD\\backups\\EURUSD_ticks_2025_01_PRE_GAP2316_PATCH.parquet",
+    "snapshot_path": "C:\\Users\\alera\\Desktop\\Bot\\BOT_MARKET_DATA\\tick\\EURUSD\\quality_reports\\PHASE50C_F_PRE_PATCH_SNAPSHOT_2025_01.json"
+  },
+  "manifest_cache": {
+    "data_manifest_path": "C:\\Users\\alera\\Desktop\\Bot\\BOT_MARKET_DATA\\tick\\EURUSD\\manifests\\EURUSD_TICK_DATA_MANIFEST.csv",
+    "cache_manifest_path": "C:\\Users\\alera\\Desktop\\Bot\\BOT_MARKET_DATA\\tick\\EURUSD\\manifests\\EURUSD_TICK_CACHE_MANIFEST.csv",
+    "cache_status": {
+      "M1": {
+        "exists": true,
+        "source_sha256_matches": true,
+        "rows_window": 75,
+        "tick_count_sum": 10551,
+        "nan_cells_window": 0,
+        "first_ny": "2025-01-14T07:30:00-05:00",
+        "last_ny": "2025-01-14T08:44:00-05:00"
+      },
+      "M5": {
+        "exists": true,
+        "source_sha256_matches": true,
+        "rows_window": 15,
+        "tick_count_sum": 10551,
+        "nan_cells_window": 0,
+        "first_ny": "2025-01-14T07:30:00-05:00",
+        "last_ny": "2025-01-14T08:40:00-05:00"
+      },
+      "M15": {
+        "exists": true,
+        "source_sha256_matches": true,
+        "rows_window": 5,
+        "tick_count_sum": 10551,
+        "nan_cells_window": 0,
+        "first_ny": "2025-01-14T07:30:00-05:00",
+        "last_ny": "2025-01-14T08:30:00-05:00"
+      }
+    }
+  },
+  "trade_2316": {
+    "trade_id": 2316,
+    "entry_time_ny": "2025-01-14T07:45:00-05:00",
+    "direction": "LONG",
+    "bar_outcome": "BE",
+    "tick_outcome_after_gap_patch": "BE",
+    "match_after_gap_patch": true,
+    "nearest_bid": 1.02528,
+    "nearest_ask": 1.02531,
+    "spread_entry_pips": 0.3,
+    "first_touch_time": "2025-01-14T08:34:51.229000-05:00",
+    "be_activated_time": "2025-01-14T08:30:01.418000-05:00"
+  },
+  "jan2025_final": {
+    "csv_path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\reports\\manipulante_tick_historical\\PHASE50C_F_20_TRADES_REAUDIT_AFTER_GAP_PATCH.csv",
+    "sample_size": 20,
+    "matches": 16,
+    "direct_match_rate": 0.8,
+    "explained_differences": 4,
+    "not_auditables": 0,
+    "reliability_score": 1.0,
+    "trade_2316": {
+      "trade_id": 2316,
+      "entry_time_ny": "2025-01-14T07:45:00-05:00",
+      "direction": "LONG",
+      "bar_outcome": "BE",
+      "tick_outcome_after_gap_patch": "BE",
+      "match_after_gap_patch": true,
+      "nearest_bid": 1.02528,
+      "nearest_ask": 1.02531,
+      "spread_entry_pips": 0.3,
+      "first_touch_time": "2025-01-14T08:34:51.229000-05:00",
+      "be_activated_time": "2025-01-14T08:30:01.418000-05:00"
+    },
+    "ready_for_next_month": true
+  },
+  "safety": {
+    "manipulante_modified": false,
+    "strategy_modified": false,
+    "mt5_opened": false,
+    "orders_sent": false,
+    "real_or_exness_touched": false,
+    "full_extraction_or_full_cache": false,
+    "git_add_commit_push": false
+  }
+}

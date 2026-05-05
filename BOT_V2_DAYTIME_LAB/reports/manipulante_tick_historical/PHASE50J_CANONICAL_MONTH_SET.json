@@ -1,0 +1,19 @@
+{
+  "months_official": [
+    "2024-05",
+    "2024-06",
+    "2024-07",
+    "2024-08",
+    "2024-10",
+    "2024-11",
+    "2025-01",
+    "2025-03",
+    "2025-07"
+  ],
+  "months_excluded": [
+    "2025-08"
+  ],
+  "exclusion_reason": "Out of scope for Stage 2 official set. Contamination detected in PHASE50H artifacts.",
+  "created_at": "2026-05-02T14:35:00Z",
+  "source_reason": "PHASE50J forensic reconciliation objective"
+}

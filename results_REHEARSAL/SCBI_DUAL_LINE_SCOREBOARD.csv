@@ -1,0 +1,3 @@
+Line,Sample_N,PF_Forward,Exp_Forward,Max_DD_R,Last_Activity,Drift_R,Drift_Label,Drift_Comparable,Drift_Governance_Mode,Telemetry_Execution_Fidelity,Telemetry_Blocking_Fidelity,Telemetry_Last_Guard_Status,Telemetry_Last_Incident,Telemetry_Lineage_Coverage,Telemetry_Official_Event_Count,Telemetry_Trace_Path
+SCBI_M5_GLOBAL,1,999.0,1.5,0.0,2026-04-21 09:30:00-04:00,0.0,NO_DRIFT,{},TRIBUNAL_SAFE_TO_USE,FULL,FULL,PASS,,0.9412,17,results\SCBI_FORWARD_TELEMETRY_TRACE.csv
+SCBI_CORE,1,999.0,1.5,0.0,2026-04-20 17:00:00-04:00,0.0,NO_DRIFT,{},TRIBUNAL_SAFE_TO_USE,UNAVAILABLE,UNAVAILABLE,WARNING,CONCENTRATION,1.0,3,results\SCBI_FORWARD_TELEMETRY_TRACE.csv

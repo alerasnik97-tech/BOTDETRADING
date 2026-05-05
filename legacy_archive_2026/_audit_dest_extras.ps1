@@ -2,8 +2,8 @@
 # Solo lectura: lista archivos/carpetas en DEST que no existen en SOURCE (misma ruta relativa).
 $ErrorActionPreference = 'Stop'
 
-$SourceRoot = 'C:\Users\alera\Desktop\BOT DE TRADING ANTIGRABITY'
-$DestRoot   = 'C:\Users\alera\Desktop\BOT DE TRADING CURSOR'
+$SourceRoot = 'C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo ANTIGRABITY'
+$DestRoot   = 'C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo CURSOR'
 $ReportPath = Join-Path $DestRoot '_audit_dest_extras_report.txt'
 
 function Get-ExtendedPath([string]$Path) {

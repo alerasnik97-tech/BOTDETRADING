@@ -1,0 +1,13 @@
+# PHASE50H-B MULTI-MONTH TICK VALIDATION STAGE REPORT
+- Final verdict: TICK_STAGE2_DEGRADES_REQUIRES_REVIEW
+- Meses seleccionados: 2024-05, 2024-07, 2024-08, 2024-10, 2025-03, 2025-07, 2025-08, 2024-11, 2025-01
+- Total trades: 185
+- Tick auditable trades: 172
+- PF bar: 3.243246
+- PF tick: 0.049943
+- Expectancy bar: 0.306309
+- Expectancy tick: -0.891982
+- DD bar: -4.062963
+- DD tick: -152.420921
+- Match rate aggregate: 18.6047
+- Reliability aggregate: 0.929730

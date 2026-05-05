@@ -1,0 +1,122 @@
+{
+    "historical_progress": [
+        {
+            "month": "2016-07",
+            "sample": 21,
+            "PF_base": 0.58,
+            "expectancy_base": -0.2381,
+            "total_R_base": -5.0,
+            "PF_net_FTMO": 0.0,
+            "expectancy_net_FTMO": -451.632,
+            "total_R_net_FTMO": -9484.27,
+            "avg_commission_R": 451.3939,
+            "verdict_net_FTMO": "NET_FTMO_FAILS",
+            "batch_id": "batch_09",
+            "completed_at": "2026-05-03T22:36:22.168141"
+        },
+        {
+            "month": "2016-08",
+            "sample": 21,
+            "PF_base": 2.6,
+            "expectancy_base": 0.5333,
+            "total_R_base": 11.2,
+            "PF_net_FTMO": 0.0,
+            "expectancy_net_FTMO": -510.9122,
+            "total_R_net_FTMO": -10729.16,
+            "avg_commission_R": 511.4455,
+            "verdict_net_FTMO": "NET_FTMO_FAILS",
+            "batch_id": "batch_09",
+            "completed_at": "2026-05-03T22:37:18.784579"
+        },
+        {
+            "month": "2016-09",
+            "sample": 22,
+            "PF_base": 1.17,
+            "expectancy_base": 0.0909,
+            "total_R_base": 2.0,
+            "PF_net_FTMO": 0.0,
+            "expectancy_net_FTMO": -430.0218,
+            "total_R_net_FTMO": -9460.48,
+            "avg_commission_R": 430.1127,
+            "verdict_net_FTMO": "NET_FTMO_FAILS",
+            "batch_id": "batch_10",
+            "completed_at": "2026-05-03T22:38:28.604957"
+        },
+        {
+            "month": "2016-10",
+            "sample": 19,
+            "PF_base": 2.0,
+            "expectancy_base": 0.3684,
+            "total_R_base": 7.0,
+            "PF_net_FTMO": 0.0,
+            "expectancy_net_FTMO": -513.5142,
+            "total_R_net_FTMO": -9756.77,
+            "avg_commission_R": 513.8826,
+            "verdict_net_FTMO": "NET_FTMO_FAILS",
+            "batch_id": "batch_10",
+            "completed_at": "2026-05-03T22:38:58.854274"
+        },
+        {
+            "month": "2016-11",
+            "sample": 22,
+            "PF_base": 1.15,
+            "expectancy_base": 0.0727,
+            "total_R_base": 1.6,
+            "PF_net_FTMO": 0.0,
+            "expectancy_net_FTMO": -414.8521,
+            "total_R_net_FTMO": -9126.75,
+            "avg_commission_R": 414.9248,
+            "verdict_net_FTMO": "NET_FTMO_FAILS",
+            "batch_id": "batch_11",
+            "completed_at": "2026-05-03T22:39:11.554189"
+        },
+        {
+            "month": "2016-12",
+            "sample": 21,
+            "PF_base": 1.26,
+            "expectancy_base": 0.1238,
+            "total_R_base": 2.6,
+            "PF_net_FTMO": 0.0,
+            "expectancy_net_FTMO": -432.6778,
+            "total_R_net_FTMO": -9086.23,
+            "avg_commission_R": 432.8016,
+            "verdict_net_FTMO": "NET_FTMO_FAILS",
+            "batch_id": "batch_11",
+            "completed_at": "2026-05-03T22:39:22.997105"
+        },
+        {
+            "month": "2017-01",
+            "sample": 18,
+            "PF_base": 0.89,
+            "expectancy_base": -0.0667,
+            "total_R_base": -1.2,
+            "PF_net_FTMO": 0.0,
+            "expectancy_net_FTMO": -586.9188,
+            "total_R_net_FTMO": -10564.54,
+            "avg_commission_R": 586.8521,
+            "verdict_net_FTMO": "NET_FTMO_FAILS",
+            "batch_id": "batch_12",
+            "completed_at": "2026-05-03T22:39:43.620840"
+        },
+        {
+            "month": "2017-02",
+            "sample": 18,
+            "PF_base": 1.4,
+            "expectancy_base": 0.1778,
+            "total_R_base": 3.2,
+            "PF_net_FTMO": 0.0,
+            "expectancy_net_FTMO": -373.3983,
+            "total_R_net_FTMO": -6721.17,
+            "avg_commission_R": 373.5761,
+            "verdict_net_FTMO": "NET_FTMO_FAILS",
+            "batch_id": "batch_12",
+            "completed_at": "2026-05-03T22:39:59.514061"
+        }
+    ],
+    "summary": {
+        "total_months": 8,
+        "total_sample": 162,
+        "total_R_net_FTMO": -74929.37,
+        "expectancy_net_FTMO": -462.527
+    }
+}

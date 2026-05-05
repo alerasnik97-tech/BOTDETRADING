@@ -1,0 +1,2 @@
+pair,year,trades,wins,losses,breakevens,win_rate,total_pnl_r,total_pnl_usd,avg_pnl_r,max_drawdown_pct,profit_factor
+EURUSD,2020,45,18,27,0,40.0,-1.8973126136420693,-1022.1260231222288,-0.042162502525379314,2.688652982623462,0.9223494520409181

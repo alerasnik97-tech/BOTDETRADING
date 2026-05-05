@@ -1,0 +1,17 @@
+{
+    "total_months": 9,
+    "total_sample": 163,
+    "total_auditables": 163,
+    "pf_agregado": 1.59,
+    "expectancy_agregada": 0.1981,
+    "dd_agregado": 4.47,
+    "total_r_agregado": 32.29,
+    "tp_total": 51,
+    "be_total": 40,
+    "sl_total": 44,
+    "time_exit_total": 28,
+    "meses_positivos": 7,
+    "meses_negativos": 2,
+    "peor_mes": "2025-11",
+    "mejor_mes": "2024-10"
+}

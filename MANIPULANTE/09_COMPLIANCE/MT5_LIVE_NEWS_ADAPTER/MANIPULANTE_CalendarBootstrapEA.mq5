@@ -5,22 +5,20 @@
 //+------------------------------------------------------------------+
 #property copyright "Copyright 2026, Antigravity Bot"
 #property link      "https://www.mql5.com"
-#property version   "1.00"
+#property version   "1.03"
 #property strict
 
-//+------------------------------------------------------------------+
-//| Expert initialization function                                   |
-//+------------------------------------------------------------------+
 int OnInit()
 {
    Print("MANIPULANTE BOOTSTRAP EA: Iniciando...");
    
-   // Ejecutar la exportación
+   // Escribir archivo de "Heartbeat" inmediato
+   int h = FileOpen("MANIPULANTE\\ea_init.tmp", FILE_WRITE|FILE_BIN);
+   if(h != INVALID_HANDLE) { FileWriteDouble(h, 1.0); FileClose(h); }
+   
    ExportAll();
    
-   Print("MANIPULANTE BOOTSTRAP EA: Exportación completada. Autoremoviendo...");
-   
-   // Autoremover el EA
+   Print("MANIPULANTE BOOTSTRAP EA: Completado.");
    ExpertRemove();
    return(INIT_SUCCEEDED);
 }
@@ -56,20 +54,10 @@ void ExportToFiles(datetime start_time, datetime end_time, string label)
    }
    
    string folder = "MANIPULANTE\\";
-   string filename_csv = folder + "ftmo_news_" + label + ".csv";
    string filename_json = folder + "ftmo_news_" + label + ".json";
-   
-   int handle_csv = FileOpen(filename_csv, FILE_WRITE|FILE_CSV|FILE_ANSI|FILE_SHARE_READ, ',');
    int handle_json = FileOpen(filename_json, FILE_WRITE|FILE_TXT|FILE_ANSI|FILE_SHARE_READ);
    
-   if(handle_csv == INVALID_HANDLE || handle_json == INVALID_HANDLE)
-   {
-      if(handle_csv != INVALID_HANDLE) FileClose(handle_csv);
-      if(handle_json != INVALID_HANDLE) FileClose(handle_json);
-      return;
-   }
-   
-   FileWrite(handle_csv, "event_name", "currency", "country", "importance", "time_utc", "source", "generated_at_utc");
+   if(handle_json == INVALID_HANDLE) return;
    
    string generated_at = TimeToString(TimeGMT(), TIME_DATE|TIME_MINUTES|TIME_SECONDS);
    FileWriteString(handle_json, "{\n  \"source\": \"MT5_MQL5_CALENDAR_BOOTSTRAP_EA\",\n  \"generated_at_utc\": \"" + generated_at + "\",\n  \"events\": [\n");
@@ -79,10 +67,8 @@ void ExportToFiles(datetime start_time, datetime end_time, string label)
    {
       MqlCalendarEvent event;
       if(!CalendarEventById(values[i].event_id, event)) continue;
-      
       MqlCalendarCountry country;
       if(!CalendarCountryById(event.country_id, country)) continue;
-      
       if(country.currency != "EUR" && country.currency != "USD") continue;
       
       string imp_str = "LOW";
@@ -92,8 +78,6 @@ void ExportToFiles(datetime start_time, datetime end_time, string label)
       datetime t_utc = values[i].time;
       string t_str = TimeToString(t_utc, TIME_DATE|TIME_MINUTES);
       
-      FileWrite(handle_csv, event.name, country.currency, country.code, imp_str, t_str, "MT5_MQL5_CALENDAR_BOOTSTRAP_EA", generated_at);
-      
       if(exported_count > 0) FileWriteString(handle_json, ",\n");
       FileWriteString(handle_json, "    {\n");
       FileWriteString(handle_json, "      \"name\": \"" + event.name + "\",\n");
@@ -102,13 +86,9 @@ void ExportToFiles(datetime start_time, datetime end_time, string label)
       FileWriteString(handle_json, "      \"importance\": \"" + imp_str + "\",\n");
       FileWriteString(handle_json, "      \"time_utc\": \"" + t_str + "\"\n");
       FileWriteString(handle_json, "    }");
-      
       exported_count++;
    }
-   
    FileWriteString(handle_json, "\n  ]\n}");
-   
-   FileClose(handle_csv);
    FileClose(handle_json);
    
    if(label == "today")
@@ -120,6 +100,4 @@ void ExportToFiles(datetime start_time, datetime end_time, string label)
          FileClose(handle_gate);
       }
    }
-   
-   Print("MANIPULANTE BOOTSTRAP EA: Exportados ", exported_count, " eventos para ", label);
 }

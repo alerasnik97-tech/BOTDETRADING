@@ -1,0 +1,15 @@
+{
+    "timestamp": "2026-05-03T23:11:41.878917",
+    "total_months": 16,
+    "total_sample": 316,
+    "total_R_net_FTMO": 43.34,
+    "pf_net_FTMO_global": 4.76,
+    "expectancy_net_FTMO_global": 0.1372,
+    "verdicts_count": {
+        "NET_FTMO_STRONG": 5,
+        "NET_FTMO_SURVIVES": 1,
+        "NET_FTMO_FRAGILE": 7,
+        "NET_FTMO_FAILS": 3
+    },
+    "institutional_verdict": "PHASE56H_B_GLOBAL_CONFIRMED_WITH_WARNINGS"
+}

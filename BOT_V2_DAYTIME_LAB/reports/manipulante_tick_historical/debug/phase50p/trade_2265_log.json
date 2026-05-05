@@ -1,0 +1,14 @@
+{
+  "outcome": "SL",
+  "R": -1.0,
+  "entry_p": 1.08174,
+  "entry_ts": "2024-10-22T12:00:00.371000+00:00",
+  "sl": 1.08213,
+  "tp": 1.0811939999999998,
+  "be_trig": 1.0815839999999999,
+  "first_touch_time": "2024-10-22T12:08:47.391000+00:00",
+  "be_active": false,
+  "trade_id": 2265,
+  "original_outcome": "SL",
+  "original_R": -1.0
+}

@@ -1,0 +1,12 @@
+{
+    "batch": "201502_201503",
+    "sample": 40,
+    "total_R": 4.8,
+    "expectancy": 0.12,
+    "pf": 1.26,
+    "tp": 17,
+    "be": 4,
+    "sl": 19,
+    "time_exit": 0,
+    "verdict": "PHASE56_BATCH_SURVIVES_BUT_FRAGILE"
+}

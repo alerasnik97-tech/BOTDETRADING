@@ -1,0 +1,11 @@
+{
+  "month": "2019-05",
+  "parquet_exists": true,
+  "sample_total": 21,
+  "auditables": 19,
+  "non_auditables": 2,
+  "non_auditable_pct": 9.52,
+  "reasons": {
+    "NO_TICKS_IN_WINDOW": 2
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "trade_id": 2312,
+  "date": "2025-01-07",
+  "direction": "SHORT",
+  "entry_time_ny": "2025-01-07T10:00:00-05:00",
+  "entry_time_utc": "2025-01-07T15:00:00+00:00",
+  "exit_time_ny": "2025-01-07T10:48:00-05:00",
+  "historical_entry": 1.03673,
+  "sl": 1.03673,
+  "computed_initial_sl": 1.0393900000000003,
+  "tp": 1.0330059999999994,
+  "be_level": 1.03673,
+  "be_trigger": 1.0356659999999998,
+  "nearest_bid": 1.03929,
+  "nearest_ask": 1.03936,
+  "diff_bid_pips": 25.6,
+  "diff_ask_pips": 26.3,
+  "spread_at_entry_pips": 0.7,
+  "bar_outcome": "BE",
+  "tick_outcome": "SL",
+  "recomputed_tick_outcome": "SL",
+  "first_touch": "SL",
+  "first_touch_time": "2025-01-07T10:00:00.317000-05:00",
+  "events": {
+    "tick_outcome": "SL",
+    "first_touch": {
+      "event": "SL_TOUCH",
+      "timestamp_ny": "2025-01-07T10:00:00.317000-05:00",
+      "timestamp_utc": "2025-01-07T15:00:00.317000+00:00",
+      "bid": 1.03854,
+      "ask": 1.03948
+    },
+    "first_events": {
+      "TP_TOUCH": null,
+      "SL_TOUCH": {
+        "event": "SL_TOUCH",
+        "timestamp_ny": "2025-01-07T10:00:00.317000-05:00",
+        "timestamp_utc": "2025-01-07T15:00:00.317000+00:00",
+        "bid": 1.03854,
+        "ask": 1.03948
+      },
+      "BE_TRIGGER": {
+        "event": "BE_TRIGGER",
+        "timestamp_ny": "2025-01-07T10:47:32.759000-05:00",
+        "timestamp_utc": "2025-01-07T15:47:32.759000+00:00",
+        "bid": 1.03563,
+        "ask": 1.03566
+      },
+      "BE_STOP_TOUCH": null
+    },
+    "ordered_events_head": [
+      {
+        "event": "SL_TOUCH",
+        "timestamp_ny": "2025-01-07T10:00:00.317000-05:00",
+        "timestamp_utc": "2025-01-07T15:00:00.317000+00:00",
+        "bid": 1.03854,
+        "ask": 1.03948
+      },
+      {
+        "event": "BE_TRIGGER",
+        "timestamp_ny": "2025-01-07T10:47:32.759000-05:00",
+        "timestamp_utc": "2025-01-07T15:47:32.759000+00:00",
+        "bid": 1.03563,
+        "ask": 1.03566
+      },
+      {
+        "event": "BE_TRIGGER",
+        "timestamp_ny": "2025-01-07T10:47:32.872000-05:00",
+        "timestamp_utc": "2025-01-07T15:47:32.872000+00:00",
+        "bid": 1.03562,
+        "ask": 1.03565
+      },
+      {
+        "event": "BE_TRIGGER",
+        "timestamp_ny": "2025-01-07T10:47:33.088000-05:00",
+        "timestamp_utc": "2025-01-07T15:47:33.088000+00:00",
+        "bid": 1.03561,
+        "ask": 1.03564
+      },
+      {
+        "event": "BE_TRIGGER",
+        "timestamp_ny": "2025-01-07T10:47:33.141000-05:00",
+        "timestamp_utc": "2025-01-07T15:47:33.141000+00:00",
+        "bid": 1.03563,
+        "ask": 1.03565
+      },
+      {
+        "event": "BE_TRIGGER",
+        "timestamp_ny": "2025-01-07T10:47:33.248000-05:00",
+        "timestamp_utc": "2025-01-07T15:47:33.248000+00:00",
+        "bid": 1.03564,
+        "ask": 1.03566
+      },
+      {
+        "event": "BE_TRIGGER",
+        "timestamp_ny": "2025-01-07T10:47:33.613000-05:00",
+        "timestamp_utc": "2025-01-07T15:47:33.613000+00:00",
+        "bid": 1.03563,
+        "ask": 1.03566
+      },
+      {
+        "event": "BE_TRIGGER",
+        "timestamp_ny": "2025-01-07T10:47:34.744000-05:00",
+        "timestamp_utc": "2025-01-07T15:47:34.744000+00:00",
+        "bid": 1.03562,
+        "ask": 1.03566
+      },
+      {
+        "event": "BE_TRIGGER",
+        "timestamp_ny": "2025-01-07T10:47:34.901000-05:00",
+        "timestamp_utc": "2025-01-07T15:47:34.901000+00:00",
+        "bid": 1.03563,
+        "ask": 1.03566
+      },
+      {
+        "event": "BE_TRIGGER",
+        "timestamp_ny": "2025-01-07T10:47:35.568000-05:00",
+        "timestamp_utc": "2025-01-07T15:47:35.568000+00:00",
+        "bid": 1.03564,
+        "ask": 1.03566
+      },
+      {
+        "event": "BE_TRIGGER",
+        "timestamp_ny": "2025-01-07T10:47:37.686000-05:00",
+        "timestamp_utc": "2025-01-07T15:47:37.686000+00:00",
+        "bid": 1.03563,
+        "ask": 1.03566
+      },
+      {
+        "event": "BE_TRIGGER",
+        "timestamp_ny": "2025-01-07T10:47:37.979000-05:00",
+        "timestamp_utc": "2025-01-07T15:47:37.979000+00:00",
+        "bid": 1.03564,
+        "ask": 1.03566
+      }
+    ],
+    "same_timestamp_ambiguity": false
+  },
+  "window": {
+    "ticks_loaded": 15575,
+    "gaps_gt_60s": 0,
+    "max_gap_seconds": 8.553,
+    "max_spread_pips": 9.4,
+    "p95_spread_pips": 0.5
+  },
+  "category": "ENTRY_PRICE_FEED_DIFFERENCE",
+  "cause": "El precio historico de entrada queda lejos del bid/ask tick cercano.",
+  "mismatch_type_preliminar": "ENTRY_PRICE_FEED_DIFFERENCE"
+}

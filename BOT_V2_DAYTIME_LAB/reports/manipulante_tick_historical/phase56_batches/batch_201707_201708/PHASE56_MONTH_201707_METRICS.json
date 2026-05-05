@@ -1,0 +1,11 @@
+{
+  "month": "2017-07",
+  "sample": 18,
+  "total_R_base": 2.2,
+  "PF_base": 1.24,
+  "total_R_net_FTMO": 2.02,
+  "PF_net_FTMO": 1.22,
+  "verdict_net_FTMO": "NET_FTMO_SURVIVES",
+  "batch_id": "BATCH_15",
+  "completed_at": "2026-05-04T03:15:59.877067"
+}

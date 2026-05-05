@@ -1,0 +1,33 @@
+{
+    "phase": "Phase47J",
+    "title": "Final Main Cleanness and Research Branch Report",
+    "timestamp": "2026-05-01T01:54:00Z",
+    "verdict": "MAIN_DIRTY_BUT_SAFE_REQUIRES_CONFIRMATION",
+    "git": {
+        "current_branch": "main",
+        "last_commits": [
+            "730f256 Phase47A lab isolation and Manipulante protection",
+            "f3c7fdc Fix Manipulante Telegram alerts loop controls",
+            "c91cc47 Fix Manipulante MT5 reopen stop behavior"
+        ],
+        "staged_files": 0,
+        "modified_files": 16,
+        "untracked_files": 2320,
+        "status": "DIRTY_BUT_SAFE"
+    },
+    "validations": {
+        "phase46_ci": "PASS_WITH_WARNINGS",
+        "phase47a_guard_staged_only": "PASS",
+        "secrets_in_staged": "NONE"
+    },
+    "research_branch": {
+        "created": false,
+        "name_requested": "research/eurusd-daytime-strategy-01",
+        "reason_not_created": "Working tree is dirty (modified/untracked files present). Requires user confirmation to proceed and carry over local changes."
+    },
+    "safety": {
+        "manipulante_protected": true,
+        "no_staged_risks": true
+    },
+    "next_step": "User to confirm if local dirty changes should be carried over to the research branch or if a cleanup is required first."
+}

@@ -1,0 +1,61 @@
+{
+  "generated_at_utc": "2026-04-30T11:53:12.106948+00:00",
+  "health_status": "HEALTH_BLOCKED_BY_RULE",
+  "bot_active": true,
+  "account": "FTMO-Demo",
+  "mode": "DEMO",
+  "runner_pid": "",
+  "orders_status": "ORDENES: LISTAS EN DEMO",
+  "news_status": "NO_TRADE",
+  "last_decision": "NO_TRADE_NEWS_BLOCK",
+  "open_position": "NO",
+  "safe_to_turn_off_pc": "NO",
+  "critical_errors_24h": 0,
+  "warnings_24h": 2,
+  "daily_scorecard": {
+    "id": 1,
+    "date": "2026-04-30",
+    "verdict": "OBS_DAY_CLEAN_NO_TRADE",
+    "trades_taken": 0,
+    "no_trade_count": 36,
+    "warnings": 0,
+    "critical_errors": 0,
+    "open_position_end": "NO",
+    "safe_shutdown": "NO",
+    "notes": "**Trades Tomados (Demo)**: 0; **Errores Criticos (FAIL)**: 0; **Resultado**: 16/16 PASS; **Veredicto**: **STRESS_16_PASS_ALL**; stress_csv=phase42_operational_stress_tests.csv; stress_csv=phase42b_operational_stress_tests_16.csv"
+  },
+  "promotion_gate": {
+    "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\15_FORWARD_DEMO_SCORECARD\\promotion_gate\\MANIPULANTE_PROMOTION_GATE_TO_REAL.md",
+    "exists": true,
+    "summary": "# MANIPULANTE - PROMOTION GATE (REGRESO A CUENTA PAGA) | No se puede considerar una cuenta paga sin cumplir el 100% de estos puntos: | - [ ] **20 Trades Demo Reales**: Ejecutados por el bot actual en modo Demo/Trial. | - [ ] **0 Trades Fuera de Regla**: Ni uno solo. | - [ ] **0 Detecciones de Real/Exness**: El `account_gate` debe haber bloqueado intentos de conexion erroneos. | - [ ] **Slippage y Comision medidos**: Se debe haber auditado que los costos reales no destruyen el edge (Phase 38B logic)."
+  },
+  "stress_status": "- **Veredicto**: **STRESS_16_PASS_ALL**",
+  "promotion_progress": "- **Hacia 20 Trades**: [0%] .................... | - **Hacia 30 Trades**: [0%] ....................",
+  "recent_incidents": [
+    {
+      "id": 2,
+      "timestamp_utc": "2026-04-29T21:01:49.494744+00:00",
+      "severity": "WARNING",
+      "category": "log_error_keyword",
+      "description": "NO_TRADE_ORDER_CHECK_FAILED: BLOCKED_MT5_UNAVAILABLE",
+      "resolved": "NO",
+      "source": "MANIPULANTE\\10_LOGS_PAPER\\ftmo_trial_bot\\decisions.csv"
+    },
+    {
+      "id": 1,
+      "timestamp_utc": "2026-04-29T21:01:49.494750+00:00",
+      "severity": "WARNING",
+      "category": "log_error_keyword",
+      "description": "2026-04-29T17:01:49.494744-04:00: NO_TRADE_ORDER_CHECK_FAILED",
+      "resolved": "NO",
+      "source": "MANIPULANTE\\10_LOGS_PAPER\\ftmo_trial_bot\\decisions.csv"
+    }
+  ],
+  "recommendation": "Bot observado pero bloqueado por regla. No requiere accion si es esperado.",
+  "safety": {
+    "read_only": true,
+    "mt5_touched": false,
+    "orders_sent": false,
+    "strategy_modified": false
+  }
+}

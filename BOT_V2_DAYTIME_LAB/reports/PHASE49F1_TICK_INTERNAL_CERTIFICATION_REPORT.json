@@ -1,0 +1,60 @@
+{
+    "file": {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT_MARKET_DATA\\tick\\EURUSD\\monthly\\EURUSD_ticks_2025_01.parquet",
+        "rows": 2231000,
+        "size_mb": 39.05,
+        "sha256": "997edb6d2dde7d19e09cdaf6c8750ad37bc7795677b3dfd7d145d02bf33f3ffb",
+        "columns": [
+            "timestamp_utc",
+            "bid",
+            "ask",
+            "bid_volume",
+            "ask_volume",
+            "timestamp_ny",
+            "spread",
+            "spread_pips",
+            "source",
+            "symbol"
+        ],
+        "first_utc": "2025-01-01 22:00:14.647000+00:00",
+        "first_ny": "2025-01-01 17:00:14.647000-05:00",
+        "last_utc": "2025-01-31 21:59:57.318000+00:00",
+        "last_ny": "2025-01-31 16:59:57.318000-05:00"
+    },
+    "consistency": {
+        "null_ts": 0,
+        "null_bid": 0,
+        "null_ask": 0,
+        "bid_gt_ask": 0,
+        "neg_spread": 0,
+        "duplicates": 0,
+        "unsorted": 0
+    },
+    "timezone": {
+        "expected_utc_minus_ny_hours": 5.0,
+        "timestamp_utc_timezone": "UTC",
+        "timestamp_ny_timezone": "America/New_York",
+        "timezone_name_ok": true,
+        "nominal_clock_ok": true,
+        "offset_ok": true,
+        "nominal_utc_minus_ny_hours_min": 5.0,
+        "nominal_utc_minus_ny_hours_max": 5.0,
+        "consistent": true
+    },
+    "spread": {
+        "mean": 0.3441,
+        "median": 0.3,
+        "p95": 0.6,
+        "p99": 1.4,
+        "max": 13.3,
+        "spikes_gt_2": 12673,
+        "spikes_gt_5": 1154,
+        "spikes_gt_10": 24
+    },
+    "sanity": {
+        "min_bid": 1.01772,
+        "max_bid": 1.0533,
+        "jumps_gt_10pips": 6,
+        "max_jump_pips": 45.9
+    }
+}

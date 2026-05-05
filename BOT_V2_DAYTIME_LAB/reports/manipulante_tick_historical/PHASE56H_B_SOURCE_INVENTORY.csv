@@ -1,0 +1,5 @@
+file_path,rows,months_detected,has_trade_id,has_month,has_tick_R,has_tick_R_net_FTMO,used_in_global_yes_no,notes
+reports/manipulante_tick_historical/phase56_batches/PHASE56_FULL_HISTORICAL_CHECKPOINT.json,413,31,NO,YES,YES,YES,YES,Canonical checkpoint.
+reports/manipulante_tick_historical/phase56_batches/PHASE56H_GLOBAL_FTMO_CONSOLIDATION.json,24,31,NO,YES,YES,YES,YES,Inflated report from Phase 56H.
+reports/manipulante_tick_historical/phase56_batches/PHASE56H_GLOBAL_FTMO_MONTHLY_TABLE.csv,32,31,NO,YES,YES,YES,YES,Inflated table from Phase 56H.
+scratch/phase56h_consolidator.py,141,31,NO,YES,YES,YES,YES,Source of calculation error (estimated Net R).

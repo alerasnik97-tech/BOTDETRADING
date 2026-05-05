@@ -1,10 +1,10 @@
 # FINAL STRUCTURE ZIP VALIDATION
 
-- **timestamp**: 2026-04-29T03:13:24.222931Z
+- **timestamp**: 2026-04-30T21:22:20.302289Z
 - **zip_path**: C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\000_PARA_CHATGPT.zip
-- **size**: 4678749
-- **entries**: 929
-- **sha256**: 15f7f997234652dc357a56d08c8d9bdcb44b424b01aca96881d6d796a23a42c6
+- **size**: 5862742
+- **entries**: 1532
+- **sha256**: f37fd660206ace6b881c0eee99fe13db90f0369bdd4e13292ecc6ed5788d6c47
 - **testzip**: None
 - **has_manipulante**: True
 - **has_estrategias**: True

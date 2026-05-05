@@ -1,0 +1,8 @@
+﻿year_month,trades_count,tp,be,sl,forced_close,total_r,pf,expectancy,winrate,dd,selection_priority,notes
+2024-05,23,4,15,2,2,5.026,3.513,0.2185,26.09,-1.0,PRIORITY_A_SELECTED,ELEGIDO: Alto BE representativo MANIPULANTE tipico
+2024-07,21,7,12,1,1,9.255,10.255,0.4407,38.1,-1.0,PRIORITY_A,Alternativa buena distribucion
+2024-08,20,8,10,2,0,9.2,5.6,0.46,40.0,-1.0,PRIORITY_A,Equilibrado sin forced
+2024-10,23,5,12,6,0,1.0,1.167,0.0435,21.74,-1.0,PRIORITY_C,Adverso test robustez
+2025-03,18,5,9,3,1,4.663,2.554,0.2591,33.33,-2.0,PRIORITY_A,Post-enero 2025
+2025-07,22,8,11,3,0,8.2,3.733,0.3727,36.36,-2.0,PRIORITY_A,Equilibrado reciente
+2025-08,19,8,9,1,1,10.999,11.999,0.5789,47.37,-1.0,PRIORITY_B,PF alto outlier

@@ -1,0 +1,12 @@
+metric,value
+best_month,2025-07
+worst_month,2024-10
+best_month_share_total_R_pct,7.821619060675563
+top5_share_total_R_pct,-4.562611118727412
+top10_share_total_R_pct,-5.241815749496119
+total_R_without_top5,-160.420921
+total_R_without_top10,-161.462963
+months_negative_tick,"2025-07,2025-08,2025-03,2024-11,2025-01,2024-08,2024-07,2024-05,2024-10"
+months_pf_tick_lt_1_25,"2024-05,2024-07,2024-08,2024-10,2025-03,2025-07,2025-08,2024-11,2025-01"
+months_dd_tick_le_-2,"2024-05,2024-07,2024-08,2024-10,2025-03,2025-07,2025-08,2024-11,2025-01"
+months_no_auditable_gt_5pct,"2025-07,2025-08"

@@ -1,0 +1,25 @@
+# TRADE 2316 RESIDUAL MISMATCH DEBUG
+
+- category: DATA_GAP_OR_LOW_TICK_DENSITY
+- cause: No hay ticks cargados en la ventana entry-10m a exit+10m.
+- direction: LONG
+- entry_time_ny: 2025-01-14T07:45:00-05:00
+- entry_time_utc: 2025-01-14T12:45:00+00:00
+- historical_entry: 1.0255
+- nearest_bid/ask: 1.02599 / 1.02602
+- diff_bid/ask_pips: 4.9 / 5.2
+- spread_at_entry_pips: 0.3
+- bar_outcome: BE
+- tick_outcome: NONE
+- recomputed_tick_outcome: NONE
+- first_touch: NONE
+- first_touch_time: None
+- ticks_loaded: 0
+- gaps_gt_60s: None
+- max_spread_pips: None
+- p95_spread_pips: None
+- first_tp_touch: None
+- first_sl_touch: None
+- first_be_trigger: None
+- first_be_stop_touch: None
+- same_timestamp_ambiguity: False

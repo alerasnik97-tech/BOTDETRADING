@@ -1,0 +1,6 @@
+Audit_Category,Status,Count,Notes
+Duplicate_Months,NONE,0,No duplicated months in historical_progress.
+Duplicate_Trade_IDs,UNKNOWN,N/A,Checkpoint does not contain trade-level detail.
+Duplicate_Sources,NONE,0,All entries in checkpoint refer to unique months.
+Inflation_Cause,VERIFIED,N/A,Consolidator estimated Net R for 15 unverified months (+70R impact).
+Duplicate_Explanation,NO,N/A,Inflation is caused by mixed sources (Base vs Net) not duplicates.

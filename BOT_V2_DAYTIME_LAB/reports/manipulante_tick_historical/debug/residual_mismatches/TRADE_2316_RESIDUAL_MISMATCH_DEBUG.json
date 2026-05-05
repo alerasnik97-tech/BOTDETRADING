@@ -1,0 +1,46 @@
+{
+  "trade_id": 2316,
+  "date": "2025-01-14",
+  "direction": "LONG",
+  "entry_time_ny": "2025-01-14T07:45:00-05:00",
+  "entry_time_utc": "2025-01-14T12:45:00+00:00",
+  "exit_time_ny": "2025-01-14T08:33:00-05:00",
+  "historical_entry": 1.0255,
+  "sl": 1.0255,
+  "computed_initial_sl": 1.0238399999999999,
+  "tp": 1.0278240000000003,
+  "be_level": 1.0255,
+  "be_trigger": 1.026164,
+  "nearest_bid": 1.02599,
+  "nearest_ask": 1.02602,
+  "diff_bid_pips": 4.9,
+  "diff_ask_pips": 5.2,
+  "spread_at_entry_pips": 0.3,
+  "bar_outcome": "BE",
+  "tick_outcome": "NONE",
+  "recomputed_tick_outcome": "NONE",
+  "first_touch": "NONE",
+  "first_touch_time": null,
+  "events": {
+    "tick_outcome": "NONE",
+    "first_touch": null,
+    "first_events": {
+      "TP_TOUCH": null,
+      "SL_TOUCH": null,
+      "BE_TRIGGER": null,
+      "BE_STOP_TOUCH": null
+    },
+    "ordered_events_head": [],
+    "same_timestamp_ambiguity": false
+  },
+  "window": {
+    "ticks_loaded": 0,
+    "gaps_gt_60s": null,
+    "max_gap_seconds": null,
+    "max_spread_pips": null,
+    "p95_spread_pips": null
+  },
+  "category": "DATA_GAP_OR_LOW_TICK_DENSITY",
+  "cause": "No hay ticks cargados en la ventana entry-10m a exit+10m.",
+  "mismatch_type_preliminar": "DATA_GAP_OR_LOW_TICK_DENSITY"
+}

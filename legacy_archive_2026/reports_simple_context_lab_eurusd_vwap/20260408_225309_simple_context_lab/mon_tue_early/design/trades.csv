@@ -1,0 +1,3 @@
+pair,direction,entry_time,exit_time,entry_price,exit_price,units,gross_pnl_usd,net_pnl_usd,r_multiple,commission_usd,exit_reason,strategy_family,context_key,setup_tag,context_trades_before,context_win_rate_before,context_expectancy_before
+EURUSD,short,2020-06-08 11:20:00-04:00,2020-06-08 11:25:00-04:00,1.12981,1.1295732460009729,1770000,419.0545782779975,339.07241136956304,0.361349591261153,79.98216690843444,take_profit,post_expansion_mean_reversion,,post_expansion_mean_reversion,0,0.0,0.0
+EURUSD,short,2021-06-08 11:05:00-04:00,2021-06-08 11:25:00-04:00,1.21819,1.2180054288521507,1647000,303.98868050799746,223.74040308160758,0.37986627922875615,80.24827742638985,take_profit,post_expansion_mean_reversion,,post_expansion_mean_reversion,0,0.0,0.0

@@ -39,10 +39,10 @@ pip install -r requirements.txt
 En este proyecto el rerun de auditoria/tests usa un runtime local dentro del workspace:
 
 ```powershell
-$env:PYTHONPATH='C:\Users\alera\Desktop\BOT DE TRADING\.pkg'
-$env:MPLCONFIGDIR='C:\Users\alera\Desktop\BOT DE TRADING\.mplconfig'
-$env:TEMP='C:\Users\alera\Desktop\BOT DE TRADING\.tmp'
-$env:TMP='C:\Users\alera\Desktop\BOT DE TRADING\.tmp'
+$env:PYTHONPATH='C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\.pkg'
+$env:MPLCONFIGDIR='C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\.mplconfig'
+$env:TEMP='C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\.tmp'
+$env:TMP='C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\.tmp'
 ```
 
 Si esas variables no estan definidas, el entorno puede volver a fallar por App Control sobre DLLs del runtime global.

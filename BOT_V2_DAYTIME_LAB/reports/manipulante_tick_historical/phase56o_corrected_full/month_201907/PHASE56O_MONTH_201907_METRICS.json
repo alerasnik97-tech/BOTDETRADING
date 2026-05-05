@@ -1,0 +1,12 @@
+{
+    "month": "2019-07",
+    "sample_total": 19,
+    "auditables": 18,
+    "non_auditables": 1,
+    "total_R_net_FTMO": 0.5592,
+    "expectancy_net_FTMO": 0.0311,
+    "PF_net_FTMO": 1.12,
+    "verdict_net_FTMO": "NET_FTMO_SURVIVES",
+    "engine_version": "PHASE56O_CORRECTED_TIMEZONE_SL_BUFFER_ENGINE",
+    "completed_at": "2026-05-04T22:31:01.180767"
+}

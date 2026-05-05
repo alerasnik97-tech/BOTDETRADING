@@ -1,0 +1,822 @@
+{
+  "timestamp_utc": "2026-04-29T12:36:40.263224+00:00",
+  "objective": "FTMO Free Trial 2-Step Swing MT5 automation for MANIPULANTE, demo/trial only",
+  "account_gate": {
+    "timestamp_utc": "2026-04-29T12:36:39.887885+00:00",
+    "state": "FTMO_DEMO_TRIAL_CONFIRMED",
+    "terminal_connected": true,
+    "ftmo_demo_trial_confirmed": true,
+    "company": "FTMO Global Markets Ltd",
+    "server": "FTMO-Demo",
+    "name": "$10k FTMO Free Trial Swing 2-Step",
+    "login_masked": "15***40",
+    "trade_mode": 0,
+    "trade_mode_label": "DEMO",
+    "balance": 10000.0,
+    "currency": "USD",
+    "trade_allowed": true,
+    "terminal_trade_allowed": false,
+    "reason": "FTMO demo/free-trial 10k account confirmed without storing credentials"
+  },
+  "live_news_gate": {
+    "timestamp_utc": "2026-04-29T12:36:40.007879+00:00",
+    "today_loaded": false,
+    "week_loaded": false,
+    "source": "FTMO_MQL5_CACHE_MISSING",
+    "state": "NO_TRADE_NEWS_CACHE_MISSING",
+    "gate": "NO_TRADE",
+    "today_status": "NO_TRADE_NEWS_CACHE_MISSING",
+    "week_status": "NO_TRADE_NEWS_CACHE_MISSING",
+    "today_events_count": 0,
+    "week_events_count": 0,
+    "next_blocking_event": null,
+    "blocking_event": null,
+    "cache_paths": {
+      "today": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\09_COMPLIANCE\\live_news_cache\\2026-04-29_ftmo_news_today.json",
+      "week": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\09_COMPLIANCE\\live_news_cache\\2026-04-29_ftmo_news_week.json",
+      "status": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\09_COMPLIANCE\\live_news_cache\\2026-04-29_ftmo_news_gate_status.json"
+    },
+    "fail_closed": true
+  },
+  "symbol_data_gate": {
+    "timestamp_utc": "2026-04-29T12:36:40.017657+00:00",
+    "state": "ALLOW",
+    "symbol": "EURUSD",
+    "bid": 1.17039,
+    "ask": 1.17041,
+    "spread_pips": 0.2,
+    "digits": 5,
+    "point": 1e-05,
+    "contract_size": 100000.0,
+    "min_lot": 0.01,
+    "max_lot": 50.0,
+    "lot_step": 0.01,
+    "stops_level": 0,
+    "freeze_level": 0,
+    "trade_mode": 4,
+    "filling_mode": 3,
+    "order_mode": 127,
+    "tick_age_seconds": -10797.982,
+    "server_offset_seconds": 10797.982,
+    "m3_bars": true,
+    "h1_bars": true,
+    "reason": "Symbol/data/spread/stoplevel gate passed"
+  },
+  "time_gate": {
+    "timestamp_utc": "2026-04-29T12:36:40.027123+00:00",
+    "ny_time": "2026-04-29T08:36:40.027123-04:00",
+    "argentina_time": "2026-04-29T09:36:40.027123-03:00",
+    "weekday_ny": "Wednesday",
+    "ny_dst_active": true,
+    "server_time_validated": true,
+    "server_offset_seconds": 10797.973,
+    "state": "ALLOW",
+    "reason": "NY/session/server time gate passed",
+    "server_offset_hours_rounded": 3
+  },
+  "lot_gate": {
+    "timestamp_utc": "2026-04-29T12:36:40.057818+00:00",
+    "state": "ALLOW",
+    "balance": 10000.0,
+    "symbol": "EURUSD",
+    "min_lot": 0.01,
+    "lot_step": 0.01,
+    "pip_value_per_lot_usd": 10.0,
+    "risk_050_allowed": true,
+    "risk_075_trial_allowed": true,
+    "risk_100_allowed": false,
+    "rows": [
+      {
+        "balance": 10000.0,
+        "risk": 0.005,
+        "stop_pips": 3,
+        "risk_usd": 50.0,
+        "raw_lot": 1.66667,
+        "rounded_lot": 0.0,
+        "actual_risk_usd": 0.0,
+        "actual_risk_pct": 0.0,
+        "allowed": false,
+        "reason": "STOP_TOO_SMALL"
+      },
+      {
+        "balance": 10000.0,
+        "risk": 0.005,
+        "stop_pips": 5,
+        "risk_usd": 50.0,
+        "raw_lot": 1.0,
+        "rounded_lot": 1.0,
+        "actual_risk_usd": 50.0,
+        "actual_risk_pct": 0.005,
+        "allowed": true,
+        "reason": "ALLOW"
+      },
+      {
+        "balance": 10000.0,
+        "risk": 0.005,
+        "stop_pips": 8,
+        "risk_usd": 50.0,
+        "raw_lot": 0.625,
+        "rounded_lot": 0.62,
+        "actual_risk_usd": 49.6,
+        "actual_risk_pct": 0.00496,
+        "allowed": true,
+        "reason": "ALLOW"
+      },
+      {
+        "balance": 10000.0,
+        "risk": 0.005,
+        "stop_pips": 10,
+        "risk_usd": 50.0,
+        "raw_lot": 0.5,
+        "rounded_lot": 0.5,
+        "actual_risk_usd": 50.0,
+        "actual_risk_pct": 0.005,
+        "allowed": true,
+        "reason": "ALLOW"
+      },
+      {
+        "balance": 10000.0,
+        "risk": 0.005,
+        "stop_pips": 15,
+        "risk_usd": 50.0,
+        "raw_lot": 0.33333,
+        "rounded_lot": 0.33,
+        "actual_risk_usd": 49.5,
+        "actual_risk_pct": 0.00495,
+        "allowed": true,
+        "reason": "ALLOW"
+      },
+      {
+        "balance": 10000.0,
+        "risk": 0.005,
+        "stop_pips": 20,
+        "risk_usd": 50.0,
+        "raw_lot": 0.25,
+        "rounded_lot": 0.25,
+        "actual_risk_usd": 50.0,
+        "actual_risk_pct": 0.005,
+        "allowed": true,
+        "reason": "ALLOW"
+      },
+      {
+        "balance": 10000.0,
+        "risk": 0.0075,
+        "stop_pips": 3,
+        "risk_usd": 75.0,
+        "raw_lot": 2.5,
+        "rounded_lot": 0.0,
+        "actual_risk_usd": 0.0,
+        "actual_risk_pct": 0.0,
+        "allowed": false,
+        "reason": "STOP_TOO_SMALL"
+      },
+      {
+        "balance": 10000.0,
+        "risk": 0.0075,
+        "stop_pips": 5,
+        "risk_usd": 75.0,
+        "raw_lot": 1.5,
+        "rounded_lot": 1.5,
+        "actual_risk_usd": 75.0,
+        "actual_risk_pct": 0.0075,
+        "allowed": true,
+        "reason": "ALLOW"
+      },
+      {
+        "balance": 10000.0,
+        "risk": 0.0075,
+        "stop_pips": 8,
+        "risk_usd": 75.0,
+        "raw_lot": 0.9375,
+        "rounded_lot": 0.93,
+        "actual_risk_usd": 74.4,
+        "actual_risk_pct": 0.00744,
+        "allowed": true,
+        "reason": "ALLOW"
+      },
+      {
+        "balance": 10000.0,
+        "risk": 0.0075,
+        "stop_pips": 10,
+        "risk_usd": 75.0,
+        "raw_lot": 0.75,
+        "rounded_lot": 0.75,
+        "actual_risk_usd": 75.0,
+        "actual_risk_pct": 0.0075,
+        "allowed": true,
+        "reason": "ALLOW"
+      },
+      {
+        "balance": 10000.0,
+        "risk": 0.0075,
+        "stop_pips": 15,
+        "risk_usd": 75.0,
+        "raw_lot": 0.5,
+        "rounded_lot": 0.5,
+        "actual_risk_usd": 75.0,
+        "actual_risk_pct": 0.0075,
+        "allowed": true,
+        "reason": "ALLOW"
+      },
+      {
+        "balance": 10000.0,
+        "risk": 0.0075,
+        "stop_pips": 20,
+        "risk_usd": 75.0,
+        "raw_lot": 0.375,
+        "rounded_lot": 0.37,
+        "actual_risk_usd": 74.0,
+        "actual_risk_pct": 0.0074,
+        "allowed": true,
+        "reason": "ALLOW"
+      },
+      {
+        "balance": 10000.0,
+        "risk": 0.01,
+        "stop_pips": 3,
+        "risk_usd": 100.0,
+        "raw_lot": 3.33333,
+        "rounded_lot": 0.0,
+        "actual_risk_usd": 0.0,
+        "actual_risk_pct": 0.0,
+        "allowed": false,
+        "reason": "RISK_1PCT_PROHIBITED"
+      },
+      {
+        "balance": 10000.0,
+        "risk": 0.01,
+        "stop_pips": 5,
+        "risk_usd": 100.0,
+        "raw_lot": 2.0,
+        "rounded_lot": 0.0,
+        "actual_risk_usd": 0.0,
+        "actual_risk_pct": 0.0,
+        "allowed": false,
+        "reason": "RISK_1PCT_PROHIBITED"
+      },
+      {
+        "balance": 10000.0,
+        "risk": 0.01,
+        "stop_pips": 8,
+        "risk_usd": 100.0,
+        "raw_lot": 1.25,
+        "rounded_lot": 0.0,
+        "actual_risk_usd": 0.0,
+        "actual_risk_pct": 0.0,
+        "allowed": false,
+        "reason": "RISK_1PCT_PROHIBITED"
+      },
+      {
+        "balance": 10000.0,
+        "risk": 0.01,
+        "stop_pips": 10,
+        "risk_usd": 100.0,
+        "raw_lot": 1.0,
+        "rounded_lot": 0.0,
+        "actual_risk_usd": 0.0,
+        "actual_risk_pct": 0.0,
+        "allowed": false,
+        "reason": "RISK_1PCT_PROHIBITED"
+      },
+      {
+        "balance": 10000.0,
+        "risk": 0.01,
+        "stop_pips": 15,
+        "risk_usd": 100.0,
+        "raw_lot": 0.66667,
+        "rounded_lot": 0.0,
+        "actual_risk_usd": 0.0,
+        "actual_risk_pct": 0.0,
+        "allowed": false,
+        "reason": "RISK_1PCT_PROHIBITED"
+      },
+      {
+        "balance": 10000.0,
+        "risk": 0.01,
+        "stop_pips": 20,
+        "risk_usd": 100.0,
+        "raw_lot": 0.5,
+        "rounded_lot": 0.0,
+        "actual_risk_usd": 0.0,
+        "actual_risk_pct": 0.0,
+        "allowed": false,
+        "reason": "RISK_1PCT_PROHIBITED"
+      }
+    ],
+    "reason": "0.50% lot scenarios available"
+  },
+  "signal_sync": {
+    "timestamp_utc": "2026-04-29T12:36:40.141228+00:00",
+    "state": "NO_SIGNAL_ENGINE_FOUND",
+    "signal_engine_found": false,
+    "manipulante_match": false,
+    "candidate_findings": [
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase37_ftmo_trial_support.py",
+        "score": 7
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase36_readiness_orchestrator.py",
+        "score": 6
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase37_ftmo_trial_automation_orchestrator.py",
+        "score": 5
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\01_ESTRATEGIA_AUTORIDAD\\MANIPULANTE_STRATEGY_CARD.md",
+        "score": 5
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\ESTRATEGIAS\\00_LEER_PRIMERO\\ESTRATEGIAS_INDEX.md",
+        "score": 5
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\04_OPERACION_DIARIA\\MANIPULANTE_RISK_POLICY.md",
+        "score": 4
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase30_tp14_be05_bf70_forensic_audit.py",
+        "score": 3
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase31_final_closeout_phase32_handoff.py",
+        "score": 3
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase32e_global_weekend_policy_validator.py",
+        "score": 3
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\02_REGLAS_DE_FONDEO\\FTMO_2STEP_SWING_PLAN.md",
+        "score": 3
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\04_OPERACION_DIARIA\\MANIPULANTE_PRE_TRADE_CHECKLIST.md",
+        "score": 3
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\07_REPORTES_CLAVE\\REPORT_INDEX.md",
+        "score": 3
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase27_full_historical_validation.py",
+        "score": 2
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase29_wr_loss_streak_compression.py",
+        "score": 2
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase31_prop_firm_survival_simulator.py",
+        "score": 2
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase32a_ftmo_1step_standard_simulation.py",
+        "score": 2
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase32b_fundednext_stellar_lite_10k_simulation.py",
+        "score": 2
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase32c_fundednext_weekend_compliance.py",
+        "score": 2
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase36r_37a_micro_real_gate_orchestrator.py",
+        "score": 2
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase36s_live_news_lot_feasibility_orchestrator.py",
+        "score": 2
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\repair_config.py",
+        "score": 2
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\run_data_quality_forensic_repair.py",
+        "score": 2
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\run_m3_bid_ask_news_certification.py",
+        "score": 2
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\run_phase19_forensic_audit.py",
+        "score": 2
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\00_LEER_PRIMERO\\README_MANIPULANTE.md",
+        "score": 2
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\01_ESTRATEGIA_AUTORIDAD\\manipulante_config.json",
+        "score": 2
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\01_ESTRATEGIA_AUTORIDAD\\MANIPULANTE_EVIDENCE_SUMMARY.md",
+        "score": 2
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\02_REGLAS_DE_FONDEO\\MANIPULANTE_PROP_FIRM_PLAN.md",
+        "score": 2
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\02_REGLAS_DE_FONDEO\\RISK_RECOMMENDATION.md",
+        "score": 2
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\05_DUAL_LEDGER_SHADOW\\README_SHADOW_BE05.md",
+        "score": 2
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\05_DUAL_LEDGER_SHADOW\\shadow_be05_config.json",
+        "score": 2
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\08_CHECKLISTS\\CHECKLIST_ANTES_DE_OPERAR.md",
+        "score": 2
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\08_CHECKLISTS\\CHECKLIST_GLOBAL_WEEKEND_POLICY.md",
+        "score": 2
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\13_FTMO_TRIAL_AUTOMATION\\FTMO_TRIAL_AUTOMATION_README.md",
+        "score": 2
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\ESTRATEGIAS\\04_ARCHIVADAS\\PHASE19\\NO_USAR_PHASE19.md",
+        "score": 2
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\canonical_zip_identity_proof.py",
+        "score": 1
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\cleanup_temp_zips.py",
+        "score": 1
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\generate_closeout_docs.py",
+        "score": 1
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase18_h1_fractal_sweep.py",
+        "score": 1
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase26b_p13_p14.py",
+        "score": 1
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase26b_preflight.py",
+        "score": 1
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase28_winrate_frequency_study.py",
+        "score": 1
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase36_live_news_fortress.py",
+        "score": 1
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase36_manipulante_dry_run_engine.py",
+        "score": 1
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase36_time_gate_validator.py",
+        "score": 1
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase37_ftmo_trial_bot_runner.py",
+        "score": 1
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase37_ftmo_trial_order_router.py",
+        "score": 1
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase37_micro_real_engine.py",
+        "score": 1
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\rebuild_and_validate_closeout_zip.py",
+        "score": 1
+      },
+      {
+        "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\run_canonical_zip_authority_repair.py",
+        "score": 1
+      }
+    ],
+    "reason": "No live Phase25 signal engine with callable MANIPULANTE signal contract was found"
+  },
+  "order_router": {
+    "timestamp_utc": "2026-04-29T12:36:40.144040+00:00",
+    "order_send_safety": {
+      "timestamp_utc": "2026-04-29T12:36:40.143752+00:00",
+      "router_exists": true,
+      "safe_wrapper_present": true,
+      "direct_mt5_order_send": false,
+      "guarded_active_order_send": true,
+      "state": "PASS",
+      "real_blocked_by_default": true
+    },
+    "strategy_config_gate": {
+      "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\01_ESTRATEGIA_AUTORIDAD\\manipulante_config.json",
+      "exists": true,
+      "state": "MANIPULANTE_MATCH",
+      "reason": "Config contains TP 1.4 / BE 0.4 / BF70 evidence"
+    },
+    "confirmation_file": {
+      "present": false,
+      "valid": false,
+      "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\13_FTMO_TRIAL_AUTOMATION\\I_CONFIRM_FTMO_TRIAL_AUTO.txt",
+      "reason": "CONFIRMATION_FILE_MISSING"
+    },
+    "order_check_required": true,
+    "real_blocked": true,
+    "state": "PASS"
+  },
+  "dry_run": {
+    "timestamp": "2026-04-29T08:36:40.253887-04:00",
+    "dry_run": true,
+    "final_decision": "STOP_BOT_ACTIVE",
+    "reason": "STOP_BOT.txt present",
+    "order_sent": false,
+    "signal_sync": {
+      "timestamp_utc": "2026-04-29T12:36:40.253732+00:00",
+      "state": "NO_SIGNAL_ENGINE_FOUND",
+      "signal_engine_found": false,
+      "manipulante_match": false,
+      "candidate_findings": [
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase37_ftmo_trial_support.py",
+          "score": 7
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase36_readiness_orchestrator.py",
+          "score": 6
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase37_ftmo_trial_automation_orchestrator.py",
+          "score": 5
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\01_ESTRATEGIA_AUTORIDAD\\MANIPULANTE_STRATEGY_CARD.md",
+          "score": 5
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\ESTRATEGIAS\\00_LEER_PRIMERO\\ESTRATEGIAS_INDEX.md",
+          "score": 5
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\04_OPERACION_DIARIA\\MANIPULANTE_RISK_POLICY.md",
+          "score": 4
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase30_tp14_be05_bf70_forensic_audit.py",
+          "score": 3
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase31_final_closeout_phase32_handoff.py",
+          "score": 3
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase32e_global_weekend_policy_validator.py",
+          "score": 3
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\02_REGLAS_DE_FONDEO\\FTMO_2STEP_SWING_PLAN.md",
+          "score": 3
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\04_OPERACION_DIARIA\\MANIPULANTE_PRE_TRADE_CHECKLIST.md",
+          "score": 3
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\07_REPORTES_CLAVE\\REPORT_INDEX.md",
+          "score": 3
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase27_full_historical_validation.py",
+          "score": 2
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase29_wr_loss_streak_compression.py",
+          "score": 2
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase31_prop_firm_survival_simulator.py",
+          "score": 2
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase32a_ftmo_1step_standard_simulation.py",
+          "score": 2
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase32b_fundednext_stellar_lite_10k_simulation.py",
+          "score": 2
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase32c_fundednext_weekend_compliance.py",
+          "score": 2
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase36r_37a_micro_real_gate_orchestrator.py",
+          "score": 2
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase36s_live_news_lot_feasibility_orchestrator.py",
+          "score": 2
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\repair_config.py",
+          "score": 2
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\run_data_quality_forensic_repair.py",
+          "score": 2
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\run_m3_bid_ask_news_certification.py",
+          "score": 2
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\run_phase19_forensic_audit.py",
+          "score": 2
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\00_LEER_PRIMERO\\README_MANIPULANTE.md",
+          "score": 2
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\01_ESTRATEGIA_AUTORIDAD\\manipulante_config.json",
+          "score": 2
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\01_ESTRATEGIA_AUTORIDAD\\MANIPULANTE_EVIDENCE_SUMMARY.md",
+          "score": 2
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\02_REGLAS_DE_FONDEO\\MANIPULANTE_PROP_FIRM_PLAN.md",
+          "score": 2
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\02_REGLAS_DE_FONDEO\\RISK_RECOMMENDATION.md",
+          "score": 2
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\05_DUAL_LEDGER_SHADOW\\README_SHADOW_BE05.md",
+          "score": 2
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\05_DUAL_LEDGER_SHADOW\\shadow_be05_config.json",
+          "score": 2
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\08_CHECKLISTS\\CHECKLIST_ANTES_DE_OPERAR.md",
+          "score": 2
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\08_CHECKLISTS\\CHECKLIST_GLOBAL_WEEKEND_POLICY.md",
+          "score": 2
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\MANIPULANTE\\13_FTMO_TRIAL_AUTOMATION\\FTMO_TRIAL_AUTOMATION_README.md",
+          "score": 2
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\ESTRATEGIAS\\04_ARCHIVADAS\\PHASE19\\NO_USAR_PHASE19.md",
+          "score": 2
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\canonical_zip_identity_proof.py",
+          "score": 1
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\cleanup_temp_zips.py",
+          "score": 1
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\generate_closeout_docs.py",
+          "score": 1
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase18_h1_fractal_sweep.py",
+          "score": 1
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase26b_p13_p14.py",
+          "score": 1
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase26b_preflight.py",
+          "score": 1
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase28_winrate_frequency_study.py",
+          "score": 1
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase36_live_news_fortress.py",
+          "score": 1
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase36_manipulante_dry_run_engine.py",
+          "score": 1
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase36_time_gate_validator.py",
+          "score": 1
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase37_ftmo_trial_bot_runner.py",
+          "score": 1
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase37_ftmo_trial_order_router.py",
+          "score": 1
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\phase37_micro_real_engine.py",
+          "score": 1
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\rebuild_and_validate_closeout_zip.py",
+          "score": 1
+        },
+        {
+          "path": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\BOT_V2_DAYTIME_LAB\\src\\run_canonical_zip_authority_repair.py",
+          "score": 1
+        }
+      ],
+      "reason": "No live Phase25 signal engine with callable MANIPULANTE signal contract was found"
+    },
+    "gates": {
+      "flags": "FLAGS_OK",
+      "account_gate": "FTMO_DEMO_TRIAL_CONFIRMED",
+      "platform_gate": "MT5_CONNECTED",
+      "symbol_gate": "ALLOW",
+      "live_news_gate": "NO_TRADE",
+      "week_news_loaded": false,
+      "data_quality_gate": "ALLOW",
+      "time_gate": "ALLOW",
+      "spread_gate": "ALLOW",
+      "stoplevel_gate": "ALLOW",
+      "lot_gate": "ALLOW",
+      "max_trades_day_gate": "ALLOW",
+      "weekend_gate": "ALLOW",
+      "strategy_config_gate": "MANIPULANTE_MATCH",
+      "order_send_safety": "PASS",
+      "confirmation_file": false
+    }
+  },
+  "today_readiness": {
+    "timestamp_utc": "2026-04-29T12:36:40.256859+00:00",
+    "gates": {
+      "account_gate": "FTMO_DEMO_TRIAL_CONFIRMED",
+      "news_gate": "NO_TRADE",
+      "week_news_loaded": false,
+      "data_gate": "ALLOW",
+      "time_gate": "ALLOW",
+      "symbol_gate": "ALLOW",
+      "spread_gate": "ALLOW",
+      "stoplevel_gate": "ALLOW",
+      "lot_gate": "ALLOW",
+      "signal_sync": "NO_SIGNAL_ENGINE_FOUND",
+      "order_router_safety": "PASS",
+      "confirmation_file": false,
+      "dry_run": "PASS"
+    },
+    "final_decision": "NO_TRADE",
+    "verdict": "FTMO_TRIAL_BLOCKED_NEWS",
+    "can_run_auto_today": false,
+    "conditions_required": [
+      "FTMO demo/trial account confirmed",
+      "MQL5 news cache today/week loaded and ALLOW",
+      "Data/Symbol/Spread/StopLevel ALLOW",
+      "Time Gate ALLOW",
+      "Lot Gate ALLOW",
+      "Live signal engine synced to MANIPULANTE Phase25",
+      "Confirmation file valid",
+      "STOP_BOT.txt absent"
+    ]
+  },
+  "blockers": [
+    "Live News Gate no tiene cache FTMO MQL5 valida hoy/semana",
+    "No hay signal engine live confirmado para MANIPULANTE Phase25",
+    "Confirmation file FTMO trial ausente o invalido",
+    "STOP_BOT.txt esta activo"
+  ],
+  "warnings": [
+    "No real trading authorized",
+    "0.75% is trial stress only",
+    "1.00% prohibited"
+  ],
+  "verdict": "FTMO_TRIAL_BLOCKED_NEWS",
+  "next_step": "Instalar/ejecutar CalendarExporter MQL5 y conectar signal engine live; luego rerun Phase37 dry-run."
+}

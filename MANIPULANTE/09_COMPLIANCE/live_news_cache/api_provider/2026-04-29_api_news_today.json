@@ -1,0 +1,295 @@
+{
+  "source": "API_LIVE_NEWS_PROVIDER",
+  "provider": "MQL5_BOOTSTRAP",
+  "generated_at_utc": "2026-04-29T22:07:09.811093+00:00",
+  "cache_max_age_minutes": 60,
+  "currencies": [
+    "EUR",
+    "USD"
+  ],
+  "impact_filter": [
+    "HIGH",
+    "MODERATE"
+  ],
+  "guard_minutes_before": 30,
+  "guard_minutes_after": 30,
+  "verified": true,
+  "timezone_validated": true,
+  "events": [
+    {
+      "event_id": "MQL5_0_1777453200",
+      "provider": "MQL5_BOOTSTRAP",
+      "event_name": "Discurso de Burkhard Balz, miembro de la Junta Ejecutiva del Bbk",
+      "currency": "EUR",
+      "impact": "MODERATE",
+      "event_time_utc": "2026-04-29T09:00:00+00:00",
+      "event_time_ny": "2026-04-29T05:00:00-04:00",
+      "country": "DE",
+      "timezone_validated": true
+    },
+    {
+      "event_id": "MQL5_2_1777456800",
+      "provider": "MQL5_BOOTSTRAP",
+      "event_name": "IPC a/a",
+      "currency": "EUR",
+      "impact": "MODERATE",
+      "event_time_utc": "2026-04-29T10:00:00+00:00",
+      "event_time_ny": "2026-04-29T06:00:00-04:00",
+      "country": "ES",
+      "timezone_validated": true
+    },
+    {
+      "event_id": "MQL5_4_1777456800",
+      "provider": "MQL5_BOOTSTRAP",
+      "event_name": "IPCA a/a",
+      "currency": "EUR",
+      "impact": "MODERATE",
+      "event_time_utc": "2026-04-29T10:00:00+00:00",
+      "event_time_ny": "2026-04-29T06:00:00-04:00",
+      "country": "ES",
+      "timezone_validated": true
+    },
+    {
+      "event_id": "MQL5_6_1777460400",
+      "provider": "MQL5_BOOTSTRAP",
+      "event_name": "Préstamos para Hogares del BCE a/a",
+      "currency": "EUR",
+      "impact": "MODERATE",
+      "event_time_utc": "2026-04-29T11:00:00+00:00",
+      "event_time_ny": "2026-04-29T07:00:00-04:00",
+      "country": "EU",
+      "timezone_validated": true
+    },
+    {
+      "event_id": "MQL5_14_1777464000",
+      "provider": "MQL5_BOOTSTRAP",
+      "event_name": "Indicador del Sentimiento Económico",
+      "currency": "EUR",
+      "impact": "MODERATE",
+      "event_time_utc": "2026-04-29T12:00:00+00:00",
+      "event_time_ny": "2026-04-29T08:00:00-04:00",
+      "country": "EU",
+      "timezone_validated": true
+    },
+    {
+      "event_id": "MQL5_16_1777464000",
+      "provider": "MQL5_BOOTSTRAP",
+      "event_name": "Expectativas de Precios al Consumidor",
+      "currency": "EUR",
+      "impact": "HIGH",
+      "event_time_utc": "2026-04-29T12:00:00+00:00",
+      "event_time_ny": "2026-04-29T08:00:00-04:00",
+      "country": "EU",
+      "timezone_validated": true
+    },
+    {
+      "event_id": "MQL5_18_1777465800",
+      "provider": "MQL5_BOOTSTRAP",
+      "event_name": "Subasta de Bonos del Estado a 10 Años",
+      "currency": "EUR",
+      "impact": "MODERATE",
+      "event_time_utc": "2026-04-29T12:30:00+00:00",
+      "event_time_ny": "2026-04-29T08:30:00-04:00",
+      "country": "DE",
+      "timezone_validated": true
+    },
+    {
+      "event_id": "MQL5_21_1777474800",
+      "provider": "MQL5_BOOTSTRAP",
+      "event_name": "IPC m/m",
+      "currency": "EUR",
+      "impact": "MODERATE",
+      "event_time_utc": "2026-04-29T15:00:00+00:00",
+      "event_time_ny": "2026-04-29T11:00:00-04:00",
+      "country": "DE",
+      "timezone_validated": true
+    },
+    {
+      "event_id": "MQL5_22_1777474800",
+      "provider": "MQL5_BOOTSTRAP",
+      "event_name": "IPC a/a",
+      "currency": "EUR",
+      "impact": "MODERATE",
+      "event_time_utc": "2026-04-29T15:00:00+00:00",
+      "event_time_ny": "2026-04-29T11:00:00-04:00",
+      "country": "DE",
+      "timezone_validated": true
+    },
+    {
+      "event_id": "MQL5_26_1777476600",
+      "provider": "MQL5_BOOTSTRAP",
+      "event_name": "Balanza Comercial de Mercancías",
+      "currency": "USD",
+      "impact": "MODERATE",
+      "event_time_utc": "2026-04-29T15:30:00+00:00",
+      "event_time_ny": "2026-04-29T11:30:00-04:00",
+      "country": "US",
+      "timezone_validated": true
+    },
+    {
+      "event_id": "MQL5_27_1777476600",
+      "provider": "MQL5_BOOTSTRAP",
+      "event_name": "Inventarios Minoristas m/m",
+      "currency": "USD",
+      "impact": "MODERATE",
+      "event_time_utc": "2026-04-29T15:30:00+00:00",
+      "event_time_ny": "2026-04-29T11:30:00-04:00",
+      "country": "US",
+      "timezone_validated": true
+    },
+    {
+      "event_id": "MQL5_28_1777476600",
+      "provider": "MQL5_BOOTSTRAP",
+      "event_name": "Inventarios Minoristas excl. Automóviles m/m",
+      "currency": "USD",
+      "impact": "MODERATE",
+      "event_time_utc": "2026-04-29T15:30:00+00:00",
+      "event_time_ny": "2026-04-29T11:30:00-04:00",
+      "country": "US",
+      "timezone_validated": true
+    },
+    {
+      "event_id": "MQL5_29_1777476600",
+      "provider": "MQL5_BOOTSTRAP",
+      "event_name": "Inicios de construcción de Nueva Vivienda",
+      "currency": "USD",
+      "impact": "MODERATE",
+      "event_time_utc": "2026-04-29T15:30:00+00:00",
+      "event_time_ny": "2026-04-29T11:30:00-04:00",
+      "country": "US",
+      "timezone_validated": true
+    },
+    {
+      "event_id": "MQL5_30_1777476600",
+      "provider": "MQL5_BOOTSTRAP",
+      "event_name": "Inicios de construcción de Nueva Vivienda",
+      "currency": "USD",
+      "impact": "MODERATE",
+      "event_time_utc": "2026-04-29T15:30:00+00:00",
+      "event_time_ny": "2026-04-29T11:30:00-04:00",
+      "country": "US",
+      "timezone_validated": true
+    },
+    {
+      "event_id": "MQL5_31_1777476600",
+      "provider": "MQL5_BOOTSTRAP",
+      "event_name": "Permisos de Construcción",
+      "currency": "USD",
+      "impact": "MODERATE",
+      "event_time_utc": "2026-04-29T15:30:00+00:00",
+      "event_time_ny": "2026-04-29T11:30:00-04:00",
+      "country": "US",
+      "timezone_validated": true
+    },
+    {
+      "event_id": "MQL5_32_1777476600",
+      "provider": "MQL5_BOOTSTRAP",
+      "event_name": "Permisos de Construcción",
+      "currency": "USD",
+      "impact": "MODERATE",
+      "event_time_utc": "2026-04-29T15:30:00+00:00",
+      "event_time_ny": "2026-04-29T11:30:00-04:00",
+      "country": "US",
+      "timezone_validated": true
+    },
+    {
+      "event_id": "MQL5_33_1777476600",
+      "provider": "MQL5_BOOTSTRAP",
+      "event_name": "Pedidos de Bienes Duraderos m/m",
+      "currency": "USD",
+      "impact": "HIGH",
+      "event_time_utc": "2026-04-29T15:30:00+00:00",
+      "event_time_ny": "2026-04-29T11:30:00-04:00",
+      "country": "US",
+      "timezone_validated": true
+    },
+    {
+      "event_id": "MQL5_34_1777476600",
+      "provider": "MQL5_BOOTSTRAP",
+      "event_name": "Pedidos Básicos de Bienes Buraderos m/m",
+      "currency": "USD",
+      "impact": "MODERATE",
+      "event_time_utc": "2026-04-29T15:30:00+00:00",
+      "event_time_ny": "2026-04-29T11:30:00-04:00",
+      "country": "US",
+      "timezone_validated": true
+    },
+    {
+      "event_id": "MQL5_35_1777476600",
+      "provider": "MQL5_BOOTSTRAP",
+      "event_name": "Inicios de Construcción de nueva vivienda m/m",
+      "currency": "USD",
+      "impact": "MODERATE",
+      "event_time_utc": "2026-04-29T15:30:00+00:00",
+      "event_time_ny": "2026-04-29T11:30:00-04:00",
+      "country": "US",
+      "timezone_validated": true
+    },
+    {
+      "event_id": "MQL5_36_1777476600",
+      "provider": "MQL5_BOOTSTRAP",
+      "event_name": "Inicios de Construcción de nueva vivienda m/m",
+      "currency": "USD",
+      "impact": "MODERATE",
+      "event_time_utc": "2026-04-29T15:30:00+00:00",
+      "event_time_ny": "2026-04-29T11:30:00-04:00",
+      "country": "US",
+      "timezone_validated": true
+    },
+    {
+      "event_id": "MQL5_42_1777483800",
+      "provider": "MQL5_BOOTSTRAP",
+      "event_name": "AIE Cambio en las Reservas de Crudo",
+      "currency": "USD",
+      "impact": "HIGH",
+      "event_time_utc": "2026-04-29T17:30:00+00:00",
+      "event_time_ny": "2026-04-29T13:30:00-04:00",
+      "country": "US",
+      "timezone_validated": true
+    },
+    {
+      "event_id": "MQL5_43_1777483800",
+      "provider": "MQL5_BOOTSTRAP",
+      "event_name": "AIE Cambio en las Reservas de Crudo en Cushing",
+      "currency": "USD",
+      "impact": "MODERATE",
+      "event_time_utc": "2026-04-29T17:30:00+00:00",
+      "event_time_ny": "2026-04-29T13:30:00-04:00",
+      "country": "US",
+      "timezone_validated": true
+    },
+    {
+      "event_id": "MQL5_52_1777496400",
+      "provider": "MQL5_BOOTSTRAP",
+      "event_name": "Declaración del CFMA",
+      "currency": "USD",
+      "impact": "MODERATE",
+      "event_time_utc": "2026-04-29T21:00:00+00:00",
+      "event_time_ny": "2026-04-29T17:00:00-04:00",
+      "country": "US",
+      "timezone_validated": true
+    },
+    {
+      "event_id": "MQL5_53_1777496400",
+      "provider": "MQL5_BOOTSTRAP",
+      "event_name": "Decisión de la Tasa de Interés de la Reserva Federal",
+      "currency": "USD",
+      "impact": "HIGH",
+      "event_time_utc": "2026-04-29T21:00:00+00:00",
+      "event_time_ny": "2026-04-29T17:00:00-04:00",
+      "country": "US",
+      "timezone_validated": true
+    },
+    {
+      "event_id": "MQL5_54_1777498200",
+      "provider": "MQL5_BOOTSTRAP",
+      "event_name": "Conferencia de Prensa del FOMC",
+      "currency": "USD",
+      "impact": "HIGH",
+      "event_time_utc": "2026-04-29T21:30:00+00:00",
+      "event_time_ny": "2026-04-29T17:30:00-04:00",
+      "country": "US",
+      "timezone_validated": true
+    }
+  ]
+}

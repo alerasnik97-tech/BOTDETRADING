@@ -1,0 +1,17 @@
+variant,stage,total_return_pct,max_drawdown_pct,profit_factor,total_trades,trades_per_month,win_rate_pct,score,label,weekdays,times,directions
+base,design,0.9365557221482357,0.0,inf,2,1.0,100.0,227.87311144429648,base,,,
+base,oos,-0.021319407381281685,1.130342082050047,0.9936071607896949,12,1.0909090909090908,66.66666666666666,30.595391752029542,base,,,
+mon_tue,design,0.0,0.0,inf,0,0.0,0.0,-1000.0,mon_tue,mon_tue,,
+mon_tue,oos,-2.0781690331756697,2.078169033175669,0.1885122571793537,5,1.0,40.0,-27.006692945055534,mon_tue,mon_tue,,
+mon_tue_fri,design,0.4566056436530852,0.0,inf,1,1.0,100.0,226.91321128730618,mon_tue_fri,"mon_tue,fri",,
+mon_tue_fri,oos,-1.7082533140809097,1.7082533140809102,0.3334636175421965,6,1.0,50.0,-12.619228496878513,mon_tue_fri,"mon_tue,fri",,
+mon_tue_early,design,0.0,0.0,inf,0,0.0,0.0,-1000.0,mon_tue_early,mon_tue,early,
+mon_tue_early,oos,-2.1669497333270393,2.166949733327041,0.15366144970036894,4,1.0,25.0,-38.02219014527453,mon_tue_early,mon_tue,early,
+mon_tue_fri_early,design,0.4566056436530852,0.0,inf,1,1.0,100.0,226.91321128730618,mon_tue_fri_early,"mon_tue,fri",early,
+mon_tue_fri_early,oos,-1.7976750345641168,1.7976750345641193,0.2984965157673493,5,1.0,40.0,-20.643864611254855,mon_tue_fri_early,"mon_tue,fri",early,
+mon_tue_short,design,0.0,0.0,inf,0,0.0,0.0,-1000.0,mon_tue_short,mon_tue,,short
+mon_tue_short,oos,-2.0781690331756697,2.078169033175669,0.1885122571793537,5,1.0,40.0,-27.006692945055534,mon_tue_short,mon_tue,,short
+mon_tue_fri_short,design,0.0,0.0,inf,0,0.0,0.0,-1000.0,mon_tue_fri_short,"mon_tue,fri",,short
+mon_tue_fri_short,oos,-2.0781690331756697,2.078169033175669,0.1885122571793537,5,1.0,40.0,-27.006692945055534,mon_tue_fri_short,"mon_tue,fri",,short
+mon_tue_early_short,design,0.0,0.0,inf,0,0.0,0.0,-1000.0,mon_tue_early_short,mon_tue,early,short
+mon_tue_early_short,oos,-2.1669497333270393,2.166949733327041,0.15366144970036894,4,1.0,25.0,-38.02219014527453,mon_tue_early_short,mon_tue,early,short

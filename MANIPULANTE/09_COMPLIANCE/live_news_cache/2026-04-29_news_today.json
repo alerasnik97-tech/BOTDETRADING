@@ -1,0 +1,20 @@
+{
+  "source_type": "SOURCE_UNAVAILABLE",
+  "verified_by_mt5": false,
+  "VERIFIED_BY_USER": false,
+  "generated_at_utc": "2026-04-29T12:20:35.308007+00:00",
+  "date_ny": "2026-04-29",
+  "currencies_required": [
+    "EUR",
+    "USD"
+  ],
+  "impact_filter": [
+    "HIGH"
+  ],
+  "events": [],
+  "status": "NO_TRADE_NEWS_SOURCE_UNAVAILABLE",
+  "reason": "MetaTrader5 Python package does not expose economic calendar functions in this environment",
+  "today_news_loaded": false,
+  "week_news_loaded": false,
+  "timezone_validated": false
+}

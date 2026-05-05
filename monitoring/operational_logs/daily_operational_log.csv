@@ -1,0 +1,2 @@
+date,feeder_status,autopilot_status,promotion_status,chain_status,classification,coverage_ready,daily_operable,blockers,bundle_updated
+2026-04-22,PRESENT,UNKNOWN,H1:STAGING|M5:STAGING|NEWS:BLOCK,BLOCKED,DATA_REFRESH_CANONICAL,True,True,NONE,True

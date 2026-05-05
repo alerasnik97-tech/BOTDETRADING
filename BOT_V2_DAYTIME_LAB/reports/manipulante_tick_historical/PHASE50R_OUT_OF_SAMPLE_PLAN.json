@@ -1,0 +1,24 @@
+{
+    "phase": "50R",
+    "objective": "Certificar robustez estadística eliminando sesgo de selección",
+    "groups": {
+        "GROUP_A_AUDITED": [
+            "2024-05", "2024-06", "2024-07", "2024-08", "2024-10", "2024-11", "2025-01", "2025-03", "2025-07"
+        ],
+        "GROUP_B_ADVERSE_OOS": [
+            "2017-08", "2017-05", "2020-04", "2015-01", "2025-02", "2025-11", "2015-11", "2015-10"
+        ],
+        "GROUP_C_RANDOM_STRATIFIED": [
+            "2016-03", "2018-09", "2019-12", "2021-06", "2022-01"
+        ],
+        "GROUP_D_RECENT_OOS": [
+            "2025-04", "2025-05", "2025-06"
+        ]
+    },
+    "walk_forward_plan": {
+        "train_period": "2015-2023 (Bar-level validation)",
+        "test_period_1": "2024 Full (Tick-level Audit)",
+        "test_period_2": "2025 Full (Tick-level Audit)",
+        "test_period_3": "Adverse Months 2015-2023"
+    }
+}

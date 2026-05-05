@@ -1,0 +1,104 @@
+{
+  "orders": [
+    {
+      "symbol": "EURUSD",
+      "dir": "BUY",
+      "entry": 1.085,
+      "sl": 1.084,
+      "tp": 1.0864,
+      "lots": 0.02,
+      "rr": 1.4,
+      "status": "DRY_RUN_ONLY_SUCCESS"
+    },
+    {
+      "symbol": "EURUSD",
+      "dir": "BUY",
+      "entry": 1.085,
+      "sl": 1.084,
+      "tp": 1.0864,
+      "lots": 0.02,
+      "rr": 1.4,
+      "status": "DRY_RUN_ONLY_SUCCESS"
+    },
+    {
+      "symbol": "EURUSD",
+      "dir": "BUY",
+      "entry": 1.085,
+      "sl": 1.084,
+      "tp": 1.0864,
+      "lots": 0.02,
+      "rr": 1.4,
+      "status": "DRY_RUN_ONLY_SUCCESS"
+    },
+    {
+      "symbol": "EURUSD",
+      "dir": "BUY",
+      "entry": 1.085,
+      "sl": 1.084,
+      "tp": 1.0864,
+      "lots": 0.02,
+      "rr": 1.4,
+      "status": "DRY_RUN_ONLY_SUCCESS"
+    },
+    {
+      "symbol": "EURUSD",
+      "dir": "BUY",
+      "entry": 1.085,
+      "sl": 1.084,
+      "tp": 1.0864,
+      "lots": 0.02,
+      "rr": 1.4,
+      "status": "DRY_RUN_ONLY_SUCCESS"
+    },
+    {
+      "symbol": "EURUSD",
+      "dir": "BUY",
+      "entry": 1.085,
+      "sl": 1.084,
+      "tp": 1.0864,
+      "lots": 0.02,
+      "rr": 1.4,
+      "status": "DRY_RUN_ONLY_SUCCESS"
+    },
+    {
+      "symbol": "EURUSD",
+      "dir": "BUY",
+      "entry": 1.085,
+      "sl": 1.084,
+      "tp": 1.0864,
+      "lots": 0.02,
+      "rr": 1.4,
+      "status": "DRY_RUN_ONLY_SUCCESS"
+    },
+    {
+      "symbol": "EURUSD",
+      "dir": "BUY",
+      "entry": 1.085,
+      "sl": 1.084,
+      "tp": 1.0864,
+      "lots": 0.02,
+      "rr": 1.4,
+      "status": "DRY_RUN_ONLY_SUCCESS"
+    },
+    {
+      "symbol": "EURUSD",
+      "dir": "BUY",
+      "entry": 1.085,
+      "sl": 1.084,
+      "tp": 1.0864,
+      "lots": 0.02,
+      "rr": 1.4,
+      "status": "DRY_RUN_ONLY_SUCCESS"
+    },
+    {
+      "symbol": "EURUSD",
+      "dir": "BUY",
+      "entry": 1.085,
+      "sl": 1.084,
+      "tp": 1.0864,
+      "lots": 0.02,
+      "rr": 1.4,
+      "status": "DRY_RUN_ONLY_SUCCESS"
+    }
+  ]
+}

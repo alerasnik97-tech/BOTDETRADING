@@ -26,6 +26,15 @@ NY = pytz.timezone("America/New_York")
 # --- DUKASCOPY BINARY FORMAT (TICKS) ---
 TICK_STRUCT = struct.Struct(">IIIff")
 
+def _coerce_timestamp_utc(series):
+    ts = pd.to_datetime(series)
+    if ts.dt.tz is None:
+        return ts.dt.tz_localize("UTC")
+    return ts.dt.tz_convert("UTC")
+
+def _timestamp_ny_from_utc(series):
+    return _coerce_timestamp_utc(series).dt.tz_convert("America/New_York")
+
 def _ensure_directories():
     for sub in SUBFOLDERS:
         os.makedirs(os.path.join(TICK_PATH, sub), exist_ok=True)
@@ -93,10 +102,11 @@ def extract_month(symbol, year, month, limit_days=None):
         return False, "no_data"
         
     df = pd.concat(all_ticks, ignore_index=True)
+    df['timestamp_utc'] = _coerce_timestamp_utc(df['timestamp_utc'])
     df.sort_values("timestamp_utc", inplace=True)
     
     # Enriquecer
-    df['timestamp_ny'] = df['timestamp_utc'].dt.tz_convert(NY)
+    df['timestamp_ny'] = _timestamp_ny_from_utc(df['timestamp_utc'])
     df['spread'] = df['ask'] - df['bid']
     df['spread_pips'] = df['spread'] / 0.0001
     df['source'] = "dukascopy_native_h"
@@ -114,6 +124,8 @@ def extract_month(symbol, year, month, limit_days=None):
 def compute_detailed_quality(file_path):
     if not os.path.exists(file_path): return None
     df = pd.read_parquet(file_path)
+    df['timestamp_utc'] = _coerce_timestamp_utc(df['timestamp_utc'])
+    df['timestamp_ny'] = _timestamp_ny_from_utc(df['timestamp_utc'])
     
     # Metricas exactas
     rows = len(df)

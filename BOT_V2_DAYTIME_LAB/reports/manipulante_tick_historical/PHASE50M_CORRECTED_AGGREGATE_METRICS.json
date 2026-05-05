@@ -1,0 +1,11 @@
+{
+  "total_trades": 181,
+  "auditables": 169,
+  "pf_tick": 18.105842281110334,
+  "expectancy_tick": 0.6781786452124194,
+  "total_r_tick": 114.61219104089888,
+  "winrate_tick": 68.04733727810651,
+  "match_rate": 19.88950276243094,
+  "best_month": "2024-05",
+  "worst_month": "2025-03"
+}

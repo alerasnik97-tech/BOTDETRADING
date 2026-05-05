@@ -115,3 +115,7 @@ Solo merece pasar a real/fondeo una linea que:
 ## Current Practical Rule
 
 Si el siguiente ciclo de precision no mejora muestra y consistencia de forma seria, la respuesta profesional no es abrir cinco waves nuevas. La respuesta profesional es recomendar un pivot estructural mas fuerte o abandonar la linea investigada.
+
+
+> **ESTE ARCHIVO ES UN SNAPSHOT HISTÓRICO.**
+> La fuente viva y canónica está en: `BOT_V2_DAYTIME_LAB/docs/CORE_PROTOCOLS/RESEARCH_OPERATING_SYSTEM.MD`

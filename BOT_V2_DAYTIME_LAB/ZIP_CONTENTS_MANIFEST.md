@@ -1,13 +1,3 @@
-# ZIP CONTENTS MANIFEST (LAB)
+# ZIP CONTENTS MANIFEST
 
-- Scripts (`src/*.py`).
-- Configuraciones base de fases (`configs/`).
-- Reportes validados (`reports/`).
-- Outputs de ejecuciones (`outputs/`).
-- No contiene data pesada, M1/M3/ticks.
-- No contiene secretos ni configuraciones de broker real.
-- Preparado para sincronización segura con GitHub.
-
-- `docs/CORE_PROTOCOLS/` (Fuente canónica).
-- `docs/MANUAL_EXECUTION_BOUNDARY.md`.
-- Outputs livianos de Phase34.
+Includes Phase37D report/outputs, API news adapter, live signal engine, runner updates, MANIPULANTE docs and master docs. Excludes API keys, credentials, MT5 account files, heavy data, .pkl, ZIPs, .zipbak and api_news_provider_config.local.json.

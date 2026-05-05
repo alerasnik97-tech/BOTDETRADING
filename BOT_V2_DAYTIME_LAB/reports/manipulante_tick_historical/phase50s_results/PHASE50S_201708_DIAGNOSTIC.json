@@ -1,0 +1,61 @@
+{
+    "phase": "50S",
+    "pilot_month": "2017-08",
+    "verdict": "PHASE50S_2017_08_BLOCKED_DATA_QUALITY",
+    "block_reason": "NO_TICK_DATA_AVAILABLE",
+    "tick_data_exists": false,
+    "trade_source_exists": false,
+    "inventory_bar_level": {
+        "total_trades": 19,
+        "total_R": 2.8,
+        "PF": 1.4,
+        "Winrate": 36.84,
+        "Expectancy": 0.147,
+        "TP": 7,
+        "BE": 5,
+        "SL": 7,
+        "forced_close": 0
+    },
+    "files_checked": {
+        "tick_parquet": "NOT_FOUND",
+        "raw_trades_csv": "NOT_FOUND",
+        "inventory_csv": "FOUND_BAR_ONLY"
+    },
+    "self_test": {
+        "status": "NOT_APPLICABLE",
+        "reason": "No data to replay"
+    },
+    "comparison_vs_2024_10": {
+        "2024_10": {
+            "trades": 22,
+            "PF": 5.14,
+            "Expectancy": 0.5109,
+            "Total_R": 11.24,
+            "Winrate": 59.1,
+            "Max_DD": 1.45,
+            "tick_data": "AVAILABLE"
+        },
+        "2017_08": {
+            "trades": "UNKNOWN",
+            "PF": "UNKNOWN",
+            "Expectancy": "UNKNOWN",
+            "Total_R": "UNKNOWN",
+            "Winrate": "UNKNOWN",
+            "Max_DD": "UNKNOWN",
+            "tick_data": "NOT_AVAILABLE"
+        },
+        "status": "CANNOT_COMPARE_DATA_MISSING"
+    },
+    "generated_files": [],
+    "security": {
+        "no_manipulant": true,
+        "no_mt5": true,
+        "no_orders": true,
+        "no_real": true,
+        "no_exness": true,
+        "no_git_mod": true,
+        "no_file_deletion": true
+    },
+    "next_action_required": "EXTRACT_TICK_DATA_2017_08_FROM_EXTERNAL_SOURCE",
+    "alternative": "use_bar_level_inventory_only"
+}

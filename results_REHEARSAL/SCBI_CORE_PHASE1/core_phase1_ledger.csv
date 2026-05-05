@@ -1,0 +1,2 @@
+event_id,timestamp_ny,level,direction,entry_price,sl,tp,risk_pips,exit_time,exit_price,pnl_r,exit_reason,news_blocked
+CORE_BOOT,2026-04-20 20:00:00,pdh,long,1.08,1.07,1.10,10.0,2026-04-20 21:00:00,1.10,1.5,tp_hit,False

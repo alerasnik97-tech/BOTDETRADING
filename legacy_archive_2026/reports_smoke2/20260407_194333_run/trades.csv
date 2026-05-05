@@ -1,0 +1,2 @@
+pair,direction,entry_time,exit_time,entry_price,exit_price,units,gross_pnl_usd,net_pnl_usd,r_multiple,commission_usd,exit_reason
+EURUSD,long,2025-01-02 14:20:00-05:00,2025-01-02 14:35:00-05:00,1.117034085640732,1.1155900510637644,526000,-759.5621874849114,-783.0493934030427,-1.0454009219858078,23.487205918131306,stop_loss

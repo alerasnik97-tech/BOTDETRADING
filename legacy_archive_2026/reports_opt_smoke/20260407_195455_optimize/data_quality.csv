@@ -1,0 +1,3 @@
+pair,bars,coverage_ratio,missing_bars,max_missing_streak_bars,duplicate_timestamps,unexpected_schedule_bars,weekend_bars,zero_range_bars,nonpositive_prices,invalid_hilo_bars,outlier_return_bars,quality_score,quality_status
+EURUSD,4032,0.9828869047619048,69,23,0,69,69,0,0,0,0,59.31,warn
+GBPUSD,4032,0.9828869047619048,69,23,0,69,69,0,0,0,0,59.31,warn

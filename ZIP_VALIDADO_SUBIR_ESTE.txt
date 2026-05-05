@@ -1,0 +1,6 @@
+ZIP CANONICO VALIDADO
+Ruta: C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\000_PARA_CHATGPT.zip
+Entradas: 184
+SHA256: 1a8ca59ba429b52f14cb22738b9ba65ec5c6086c94c10d10251886a20866c322
+Testzip: None
+Unico .zip vivo: SI
