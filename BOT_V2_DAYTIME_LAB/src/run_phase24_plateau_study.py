@@ -43,10 +43,10 @@ def run_plateau_study():
 
     # 2. Prep H1 for Sweeps
     df_m3.set_index('timestamp', inplace=True)
-    df_h1 = df_m3.resample('1h').agg({
+    df_h1 = df_m3.resample('1h', closed='left', label='right').agg({
         'open_bid': 'first', 'high_bid': 'max', 'low_bid': 'min', 'close_bid': 'last',
         'timestamp_ny': 'first'
-    }).dropna().reset_index()
+    }).shift(1).dropna().reset_index()
     df_m3.reset_index(inplace=True)
     
     print(f"Detecting H1 Sweeps...")

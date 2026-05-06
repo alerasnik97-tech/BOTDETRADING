@@ -14,7 +14,7 @@ from urllib.error import HTTPError, URLError
 
 # --- CONFIGURACIÓN DE RUTAS ---
 ROOT_PROJECT = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo"
-MARKET_DATA_ROOT = r"C:\Users\alera\Desktop\Bot\BOT_MARKET_DATA"
+MARKET_DATA_ROOT = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\BOT_MARKET_DATA"
 TICK_PATH = os.path.join(MARKET_DATA_ROOT, "tick", "EURUSD")
 
 SUBFOLDERS = ["raw", "processed", "monthly", "manifests", "quality_reports", "logs"]

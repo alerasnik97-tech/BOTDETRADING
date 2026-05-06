@@ -7,7 +7,7 @@ import pytz
 
 # CONFIGURATION
 BASE_DIR = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo"
-DATA_DIR = r"C:\Users\alera\Desktop\Bot\BOT_MARKET_DATA\tick\EURUSD\monthly"
+DATA_DIR = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\BOT_MARKET_DATA\tick\EURUSD\monthly"
 REPORT_DIR = os.path.join(BASE_DIR, r"BOT_V2_DAYTIME_LAB\reports\manipulante_tick_historical")
 REGRESSION_DIR = os.path.join(REPORT_DIR, "phase56_engine_regression")
 RAW_TRADES_PATH = os.path.join(REPORT_DIR, "PHASE56_RAW_TRADES_CANONICAL.csv")

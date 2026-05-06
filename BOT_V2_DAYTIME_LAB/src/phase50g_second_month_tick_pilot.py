@@ -13,7 +13,7 @@ from pathlib import Path
 from datetime import datetime, timedelta
 
 # --- PATHS ---
-TICK_FILE = Path(r"C:\Users\alera\Desktop\Bot\BOT_MARKET_DATA\tick\EURUSD\monthly\EURUSD_ticks_2024_05.parquet")
+TICK_FILE = Path(r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\BOT_MARKET_DATA\tick\EURUSD\monthly\EURUSD_ticks_2024_05.parquet")
 REPORT_DIR = Path(r"C:\Users\alera\Desktop\Bot\BOT_V2_DAYTIME_LAB\reports\manipulante_tick_historical")
 TRADES_FILE = Path(r"C:\Users\alera\Desktop\Bot\BOT_V2_DAYTIME_LAB\reports\manipulante_tick_historical\PHASE50G_2024_05_trades_to_audit.csv")
 

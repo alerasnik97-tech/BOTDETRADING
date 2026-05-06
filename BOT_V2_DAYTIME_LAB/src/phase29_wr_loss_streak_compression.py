@@ -327,7 +327,7 @@ def generate_signals(df_m3: pd.DataFrame) -> tuple[list[dict[str, Any]], pd.Data
     df = df_m3.copy()
     df_idx = df.set_index("timestamp")
     h1 = (
-        df_idx.resample("1h")
+        df_idx.resample("1h", closed='left', label='right')
         .agg(
             {
                 "open_bid": "first",

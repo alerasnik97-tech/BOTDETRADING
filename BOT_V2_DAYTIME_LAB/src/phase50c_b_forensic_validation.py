@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 import pytz
 
 PROJECT_ROOT = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo"
-MARKET_DATA_ROOT = r"C:\Users\alera\Desktop\Bot\BOT_MARKET_DATA"
+MARKET_DATA_ROOT = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\BOT_MARKET_DATA"
 TICK_PATH = os.path.join(MARKET_DATA_ROOT, "tick", "EURUSD")
 HISTORICAL_LOG = os.path.join(PROJECT_ROOT, "BOT_V2_DAYTIME_LAB", "outputs", "phase38_manipulante_deep_explainer", "csv", "phase38_raw_trades_enriched.csv")
 DEBUG_PATH = os.path.join(PROJECT_ROOT, "BOT_V2_DAYTIME_LAB", "reports", "manipulante_tick_historical", "debug")

@@ -28,10 +28,10 @@ class DaytimeResearchEngine:
             
             df_m5.set_index('timestamp', inplace=True)
             
-            resampled = df_m5.resample(offset).agg({
+            resampled = df_m5.resample(offset, closed='left', label='right').agg({
                 'open_bid': 'first', 'high_bid': 'max', 'low_bid': 'min', 'close_bid': 'last', 'volume_bid': 'sum',
                 'open_ask': 'first', 'high_ask': 'max', 'low_ask': 'min', 'close_ask': 'last', 'volume_ask': 'sum'
-            }).dropna()
+            }).shift(1).dropna()
             
             resampled.reset_index(inplace=True)
             resampled['timestamp_ny'] = resampled['timestamp'].dt.tz_convert(self.tz_ny)

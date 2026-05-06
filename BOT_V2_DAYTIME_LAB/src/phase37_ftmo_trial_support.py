@@ -474,7 +474,7 @@ def detect_symbol(symbol_candidates: list[str] | None = None) -> dict[str, Any]:
     offset_hours = round((server_offset or 0.0) / 3600.0)
     offset_residual = abs((server_offset or 0.0) - offset_hours * 3600.0)
     plausible_server_offset = -12 <= offset_hours <= 14 and offset_residual <= 900
-    if age > 180 and not plausible_server_offset:
+    if age > 5 and not plausible_server_offset:
         status["state"] = "NO_TRADE_DATA_STALE"
         status["reason"] = f"Tick stale {age:.1f}s"
         return status
@@ -535,7 +535,7 @@ def time_gate(symbol_status: dict[str, Any] | None = None) -> dict[str, Any]:
     plausible_server_offset = -12 <= offset_hours <= 14 and offset_residual <= 900
     status["server_offset_seconds"] = round(offset, 3)
     status["server_offset_hours_rounded"] = offset_hours
-    if (age < -5 or age > 180) and not plausible_server_offset:
+    if (age < -5 or age > 5) and not plausible_server_offset:
         status["state"] = "NO_TRADE_SERVER_TIME_UNVALIDATED"
         status["reason"] = f"Tick time not current enough: {age:.1f}s"
         return status

@@ -12,7 +12,7 @@ from datetime import datetime, timedelta, date, time as pytime
 from pathlib import Path
 
 ROOT_PROJECT = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo"
-MARKET_DATA_ROOT = r"C:\Users\alera\Desktop\Bot\BOT_MARKET_DATA"
+MARKET_DATA_ROOT = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\BOT_MARKET_DATA"
 TICK_PATH = os.path.join(MARKET_DATA_ROOT, "tick", "EURUSD")
 CHECKPOINT_PATH = os.path.join(TICK_PATH, "checkpoints")
 PARTIAL_PATH = os.path.join(TICK_PATH, "partial")

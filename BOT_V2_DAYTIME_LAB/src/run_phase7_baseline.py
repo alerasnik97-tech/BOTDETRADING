@@ -48,7 +48,7 @@ def run_baseline():
         df_src['timestamp'] = pd.to_datetime(df_src['timestamp'], utc=True)
         df_src.set_index('timestamp', inplace=True)
         print(f"    Resampling to 3min...", flush=True)
-        df = df_src.resample('3min').agg({'open': 'first', 'high': 'max', 'low': 'min', 'close': 'last', 'volume': 'sum'}).dropna().reset_index()
+        df = df_src.resample('3min', closed='left', label='right').agg({'open': 'first', 'high': 'max', 'low': 'min', 'close': 'last', 'volume': 'sum'}).shift(1).dropna().reset_index()
         
         print(f"    Calculating fractals (N={config['fractal_n']})...", flush=True)
         df['timestamp_ny'] = pd.to_datetime(df['timestamp'], utc=True).dt.tz_convert(engine.tz_ny)

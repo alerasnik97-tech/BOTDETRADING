@@ -46,10 +46,10 @@ class Phase14Engine:
         
         if timeframe == 'm3' and not is_already_m3:
             merged.set_index('timestamp', inplace=True)
-            resampled = merged.resample('3min').agg({
+            resampled = merged.resample('3min', closed='left', label='right').agg({
                 'open_bid': 'first', 'high_bid': 'max', 'low_bid': 'min', 'close_bid': 'last',
                 'open_ask': 'first', 'high_ask': 'max', 'low_ask': 'min', 'close_ask': 'last'
-            }).dropna().reset_index()
+            }).shift(1).dropna().reset_index()
             resampled['timestamp_ny'] = resampled['timestamp'].dt.tz_convert(self.tz_ny)
             return resampled
             

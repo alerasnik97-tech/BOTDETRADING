@@ -47,7 +47,7 @@ def load_news():
 
 def gen_signals(df_m3):
     df=df_m3.copy();di=df.set_index('timestamp')
-    dh=di.resample('1h').agg({'open_bid':'first','high_bid':'max','low_bid':'min','close_bid':'last','timestamp_ny':'first'}).dropna().reset_index()
+    dh=di.resample('1h', closed='left', label='right').agg({'open_bid':'first','high_bid':'max','low_bid':'min','close_bid':'last','timestamp_ny':'first'}).shift(1).dropna().reset_index()
     di.reset_index(inplace=True)
     sw=H1FractalSweepDetector(params={}).detect_sweeps(dh)
     if sw.empty:return[]

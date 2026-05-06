@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 
 # Rutas
 BASE_DIR = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo"
-TICK_DATA_DIR = r"C:\Users\alera\Desktop\Bot\BOT_MARKET_DATA\tick\EURUSD\monthly"
+TICK_DATA_DIR = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\BOT_MARKET_DATA\tick\EURUSD\monthly"
 REPORTS_DIR = os.path.join(BASE_DIR, "BOT_V2_DAYTIME_LAB", "reports", "manipulante_tick_historical")
 PHASE50M_CSV = os.path.join(REPORTS_DIR, "PHASE50M_CORRECTED_TICK_TRADE_LEVEL.csv")
 GOLDEN_DEF_CSV = os.path.join(REPORTS_DIR, "PHASE50P_GOLDEN_SAMPLE_DEFINITION.csv")

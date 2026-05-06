@@ -15,7 +15,7 @@
 - **Break Even (BE) Trigger**: 0.4R
 
 ## Gestión de Riesgo y Horarios
-- **Ventana Operativa**: 07:00 – 16:30 NY (Hora Local Nueva York)
+- **Ventana Operativa**: 07:00 – 11:30 NY (Hora Local Nueva York)
 - **Frecuencia**: Máximo 1 trade por día
 - **Riesgo Recomendado Base**: 0.50% por operación
 

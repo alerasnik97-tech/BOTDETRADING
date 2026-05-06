@@ -9,7 +9,7 @@
   "be_r": 0.4,
   "body_filter": 0.7,
   "window_start_ny": "07:00",
-  "window_end_ny": "16:30",
+  "window_end_ny": "11:30",
   "max_trades_per_day": 1,
   "news_fortress": "FAIL_CLOSED_REQUIRED",
   "data_quality_mask": "FAIL_CLOSED_REQUIRED",
@@ -31,5 +31,13 @@
     "fundednext_max_base": 0.005,
     "ftmo_2step_max_defendible": 0.0075,
     "one_percent_allowed": false
+  },
+  "_window_optimization": {
+    "previous_value": "16:30",
+    "new_value": "11:30",
+    "applied_date": "20260506_1919",
+    "statistical_basis": "Phase64K: Welch t-test p=0.013, Mann-Whitney p=0.0002",
+    "pf_improvement": "1.686 -> 1.759 (+4.3%)",
+    "consistency": "9/12 years improved (2015-2026)"
   }
 }

@@ -8,7 +8,7 @@ import pytz
 
 # --- CONFIGURACIÓN ---
 PROJECT_ROOT = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo"
-MARKET_DATA_ROOT = r"C:\Users\alera\Desktop\Bot\BOT_MARKET_DATA"
+MARKET_DATA_ROOT = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\BOT_MARKET_DATA"
 TICK_PATH = os.path.join(MARKET_DATA_ROOT, "tick", "EURUSD")
 REPORTS_PATH = os.path.join(TICK_PATH, "quality_reports")
 REPRO_PATH = os.path.join(TICK_PATH, "repro_check")

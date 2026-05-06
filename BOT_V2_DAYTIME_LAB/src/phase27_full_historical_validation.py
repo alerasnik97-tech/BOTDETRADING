@@ -74,10 +74,10 @@ def generate_signals(df_m3):
     df = df_m3.copy()
     # Build H1 from M3
     df_idx = df.set_index('timestamp')
-    df_h1 = df_idx.resample('1h').agg({
+    df_h1 = df_idx.resample('1h', closed='left', label='right').agg({
         'open_bid':'first','high_bid':'max','low_bid':'min','close_bid':'last',
         'timestamp_ny':'first'
-    }).dropna().reset_index()
+    }).shift(1).dropna().reset_index()
     df_idx.reset_index(inplace=True)
     
     sweeps = H1FractalSweepDetector(params={}).detect_sweeps(df_h1)

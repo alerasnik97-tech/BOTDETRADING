@@ -1,0 +1,37 @@
+{
+  "snapshot_date": "2026-05-06",
+  "source": "PHASE63C_RESTORED_TRADES.csv",
+  "sha256_csv": "385ecbba5a7ec39ed7054305fb9a890231ff54fc9fa995aaee83cb8cd83277f2",
+  "period": "2015-01 to 2026-04",
+  "trades": 2610,
+  "win_rate_pct": 32.45,
+  "profit_factor_gross": 2.69,
+  "profit_factor_net": 1.759,
+  "net_r": 420.58,
+  "expectancy_r": 0.1743,
+  "max_drawdown_r": -10.06,
+  "sharpe": 2.99,
+  "sortino": 5.93,
+  "calmar": 3.7,
+  "oos_2022_2026": {
+    "n": 1013,
+    "pf": 1.571,
+    "net_r": 142.26,
+    "wr_pct": 31.7
+  },
+  "spread_real_mean_pips": 0.321,
+  "spread_backtest_mean_pips": 0.352,
+  "phantom_fills": 0,
+  "timing_violations": 0,
+  "audit_status": "CERTIFIED",
+  "window_end_ny": "11:30",
+  "trades_active_window": 2340,
+  "window_optimization": {
+    "applied": "20260506",
+    "previous_pf": 1.686,
+    "new_pf": 1.759,
+    "delta_pf": 0.073,
+    "p_value_ttest": 0.013,
+    "p_value_mannwhitney": 0.0002
+  }
+}

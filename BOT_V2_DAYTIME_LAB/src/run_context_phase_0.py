@@ -6,9 +6,9 @@ from research_v2_engine import ResearchV2Engine, calculate_metrics
 from pathlib import Path
 
 def resample_ohlc(df, tf_str):
-    resampled = df.resample(tf_str).agg({
+    resampled = df.resample(tf_str, closed='left', label='right').agg({
         'open': 'first', 'high': 'max', 'low': 'min', 'close': 'last'
-    }).dropna()
+    }).shift(1).dropna()
     return resampled
 
 def run_phase_0_baseline():

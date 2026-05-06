@@ -10,7 +10,7 @@ import pytz
 
 # Configuración de Rutas
 BASE_DIR = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo"
-TICK_DATA_DIR = r"C:\Users\alera\Desktop\Bot\BOT_MARKET_DATA\tick\EURUSD\monthly"
+TICK_DATA_DIR = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\BOT_MARKET_DATA\tick\EURUSD\monthly"
 RAW_TRADES_PATH = os.path.join(BASE_DIR, "BOT_V2_DAYTIME_LAB", "outputs", "phase38_manipulante_deep_explainer", "csv", "phase38_raw_trades_enriched.csv")
 REPORTS_DIR = os.path.join(BASE_DIR, "BOT_V2_DAYTIME_LAB", "reports", "manipulante_tick_historical")
 DEBUG_DIR = os.path.join(REPORTS_DIR, "debug", "phase50k")

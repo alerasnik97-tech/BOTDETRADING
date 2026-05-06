@@ -8,7 +8,7 @@ import hashlib
 
 # --- CONFIGURACIÓN ---
 BASE_DIR = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo"
-TICK_DIR = r"C:\Users\alera\Desktop\Bot\BOT_MARKET_DATA\tick\EURUSD\monthly"
+TICK_DIR = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\BOT_MARKET_DATA\tick\EURUSD\monthly"
 REPORTS_DIR = os.path.join(BASE_DIR, "BOT_V2_DAYTIME_LAB", "reports", "manipulante_tick_historical")
 RAW_TRADES_PATH = os.path.join(REPORTS_DIR, "PHASE50P_FULL_BATCH_CERTIFIED_LAT_1S.csv")
 DEBUG_DIR = os.path.join(REPORTS_DIR, "debug", "phase50q")

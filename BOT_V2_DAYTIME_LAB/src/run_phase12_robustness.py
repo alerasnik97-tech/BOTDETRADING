@@ -31,7 +31,7 @@ def run_robustness():
         df_src = pd.read_csv(manifest[p]['m5_bid'])
         df_src['timestamp'] = pd.to_datetime(df_src['timestamp'], utc=True)
         df_src.set_index('timestamp', inplace=True)
-        df_m3 = df_src.resample('3min').agg({'open': 'first', 'high': 'max', 'low': 'min', 'close': 'last', 'volume': 'sum'}).dropna().reset_index()
+        df_m3 = df_src.resample('3min', closed='left', label='right').agg({'open': 'first', 'high': 'max', 'low': 'min', 'close': 'last', 'volume': 'sum'}).shift(1).dropna().reset_index()
         df_m3['timestamp_ny'] = df_m3['timestamp'].dt.tz_convert(engine.tz_ny)
         ltf_list.append(df_m3)
     df_ltf = pd.concat(ltf_list).sort_values('timestamp').reset_index(drop=True)

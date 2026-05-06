@@ -17,7 +17,7 @@ for m, p in paths.items():
         row['time_exit_count'] = len(df[df[col] == 'TIME_EXIT'])
         row['total_trades'] = len(df)
         parquet_file = f'EURUSD_ticks_{m.replace("-", "_")}.parquet'
-        parquet_path = os.path.join(r'C:\Users\alera\Desktop\Bot\BOT_MARKET_DATA\tick\EURUSD\monthly', parquet_file)
+        parquet_path = os.path.join(r'C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\BOT_MARKET_DATA\tick\EURUSD\monthly', parquet_file)
         row['parquet_exists'] = os.path.exists(parquet_path)
     results.append(row)
 

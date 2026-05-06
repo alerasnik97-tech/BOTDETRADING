@@ -26,13 +26,13 @@ class ResearchV5Engine:
     def get_levels(self, df_h1):
         df = df_h1.copy()
         df['date'] = df.index.date
-        daily = df.resample('D').agg({'high': 'max', 'low': 'min'})
+        daily = df.resample('D', closed='left', label='right').agg({'high': 'max', 'low': 'min'}).shift(1)
         pdh, pdl = daily['high'].shift(1), daily['low'].shift(1)
-        weekly = df.resample('W').agg({'high': 'max', 'low': 'min'})
+        weekly = df.resample('W', closed='left', label='right').agg({'high': 'max', 'low': 'min'}).shift(1)
         pwh, pwl = weekly['high'].shift(1), weekly['low'].shift(1)
-        monthly = df.resample('ME').agg({'high': 'max', 'low': 'min'})
+        monthly = df.resample('ME', closed='left', label='right').agg({'high': 'max', 'low': 'min'}).shift(1)
         pmh, pml = monthly['high'].shift(1), monthly['low'].shift(1)
-        asia = df.between_time('18:00', '00:00').resample('D').agg({'high': 'max', 'low': 'min'}).shift(1)
+        asia = df.between_time('18:00', '00:00').resample('D', closed='left', label='right').agg({'high': 'max', 'low': 'min'}).shift(1).shift(1)
         levels = pd.DataFrame(index=daily.index)
         levels['pdh'], levels['pdl'] = pdh, pdl
         levels['pwh'], levels['pwl'] = pwh.reindex(levels.index, method='ffill'), pwl.reindex(levels.index, method='ffill')

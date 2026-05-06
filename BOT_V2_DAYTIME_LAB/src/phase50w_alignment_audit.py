@@ -53,7 +53,7 @@ for month, p in paths.items():
     df_te = df_trades[df_trades[col_outcome] == 'TIME_EXIT'].copy()
     
     parquet_file = f'EURUSD_ticks_{month.replace("-", "_")}.parquet'
-    parquet_path = os.path.join(r'C:\Users\alera\Desktop\Bot\BOT_MARKET_DATA\tick\EURUSD\monthly', parquet_file)
+    parquet_path = os.path.join(r'C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\BOT_MARKET_DATA\tick\EURUSD\monthly', parquet_file)
     
     if not os.path.exists(parquet_path):
         continue

@@ -37,7 +37,7 @@ def process_month(batch_id, m_str):
     
     # 1. Extraction/Finalize (Parquet Rule)
     year, month = m_str.split('-')
-    parquet_path = rf"C:\Users\alera\Desktop\Bot\BOT_MARKET_DATA\tick\EURUSD\monthly\EURUSD_ticks_{year}_{month}.parquet"
+    parquet_path = rf"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\BOT_MARKET_DATA\tick\EURUSD\monthly\EURUSD_ticks_{year}_{month}.parquet"
     
     if not os.path.exists(parquet_path):
         print(f"[EXTRACTING] {m_str}...")

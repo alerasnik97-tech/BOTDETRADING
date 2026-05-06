@@ -6,7 +6,7 @@ from datetime import datetime, time as pytime, timedelta
 import pytz
 
 # Paths
-TICK_PARQUET = r"C:\Users\alera\Desktop\Bot\BOT_MARKET_DATA\tick\EURUSD\monthly\EURUSD_ticks_2015_11.parquet"
+TICK_PARQUET = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\BOT_MARKET_DATA\tick\EURUSD\monthly\EURUSD_ticks_2015_11.parquet"
 TICK_CSV_DIR = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\BOT_V2_DAYTIME_LAB\data\ticks"
 TICK_CSV_PATH = os.path.join(TICK_CSV_DIR, "tick_export_2015_11_UTC.csv")
 RAW_TRADES_PATH = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\BOT_V2_DAYTIME_LAB\outputs\phase38_manipulante_deep_explainer\csv\phase38_raw_trades_enriched.csv"

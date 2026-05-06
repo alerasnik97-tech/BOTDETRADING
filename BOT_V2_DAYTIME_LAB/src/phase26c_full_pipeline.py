@@ -88,7 +88,7 @@ for y in YEARS:
     
     df = pd.read_csv(p); df['timestamp'] = pd.to_datetime(df['timestamp'])
     df = df.set_index('timestamp')
-    r = df.resample('3min', closed='left', label='left')
+    r = df.resample('3min', closed='left', label='right')
     m3 = pd.DataFrame()
     m3['bid_open'] = r['bid_open'].first()
     m3['bid_high'] = r['bid_high'].max()
@@ -98,7 +98,7 @@ for y in YEARS:
     m3['ask_high'] = r['ask_high'].max()
     m3['ask_low'] = r['ask_low'].min()
     m3['ask_close'] = r['ask_close'].last()
-    m3 = m3.dropna().reset_index()
+    m3 = m3.shift(1).dropna().reset_index()
     m3.to_csv(out_path, index=False)
     
     m3_summary[y] = {"rows": len(m3), "file": out_path, "sha256": sha256(out_path),

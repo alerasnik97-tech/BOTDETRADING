@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 
 # Rutas
 BASE_DIR = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo"
-TICK_DATA_DIR = r"C:\Users\alera\Desktop\Bot\BOT_MARKET_DATA\tick\EURUSD\monthly"
+TICK_DATA_DIR = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\BOT_MARKET_DATA\tick\EURUSD\monthly"
 PHASE50M_CSV = os.path.join(BASE_DIR, "BOT_V2_DAYTIME_LAB", "reports", "manipulante_tick_historical", "PHASE50M_CORRECTED_TICK_TRADE_LEVEL.csv")
 REPORTS_DIR = os.path.join(BASE_DIR, "BOT_V2_DAYTIME_LAB", "reports", "manipulante_tick_historical")
 OFFICIAL_MONTHS = ["2024-05", "2024-06", "2024-07", "2024-08", "2024-10", "2024-11", "2025-01", "2025-03", "2025-07"]

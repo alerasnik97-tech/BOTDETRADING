@@ -7,7 +7,7 @@ import pytz
 # Paths
 ROOT_DIR = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo"
 REPORTS_DIR = os.path.join(ROOT_DIR, "BOT_V2_DAYTIME_LAB", "reports", "manipulante_tick_historical")
-TICK_DIR = r"C:\Users\alera\Desktop\Bot\BOT_MARKET_DATA\tick\EURUSD\monthly"
+TICK_DIR = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\BOT_MARKET_DATA\tick\EURUSD\monthly"
 RAW_TRADES_PATH = os.path.join(ROOT_DIR, "BOT_V2_DAYTIME_LAB", "outputs", "phase38_manipulante_deep_explainer", "csv", "phase38_raw_trades_enriched.csv")
 
 TARGET_MONTHS = ["2015-01", "2015-10", "2015-11", "2017-05", "2017-08", "2020-04", "2024-10", "2025-02", "2025-11"]

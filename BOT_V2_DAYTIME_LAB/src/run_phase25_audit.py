@@ -40,7 +40,7 @@ def run_phase25_audit():
 
     # 2. Prep Signals
     df_m3.set_index('timestamp', inplace=True)
-    df_h1 = df_m3.resample('1h').agg({'open_bid': 'first', 'high_bid': 'max', 'low_bid': 'min', 'close_bid': 'last', 'timestamp_ny': 'first'}).dropna().reset_index()
+    df_h1 = df_m3.resample('1h', closed='left', label='right').agg({'open_bid': 'first', 'high_bid': 'max', 'low_bid': 'min', 'close_bid': 'last', 'timestamp_ny': 'first'}).shift(1).dropna().reset_index()
     df_m3.reset_index(inplace=True)
     
     sweeps = H1FractalSweepDetector(params={}).detect_sweeps(df_h1)

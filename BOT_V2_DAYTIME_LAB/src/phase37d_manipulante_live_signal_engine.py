@@ -74,7 +74,7 @@ def generate_phase25_signals_from_m3(df_m3: pd.DataFrame) -> pd.DataFrame:
 
     df_idx = df.set_index("timestamp")
     df_h1 = (
-        df_idx.resample("1h")
+        df_idx.resample("1h", closed='left', label='right')
         .agg(
             {
                 "open_bid": "first",

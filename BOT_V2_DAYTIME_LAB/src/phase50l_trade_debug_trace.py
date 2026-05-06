@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 import pytz
 
 # Rutas
-TICK_DATA_DIR = r"C:\Users\alera\Desktop\Bot\BOT_MARKET_DATA\tick\EURUSD\monthly"
+TICK_DATA_DIR = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\BOT_MARKET_DATA\tick\EURUSD\monthly"
 
 def run_debug_trace(trade_info):
     print(f"\n--- DEBUG TRACE: {trade_info['entry_time']} ---")

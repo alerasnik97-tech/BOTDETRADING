@@ -112,7 +112,7 @@ def run_screening():
         df_src = pd.read_csv(manifest[p]['m5_bid'])
         df_src['timestamp'] = pd.to_datetime(df_src['timestamp'], utc=True)
         df_src.set_index('timestamp', inplace=True)
-        df_m3 = df_src.resample('3min').agg({'open': 'first', 'high': 'max', 'low': 'min', 'close': 'last'}).dropna().reset_index()
+        df_m3 = df_src.resample('3min', closed='left', label='right').agg({'open': 'first', 'high': 'max', 'low': 'min', 'close': 'last'}).shift(1).dropna().reset_index()
         df_h1 = pd.read_csv(manifest[p]['h1_bid'])
         df_h1['timestamp'] = pd.to_datetime(df_h1['timestamp'], utc=True)
         news_df = pd.read_csv(manifest[p]['news'])

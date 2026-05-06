@@ -40,7 +40,7 @@ def run_reproduction_audit():
         df_src = pd.read_csv(manifest[p]['m5_bid'])
         df_src['timestamp'] = pd.to_datetime(df_src['timestamp'], utc=True)
         df_src.set_index('timestamp', inplace=True)
-        df_m3 = df_src.resample('3min').agg({'open': 'first', 'high': 'max', 'low': 'min', 'close': 'last', 'volume': 'sum'}).dropna().reset_index()
+        df_m3 = df_src.resample('3min', closed='left', label='right').agg({'open': 'first', 'high': 'max', 'low': 'min', 'close': 'last', 'volume': 'sum'}).shift(1).dropna().reset_index()
         df_m3['timestamp_ny'] = pd.to_datetime(df_m3['timestamp'], utc=True).dt.tz_convert(engine.tz_ny)
         df_m3['is_high_fractal'], df_m3['is_low_fractal'] = engine.get_fractals(df_m3, n=8)
         

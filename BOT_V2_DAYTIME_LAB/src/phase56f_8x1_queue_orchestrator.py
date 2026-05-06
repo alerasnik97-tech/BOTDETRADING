@@ -12,7 +12,7 @@ UTC = pytz.UTC
 
 # Paths
 ROOT = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\BOT_V2_DAYTIME_LAB"
-TICK_ROOT = r"C:\Users\alera\Desktop\Bot\BOT_MARKET_DATA\tick\EURUSD\monthly"
+TICK_ROOT = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\BOT_MARKET_DATA\tick\EURUSD\monthly"
 RAW_TRADES_PATH = os.path.join(ROOT, "outputs", "phase38_manipulante_deep_explainer", "csv", "phase38_raw_trades_enriched.csv")
 CHECKPOINT_PATH = os.path.join(ROOT, "reports", "manipulante_tick_historical", "phase56_batches", "PHASE56_FULL_HISTORICAL_CHECKPOINT.json")
 OUTPUT_ROOT = os.path.join(ROOT, "reports", "manipulante_tick_historical", "phase56_batches")

@@ -13,7 +13,7 @@ def main():
     df = df.set_index('timestamp')
 
     # Aggregation logic
-    resampler = df.resample('3min', closed='left', label='left')
+    resampler = df.resample('3min', closed='left', label='right')
     
     m3 = pd.DataFrame()
     m3['bid_open'] = resampler['bid_open'].first()
@@ -26,7 +26,7 @@ def main():
     m3['ask_low'] = resampler['ask_low'].min()
     m3['ask_close'] = resampler['ask_close'].last()
     
-    m3 = m3.dropna()
+    m3 = m3.shift(1).dropna()
     m3 = m3.reset_index()
 
     out_path = os.path.join(out_dir, "EURUSD_M3_2015_01.csv")

@@ -9,7 +9,7 @@ import time
 
 # CONFIGURATION
 BASE_DIR = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo"
-DATA_DIR = r"C:\Users\alera\Desktop\Bot\BOT_MARKET_DATA\tick\EURUSD\monthly"
+DATA_DIR = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\BOT_MARKET_DATA\tick\EURUSD\monthly"
 OUTPUT_ROOT = os.path.join(BASE_DIR, r"BOT_V2_DAYTIME_LAB\reports\manipulante_tick_historical\phase56o_corrected_full")
 RAW_TRADES_PATH = os.path.join(BASE_DIR, r"BOT_V2_DAYTIME_LAB\outputs\phase38_manipulante_deep_explainer\csv\phase38_raw_trades_enriched.csv")
 CHECKPOINT_PATH = os.path.join(OUTPUT_ROOT, "PHASE56O_CORRECTED_FULL_CHECKPOINT.json")
@@ -20,6 +20,8 @@ LIVE_STATUS_PATH = os.path.join(OUTPUT_ROOT, "PHASE56O_LIVE_STATUS.txt")
 TP_R = 1.4
 BE_TRIGGER_R = 0.4
 COMMISSION_PIPS = 0.5 # FTMO EURUSD standard
+SLIPPAGE_PIPS = 0.40 # From Phase 61 friction model
+SPREAD_PIPS = 0.30 # Average spread estimate
 ENGINE_VERSION = "PHASE56O_CORRECTED_TIMEZONE_SL_BUFFER_ENGINE"
 
 os.makedirs(OUTPUT_ROOT, exist_ok=True)
@@ -193,7 +195,19 @@ def run_replay_month(year, month, df_raw_all):
         # R Calculation
         gross_r = ((exit_price - entry_price) if direction == 'LONG' else (entry_price - exit_price)) / risk_val
         comm_r = COMMISSION_PIPS / risk_pips
-        net_r = gross_r - comm_r
+        slip_r = SLIPPAGE_PIPS / risk_pips
+        
+        # Calculate real spread at entry if available, otherwise use default SPREAD_PIPS
+        # Since we load the buffer, we can check the spread at w_times[0] (which is close to entry)
+        # But for robustness and per instructions, we can use the default 0.30 pips if real not easily accessible
+        spread_pips_actual = SPREAD_PIPS
+        if len(w_asks) > 0 and len(w_bids) > 0:
+            actual = (w_asks[0] - w_bids[0]) * 10000
+            if actual > 0.05 and actual < 5.0:  # Sanity check
+                spread_pips_actual = actual
+        
+        spread_r = spread_pips_actual / risk_pips
+        net_r = gross_r - (comm_r + slip_r + spread_r)
         
         results.append({
             "trade_id": idx,
@@ -201,9 +215,12 @@ def run_replay_month(year, month, df_raw_all):
             "exit_time": pd.Timestamp(exit_time).isoformat(),
             "direction": direction,
             "verdict": final_verdict,
-            "gross_r": round(float(gross_r), 4),
-            "net_r": round(float(net_r), 4),
-            "comm_r": round(float(comm_r), 4)
+            "pnl_gross_r": round(float(gross_r), 4),
+            "pnl_net_r": round(float(net_r), 4),
+            "commission_r": round(float(comm_r), 4),
+            "slippage_r": round(float(slip_r), 4),
+            "spread_r": round(float(spread_r), 4),
+            "net_r": round(float(net_r), 4) # Keeping this for legacy compatibility in the script
         })
 
     # Metrics calculation

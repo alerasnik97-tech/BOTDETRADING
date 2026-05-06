@@ -172,7 +172,7 @@ def resample_m1_to_m3(df: pd.DataFrame) -> pd.DataFrame:
     agg = {"open": "first", "high": "max", "low": "min", "close": "last"}
     if "volume" in d.columns:
         agg["volume"] = "sum"
-    out = d.resample("3min", label="left", closed="left").agg(agg).dropna(subset=["open", "high", "low", "close"])
+    out = d.resample("3min", label='right', closed="left").agg(agg).shift(1).dropna(subset=["open", "high", "low", "close"])
     out = out.reset_index()
     return out
 

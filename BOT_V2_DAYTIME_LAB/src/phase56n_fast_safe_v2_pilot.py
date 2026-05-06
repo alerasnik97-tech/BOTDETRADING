@@ -8,7 +8,7 @@ from zoneinfo import ZoneInfo
 
 # CONFIGURATION
 BASE_DIR = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo"
-DATA_DIR = r"C:\Users\alera\Desktop\Bot\BOT_MARKET_DATA\tick\EURUSD\monthly"
+DATA_DIR = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\BOT_MARKET_DATA\tick\EURUSD\monthly"
 REPORT_DIR = os.path.join(BASE_DIR, r"BOT_V2_DAYTIME_LAB\reports\manipulante_tick_historical\phase56_batches")
 BATCH_DIR = os.path.join(REPORT_DIR, "batch_202001_202002")
 RAW_TRADES_PATH = os.path.join(BASE_DIR, r"BOT_V2_DAYTIME_LAB\outputs\phase38_manipulante_deep_explainer\csv\phase38_raw_trades_enriched.csv")

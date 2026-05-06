@@ -9,7 +9,7 @@ from datetime import datetime, timedelta, date
 from pathlib import Path
 
 # --- CONFIGURACIÓN DE RUTAS ---
-MARKET_DATA_ROOT = r"C:\Users\alera\Desktop\Bot\BOT_MARKET_DATA"
+MARKET_DATA_ROOT = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\BOT_MARKET_DATA"
 TICK_PATH = os.path.join(MARKET_DATA_ROOT, "tick", "EURUSD")
 CACHE_PATH = os.path.join(TICK_PATH, "cache")
 MANIFESTS_PATH = os.path.join(TICK_PATH, "manifests")
@@ -64,7 +64,7 @@ class TickPerformanceEngine:
         df = df.copy()
         df['timestamp_utc'] = _coerce_timestamp_utc(df['timestamp_utc'])
         df = df.set_index('timestamp_utc')
-        resampler = df.resample(pd_tf)
+        resampler = df.resample(pd_tf, closed='left', label='right')
         ohlc = pd.DataFrame()
         ohlc['bid_open'] = resampler['bid'].first()
         ohlc['bid_high'] = resampler['bid'].max()

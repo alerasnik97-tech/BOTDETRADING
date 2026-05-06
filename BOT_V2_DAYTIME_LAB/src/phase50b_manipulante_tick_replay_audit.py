@@ -8,7 +8,7 @@ import pytz
 
 # --- CONFIGURACIÓN DE RUTAS ---
 PROJECT_ROOT = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo"
-MARKET_DATA_ROOT = r"C:\Users\alera\Desktop\Bot\BOT_MARKET_DATA"
+MARKET_DATA_ROOT = r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\BOT_MARKET_DATA"
 TICK_PATH = os.path.join(MARKET_DATA_ROOT, "tick", "EURUSD")
 LOGS_PATH = os.path.join(PROJECT_ROOT, "MANIPULANTE", "10_LOGS_PAPER", "ftmo_trial_bot")
 REPORTS_PATH = os.path.join(PROJECT_ROOT, "BOT_V2_DAYTIME_LAB", "reports", "manipulante_tick_audit")

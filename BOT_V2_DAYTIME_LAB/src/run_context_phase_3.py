@@ -5,7 +5,7 @@ from research_v2_engine import ResearchV2Engine, calculate_metrics
 from pathlib import Path
 
 def resample_ohlc(df, tf_str):
-    return df.resample(tf_str).agg({'open': 'first', 'high': 'max', 'low': 'min', 'close': 'last'}).dropna()
+    return df.resample(tf_str, closed='left', label='right').agg({'open': 'first', 'high': 'max', 'low': 'min', 'close': 'last'}).shift(1).dropna()
 
 def run_phase_3_combinations():
     manifest_path = r"C:\Users\alera\Desktop\Bot\Bot V1\data_manifest\certified_data_paths.json"

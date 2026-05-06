@@ -18,7 +18,7 @@ for month in target_months:
     trade_count = len(m_trades)
     
     parquet_file = f'EURUSD_ticks_{month.replace("-", "_")}.parquet'
-    parquet_path = os.path.join(r'C:\Users\alera\Desktop\Bot\BOT_MARKET_DATA\tick\EURUSD\monthly', parquet_file)
+    parquet_path = os.path.join(r'C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\BOT_MARKET_DATA\tick\EURUSD\monthly', parquet_file)
     parquet_exists = os.path.exists(parquet_path)
     
     # Raw metrics for TAREA 3
