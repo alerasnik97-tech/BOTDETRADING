@@ -97,3 +97,17 @@ MANIPULANTE/16_OBSERVABILITY/alerts/secrets*
 MANIPULANTE/16_OBSERVABILITY/alerts/*token*
 MANIPULANTE/16_OBSERVABILITY/alerts/*chat_id*
 MANIPULANTE/16_OBSERVABILITY/alerts/alert_state.json
+
+# === Agregado por Phase64K (datos grandes) ===
+BOT_MARKET_DATA/
+data_precision/
+data_precision_raw/
+ARCHIVO_HISTORICO/
+*.bundle
+GIT_BACKUP_*.bundle
+BACKUP_PRE_*.zip
+MANIPULANTE_BACKUP_*.zip
+000_PARA_CHATGPT.zip
+*.parquet
+EURUSD_M1_*.csv
+reorganize_manipulante*.py
