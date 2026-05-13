@@ -1,0 +1,9 @@
+risk_id,category,description,impact,likelihood,mitigation,owner
+R_001,COSMETIC_OVERFITTING,"Adding sweep quality filters on top of losing base may create statistical artifact",CRITICAL,MEDIUM,"Pre-commit thresholds. Kill if TRAIN PF<1.0. Max 150 configs. Stratified sampling.",QUANT_CORE
+R_002,MOTOR_INHERITANCE,"V7 engine inherited from M3. Hidden bugs propagate silently.",HIGH,LOW,"Run full suite before and after. Verify EOM=0 in metrics. Independent verify mandatory.",ENGINE_OWNER
+R_003,EMOTIONAL_BIAS,"After 3 RED iterations pressure to find positive results leads to relaxed criteria.",CRITICAL,MEDIUM,"Immutable pre-commitment. No post-hoc parameter changes. No label changes after seeing data.",GOVERNANCE
+R_004,LOOKAHEAD_LEAKAGE,"Sweep quality features computed using future price information.",CRITICAL,LOW,"Sweep depth uses only closed bars at T. Displacement uses only bars after sweep. Causal tests mandatory.",QUANT_CORE
+R_005,DATA_SNOOPING,"Testing multiple level types and thresholds inflates false positive rate.",HIGH,MEDIUM,"Bonferroni-aware interpretation. Require consistency across TRAIN and VAL simultaneously.",RISK_OFFICER
+R_006,LOW_SAMPLE,"Quality gates may reduce N below statistical significance.",HIGH,MEDIUM,"Pre-committed minimum N_val>=40. If not met: INCONCLUSIVE not GREEN.",COMPLIANCE
+R_007,DISPLACEMENT_MINING,"Displacement thresholds tuned to match winning trades post-hoc.",CRITICAL,MEDIUM,"3 discrete pre-committed thresholds only. No continuous optimization. No adding thresholds after seeing results.",QUANT_CORE
+R_008,NEWS_CALENDAR_GAP,"Missing calendar data for recent months creates silent signal leakage.",CRITICAL,LOW,"Fail-close enforcement. Gap>5 business days = abort.",COMPLIANCE

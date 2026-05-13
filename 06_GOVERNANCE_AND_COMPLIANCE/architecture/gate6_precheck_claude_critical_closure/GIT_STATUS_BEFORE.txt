@@ -1,0 +1,17 @@
+branch: main
+status:
+M 000_PARA_CHATGPT.zip
+?? 03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/gate6_precheck_phase_a.py
+?? 04_INFRASTRUCTURE_ENGINEERING/packaging_tools/rebuild_zip_now.py
+?? 04_INFRASTRUCTURE_ENGINEERING/packaging_tools/upload_handoff.py
+?? 06_GOVERNANCE_AND_COMPLIANCE/architecture/gate8_multi_agent_control_plane/GATE8_FINAL_REPORT.md
+?? 06_GOVERNANCE_AND_COMPLIANCE/architecture/gate8_multi_agent_control_plane/GATE8_FINAL_ZIP_VERIFICATION.txt
+?? 06_GOVERNANCE_AND_COMPLIANCE/artifact_delivery/single_zip_delivery_lock/UPLOAD_HANDOFF_ANTI_CACHE_REPORT.md
+?? 06_GOVERNANCE_AND_COMPLIANCE/release_baselines/GIT_TAG_STATUS.txt
+?? 06_GOVERNANCE_AND_COMPLIANCE/release_baselines/RELEASE_BASELINE_STATUS.md
+log:
+c90d24d [v37/gate8] multi-agent control plane secrets audit restore baseline
+562d3a0 [v37/artifact] single official zip anti-cache delivery lock
+9662200 [v37/architecture-fix] tests 207 pass y zip liviano
+6ec6271 [v37/architecture] migracion institucional quant lab multiagente
+6a7dd9e [v37/workspace-cleanup-fix] agregar inventario y github audit al zip

@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "family": "MANIPULANTE_4",
+    "description": "Sweep Quality + Displacement Gate Micro-Probe",
+    "theoretical_combinations": 2592,
+    "sampled_cap": 108,
+    "random_seed": 20260513,
+    "instrument": "EURUSD",
+    "cost_model": "FTMO_USD_5_PER_LOT_ROUND_TURN",
+    "execution_mode": "causal_next_bar_fill"
+  },
+  "dimensions": {
+    "level_type": ["PDH_PDL", "ASIA_HL", "PWH_PWL"],
+    "sweep_depth_atr_min": [0.05, 0.10, 0.20],
+    "reclaim_max_minutes": [5, 15, 30],
+    "displacement_body_atr_min": [0.75, 1.00, 1.25],
+    "displacement_closes_beyond_structure": [true],
+    "entry_type": ["stop_confirmation", "fvg_50pct"],
+    "sl_model": ["sweep_extreme_1.5p", "structure_extreme_1.5p"],
+    "tp_r": [2.0, 2.5],
+    "be_trigger": ["none", "1.25R"],
+    "session_ny": ["07:00-11:00", "08:00-11:00"]
+  },
+  "sampling_strategy": "stratified_latin_hypercube",
+  "note": "Full grid = 3x3x3x3x1x2x2x2x2x2 = 2592. Sampled to 108 using seed 20260513 via stratified selection ensuring every level_type and sweep_depth tier is represented proportionally."
+}

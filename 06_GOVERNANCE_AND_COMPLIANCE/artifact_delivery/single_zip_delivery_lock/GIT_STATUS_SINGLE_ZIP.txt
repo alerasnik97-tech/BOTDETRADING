@@ -1,0 +1,6 @@
+
+562d3a0 [v37/artifact] single official zip anti-cache delivery lock
+9662200 [v37/architecture-fix] tests 207 pass y zip liviano
+6ec6271 [v37/architecture] migracion institucional quant lab multiagente
+6a7dd9e [v37/workspace-cleanup-fix] agregar inventario y github audit al zip
+7fa961b [v37/workspace-cleanup] orden profundo del proyecto y hygiene github

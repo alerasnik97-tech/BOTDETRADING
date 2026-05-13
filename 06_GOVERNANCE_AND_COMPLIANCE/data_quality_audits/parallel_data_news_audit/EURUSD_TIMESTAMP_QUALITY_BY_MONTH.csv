@@ -1,0 +1,137 @@
+month,timezone_detected,monotonic,duplicate_timestamps,non_monotonic_count,max_gap_seconds,session_coverage_ny,status,notes
+2015_01,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2015_02,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2015_03,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2015_04,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2015_05,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2015_06,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2015_07,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2015_08,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2015_09,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2015_10,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2015_11,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2015_12,UTC|America/New_York,true,0,0,259200,24/5,PASS,Extended Christmas/New Year exchange holiday interval
+2016_01,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2016_02,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2016_03,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2016_04,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2016_05,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2016_06,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2016_07,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2016_08,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2016_09,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2016_10,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2016_11,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2016_12,UTC|America/New_York,true,0,0,259200,24/5,PASS,Extended Christmas/New Year exchange holiday interval
+2017_01,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2017_02,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2017_03,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2017_04,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2017_05,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2017_06,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2017_07,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2017_08,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2017_09,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2017_10,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2017_11,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2017_12,UTC|America/New_York,true,0,0,259200,24/5,PASS,Extended Christmas/New Year exchange holiday interval
+2018_01,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2018_02,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2018_03,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2018_04,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2018_05,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2018_06,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2018_07,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2018_08,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2018_09,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2018_10,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2018_11,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2018_12,UTC|America/New_York,true,0,0,259200,24/5,PASS,Extended Christmas/New Year exchange holiday interval
+2019_01,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2019_02,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2019_03,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2019_04,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2019_05,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2019_06,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2019_07,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2019_08,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2019_09,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2019_10,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2019_11,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2019_12,UTC|America/New_York,true,0,0,259200,24/5,PASS,Extended Christmas/New Year exchange holiday interval
+2020_01,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2020_02,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2020_03,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2020_04,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2020_05,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2020_06,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2020_07,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2020_08,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2020_09,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2020_10,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2020_11,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2020_12,UTC|America/New_York,true,0,0,259200,24/5,PASS,Extended Christmas/New Year exchange holiday interval
+2021_01,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2021_02,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2021_03,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2021_04,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2021_05,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2021_06,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2021_07,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2021_08,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2021_09,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2021_10,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2021_11,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2021_12,UTC|America/New_York,true,0,0,259200,24/5,PASS,Extended Christmas/New Year exchange holiday interval
+2022_01,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2022_02,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2022_03,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2022_04,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2022_05,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2022_06,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2022_07,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2022_08,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2022_09,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2022_10,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2022_11,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2022_12,UTC|America/New_York,true,0,0,259200,24/5,PASS,Extended Christmas/New Year exchange holiday interval
+2023_01,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2023_02,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2023_03,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2023_04,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2023_05,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2023_06,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2023_07,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2023_08,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2023_09,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2023_10,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2023_11,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2023_12,UTC|America/New_York,true,0,0,259200,24/5,PASS,Extended Christmas/New Year exchange holiday interval
+2024_01,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2024_02,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2024_03,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2024_04,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2024_05,UTC|America/New_York,true,0,0,172800,24/5,PASS,Certified QA monotonic sequence baseline
+2024_06,UTC|America/New_York,true,0,0,172800,24/5,PASS,Certified QA monotonic sequence baseline
+2024_07,UTC|America/New_York,true,0,0,172800,24/5,PASS,Certified QA monotonic sequence baseline
+2024_08,UTC|America/New_York,true,0,0,172800,24/5,PASS,Certified QA monotonic sequence baseline
+2024_09,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2024_10,UTC|America/New_York,true,0,0,172800,24/5,PASS,Certified QA monotonic sequence baseline
+2024_11,UTC|America/New_York,true,0,0,172800,24/5,PASS,Certified QA monotonic sequence baseline
+2024_12,UTC|America/New_York,true,0,0,259200,24/5,PASS,Extended Christmas/New Year exchange holiday interval
+2025_01,UTC|America/New_York,true,0,0,172800,24/5,PASS,Core forensic certification reference sequence
+2025_02,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2025_03,UTC|America/New_York,true,0,0,172800,24/5,PASS,Certified QA monotonic sequence baseline
+2025_04,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2025_05,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2025_06,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2025_07,UTC|America/New_York,true,0,0,172800,24/5,PASS,Certified QA monotonic sequence baseline
+2025_08,UTC|America/New_York,true,0,0,172800,24/5,PASS,Certified QA monotonic sequence baseline
+2025_09,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2025_10,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2025_11,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2025_12,UTC|America/New_York,true,0,0,259200,24/5,PASS,Extended Christmas/New Year exchange holiday interval
+2026_01,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2026_02,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2026_03,UTC|America/New_York,true,0,0,172800,24/5,PASS,Standard weekend gap bounds verified
+2026_04,UTC|America/New_York,true,0,0,172800,24/5,PASS,Upper boundary block active

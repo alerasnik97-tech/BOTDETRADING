@@ -1,0 +1,13 @@
+On branch agent/research-manipulante4-sweep-quality
+nothing to commit, working tree clean
+
+adddbda [v38/manipulante3-red] sellar decision RED final y auditoria externa
+7b7dc7c [v38/manipulante3] resolver eom blocker y confirmar decision max evidence
+1d3835c [v38/artifacts] regenerar zip oficial aséptico para evaluacion manipulante3
+b3e31f8 [v38/manipulante3] htf ltf liquidity sweep pilot research
+f3a113d [v38/control] sellar reconciliacion multiagente
+8d87e52 [v37/gate6-finalization] empaquetado final aséptico con remocion de head(500)
+
+Branch created from: agent/research-manipulante3-htf-ltf @ adddbda
+Timestamp: 2026-05-13T14:01
+Working tree status: CLEAN

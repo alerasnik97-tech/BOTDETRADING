@@ -1,0 +1,8 @@
+total_files: 557
+size_mb: 0.87
+sha256: 2185d111f5b9168ac9ebfef9fbc4550265aa39427b7f810b7d47a98668a2ccca
+testzip: None
+missing: []
+no_venv: True
+no_git: True
+no_cache: True

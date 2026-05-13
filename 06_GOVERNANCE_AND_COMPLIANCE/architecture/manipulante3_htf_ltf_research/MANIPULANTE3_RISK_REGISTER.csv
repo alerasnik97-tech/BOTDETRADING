@@ -1,0 +1,6 @@
+risk_id,category,description,impact,likelihood,mitigation,owner
+R_001,LOOKAHEAD_BIAS,T+0 intra-bar signal extraction or non-causal structural shift validation,CRITICAL,LOW,"Enforce strict causal bar checking and T+1 execution logic in lower timeframe engine.",QUANT_CORE
+R_002,COST_UNDERESTIMATION,Failure to dynamically convert fixed FTMO lot-based commissions to correct R-multiples,HIGH,LOW,"Implement rigorous cost_model unit tests validating precise SL-dependent deduction.",RISK_OFFICER
+R_003,SLIPPAGE_FRAGILITY,Low-latency breakout dependency causing full edge collapse under stress slippage,HIGH,MEDIUM,"Execute multi-tier slippage stress testing (0.0p to 0.5p) and enforce net attribution.",RESEARCH_LEAD
+R_004,DATA_SNOOPING,Over-parameterization of HTF/LTF timeframe combinations leading to curve-fitted validation,HIGH,MEDIUM,"Strict separation of TRAIN/VAL/TEST partitions; enforce maximum allowed candidates and penalty scores.",QUANT_CORE
+R_005,MACRO_NEWS_LEAKAGE,Silent operation through high impact calendar events due to missing source cache,CRITICAL,LOW,"Enforce unconditional fail-close news module behavior; missing cache aborts evaluation.",COMPLIANCE

@@ -1,0 +1,43 @@
+PROMPT PARA CODEX:
+
+Construye un script en Python para Backtrader (o un framework similar) que implemente y pruebe una estrategia de trading multi‑timeframe para pares de divisas (EURUSD, GBPUSD, USDJPY, AUDUSD, USDCAD, USDCHF y GBPJPY). El sistema debe operar únicamente entre las 11:00 y las 18:45 hora de Nueva York, cerrando todas las posiciones a esa hora.
+
+Datos y backtest:
+
+Descarga o carga datos históricos de 1 de enero de 2020 a 31 de diciembre de 2025 para cada par en temporalidades de 5 minutos (base), 15 minutos y 1 hora. Sincroniza las series para realizar un análisis multi‑timeframe.
+Incluye comisiones y slippage básicos realistas.
+Calcula métricas como profit factor, drawdown máximo, ratio de Sharpe, número de operaciones ganadoras y perdedoras por par, año y mes.
+Permite optimizar parámetros (ADX threshold, periodos de medias, múltiplos de ATR para stop/take profit) mediante un sencillo grid search.
+
+Lógica de la estrategia:
+
+En H1 (contexto/régimen)
+– Calcula EMA 50 y EMA 200. Solo se permiten compras si EMA 50 > EMA 200 y la pendiente de EMA 200 es positiva; solo ventas si EMA 50 < EMA 200 y la pendiente de EMA 200 es negativa.
+– Calcula ADX(14); filtra las operaciones exigiendo ADX > 18 para confirmar que hay tendencia.
+
+En M15 (setup)
+– Calcula EMA 20 y RSI(7).
+– Para posiciones largas: el precio debe hacer un pullback hacia EMA 20 y RSI(7) caer por debajo de 45; descartamos señales si la vela previa supera 1.5 ATR.
+– Para posiciones cortas: inverso.
+
+En M5 (disparo)
+– Confirma que RSI(7) vuelva a cruzar al alza (para compras) o a la baja (para ventas).
+– Entra al abrir la siguiente vela si el cierre supera el máximo (para compras) o el mínimo (para ventas) de la vela previa.
+
+Gestión del trade:
+– Stop Loss inicial = 1.2 ATR de M5.
+– Take Profit = 1.8 veces el riesgo (RR 1.8).
+– Sin break‑even en la versión base.
+– Máximo 1 operación por dirección y par al día.
+– Riesgo por operación: 0.5 % a 1 % del capital (parametrizable).
+– No abrir dos trades correlacionados (por ejemplo, EURUSD y GBPUSD) en la misma dirección al mismo tiempo.
+
+Resultados y reporting:
+– Ejecuta el backtest completo (01/01/2020–31/12/2025) para cada par.
+– Genera un informe tabular y gráficos con la curva de capital, drawdowns y estadísticas anuales y mensuales.
+– Identifica los parámetros más robustos y reporta su rendimiento comparado.
+– Exporta los resultados (por ejemplo, a CSV o JSON) para su análisis posterior.
+
+Tu código debe estar completamente funcional, con clases bien definidas para la estrategia, datos multi‑timeframe sincronizados y herramientas de análisis. Usa comentarios claros para explicar cada sección y asegúrate de que sea fácilmente extensible para pruebas futuras.*
+
+Ese es el guion que Codex necesita para construir un bot profesional, replicable y robusto. Puedes adaptarlo a tu estilo de programación, pero la estructura y las reglas reflejan la combinación de nuestras mejores ideas para alcanzar la robustez que buscas.

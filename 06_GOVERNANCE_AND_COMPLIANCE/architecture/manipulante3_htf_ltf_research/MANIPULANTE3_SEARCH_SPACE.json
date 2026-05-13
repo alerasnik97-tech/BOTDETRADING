@@ -1,0 +1,51 @@
+{
+  "metadata": {
+    "family": "MANIPULANTE_3_0",
+    "description": "HTF Direction + LTF Entry Controlled Research Sweep",
+    "theoretical_combinations": 20736,
+    "pilot_cap": 500,
+    "random_seed": 20260513,
+    "instrument": "EURUSD",
+    "cost_model": "FTMO_USD_5_PER_LOT_ROUND_TURN",
+    "execution_mode": "causal_next_bar_fill"
+  },
+  "dimensions": {
+    "htf_context_tf": ["H1", "H4"],
+    "ltf_entry_tf": ["M3", "M5"],
+    "liquidity_level": [
+      "PDH_PDL",
+      "ASIA_HIGH_LOW",
+      "LONDON_HIGH_LOW",
+      "PREV_WEEK_HIGH_LOW"
+    ],
+    "direction_filter": [
+      "D0_NO_BIAS",
+      "D3_PREMIUM_DISCOUNT",
+      "D4_SWEEP_DIRECTION_ONLY"
+    ],
+    "confirmation_type": [
+      "C0_CHOCH",
+      "C1_CHOCH_DISPLACEMENT",
+      "C2_CHOCH_FVG"
+    ],
+    "entry_type": [
+      "E0_MARKET_ON_CLOSE",
+      "E1_STOP_CONFIRMATION",
+      "E2_FVG_50_PERCENT"
+    ],
+    "stop_loss_model": [
+      "SL0_SWEEP_EXTREME",
+      "SL1_STRUCTURE_EXTREME"
+    ],
+    "take_profit_r": [2.0, 2.5],
+    "break_even_trigger": ["NONE", "1.25R", "1.5R"],
+    "session_window_ny": [
+      "07:00-11:00",
+      "08:00-11:00"
+    ],
+    "news_avoidance_mode": [
+      "N0_AFTER_LAST_HIGH_IMPACT_PLUS_5M",
+      "N1_AVOID_PLUS_MINUS_15M"
+    ]
+  }
+}

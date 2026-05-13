@@ -1,0 +1,23 @@
+FINAL SINGLE ZIP VERIFICATION REPORT
+===================================
+exists = True
+path = C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\000_PARA_CHATGPT.zip
+total_files = 5720
+size_mb = 48.07
+sha256 = cc37720e09dcc77e73d2495b7496c8f5ac7b9024284f3fda1a7f6f77537a068a
+testzip = None
+missing_required = []
+no_internal_zips = True
+no_raw_data = True
+no_parquet = True
+no_venv = True
+no_git = True
+no_cache = True
+contains_gate6_mini_fix = True
+contains_runner_fixed = True
+contains_test_runner_integrity = True
+contains_n_attribution = True
+contains_eom_audit = True
+contains_news_fail_close_report = True
+root_zip_count = 1
+visible_root_zips = ['000_PARA_CHATGPT.zip']

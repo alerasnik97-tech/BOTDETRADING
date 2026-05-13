@@ -1,0 +1,9 @@
+risk_id,risk_name,severity,area,evidence,why_claude_may_flag_it,recommended_action,blocks_handoff,status
+RISK_001,ZIP Outdated,MEDIUM,Governance,000_PARA_CHATGPT.zip timestamp vs latest reports,Audit fails to see most recent strategic decisions,Regenerate ZIP after this audit completion,NO,OPEN
+RISK_002,Untracked M4 Code,MEDIUM,Research,git status shows new files not versioned,Risk of losing pilot code or inconsistent state,Git add/commit research/benchmarks,NO,OPEN
+RISK_003,Benchmark Aspirational,LOW,Research,PF target 2.94 vs net reality,Target might be too aggressive for automated slippage models,Re-validate target PF after M4 pilot,NO,OPEN
+RISK_004,Data/News Legacy Gap,LOW,Data,2015-2019 validation with reservations,Older data lacks same quality as 2020+,Apply higher discount factor to pre-2020 results,NO,OPEN
+RISK_005,M3 RED Misinterpretation,MEDIUM,Research,M3 RED ratification,Logic might be killed too early if human edge is misunderstood,Ensure Claude audits the "human gap analysis",NO,OPEN
+RISK_006,No Ready Strategy,HIGH,Production,All strategies currently RED or in Progress,The project is currently a "Research Lab" with no production output,Focus M4 on fast-path to PF 1.15,NO,OPEN
+RISK_007,Multi-Agent Fragmentation,LOW,Governance,Multiple sub-dirs created today,Difficulty in tracking total state if consolidation fails,Consolidate all reports into 06_GOVERNANCE,NO,OPEN
+RISK_008,Artifact Drift,LOW,Artifacts,task.md modified by multiple agents,Risk of inconsistent task state if not reconciled,Final manual reconciliation of task.md,NO,OPEN

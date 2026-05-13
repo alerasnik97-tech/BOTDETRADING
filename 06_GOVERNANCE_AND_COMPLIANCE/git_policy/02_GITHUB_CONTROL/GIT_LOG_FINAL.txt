@@ -1,0 +1,50 @@
+992ac6f [v37/gate6fb2] corregir causal log full suite y limpiar zips extra
+4d44d64 [v37/gate6f] auditoria claude-proof pre laboratorio y zip liviano
+6dcd0f9 [v37/gate6d] integrar ftmo costos con engine y metricas reales
+6940a1c [v37/gate6c] endurecer tests ftmo net r sin decorativos
+bfa7756 [v37/gate6b-source] evidencia fisica de comision ftmo y tests
+d0e5726 [v37/gate6b-packaging-root] consolidar raiz canonica de reportes y zip gate6b
+40176ff [v37/gate6b] integrar comision ftmo por lote y restaurar packaging completo
+180c35a [v37/workspace] orden seguro de artefactos y carpeta principal
+aed14a1 [v37/gate5] readiness pre laboratorio con seguridad y runbook
+22e6905 [v37/gate4] auditoria operacional controlada del motor
+5d397fc [v37/artifact-system] restaurar entrega unica con zip oficial
+0f98986 [v37/gate3] auditoria de codigo fuente critico previa laboratorio
+a8747e6 [v37/artifact-system] sistema permanente de zip oficial y copia unica upload
+443a961 [v37/gate2] auditoria documental platinum e2e d5c previa laboratorio
+586d914 [v37/artifact-cleanup] consolidacion visible del zip oficial y archivo historico
+df0dcae [v37/artifact-visible] entrega visible del zip oficial para chatgpt
+037068a [v37/artifact-lock] entrega fisica verificada platinum para chatgpt
+55081ba [v37/platinum-source] inclusion verificable de cost model y mae analyzer
+7e7c286 [v37/platinum-engine] cierre de reservas de costos mae y packaging final
+80dc104 [v37/e2e-engine] certificacion extrema del motor antes de laboratorio
+879e397 [v37/package-fix] entrega fisica unica corregida para chatgpt
+a081d70 [v37/fase5c] auditoria critica de ejecucion causal y guard anti leakage
+4c8199a [v37/root_cause] dictamen forense de fallas pasadas y especificacion inmutable para reconstruccion compacta v1
+526718b [v37/fase5b] micro-hardening pre-sweep con logs granulares y precision cronologica de minutos
+3a7b971 [v37/fase5] correccion integracion v7 purgada de resultados oos
+70dfb84 [v37/fase5] integracion v7 previa a barrido
+3d8165b [v37/fase4] alineacion estricta de controladores de volumen y horario con 14 casos obligatorios
+7371ef2 [v37/fase8] implementacion del motor walk forward para decantacion automatica de top 5 en train y seleccion de ganadora unica en validacion
+83fe299 [v37/fase7] implementacion inmutable del gestor de precÃ³mputo y almacenamiento en cachÃ© para barras OHLC y mapeo de seÃ±ales en timeframes expandidos
+285b024 [v37/fase6] orquestacion del sweep directo sobre hiper-espacio dimensional expandido produciendo los 15 archivos de seccion 11
+3af55e1 [v37/fase5] integracion final del motor unificado V7 con pase exitoso de los 6 tests integrales y 57 de regresion
+b1e5c85 [v37/fase4] implementacion de position_throttler y schedule_guard con estrangulamiento FIFO y liquidacion forzada
+b70f274 [v37/fase3] implementacion del motor ftmo_compliance con rastreo de 17:00 NY y verificacion unitaria exitosa
+6ae5443 [v37/fase2] implementacion de news_filter con buffer post-noticia de 5 minutos y certificacion unitaria
+5ec0cb0 [v37/fase0] pre-compromiso manipulante 2.0
+bd32a41 chore: update .gitignore after history cleanup
+c73c282 chore: add restructure log from Phase64J reorganization
+2114916 feat(config): optimize entry window 16:30 -> 11:30 NY
+99e4903 chore: Institutional Freeze Phase 56 certified (2015-2026). +593R. Read-only lock applied.
+6aea307 Add Phase49E tick infrastructure commit report
+9fe94f3 Add Phase49 tick data pipeline performance infrastructure and standards
+21b6e65 Add Phase49B tick data pipeline infrastructure and research engine design
+41fa376 Phase47A lab isolation and Manipulante protection
+6ba0206 Fix Manipulante Telegram alerts loop controls
+d21d5a8 Fix Manipulante MT5 reopen stop behavior
+0989482 Fix Phase46 GitHub Actions CI failure
+626372b Phase46 GitHub CI safety tests for Manipulante
+4207845 Phase45B runner recovery and stale lock fix
+f25d6c9 Phase45 Manipulante free alerts Telegram email foundation
+ea3d1e7 Phase44 Manipulante observability foundation

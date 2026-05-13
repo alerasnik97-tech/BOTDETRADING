@@ -1,0 +1,29 @@
+FINAL MANIPULANTE3 RED ZIP VERIFICATION
+==================================================
+Timestamp: 2026-05-13T13:55 UTC
+State: MANIPULANTE3_RED_SEALED
+
+testzip: None
+total_files: 365
+size_mb: 0.7765
+sha256: 4d655836b678a36003e216feef977b9a562741c6ea33a3a116b723d40633effb
+root_zip_count: 1
+no_internal_zips: True
+no_parquet: True
+no_venv: True
+no_git_cache: True
+contains_MANIPULANTE3_EXTERNAL_AUDIT: True
+contains_MANIPULANTE3_RED_FINAL_DECISION: True
+contains_v38_manipulante3_htf_ltf: True
+contains_eom_blocker_resolution: True
+contains_MAX_CONFIRMATION_EOM_FIXED: True
+contains_EOM_BLOCKER: True
+contains_EDGE_TRANSLATION_DIAGNOSIS: True
+contains_NEXT_EDGE_HYPOTHESIS: True
+contains_data_news_audit: True
+contains_control_board: True
+contains_git_status: True
+contains_test_eom_integrity: True
+
+ALL_CHECKS_PASS: True
+FINAL_STATUS: MANIPULANTE3_RED_SEALED_READY

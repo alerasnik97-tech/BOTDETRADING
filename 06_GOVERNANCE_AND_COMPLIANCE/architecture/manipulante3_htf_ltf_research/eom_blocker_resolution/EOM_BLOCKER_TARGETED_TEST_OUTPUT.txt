@@ -1,0 +1,18 @@
+﻿COMMAND: & 'C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\03_RESEARCH_LAB\BOT_V2_DAYTIME_LAB\venv_v37\Scripts\python.exe' -m pytest src\v7_engine\tests\test_manipulante3_eom_integrity.py -v
+EXIT_CODE: 0
+
+============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.0.3, pluggy-1.6.0 -- C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\03_RESEARCH_LAB\BOT_V2_DAYTIME_LAB\venv_v37\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\03_RESEARCH_LAB\BOT_V2_DAYTIME_LAB
+collecting ... collected 7 items
+
+src/v7_engine/tests/test_manipulante3_eom_integrity.py::test_artificial_eom_is_excluded_from_metrics PASSED [ 14%]
+src/v7_engine/tests/test_manipulante3_eom_integrity.py::test_session_forced_exit_is_valid_eom_when_window_complete PASSED [ 28%]
+src/v7_engine/tests/test_manipulante3_eom_integrity.py::test_incomplete_tick_window_marks_artificial_eom PASSED [ 42%]
+src/v7_engine/tests/test_manipulante3_eom_integrity.py::test_actual_tick_window_before_intended_end_blocks_trade PASSED [ 57%]
+src/v7_engine/tests/test_manipulante3_eom_integrity.py::test_no_head_based_silent_truncation PASSED [ 71%]
+src/v7_engine/tests/test_manipulante3_eom_integrity.py::test_eom_audit_counts_match_trades PASSED [ 85%]
+src/v7_engine/tests/test_manipulante3_eom_integrity.py::test_max_confirmation_has_zero_artificial_eom_in_metrics PASSED [100%]
+
+============================== 7 passed in 0.10s ==============================

@@ -1,0 +1,13 @@
+# Comandos para ejecución rápida en nube
+
+# 1. Crear entorno y activar
+python3 -m venv venv && source venv/bin/activate
+
+# 2. Instalar dependencias
+pip install -r requirements_cloud.txt
+
+# 3. Ejecutar en sesión tmux
+tmux new -s cloud_backtest "python runner_cloud.py --config config_cloud.json"
+
+# 4. Ver progreso sin entrar a tmux
+tail -n 20 outputs/results_summary.csv

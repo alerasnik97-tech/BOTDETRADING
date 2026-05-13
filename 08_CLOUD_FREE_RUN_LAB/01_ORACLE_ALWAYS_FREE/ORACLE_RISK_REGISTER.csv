@@ -1,0 +1,6 @@
+RiskID,Description,Impact,Probability,Mitigation
+R01,Corte de instancia por inactividad,Medio,Alto,Ejecutar micro-tareas o keep-alive no abusivo
+R02,Filtración de secretos,Crítico,Bajo,Política estricta de no subir secretos
+R03,Consumo accidental de recursos pagos,Bajo,Medio,Checklist de facturación y límites
+R04,Incompatibilidad de runner en Linux,Bajo,Bajo,Smoke test previo
+R05,Corrupción de outputs por falta de espacio,Medio,Bajo,Verificación de disco (df -h)

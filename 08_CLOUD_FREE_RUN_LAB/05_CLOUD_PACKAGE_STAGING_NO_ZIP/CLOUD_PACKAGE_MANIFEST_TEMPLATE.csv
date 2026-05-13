@@ -1,0 +1,6 @@
+File,Type,SHA256,Purpose
+runner.py,Logic,hash_here,Main execution entry
+config_cloud.json,Config,hash_here,Parameters for the run
+data_sample.parquet,Data,hash_here,Authorized data slice
+requirements_min.txt,Infra,hash_here,Dependencies
+manifest.csv,Metadata,hash_here,This file

@@ -1,0 +1,28 @@
+FINAL SINGLE ZIP VERIFICATION REPORT — GATE 6 FINALIZATION (LOCKED)
+===================================================================
+exists = True
+path = C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\000_PARA_CHATGPT.zip
+total_files = 6015
+size_mb = 216.33
+sha256 = a98c55a3a2a3fc1a0861da1645dfd59556edcef6e01a1fabb6b0ee0bf2d68155
+testzip = None
+missing_required = []
+no_internal_zips = True
+no_raw_data = True
+no_parquet = True
+no_venv = True
+no_git = True
+no_cache = True
+contains_gate6_finalization_bundle = True
+contains_runner_temporal_window_fixed = True
+contains_artificial_truncation_completeness_fixed = True
+contains_eom_audit = True
+contains_n_attribution = True
+contains_targeted_tests_output = True
+contains_full_suite_output = True
+contains_independent_verify = True
+root_zip_count = 1
+visible_root_zips = ['000_PARA_CHATGPT.zip']
+external_upload_copy = C:\Users\alera\Desktop\UPLOAD_CHATGPT_ACTUAL\CHATGPT_UPLOAD_GATE6FINAL_A98C55A3.zip
+status = FINALIZED_RED_LOCKED
+last_commit = 8d87e52 [v37/gate6-finalization] empaquetado final aséptico con remocion de head(500) y blindaje de truncamiento

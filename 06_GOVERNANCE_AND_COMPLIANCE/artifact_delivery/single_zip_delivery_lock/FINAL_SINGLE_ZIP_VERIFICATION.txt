@@ -1,0 +1,17 @@
+# FINAL SINGLE ZIP VERIFICATION - MANIPULANTE 4 PHASE
+
+- Ruta: C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\000_PARA_CHATGPT.zip
+- Size MB: 1.01
+- SHA256: 2eb70243ac74c5f49cb78f4ccc0876035a6a3d090e91bdf3e8bc42ee37b093a8
+- Total files: N/A (Python script logic used)
+- Root zip count: 1
+- No internal zips: True
+- No raw data: True
+- Contains latest results: True (M4 RED Results included)
+- Missing required: []
+
+## Contenido M4
+- reports/v39_manipulante4_sweep_quality/MANIPULANTE4_MICRO_PROBE_TRADES.csv
+- reports/v39_manipulante4_sweep_quality/MANIPULANTE4_MICRO_PROBE_RESULTS_*.csv
+- reports/v39_manipulante4_sweep_quality/MANIPULANTE4_DECISION.md
+- run_manipulante4_micro_probe.py

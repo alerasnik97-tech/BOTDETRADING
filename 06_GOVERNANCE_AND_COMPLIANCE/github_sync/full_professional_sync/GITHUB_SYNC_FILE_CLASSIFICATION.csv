@@ -1,0 +1,14 @@
+path,area,status,should_track,should_ignore,should_commit_now,reason,risk
+01_CORE_PRODUCTION/,Production,Clean,YES,NO,YES,Institutional logic,LOW
+02_INCUBATION_STAGING/,Incubation,Untracked,YES,NO,YES,Staging documentation,LOW
+03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/*.py,Research,Modified/Untracked,YES,NO,YES,Source code,LOW
+03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/reports/,Research,Untracked,YES,NO,YES,Research evidence,LOW
+05_MARKET_DATA_VAULT/*.parquet,Data,Ignored,NO,YES,NO,Heavy binary data,HIGH
+05_MARKET_DATA_VAULT/*.md,Data,Untracked,YES,NO,YES,Safe placeholders,LOW
+06_GOVERNANCE_AND_COMPLIANCE/,Governance,Untracked,YES,NO,YES,Audit trails,LOW
+08_CLOUD_FREE_RUN_LAB/,Cloud Lab,Untracked,YES,NO,YES,Kaggle/Cloud orchestration,LOW
+.venv/,System,Ignored,NO,YES,NO,Local dependencies,HIGH
+000_PARA_CHATGPT.zip,Artifact,Modified,NO,YES,NO,Official ZIP (heavy/redundant for git),MEDIUM
+.env,Secrets,Ignored,NO,YES,NO,Private credentials,CRITICAL
+scratch/,Temp,Untracked,NO,YES,NO,Temporary scripts,LOW
+*.log,Logs,Ignored,NO,YES,NO,Volatile logs,LOW

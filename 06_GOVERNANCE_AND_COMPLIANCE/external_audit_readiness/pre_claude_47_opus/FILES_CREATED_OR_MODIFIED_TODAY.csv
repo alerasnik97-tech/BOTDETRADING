@@ -1,0 +1,12 @@
+path,area,created_or_modified,status,should_be_in_zip,should_be_committed,risk_if_missing,notes
+03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/reports/v39_manipulante4_sweep_quality/,Research,Created,Untracked,YES,YES,Loss of M4 research,Contains pilot findings
+03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/run_manipulante4_micro_probe.py,Research,Created,Untracked,YES,YES,Loss of M4 logic,New entry point
+03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/src/v7_engine/tests/test_manipulante4_...,Research,Created,Untracked,YES,YES,Incomplete M4 validation,Tests for displacement and guards
+06_GOVERNANCE_AND_COMPLIANCE/architecture/manipulante4_sweep_quality/,Governance,Created,Untracked,YES,YES,Inconsistent architecture,Documentation for M4
+06_GOVERNANCE_AND_COMPLIANCE/benchmarks/manipulante_original/,Benchmark,Created,Untracked,YES,YES,Loss of gold standard,Critical for target setting
+06_GOVERNANCE_AND_COMPLIANCE/research_strategy/edge_backlog/,Edge Backlog,Created,Untracked,YES,YES,Loss of strategic pivot,The "WHY" behind M4
+06_GOVERNANCE_AND_COMPLIANCE/incubation_policy/,Incubation,Created,Untracked,YES,YES,Policy drift,Gate definition
+06_GOVERNANCE_AND_COMPLIANCE/external_audit_readiness/pre_claude_47_opus/,Governance,Created,Untracked,YES,YES,No audit evidence,This audit itself
+000_PARA_CHATGPT.zip,Root,Modified,Outdated,YES,NO,Stale audit data,Needs final refresh
+task.md,Artifact,Modified,Dirty,YES,YES,Workflow drift,Core roadmap
+walkthrough.md,Artifact,Modified,Dirty,YES,YES,Evidence drift,Session log

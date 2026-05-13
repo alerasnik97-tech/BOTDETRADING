@@ -1,0 +1,4 @@
+source_path,destination_path,reason,moved_successfully
+LEER_PRIMERO_SUBIR_A_CHATGPT.txt,06_GOVERNANCE_AND_COMPLIANCE\artifact_delivery\single_zip_delivery_lock\sidecars_current\LEER_PRIMERO_SUBIR_A_CHATGPT.txt,Limpieza visual de raiz de sidecars,YES
+VERIFICACION_ZIP_CHATGPT.txt,06_GOVERNANCE_AND_COMPLIANCE\artifact_delivery\single_zip_delivery_lock\sidecars_current\VERIFICACION_ZIP_CHATGPT.txt,Limpieza visual de raiz de sidecars,YES
+000_PARA_CHATGPT.sha256.txt,06_GOVERNANCE_AND_COMPLIANCE\artifact_delivery\single_zip_delivery_lock\sidecars_current\000_PARA_CHATGPT.sha256.txt,Limpieza visual de raiz de sidecars,YES

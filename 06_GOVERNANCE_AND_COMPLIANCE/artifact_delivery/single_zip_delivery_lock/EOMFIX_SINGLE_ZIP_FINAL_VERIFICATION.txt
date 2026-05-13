@@ -1,0 +1,16 @@
+created_utc: 2026-05-13T13:55:57.684112+00:00
+official_zip: C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\000_PARA_CHATGPT.zip
+old_zip_existed: True
+exists_after_delete: False
+total_files: 365
+size_bytes: 814227
+size_mb: 0.7765
+sha256: 4d655836b678a36003e216feef977b9a562741c6ea33a3a116b723d40633effb
+testzip: None
+root_zips: ['000_PARA_CHATGPT.zip']
+root_zip_count: 1
+recursive_zip_count: 12
+recursive_nonofficial_zip_count: 11
+recursive_zips: ['000_PARA_CHATGPT.zip', '01_CORE_PRODUCTION/_CHATGPT_EXPORT/01_CORE_PRODUCTION_PARA_CHATGPT.zip', '02_INCUBATION_STAGING/_CHATGPT_EXPORT/02_INCUBATION_STAGING_PARA_CHATGPT.zip', '03_RESEARCH_LAB/_CHATGPT_EXPORT/03_RESEARCH_LAB_PARA_CHATGPT.zip', '04_INFRASTRUCTURE_ENGINEERING/_CHATGPT_EXPORT/04_INFRASTRUCTURE_ENGINEERING_PARA_CHATGPT.zip', '05_MARKET_DATA_VAULT/_CHATGPT_EXPORT/05_MARKET_DATA_VAULT_MANIFEST_ONLY_PARA_CHATGPT.zip', '06_GOVERNANCE_AND_COMPLIANCE/_CHATGPT_EXPORT/06_GOVERNANCE_AND_COMPLIANCE_PARA_CHATGPT.zip', '07_BACKUPS/_CHATGPT_EXPORT/07_BACKUPS_MANIFEST_ONLY_PARA_CHATGPT.zip', '07_BACKUPS/quarantines/_ARCHIVO_HISTORICO_NO_SUBIR/zips_viejos/SUBIR_A_CHATGPT_CORRECTO_3334a5b15f92.zip', '07_BACKUPS/quarantines/_ARCHIVO_HISTORICO_NO_SUBIR/zips_viejos/SUBIR_A_CHATGPT_CORRECTO_8237b939347b.zip', '07_BACKUPS/quarantines/_ARCHIVO_HISTORICO_NO_SUBIR/zips_viejos/SUBIR_A_CHATGPT_CORRECTO_c25310927285.zip', '07_BACKUPS/quarantines/_ARCHIVO_HISTORICO_NO_SUBIR/zips_viejos/SUBIR_A_CHATGPT_CORRECTO_d2d4fe06a002.zip']
+required: {'eom_blocker_resolution': True, 'maximum_confirmation_rerun': True, 'v38_reports': True, 'fixed_runner': True, 'eom_integrity_helper': True, 'eom_integrity_tests': True, 'independent_verify': True, 'final_decision': True, 'edge_translation_diagnosis': True, 'next_edge_hypothesis': True, 'data_news_audit': True, 'latest_control_board': True, 'git_status': True}
+blocked: False

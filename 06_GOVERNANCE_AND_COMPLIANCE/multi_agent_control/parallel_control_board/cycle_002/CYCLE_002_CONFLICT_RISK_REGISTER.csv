@@ -1,0 +1,16 @@
+risk_id,risk_name,severity,affected_agent,affected_folder,evidence,impact,recommended_action,requires_stop,status
+RSK-001,Research writes outside research,LOW,Research Agent,06_GOVERNANCE,Ninguna escritura ajena detectada en el ciclo actual,Contaminación cruzada,Mantener monitoreo aséptico,NO,MONITORING
+RSK-002,Data agent mutates raw data,LOW,Data Quality Agent,05_MARKET_DATA_VAULT,Datos crudos sin alteraciones en Git status,Pérdida de integridad en series,Verificación de firmas sha256,NO,MONITORING
+RSK-003,Governance touches code,INFO,Governance Supervisor,01_CORE_PRODUCTION,Injerencia cero demostrada,Ruido o violacion de rol,Respetar prohibicion estricta,NO,MONITORING
+RSK-004,ZIP modified during active work,LOW,All Agents,Raíz,Archivo ZIP intacto y sin marcar como modified,Pérdida de inmutabilidad base,Congelamiento estricto,NO,MONITORING
+RSK-005,Extra ZIPs created,LOW,All Agents,Raíz,No existen archivos con extensión .zip adicionales,Confusión forense en entregas,Borrado de zips secundarios,NO,MONITORING
+RSK-006,TEST leakage risk,MEDIUM,Research Agent,03_RESEARCH_LAB,Cero optimización detectada en curso,Sobreajuste invalidante,Vigilar manifiestos de precommitment,NO,MONITORING
+RSK-007,Sweep started without pilot,HIGH,Research Agent,03_RESEARCH_LAB,Existencia del preflight audit pero falta del pilot summary,Consumo espurio de recursos,Exigir finalización del informe piloto,NO,MONITORING
+RSK-008,Working tree dirty unexplained,LOW,All Agents,Raíz,Working tree limpio sin tracked modificados,Pérdida de trazabilidad,Requerir justificacion pre-commit,NO,MONITORING
+RSK-009,Production touched,LOW,All Agents,01_CORE_PRODUCTION,Cero cambios en el core,Alteración de lógicas en vivo,Sellar accesos al engine,NO,MONITORING
+RSK-010,Data Vault touched,LOW,All Agents,05_MARKET_DATA_VAULT,Cero alteraciones en el vault,Corrupción de backtests,Lectura exclusiva,NO,MONITORING
+RSK-011,Backups touched,LOW,All Agents,07_BACKUPS,Respaldos intactos,Pérdida de historial de recuperación,Cuarentena física,NO,MONITORING
+RSK-012,Root hygiene degraded,LOW,All Agents,Raíz,Sidecars sueltos purgados con éxito,Desorden visual,Enforcement normativo,NO,MONITORING
+RSK-013,Agent outputs missing manifests,MEDIUM,All Agents,06_GOVERNANCE,Emisión de reportes de calidad iniciales sin empaquetado final,Trazabilidad incompleta,Generar manifest por lote,NO,MONITORING
+RSK-014,Conflicting writes between agents,LOW,Research/Data Agents,06_GOVERNANCE,Dominios de escritura segregados y respetados,Colisión y sobreescritura,Separar subcarpetas,NO,MONITORING
+RSK-015,News audit missing while Research depends on it,MEDIUM,Research/Data Agents,06_GOVERNANCE,Agente 2 ha emitido cobertura de calendario pero faltan CSVs mensuales,Desfase o sesgo de noticias,Esperar completitud de auditoria de noticias,NO,MONITORING

@@ -1,0 +1,7 @@
+# MANIPULANTE 4 MICRO-PROBE SUMMARY
+
+Status: MANIPULANTE4_MICRO_RED
+Kill reason: TRAIN PF=0 < 1.0
+
+Configs tested: 54
+Total trades: 14807

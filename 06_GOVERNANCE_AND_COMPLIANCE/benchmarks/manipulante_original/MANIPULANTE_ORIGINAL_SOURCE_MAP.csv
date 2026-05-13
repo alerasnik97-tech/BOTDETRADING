@@ -1,0 +1,22 @@
+metric,value,source_file,source_line_or_section,confidence,gross_or_net,notes
+Profit Factor (Full 2015-2026),2.79,PHASE27_PHASE25_FULL_HISTORICAL_VALIDATION_2015_2026_REPORT.md,Section Full 2015-2026 Table,HIGH,GROSS,Base programmatic execution without asymmetric slippage stress
+Profit Factor (Primary Authority),2.94,PHASE25_FINAL_CLOSEOUT_REPORT.md,Section 4 Official Metrics,HIGH,GROSS,Authority plateau over 2020-2026 macro distribution
+Profit Factor (Manual Baseline),1.88,MANUAL_VS_BOT_GAP_ANALYSIS.md,Section 1 El Edge Manual Revelado,MEDIUM,GROSS,Calculated directly from human rPnL column across 841 real manual execution entries
+Profit Factor (Manual Normalized),1.53,MANUAL_EDGE_ALIGNMENT_AUDIT_REPORT.md,Section 2 Aclaracion Discrepancia,MEDIUM,NET,Normalized by setting fixed -1.0R loss per stop-out to eliminate sizing variance
+Win Rate (Full 2015-2026),32.5%,PHASE27_PHASE25_FULL_HISTORICAL_VALIDATION_2015_2026_REPORT.md,Section Full 2015-2026 Table,HIGH,GROSS,Highly consistent across multiple individual macro regime years
+Win Rate (Primary Authority),38.5%,PHASE25_FINAL_CLOSEOUT_REPORT.md,Section 4 Official Metrics,HIGH,GROSS,Reflects filtering efficiency of the 70% body filter logic
+Win Rate (Manual Baseline),35.0%,MANUAL_VS_BOT_GAP_ANALYSIS.md,Section 3 Brecha Tecnica,MEDIUM,GROSS,Human selectivity achieves solid survival with an R/R profile averaging 2.5 to 1
+Max Drawdown (Full 2015-2026),-5.58R,PHASE27_PHASE25_FULL_HISTORICAL_VALIDATION_2015_2026_REPORT.md,Section Full 2015-2026 Table,HIGH,GROSS,Exceedingly robust maximum drawdown path over an 11-year unoptimized timeline
+Max Drawdown (Primary Authority),-5.0R,PHASE25_FINAL_CLOSEOUT_REPORT.md,Section 4 Official Metrics,HIGH,GROSS,Maximum unrecovered dip across the 2020-2026 optimization window
+Total R (Full 2015-2026),+737.47R,PHASE27_PHASE25_FULL_HISTORICAL_VALIDATION_2015_2026_REPORT.md,Section Full 2015-2026 Table,HIGH,GROSS,Aggregate cumulative return before individual commission deductions
+Expectancy (Full 2015-2026),+0.281R,PHASE27_PHASE25_FULL_HISTORICAL_VALIDATION_2015_2026_REPORT.md,Section Full 2015-2026 Table,HIGH,GROSS,Average profit per trade across the 2625 sample execution path
+Expectancy (Manual Baseline),+0.36R,MANUAL_VS_BOT_GAP_ANALYSIS.md,Section 1 El Edge Manual Revelado,MEDIUM,GROSS,Exceeds algorithmic expectancy due to strict manual timing selection filters
+Expectancy (Manual Normalized),+0.25R,MANUAL_EDGE_ALIGNMENT_AUDIT_REPORT.md,Section 3 Performance Metrics,MEDIUM,NET,Reflects risk-reward mean behavior under standard unit modeling
+Total Trades (Full 2015-2026),2625,PHASE27_PHASE25_FULL_HISTORICAL_VALIDATION_2015_2026_REPORT.md,Section Full 2015-2026 Table,HIGH,GROSS,Composed of 1141 OOS trades pre-2020 and 1484 standard simulation trades
+Total Trades (Manual Baseline),841,MANUAL_VS_BOT_GAP_ANALYSIS.md,Section 1 El Edge Manual Revelado,MEDIUM,GROSS,Highly filtered live manual execution ledger over 6 consecutive years
+Operating Window (Programmed),07:00-20:30 NY,MANUAL_VS_BOT_GAP_ANALYSIS.md,Section 2 Brecha Critica,HIGH,N/A,Identified as an over-extended window that dilutes true intraday momentum edge
+Operating Window (Manual),08:00-11:00 NY,MANUAL_VS_BOT_GAP_ANALYSIS.md,Section 2 Brecha Critica,HIGH,N/A,The canonical NY Open Killzone where smart money liquidity injection peaks
+Slippage Sensitivity (0.25 pip),2.56,PHASE27_PHASE25_FULL_HISTORICAL_VALIDATION_2015_2026_REPORT.md,Section Cost Stress Table,HIGH,NET,Demonstrates massive friction resilience; PF remains above 2.0 up to 1.0 pip latency
+Slippage Sensitivity (2.0 pip),1.68,PHASE27_PHASE25_FULL_HISTORICAL_VALIDATION_2015_2026_REPORT.md,Section Cost Stress Table,HIGH,NET,Absolute extreme stress threshold boundary survival check
+Take Profit Parameter,1.4R,PROJECT_RESTRUCTURE_MANIPULANTE_FINAL_REPORT.md,Section 3 Definicion de MANIPULANTE,HIGH,N/A,Fixed mathematical profit booking parameter mapped to the approved authority state
+Break-Even Distance,0.4R,PROJECT_RESTRUCTURE_MANIPULANTE_FINAL_REPORT.md,Section 3 Definicion de MANIPULANTE,HIGH,N/A,Trailing activation offset designed to guard accrued equity paths

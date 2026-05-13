@@ -1,0 +1,19 @@
+{
+    "run_id": "CLOUD_RUN_YYYYMMDD_HHMM",
+    "strategy": "MANIPULANTE_4",
+    "symbol": "EURUSD",
+    "timeframe": "M1",
+    "period": {
+        "start": "2024-01-01",
+        "end": "2024-01-31"
+    },
+    "params": {
+        "quality_gate": 0.7,
+        "displacement_gate": 1.5
+    },
+    "cloud_settings": {
+        "checkpoint_interval_bars": 500,
+        "early_stop_pf": 0.8,
+        "max_trades": 50
+    }
+}

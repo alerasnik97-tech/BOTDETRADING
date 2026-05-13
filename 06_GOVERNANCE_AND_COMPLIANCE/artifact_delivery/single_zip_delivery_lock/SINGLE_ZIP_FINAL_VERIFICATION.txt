@@ -1,0 +1,12 @@
+total_files: 509
+size_mb: 0.83
+sha256: 65df5fffc7ba2cce7ec1756691d4b0ea404fdb6b1661f6a8fead5c1e31214301
+testzip: None
+missing: []
+no_venv: True
+no_git: True
+no_cache: True
+no_data: True
+no_subir: True
+has_manifest: True
+build_id: 008f3901-520

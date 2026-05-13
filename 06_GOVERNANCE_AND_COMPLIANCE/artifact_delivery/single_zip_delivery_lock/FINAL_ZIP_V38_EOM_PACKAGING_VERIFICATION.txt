@@ -1,0 +1,17 @@
+testzip: None
+total_files: 362
+size_mb: 0.7661
+sha256: 8571f92e471f128ad4ae0bdfeed92350d24c17f752fa1987d94e1f37027bfbfe
+root_zip_count: 1
+no_internal_zips: True
+no_raw_data: True
+no_parquet: True
+no_venv: True
+no_git_cache: True
+v38_manipulante3_htf_ltf: True
+eom_blocker_resolution: True
+MAX_CONFIRMATION_EOM_FIXED: True
+EOM_BLOCKER: True
+MANIPULANTE3_EDGE_TRANSLATION_DIAGNOSIS.md: True
+NEXT_EDGE_HYPOTHESIS_RECOMMENDATION.md: True
+test_manipulante3_eom_integrity.py: True

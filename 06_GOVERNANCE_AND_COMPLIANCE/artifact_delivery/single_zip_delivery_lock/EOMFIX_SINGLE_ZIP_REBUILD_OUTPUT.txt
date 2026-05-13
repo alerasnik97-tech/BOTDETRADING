@@ -1,0 +1,50 @@
+﻿COMMAND: & 'C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\03_RESEARCH_LAB\BOT_V2_DAYTIME_LAB\venv_v37\Scripts\python.exe' 'C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\06_GOVERNANCE_AND_COMPLIANCE\artifact_delivery\single_zip_delivery_lock\eomfix_single_zip_rebuild.py'
+EXIT_CODE: 0
+
+{
+  "created_utc": "2026-05-13T13:32:29.397899+00:00",
+  "official_zip": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\000_PARA_CHATGPT.zip",
+  "old_zip_existed": true,
+  "exists_after_delete": false,
+  "total_files": 362,
+  "size_bytes": 803335,
+  "size_mb": 0.7661,
+  "sha256": "bfa4f9a89c97a8151078d71b6af233a4db3d26ca4158662545ab782bccbd5481",
+  "testzip": null,
+  "root_zips": [
+    "000_PARA_CHATGPT.zip"
+  ],
+  "root_zip_count": 1,
+  "recursive_zip_count": 12,
+  "recursive_nonofficial_zip_count": 11,
+  "recursive_zips": [
+    "000_PARA_CHATGPT.zip",
+    "01_CORE_PRODUCTION/_CHATGPT_EXPORT/01_CORE_PRODUCTION_PARA_CHATGPT.zip",
+    "02_INCUBATION_STAGING/_CHATGPT_EXPORT/02_INCUBATION_STAGING_PARA_CHATGPT.zip",
+    "03_RESEARCH_LAB/_CHATGPT_EXPORT/03_RESEARCH_LAB_PARA_CHATGPT.zip",
+    "04_INFRASTRUCTURE_ENGINEERING/_CHATGPT_EXPORT/04_INFRASTRUCTURE_ENGINEERING_PARA_CHATGPT.zip",
+    "05_MARKET_DATA_VAULT/_CHATGPT_EXPORT/05_MARKET_DATA_VAULT_MANIFEST_ONLY_PARA_CHATGPT.zip",
+    "06_GOVERNANCE_AND_COMPLIANCE/_CHATGPT_EXPORT/06_GOVERNANCE_AND_COMPLIANCE_PARA_CHATGPT.zip",
+    "07_BACKUPS/_CHATGPT_EXPORT/07_BACKUPS_MANIFEST_ONLY_PARA_CHATGPT.zip",
+    "07_BACKUPS/quarantines/_ARCHIVO_HISTORICO_NO_SUBIR/zips_viejos/SUBIR_A_CHATGPT_CORRECTO_3334a5b15f92.zip",
+    "07_BACKUPS/quarantines/_ARCHIVO_HISTORICO_NO_SUBIR/zips_viejos/SUBIR_A_CHATGPT_CORRECTO_8237b939347b.zip",
+    "07_BACKUPS/quarantines/_ARCHIVO_HISTORICO_NO_SUBIR/zips_viejos/SUBIR_A_CHATGPT_CORRECTO_c25310927285.zip",
+    "07_BACKUPS/quarantines/_ARCHIVO_HISTORICO_NO_SUBIR/zips_viejos/SUBIR_A_CHATGPT_CORRECTO_d2d4fe06a002.zip"
+  ],
+  "required": {
+    "eom_blocker_resolution": true,
+    "maximum_confirmation_rerun": true,
+    "v38_reports": true,
+    "fixed_runner": true,
+    "eom_integrity_helper": true,
+    "eom_integrity_tests": true,
+    "independent_verify": true,
+    "final_decision": true,
+    "edge_translation_diagnosis": true,
+    "next_edge_hypothesis": true,
+    "data_news_audit": true,
+    "latest_control_board": true,
+    "git_status": true
+  },
+  "blocked": false
+}

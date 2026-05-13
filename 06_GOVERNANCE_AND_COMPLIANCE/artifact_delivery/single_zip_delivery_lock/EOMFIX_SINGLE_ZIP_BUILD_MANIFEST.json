@@ -1,0 +1,9 @@
+{
+  "created_utc": "2026-05-13T13:55:56.876068+00:00",
+  "source_root": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo",
+  "official_zip": "C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\000_PARA_CHATGPT.zip",
+  "old_zip_existed": true,
+  "exists_after_delete": false,
+  "policy": "single official root ZIP only; no nested ZIPs; no raw data; no cache; no venv; no git internals",
+  "latest_control_board": "06_GOVERNANCE_AND_COMPLIANCE/multi_agent_control/parallel_control_board/cycle_003"
+}

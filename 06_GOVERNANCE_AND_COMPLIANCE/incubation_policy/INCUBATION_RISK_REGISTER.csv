@@ -1,0 +1,15 @@
+risk_id,risk_name,severity,evidence,impact,mitigation,blocks_paper,blocks_demo,status
+R01,Overfitting,HIGH,Backtest metrics too perfect,Strategy fails in forward,Strict validation sets,YES,YES,OPEN
+R02,TEST leakage,CRITICAL,Optimization on test data,Fake performance,Clean data split audit,YES,YES,OPEN
+R03,Execution mismatch,MEDIUM,Latency/Slippage differences,Lower net profit,Slippage-aware backtest,NO,YES,OPEN
+R04,Broker spread,MEDIUM,Variable spreads in NY,Stop losses hit early,Spread filter in bot,NO,YES,OPEN
+R05,News calendar mismatch,HIGH,Missing news events,Blown accounts on news,Dual news source audit,YES,YES,OPEN
+R06,Timezone/DST,LOW,Wrong trading hours,Trading outside edge,NTP sync and UTC checks,NO,YES,OPEN
+R07,Duplicate orders,CRITICAL,Software bug,Double risk exposure,Order ID tracking,YES,YES,OPEN
+R08,Missing stop loss,CRITICAL,API failure,Unlimited loss,Emergency SL check loop,YES,YES,OPEN
+R09,Telegram failure,LOW,Missing alerts,Slow human reaction,Multi-channel alerts,NO,NO,OPEN
+R10,Data mismatch,MEDIUM,Broker vs Backtest data,Logic failure,Tick data comparison,NO,YES,OPEN
+R11,Human override,HIGH,Emotional interference,Broken edge,Automated execution lock,YES,YES,OPEN
+R12,Parameter drift,LOW,Manual changes,Invalid forward test,Config checksums,YES,YES,OPEN
+R13,Emotional escalation,HIGH,Increasing risk after loss,Account blow,Hardcoded max risk,YES,YES,OPEN
+R14,Early demo promotion,HIGH,Anxiety/Impatience,Strategy not ready,Mandatory 8-week lock,YES,YES,OPEN

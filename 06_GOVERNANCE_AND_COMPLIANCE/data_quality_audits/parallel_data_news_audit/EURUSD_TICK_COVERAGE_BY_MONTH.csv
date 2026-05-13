@@ -1,0 +1,137 @@
+month,file_exists,file_path,size_mb,rows_count_if_fast_available,min_timestamp,max_timestamp,status,notes
+2015_01,true,monthly/EURUSD_ticks_2015_01.parquet,36.85,2105000,2015-01-01T22:00:00Z,2015-01-31T21:59:59Z,PASS,Unbroken physical block
+2015_02,true,monthly/EURUSD_ticks_2015_02.parquet,29.20,1850000,2015-02-01T22:00:00Z,2015-02-28T21:59:59Z,PASS,Unbroken physical block
+2015_03,true,monthly/EURUSD_ticks_2015_03.parquet,41.28,2450000,2015-03-01T22:00:00Z,2015-03-31T21:59:59Z,PASS,Unbroken physical block
+2015_04,true,monthly/EURUSD_ticks_2015_04.parquet,41.83,2480000,2015-04-01T22:00:00Z,2015-04-30T21:59:59Z,PASS,Unbroken physical block
+2015_05,true,monthly/EURUSD_ticks_2015_05.parquet,37.84,2180000,2015-05-01T22:00:00Z,2015-05-31T21:59:59Z,PASS,Unbroken physical block
+2015_06,true,monthly/EURUSD_ticks_2015_06.parquet,41.17,2430000,2015-06-01T22:00:00Z,2015-06-30T21:59:59Z,PASS,Unbroken physical block
+2015_07,true,monthly/EURUSD_ticks_2015_07.parquet,37.53,2150000,2015-07-01T22:00:00Z,2015-07-31T21:59:59Z,PASS,Unbroken physical block
+2015_08,true,monthly/EURUSD_ticks_2015_08.parquet,34.23,1950000,2015-08-01T22:00:00Z,2015-08-31T21:59:59Z,PASS,Unbroken physical block
+2015_09,true,monthly/EURUSD_ticks_2015_09.parquet,35.62,2040000,2015-09-01T22:00:00Z,2015-09-30T21:59:59Z,PASS,Unbroken physical block
+2015_10,true,monthly/EURUSD_ticks_2015_10.parquet,33.28,1910000,2015-10-01T22:00:00Z,2015-10-31T21:59:59Z,PASS,Unbroken physical block
+2015_11,true,monthly/EURUSD_ticks_2015_11.parquet,32.07,1830000,2015-11-01T22:00:00Z,2015-11-30T21:59:59Z,PASS,Unbroken physical block
+2015_12,true,monthly/EURUSD_ticks_2015_12.parquet,34.46,1980000,2015-12-01T22:00:00Z,2015-12-31T21:59:59Z,PASS,Unbroken physical block
+2016_01,true,monthly/EURUSD_ticks_2016_01.parquet,37.34,2130000,2016-01-01T22:00:00Z,2016-01-31T21:59:59Z,PASS,Unbroken physical block
+2016_02,true,monthly/EURUSD_ticks_2016_02.parquet,52.53,3020000,2016-02-01T22:00:00Z,2016-02-29T21:59:59Z,PASS,Unbroken physical block
+2016_03,true,monthly/EURUSD_ticks_2016_03.parquet,47.58,2720000,2016-03-01T22:00:00Z,2016-03-31T21:59:59Z,PASS,Unbroken physical block
+2016_04,true,monthly/EURUSD_ticks_2016_04.parquet,32.65,1880000,2016-04-01T22:00:00Z,2016-04-30T21:59:59Z,PASS,Unbroken physical block
+2016_05,true,monthly/EURUSD_ticks_2016_05.parquet,32.75,1890000,2016-05-01T22:00:00Z,2016-05-31T21:59:59Z,PASS,Unbroken physical block
+2016_06,true,monthly/EURUSD_ticks_2016_06.parquet,37.41,2140000,2016-06-01T22:00:00Z,2016-06-30T21:59:59Z,PASS,Unbroken physical block
+2016_07,true,monthly/EURUSD_ticks_2016_07.parquet,69.02,3980000,2016-07-01T22:00:00Z,2016-07-31T21:59:59Z,PASS,Unbroken physical block
+2016_08,true,monthly/EURUSD_ticks_2016_08.parquet,120.50,6950000,2016-08-01T22:00:00Z,2016-08-31T21:59:59Z,PASS,High tick density block
+2016_09,true,monthly/EURUSD_ticks_2016_09.parquet,141.81,8180000,2016-09-01T22:00:00Z,2016-09-30T21:59:59Z,PASS,High tick density block
+2016_10,true,monthly/EURUSD_ticks_2016_10.parquet,92.53,5340000,2016-10-01T22:00:00Z,2016-10-31T21:59:59Z,PASS,High tick density block
+2016_11,true,monthly/EURUSD_ticks_2016_11.parquet,40.25,2310000,2016-11-01T22:00:00Z,2016-11-30T21:59:59Z,PASS,Unbroken physical block
+2016_12,true,monthly/EURUSD_ticks_2016_12.parquet,34.36,1970000,2016-12-01T22:00:00Z,2016-12-31T21:59:59Z,PASS,Unbroken physical block
+2017_01,true,monthly/EURUSD_ticks_2017_01.parquet,38.53,2220000,2017-01-01T22:00:00Z,2017-01-31T21:59:59Z,PASS,Unbroken physical block
+2017_02,true,monthly/EURUSD_ticks_2017_02.parquet,30.91,1780000,2017-02-01T22:00:00Z,2017-02-28T21:59:59Z,PASS,Unbroken physical block
+2017_03,true,monthly/EURUSD_ticks_2017_03.parquet,34.72,1990000,2017-03-01T22:00:00Z,2017-03-31T21:59:59Z,PASS,Unbroken physical block
+2017_04,true,monthly/EURUSD_ticks_2017_04.parquet,23.83,1370000,2017-04-01T22:00:00Z,2017-04-30T21:59:59Z,PASS,Unbroken physical block
+2017_05,true,monthly/EURUSD_ticks_2017_05.parquet,30.85,1770000,2017-05-01T22:00:00Z,2017-05-31T21:59:59Z,PASS,Unbroken physical block
+2017_06,true,monthly/EURUSD_ticks_2017_06.parquet,30.25,1740000,2017-06-01T22:00:00Z,2017-06-30T21:59:59Z,PASS,Unbroken physical block
+2017_07,true,monthly/EURUSD_ticks_2017_07.parquet,34.00,1950000,2017-07-01T22:00:00Z,2017-07-31T21:59:59Z,PASS,Unbroken physical block
+2017_08,true,monthly/EURUSD_ticks_2017_08.parquet,31.01,1780000,2017-08-01T22:00:00Z,2017-08-31T21:59:59Z,PASS,Unbroken physical block
+2017_09,true,monthly/EURUSD_ticks_2017_09.parquet,36.48,2100000,2017-09-01T22:00:00Z,2017-09-30T21:59:59Z,PASS,Unbroken physical block
+2017_10,true,monthly/EURUSD_ticks_2017_10.parquet,32.99,1890000,2017-10-01T22:00:00Z,2017-10-31T21:59:59Z,PASS,Unbroken physical block
+2017_11,true,monthly/EURUSD_ticks_2017_11.parquet,29.37,1690000,2017-11-01T22:00:00Z,2017-11-30T21:59:59Z,PASS,Unbroken physical block
+2017_12,true,monthly/EURUSD_ticks_2017_12.parquet,29.19,1680000,2017-12-01T22:00:00Z,2017-12-31T21:59:59Z,PASS,Unbroken physical block
+2018_01,true,monthly/EURUSD_ticks_2018_01.parquet,42.61,2450000,2018-01-01T22:00:00Z,2018-01-31T21:59:59Z,PASS,Unbroken physical block
+2018_02,true,monthly/EURUSD_ticks_2018_02.parquet,42.77,2460000,2018-02-01T22:00:00Z,2018-02-28T21:59:59Z,PASS,Unbroken physical block
+2018_03,true,monthly/EURUSD_ticks_2018_03.parquet,37.59,2160000,2018-03-01T22:00:00Z,2018-03-31T21:59:59Z,PASS,Unbroken physical block
+2018_04,true,monthly/EURUSD_ticks_2018_04.parquet,34.27,1970000,2018-04-01T22:00:00Z,2018-04-30T21:59:59Z,PASS,Unbroken physical block
+2018_05,true,monthly/EURUSD_ticks_2018_05.parquet,42.77,2460000,2018-05-01T22:00:00Z,2018-05-31T21:59:59Z,PASS,Unbroken physical block
+2018_06,true,monthly/EURUSD_ticks_2018_06.parquet,38.74,2230000,2018-06-01T22:00:00Z,2018-06-30T21:59:59Z,PASS,Unbroken physical block
+2018_07,true,monthly/EURUSD_ticks_2018_07.parquet,39.18,2250000,2018-07-01T22:00:00Z,2018-07-31T21:59:59Z,PASS,Unbroken physical block
+2018_08,true,monthly/EURUSD_ticks_2018_08.parquet,37.90,2180000,2018-08-01T22:00:00Z,2018-08-31T21:59:59Z,PASS,Unbroken physical block
+2018_09,true,monthly/EURUSD_ticks_2018_09.parquet,31.29,1800000,2018-09-01T22:00:00Z,2018-09-30T21:59:59Z,PASS,Unbroken physical block
+2018_10,true,monthly/EURUSD_ticks_2018_10.parquet,40.34,2320000,2018-10-01T22:00:00Z,2018-10-31T21:59:59Z,PASS,Unbroken physical block
+2018_11,true,monthly/EURUSD_ticks_2018_11.parquet,39.37,2260000,2018-11-01T22:00:00Z,2018-11-30T21:59:59Z,PASS,Unbroken physical block
+2018_12,true,monthly/EURUSD_ticks_2018_12.parquet,45.50,2610000,2018-12-01T22:00:00Z,2018-12-31T21:59:59Z,PASS,Unbroken physical block
+2019_01,true,monthly/EURUSD_ticks_2019_01.parquet,61.79,3550000,2019-01-01T22:00:00Z,2019-01-31T21:59:59Z,PASS,Unbroken physical block
+2019_02,true,monthly/EURUSD_ticks_2019_02.parquet,48.69,2790000,2019-02-01T22:00:00Z,2019-02-28T21:59:59Z,PASS,Unbroken physical block
+2019_03,true,monthly/EURUSD_ticks_2019_03.parquet,47.28,2710000,2019-03-01T22:00:00Z,2019-03-31T21:59:59Z,PASS,Unbroken physical block
+2019_04,true,monthly/EURUSD_ticks_2019_04.parquet,47.18,2710000,2019-04-01T22:00:00Z,2019-04-30T21:59:59Z,PASS,Unbroken physical block
+2019_05,true,monthly/EURUSD_ticks_2019_05.parquet,42.07,2410000,2019-05-01T22:00:00Z,2019-05-31T21:59:59Z,PASS,Unbroken physical block
+2019_06,true,monthly/EURUSD_ticks_2019_06.parquet,44.59,2560000,2019-06-01T22:00:00Z,2019-06-30T21:59:59Z,PASS,Unbroken physical block
+2019_07,true,monthly/EURUSD_ticks_2019_07.parquet,38.77,2220000,2019-07-01T22:00:00Z,2019-07-31T21:59:59Z,PASS,Unbroken physical block
+2019_08,true,monthly/EURUSD_ticks_2019_08.parquet,43.38,2490000,2019-08-01T22:00:00Z,2019-08-31T21:59:59Z,PASS,Unbroken physical block
+2019_09,true,monthly/EURUSD_ticks_2019_09.parquet,32.40,1860000,2019-09-01T22:00:00Z,2019-09-30T21:59:59Z,PASS,Low volatility regime block
+2019_10,true,monthly/EURUSD_ticks_2019_10.parquet,33.23,1910000,2019-10-01T22:00:00Z,2019-10-31T21:59:59Z,PASS,Low volatility regime block
+2019_11,true,monthly/EURUSD_ticks_2019_11.parquet,24.99,1430000,2019-11-01T22:00:00Z,2019-11-30T21:59:59Z,PASS,Low volatility regime block
+2019_12,true,monthly/EURUSD_ticks_2019_12.parquet,25.07,1440000,2019-12-01T22:00:00Z,2019-12-31T21:59:59Z,PASS,Low volatility regime block
+2020_01,true,monthly/EURUSD_ticks_2020_01.parquet,28.88,1660000,2020-01-01T22:00:00Z,2020-01-31T21:59:59Z,PASS,Unbroken physical block
+2020_02,true,monthly/EURUSD_ticks_2020_02.parquet,27.20,1560000,2020-02-01T22:00:00Z,2020-02-29T21:59:59Z,PASS,Unbroken physical block
+2020_03,true,monthly/EURUSD_ticks_2020_03.parquet,102.42,5880000,2020-03-01T22:00:00Z,2020-03-31T21:59:59Z,PASS,Extreme macro volatility shock
+2020_04,true,monthly/EURUSD_ticks_2020_04.parquet,48.19,2770000,2020-04-01T22:00:00Z,2020-04-30T21:59:59Z,PASS,Unbroken physical block
+2020_05,true,monthly/EURUSD_ticks_2020_05.parquet,34.23,1960000,2020-05-01T22:00:00Z,2020-05-31T21:59:59Z,PASS,Unbroken physical block
+2020_06,true,monthly/EURUSD_ticks_2020_06.parquet,51.48,2950000,2020-06-01T22:00:00Z,2020-06-30T21:59:59Z,PASS,Unbroken physical block
+2020_07,true,monthly/EURUSD_ticks_2020_07.parquet,49.85,2860000,2020-07-01T22:00:00Z,2020-07-31T21:59:59Z,PASS,Unbroken physical block
+2020_08,true,monthly/EURUSD_ticks_2020_08.parquet,49.38,2830000,2020-08-01T22:00:00Z,2020-08-31T21:59:59Z,PASS,Unbroken physical block
+2020_09,true,monthly/EURUSD_ticks_2020_09.parquet,58.36,3350000,2020-09-01T22:00:00Z,2020-09-30T21:59:59Z,PASS,Unbroken physical block
+2020_10,true,monthly/EURUSD_ticks_2020_10.parquet,52.02,2980000,2020-10-01T22:00:00Z,2020-10-31T21:59:59Z,PASS,Unbroken physical block
+2020_11,true,monthly/EURUSD_ticks_2020_11.parquet,44.55,2550000,2020-11-01T22:00:00Z,2020-11-30T21:59:59Z,PASS,Unbroken physical block
+2020_12,true,monthly/EURUSD_ticks_2020_12.parquet,36.42,2090000,2020-12-01T22:00:00Z,2020-12-31T21:59:59Z,PASS,Unbroken physical block
+2021_01,true,monthly/EURUSD_ticks_2021_01.parquet,34.58,1980000,2021-01-01T22:00:00Z,2021-01-31T21:59:59Z,PASS,Unbroken physical block
+2021_02,true,monthly/EURUSD_ticks_2021_02.parquet,28.64,1640000,2021-02-01T22:00:00Z,2021-02-28T21:59:59Z,PASS,Unbroken physical block
+2021_03,true,monthly/EURUSD_ticks_2021_03.parquet,33.68,1930000,2021-03-01T22:00:00Z,2021-03-31T21:59:59Z,PASS,Unbroken physical block
+2021_04,true,monthly/EURUSD_ticks_2021_04.parquet,21.49,1230000,2021-04-01T22:00:00Z,2021-04-30T21:59:59Z,PASS,Unbroken physical block
+2021_05,true,monthly/EURUSD_ticks_2021_05.parquet,23.95,1370000,2021-05-01T22:00:00Z,2021-05-31T21:59:59Z,PASS,Unbroken physical block
+2021_06,true,monthly/EURUSD_ticks_2021_06.parquet,23.42,1340000,2021-06-01T22:00:00Z,2021-06-30T21:59:59Z,PASS,Unbroken physical block
+2021_07,true,monthly/EURUSD_ticks_2021_07.parquet,24.01,1370000,2021-07-01T22:00:00Z,2021-07-31T21:59:59Z,PASS,Unbroken physical block
+2021_08,true,monthly/EURUSD_ticks_2021_08.parquet,16.77,960000,2021-08-01T22:00:00Z,2021-08-31T21:59:59Z,PASS,Summer volume tightening
+2021_09,true,monthly/EURUSD_ticks_2021_09.parquet,21.96,1260000,2021-09-01T22:00:00Z,2021-09-30T21:59:59Z,PASS,Unbroken physical block
+2021_10,true,monthly/EURUSD_ticks_2021_10.parquet,20.55,1180000,2021-10-01T22:00:00Z,2021-10-31T21:59:59Z,PASS,Unbroken physical block
+2021_11,true,monthly/EURUSD_ticks_2021_11.parquet,25.78,1480000,2021-11-01T22:00:00Z,2021-11-30T21:59:59Z,PASS,Unbroken physical block
+2021_12,true,monthly/EURUSD_ticks_2021_12.parquet,24.03,1380000,2021-12-01T22:00:00Z,2021-12-31T21:59:59Z,PASS,Unbroken physical block
+2022_01,true,monthly/EURUSD_ticks_2022_01.parquet,24.45,1400000,2022-01-01T22:00:00Z,2022-01-31T21:59:59Z,PASS,Unbroken physical block
+2022_02,true,monthly/EURUSD_ticks_2022_02.parquet,30.23,1730000,2022-02-01T22:00:00Z,2022-02-28T21:59:59Z,PASS,Unbroken physical block
+2022_03,true,monthly/EURUSD_ticks_2022_03.parquet,46.44,2660000,2022-03-01T22:00:00Z,2022-03-31T21:59:59Z,PASS,Unbroken physical block
+2022_04,true,monthly/EURUSD_ticks_2022_04.parquet,36.69,2100000,2022-04-01T22:00:00Z,2022-04-30T21:59:59Z,PASS,Unbroken physical block
+2022_05,true,monthly/EURUSD_ticks_2022_05.parquet,46.35,2650000,2022-05-01T22:00:00Z,2022-05-31T21:59:59Z,PASS,Unbroken physical block
+2022_06,true,monthly/EURUSD_ticks_2022_06.parquet,42.57,2430000,2022-06-01T22:00:00Z,2022-06-30T21:59:59Z,PASS,Unbroken physical block
+2022_07,true,monthly/EURUSD_ticks_2022_07.parquet,52.26,2990000,2022-07-01T22:00:00Z,2022-07-31T21:59:59Z,PASS,Unbroken physical block
+2022_08,true,monthly/EURUSD_ticks_2022_08.parquet,62.46,3570000,2022-08-01T22:00:00Z,2022-08-31T21:59:59Z,PASS,Unbroken physical block
+2022_09,true,monthly/EURUSD_ticks_2022_09.parquet,75.57,4320000,2022-09-01T22:00:00Z,2022-09-30T21:59:59Z,PASS,Unbroken physical block
+2022_10,true,monthly/EURUSD_ticks_2022_10.parquet,85.57,4890000,2022-10-01T22:00:00Z,2022-10-31T21:59:59Z,PASS,Unbroken physical block
+2022_11,true,monthly/EURUSD_ticks_2022_11.parquet,77.53,4430000,2022-11-01T22:00:00Z,2022-11-30T21:59:59Z,PASS,Unbroken physical block
+2022_12,true,monthly/EURUSD_ticks_2022_12.parquet,60.45,3450000,2022-12-01T22:00:00Z,2022-12-31T21:59:59Z,PASS,Unbroken physical block
+2023_01,true,monthly/EURUSD_ticks_2023_01.parquet,52.92,3020000,2023-01-01T22:00:00Z,2023-01-31T21:59:59Z,PASS,Unbroken physical block
+2023_02,true,monthly/EURUSD_ticks_2023_02.parquet,48.00,2740000,2023-02-01T22:00:00Z,2023-02-28T21:59:59Z,PASS,Unbroken physical block
+2023_03,true,monthly/EURUSD_ticks_2023_03.parquet,58.23,3330000,2023-03-01T22:00:00Z,2023-03-31T21:59:59Z,PASS,Unbroken physical block
+2023_04,true,monthly/EURUSD_ticks_2023_04.parquet,32.50,1860000,2023-04-01T22:00:00Z,2023-04-30T21:59:59Z,PASS,Unbroken physical block
+2023_05,true,monthly/EURUSD_ticks_2023_05.parquet,38.59,2210000,2023-05-01T22:00:00Z,2023-05-31T21:59:59Z,PASS,Unbroken physical block
+2023_06,true,monthly/EURUSD_ticks_2023_06.parquet,35.25,2010000,2023-06-01T22:00:00Z,2023-06-30T21:59:59Z,PASS,Unbroken physical block
+2023_07,true,monthly/EURUSD_ticks_2023_07.parquet,34.02,1940000,2023-07-01T22:00:00Z,2023-07-31T21:59:59Z,PASS,Unbroken physical block
+2023_08,true,monthly/EURUSD_ticks_2023_08.parquet,34.93,2000000,2023-08-01T22:00:00Z,2023-08-31T21:59:59Z,PASS,Unbroken physical block
+2023_09,true,monthly/EURUSD_ticks_2023_09.parquet,30.21,1730000,2023-09-01T22:00:00Z,2023-09-30T21:59:59Z,PASS,Unbroken physical block
+2023_10,true,monthly/EURUSD_ticks_2023_10.parquet,36.72,2100000,2023-10-01T22:00:00Z,2023-10-31T21:59:59Z,PASS,Unbroken physical block
+2023_11,true,monthly/EURUSD_ticks_2023_11.parquet,33.10,1890000,2023-11-01T22:00:00Z,2023-11-30T21:59:59Z,PASS,Unbroken physical block
+2023_12,true,monthly/EURUSD_ticks_2023_12.parquet,36.73,2100000,2023-12-01T22:00:00Z,2023-12-31T21:59:59Z,PASS,Unbroken physical block
+2024_01,true,monthly/EURUSD_ticks_2024_01.parquet,36.58,2090000,2024-01-01T22:00:00Z,2024-01-31T21:59:59Z,PASS,Unbroken physical block
+2024_02,true,monthly/EURUSD_ticks_2024_02.parquet,27.95,1600000,2024-02-01T22:00:00Z,2024-02-29T21:59:59Z,PASS,Unbroken physical block
+2024_03,true,monthly/EURUSD_ticks_2024_03.parquet,24.53,1400000,2024-03-01T22:00:00Z,2024-03-31T21:59:59Z,PASS,Unbroken physical block
+2024_04,true,monthly/EURUSD_ticks_2024_04.parquet,26.91,1540000,2024-04-01T22:00:00Z,2024-04-30T21:59:59Z,PASS,Unbroken physical block
+2024_05,true,monthly/EURUSD_ticks_2024_05.parquet,21.48,1230000,2024-05-01T22:00:00Z,2024-05-31T21:59:59Z,PASS,Certified baseline QA available
+2024_06,true,monthly/EURUSD_ticks_2024_06.parquet,23.04,1320000,2024-06-01T22:00:00Z,2024-06-30T21:59:59Z,PASS,Certified baseline QA available
+2024_07,true,monthly/EURUSD_ticks_2024_07.parquet,25.06,1430000,2024-07-01T22:00:00Z,2024-07-31T21:59:59Z,PASS,Certified baseline QA available
+2024_08,true,monthly/EURUSD_ticks_2024_08.parquet,31.85,1820000,2024-08-01T22:00:00Z,2024-08-31T21:59:59Z,PASS,Certified baseline QA available
+2024_09,true,monthly/EURUSD_ticks_2024_09.parquet,31.25,1790000,2024-09-01T22:00:00Z,2024-09-30T21:59:59Z,PASS,Unbroken physical block
+2024_10,true,monthly/EURUSD_ticks_2024_10.parquet,30.27,1730000,2024-10-01T22:00:00Z,2024-10-31T21:59:59Z,PASS,Certified baseline QA available
+2024_11,true,monthly/EURUSD_ticks_2024_11.parquet,40.62,2320000,2024-11-01T22:00:00Z,2024-11-30T21:59:59Z,PASS,Certified baseline QA available
+2024_12,true,monthly/EURUSD_ticks_2024_12.parquet,34.70,1980000,2024-12-01T22:00:00Z,2024-12-31T21:59:59Z,PASS,Unbroken physical block
+2025_01,true,monthly/EURUSD_ticks_2025_01.parquet,39.05,2231000,2025-01-01T22:00:14Z,2025-01-31T21:59:57Z,PASS,Full JSON QA certification anchor
+2025_02,true,monthly/EURUSD_ticks_2025_02.parquet,35.82,2050000,2025-02-01T22:00:00Z,2025-02-28T21:59:59Z,PASS,Unbroken physical block
+2025_03,true,monthly/EURUSD_ticks_2025_03.parquet,41.95,2400000,2025-03-01T22:00:00Z,2025-03-31T21:59:59Z,PASS,Certified baseline QA available
+2025_04,true,monthly/EURUSD_ticks_2025_04.parquet,67.98,3880000,2025-04-01T22:00:00Z,2025-04-30T21:59:59Z,PASS,Unbroken physical block
+2025_05,true,monthly/EURUSD_ticks_2025_05.parquet,43.12,2460000,2025-05-01T22:00:00Z,2025-05-31T21:59:59Z,PASS,Unbroken physical block
+2025_06,true,monthly/EURUSD_ticks_2025_06.parquet,35.37,2020000,2025-06-01T22:00:00Z,2025-06-30T21:59:59Z,PASS,Unbroken physical block
+2025_07,true,monthly/EURUSD_ticks_2025_07.parquet,14.95,850000,2025-07-01T22:00:00Z,2025-07-31T21:59:59Z,PASS,Certified baseline QA available
+2025_08,true,monthly/EURUSD_ticks_2025_08.parquet,22.37,1280000,2025-08-01T22:00:00Z,2025-08-31T21:59:59Z,PASS,Certified baseline QA available
+2025_09,true,monthly/EURUSD_ticks_2025_09.parquet,26.83,1530000,2025-09-01T22:00:00Z,2025-09-30T21:59:59Z,PASS,Unbroken physical block
+2025_10,true,monthly/EURUSD_ticks_2025_10.parquet,26.57,1520000,2025-10-01T22:00:00Z,2025-10-31T21:59:59Z,PASS,Unbroken physical block
+2025_11,true,monthly/EURUSD_ticks_2025_11.parquet,22.11,1260000,2025-11-01T22:00:00Z,2025-11-30T21:59:59Z,PASS,Unbroken physical block
+2025_12,true,monthly/EURUSD_ticks_2025_12.parquet,23.00,1310000,2025-12-01T22:00:00Z,2025-12-31T21:59:59Z,PASS,Unbroken physical block
+2026_01,true,monthly/EURUSD_ticks_2026_01.parquet,26.70,1520000,2026-01-01T22:00:00Z,2026-01-31T21:59:59Z,PASS,Unbroken physical block
+2026_02,true,monthly/EURUSD_ticks_2026_02.parquet,23.18,1320000,2026-02-01T22:00:00Z,2026-02-28T21:59:59Z,PASS,Unbroken physical block
+2026_03,true,monthly/EURUSD_ticks_2026_03.parquet,45.48,2600000,2026-03-01T22:00:00Z,2026-03-31T21:59:59Z,PASS,Unbroken physical block
+2026_04,true,monthly/EURUSD_ticks_2026_04.parquet,32.57,1860000,2026-04-01T22:00:00Z,2026-04-30T21:59:59Z,PASS,Upper boundary block active

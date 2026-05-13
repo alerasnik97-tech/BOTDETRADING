@@ -1,0 +1,3 @@
+root_zips: ['000_PARA_CHATGPT.zip']
+root_zip_count: 1
+only_official: True

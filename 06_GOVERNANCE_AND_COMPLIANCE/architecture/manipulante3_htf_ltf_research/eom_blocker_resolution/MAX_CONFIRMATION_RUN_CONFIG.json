@@ -1,0 +1,142 @@
+{
+  "cost_model": {
+    "bid_ask_required": true,
+    "commission_per_lot_round_turn_usd": 5.0,
+    "instrument": "EURUSD",
+    "mode": "ftmo"
+  },
+  "created_utc": "2026-05-13T13:09:36+00:00",
+  "engine": {
+    "max_trades_per_day": 3,
+    "no_engine_source_mutation": true,
+    "random_seed": 20260513,
+    "source": "03_RESEARCH_LAB\\BOT_V2_DAYTIME_LAB\\src"
+  },
+  "max_configs": 5,
+  "news": {
+    "fail_close_calendar_missing": true,
+    "fail_close_monthly_audit_not_pass": true,
+    "fomc_rates_buffer_minutes": {
+      "post": 10,
+      "pre": 2
+    },
+    "legacy_2015_2019_used": false,
+    "source": "05_MARKET_DATA_VAULT\\data\\news_eurusd_am_fortress_v3.csv",
+    "standard_tier1_buffer_minutes": {
+      "post": 5,
+      "pre": 1
+    }
+  },
+  "phase_months": {
+    "TEST": [
+      "2023-01",
+      "2023-02",
+      "2023-03",
+      "2023-04",
+      "2023-05",
+      "2023-06",
+      "2023-07",
+      "2023-08",
+      "2023-09",
+      "2023-10",
+      "2023-11",
+      "2023-12",
+      "2024-01",
+      "2024-02",
+      "2024-03",
+      "2024-04",
+      "2024-05",
+      "2024-06",
+      "2024-07",
+      "2024-08",
+      "2024-09",
+      "2024-10",
+      "2024-11",
+      "2024-12",
+      "2025-01",
+      "2025-02",
+      "2025-03",
+      "2025-04",
+      "2025-05",
+      "2025-06",
+      "2025-07",
+      "2025-08",
+      "2025-09",
+      "2025-10",
+      "2025-11",
+      "2025-12",
+      "2026-01",
+      "2026-02",
+      "2026-03",
+      "2026-04"
+    ],
+    "TRAIN": [
+      "2020-01",
+      "2020-02",
+      "2020-03",
+      "2020-04",
+      "2020-05",
+      "2020-06",
+      "2020-07",
+      "2020-08",
+      "2020-09",
+      "2020-10",
+      "2020-11",
+      "2020-12",
+      "2021-01",
+      "2021-02",
+      "2021-03",
+      "2021-04",
+      "2021-05",
+      "2021-06",
+      "2021-07",
+      "2021-08",
+      "2021-09",
+      "2021-10",
+      "2021-11",
+      "2021-12"
+    ],
+    "VAL": [
+      "2022-01",
+      "2022-02",
+      "2022-03",
+      "2022-04",
+      "2022-05",
+      "2022-06",
+      "2022-07",
+      "2022-08",
+      "2022-09",
+      "2022-10",
+      "2022-11",
+      "2022-12"
+    ]
+  },
+  "primary_period": {
+    "end": "2026-04",
+    "start": "2020-01"
+  },
+  "protocol": "MANIPULANTE 3.0 MAXIMUM CONFIRMATION RERUN",
+  "rollover": {
+    "blocked_actions": [
+      "entry",
+      "non_forced_exit"
+    ],
+    "blocked_end": "17:15",
+    "blocked_start": "16:55",
+    "engine_forced_exit_mode": "16:00",
+    "timezone": "America/New_York"
+  },
+  "selected_config_ids": [
+    "CFG_002",
+    "CFG_005",
+    "CFG_001",
+    "CFG_003",
+    "CFG_004"
+  ],
+  "selection_basis": "Top configs by PF_net on VALIDATION rows with slippage 0.0 only.",
+  "selection_source": "03_RESEARCH_LAB\\BOT_V2_DAYTIME_LAB\\reports\\v38_manipulante3_htf_ltf\\MANIPULANTE3_PILOT_RESULTS_VAL.csv",
+  "slippage_pips": [
+    0.0,
+    0.2
+  ]
+}

@@ -1,0 +1,6 @@
+risk_id,risk,control,status
+R001,Data mining por rerun adaptativo,Top 5 preseleccionados por VAL slippage 0.0; sin TEST y sin nuevas variantes.,CONTROLLED
+R002,Calendario incompleto o gaps de cobertura,Fail-close por auditorias mensuales PASS y existencia fisica de AM Fortress v3.,CONTROLLED_BY_PREFLIGHT
+R003,Fills irreales en rollover,Bloqueo 16:55-17:15 NY; engine conserva forced_exit 16:00 como barrera mas temprana.,CONTROLLED
+R004,Slippage/costos omitidos,FTMO USD 5/lote round-turn y slippage obligatorio 0.2 pip.,CONTROLLED
+R005,EOM artificial,Trades con ARTIFICIAL_TRUNCATION bloquean la decision.,CONTROLLED

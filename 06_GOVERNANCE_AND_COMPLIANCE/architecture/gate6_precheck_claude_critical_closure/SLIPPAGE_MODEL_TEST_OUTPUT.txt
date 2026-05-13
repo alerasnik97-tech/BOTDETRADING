@@ -1,0 +1,1 @@
+src/v7_engine/tests/test_engine_cost_integration.py::test_slippage_stress_reduces_net_r_monotonically PASSED [ 27%]

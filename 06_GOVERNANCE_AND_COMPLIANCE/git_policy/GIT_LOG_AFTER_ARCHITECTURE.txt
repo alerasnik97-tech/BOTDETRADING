@@ -1,0 +1,5 @@
+6ec6271 [v37/architecture] migracion institucional quant lab multiagente
+6a7dd9e [v37/workspace-cleanup-fix] agregar inventario y github audit al zip
+7fa961b [v37/workspace-cleanup] orden profundo del proyecto y hygiene github
+992ac6f [v37/gate6fb2] corregir causal log full suite y limpiar zips extra
+4d44d64 [v37/gate6f] auditoria claude-proof pre laboratorio y zip liviano

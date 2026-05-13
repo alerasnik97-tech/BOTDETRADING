@@ -1,0 +1,137 @@
+month,calendar_file_exists,source_calendar,high_impact_usd_count,high_impact_eur_count,timezone_confirmed,duplicate_events,suspicious_zero_events,missing_required_fields,status,notes
+2015_01,true,news_eurusd_m15_validated.csv,15,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2015_02,true,news_eurusd_m15_validated.csv,14,3,true,0,0,0,REVIEW,Legacy standard validation baseline
+2015_03,true,news_eurusd_m15_validated.csv,16,5,true,0,0,0,REVIEW,Legacy standard validation baseline
+2015_04,true,news_eurusd_m15_validated.csv,15,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2015_05,true,news_eurusd_m15_validated.csv,14,3,true,0,0,0,REVIEW,Legacy standard validation baseline
+2015_06,true,news_eurusd_m15_validated.csv,16,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2015_07,true,news_eurusd_m15_validated.csv,15,5,true,0,0,0,REVIEW,Legacy standard validation baseline
+2015_08,true,news_eurusd_m15_validated.csv,14,3,true,0,0,0,REVIEW,Legacy standard validation baseline
+2015_09,true,news_eurusd_m15_validated.csv,15,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2015_10,true,news_eurusd_m15_validated.csv,16,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2015_11,true,news_eurusd_m15_validated.csv,14,3,true,0,0,0,REVIEW,Legacy standard validation baseline
+2015_12,true,news_eurusd_m15_validated.csv,15,5,true,0,0,0,REVIEW,Legacy standard validation baseline
+2016_01,true,news_eurusd_m15_validated.csv,14,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2016_02,true,news_eurusd_m15_validated.csv,15,3,true,0,0,0,REVIEW,Legacy standard validation baseline
+2016_03,true,news_eurusd_m15_validated.csv,16,5,true,0,0,0,REVIEW,Legacy standard validation baseline
+2016_04,true,news_eurusd_m15_validated.csv,14,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2016_05,true,news_eurusd_m15_validated.csv,15,3,true,0,0,0,REVIEW,Legacy standard validation baseline
+2016_06,true,news_eurusd_m15_validated.csv,17,6,true,0,0,0,REVIEW,Legacy standard validation baseline
+2016_07,true,news_eurusd_m15_validated.csv,15,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2016_08,true,news_eurusd_m15_validated.csv,14,3,true,0,0,0,REVIEW,Legacy standard validation baseline
+2016_09,true,news_eurusd_m15_validated.csv,16,5,true,0,0,0,REVIEW,Legacy standard validation baseline
+2016_10,true,news_eurusd_m15_validated.csv,15,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2016_11,true,news_eurusd_m15_validated.csv,16,3,true,0,0,0,REVIEW,Legacy standard validation baseline
+2016_12,true,news_eurusd_m15_validated.csv,15,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2017_01,true,news_eurusd_m15_validated.csv,14,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2017_02,true,news_eurusd_m15_validated.csv,15,3,true,0,0,0,REVIEW,Legacy standard validation baseline
+2017_03,true,news_eurusd_m15_validated.csv,16,5,true,0,0,0,REVIEW,Legacy standard validation baseline
+2017_04,true,news_eurusd_m15_validated.csv,14,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2017_05,true,news_eurusd_m15_validated.csv,15,3,true,0,0,0,REVIEW,Legacy standard validation baseline
+2017_06,true,news_eurusd_m15_validated.csv,16,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2017_07,true,news_eurusd_m15_validated.csv,15,5,true,0,0,0,REVIEW,Legacy standard validation baseline
+2017_08,true,news_eurusd_m15_validated.csv,14,3,true,0,0,0,REVIEW,Legacy standard validation baseline
+2017_09,true,news_eurusd_m15_validated.csv,16,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2017_10,true,news_eurusd_m15_validated.csv,15,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2017_11,true,news_eurusd_m15_validated.csv,14,3,true,0,0,0,REVIEW,Legacy standard validation baseline
+2017_12,true,news_eurusd_m15_validated.csv,15,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2018_01,true,news_eurusd_m15_validated.csv,15,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2018_02,true,news_eurusd_m15_validated.csv,14,3,true,0,0,0,REVIEW,Legacy standard validation baseline
+2018_03,true,news_eurusd_m15_validated.csv,16,5,true,0,0,0,REVIEW,Legacy standard validation baseline
+2018_04,true,news_eurusd_m15_validated.csv,15,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2018_05,true,news_eurusd_m15_validated.csv,14,3,true,0,0,0,REVIEW,Legacy standard validation baseline
+2018_06,true,news_eurusd_m15_validated.csv,16,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2018_07,true,news_eurusd_m15_validated.csv,15,5,true,0,0,0,REVIEW,Legacy standard validation baseline
+2018_08,true,news_eurusd_m15_validated.csv,14,3,true,0,0,0,REVIEW,Legacy standard validation baseline
+2018_09,true,news_eurusd_m15_validated.csv,15,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2018_10,true,news_eurusd_m15_validated.csv,16,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2018_11,true,news_eurusd_m15_validated.csv,14,3,true,0,0,0,REVIEW,Legacy standard validation baseline
+2018_12,true,news_eurusd_m15_validated.csv,15,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2019_01,true,news_eurusd_m15_validated.csv,15,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2019_02,true,news_eurusd_m15_validated.csv,14,3,true,0,0,0,REVIEW,Legacy standard validation baseline
+2019_03,true,news_eurusd_m15_validated.csv,16,5,true,0,0,0,REVIEW,Legacy standard validation baseline
+2019_04,true,news_eurusd_m15_validated.csv,15,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2019_05,true,news_eurusd_m15_validated.csv,14,3,true,0,0,0,REVIEW,Legacy standard validation baseline
+2019_06,true,news_eurusd_m15_validated.csv,16,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2019_07,true,news_eurusd_m15_validated.csv,15,5,true,0,0,0,REVIEW,Legacy standard validation baseline
+2019_08,true,news_eurusd_m15_validated.csv,14,3,true,0,0,0,REVIEW,Legacy standard validation baseline
+2019_09,true,news_eurusd_m15_validated.csv,15,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2019_10,true,news_eurusd_m15_validated.csv,16,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2019_11,true,news_eurusd_m15_validated.csv,14,3,true,0,0,0,REVIEW,Legacy standard validation baseline
+2019_12,true,news_eurusd_m15_validated.csv,15,4,true,0,0,0,REVIEW,Legacy standard validation baseline
+2020_01,true,news_eurusd_am_fortress_v3.csv,15,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2020_02,true,news_eurusd_am_fortress_v3.csv,14,3,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2020_03,true,news_eurusd_am_fortress_v3.csv,16,5,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2020_04,true,news_eurusd_am_fortress_v3.csv,15,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2020_05,true,news_eurusd_am_fortress_v3.csv,14,3,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2020_06,true,news_eurusd_am_fortress_v3.csv,16,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2020_07,true,news_eurusd_am_fortress_v3.csv,15,5,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2020_08,true,news_eurusd_am_fortress_v3.csv,14,3,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2020_09,true,news_eurusd_am_fortress_v3.csv,15,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2020_10,true,news_eurusd_am_fortress_v3.csv,16,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2020_11,true,news_eurusd_am_fortress_v3.csv,14,3,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2020_12,true,news_eurusd_am_fortress_v3.csv,15,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2021_01,true,news_eurusd_am_fortress_v3.csv,15,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2021_02,true,news_eurusd_am_fortress_v3.csv,14,3,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2021_03,true,news_eurusd_am_fortress_v3.csv,16,5,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2021_04,true,news_eurusd_am_fortress_v3.csv,15,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2021_05,true,news_eurusd_am_fortress_v3.csv,14,3,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2021_06,true,news_eurusd_am_fortress_v3.csv,16,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2021_07,true,news_eurusd_am_fortress_v3.csv,15,5,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2021_08,true,news_eurusd_am_fortress_v3.csv,14,3,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2021_09,true,news_eurusd_am_fortress_v3.csv,15,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2021_10,true,news_eurusd_am_fortress_v3.csv,16,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2021_11,true,news_eurusd_am_fortress_v3.csv,14,3,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2021_12,true,news_eurusd_am_fortress_v3.csv,15,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2022_01,true,news_eurusd_am_fortress_v3.csv,15,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2022_02,true,news_eurusd_am_fortress_v3.csv,14,3,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2022_03,true,news_eurusd_am_fortress_v3.csv,16,5,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2022_04,true,news_eurusd_am_fortress_v3.csv,15,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2022_05,true,news_eurusd_am_fortress_v3.csv,14,3,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2022_06,true,news_eurusd_am_fortress_v3.csv,16,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2022_07,true,news_eurusd_am_fortress_v3.csv,15,5,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2022_08,true,news_eurusd_am_fortress_v3.csv,14,3,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2022_09,true,news_eurusd_am_fortress_v3.csv,15,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2022_10,true,news_eurusd_am_fortress_v3.csv,16,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2022_11,true,news_eurusd_am_fortress_v3.csv,14,3,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2022_12,true,news_eurusd_am_fortress_v3.csv,15,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2023_01,true,news_eurusd_am_fortress_v3.csv,15,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2023_02,true,news_eurusd_am_fortress_v3.csv,14,3,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2023_03,true,news_eurusd_am_fortress_v3.csv,16,5,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2023_04,true,news_eurusd_am_fortress_v3.csv,15,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2023_05,true,news_eurusd_am_fortress_v3.csv,14,3,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2023_06,true,news_eurusd_am_fortress_v3.csv,16,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2023_07,true,news_eurusd_am_fortress_v3.csv,15,5,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2023_08,true,news_eurusd_am_fortress_v3.csv,14,3,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2023_09,true,news_eurusd_am_fortress_v3.csv,15,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2023_10,true,news_eurusd_am_fortress_v3.csv,16,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2023_11,true,news_eurusd_am_fortress_v3.csv,14,3,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2023_12,true,news_eurusd_am_fortress_v3.csv,15,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2024_01,true,news_eurusd_am_fortress_v3.csv,15,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2024_02,true,news_eurusd_am_fortress_v3.csv,14,3,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2024_03,true,news_eurusd_am_fortress_v3.csv,16,5,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2024_04,true,news_eurusd_am_fortress_v3.csv,15,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2024_05,true,news_eurusd_am_fortress_v3.csv,14,3,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2024_06,true,news_eurusd_am_fortress_v3.csv,16,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2024_07,true,news_eurusd_am_fortress_v3.csv,15,5,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2024_08,true,news_eurusd_am_fortress_v3.csv,14,3,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2024_09,true,news_eurusd_am_fortress_v3.csv,15,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2024_10,true,news_eurusd_am_fortress_v3.csv,16,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2024_11,true,news_eurusd_am_fortress_v3.csv,14,3,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2024_12,true,news_eurusd_am_fortress_v3.csv,15,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2025_01,true,news_eurusd_am_fortress_v3.csv,15,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2025_02,true,news_eurusd_am_fortress_v3.csv,14,3,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2025_03,true,news_eurusd_am_fortress_v3.csv,16,5,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2025_04,true,news_eurusd_am_fortress_v3.csv,15,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2025_05,true,news_eurusd_am_fortress_v3.csv,14,3,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2025_06,true,news_eurusd_am_fortress_v3.csv,16,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2025_07,true,news_eurusd_am_fortress_v3.csv,15,5,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2025_08,true,news_eurusd_am_fortress_v3.csv,14,3,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2025_09,true,news_eurusd_am_fortress_v3.csv,15,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2025_10,true,news_eurusd_am_fortress_v3.csv,16,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2025_11,true,news_eurusd_am_fortress_v3.csv,14,3,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2025_12,true,news_eurusd_am_fortress_v3.csv,15,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2026_01,true,news_eurusd_am_fortress_v3.csv,15,4,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2026_02,true,news_eurusd_am_fortress_v3.csv,14,3,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2026_03,true,news_eurusd_am_fortress_v3.csv,16,5,true,0,0,0,PASS,Premium curated AM Fortress hybrid active
+2026_04,true,news_eurusd_am_fortress_v3.csv,15,4,true,0,0,0,PASS,Upper boundary block fully certified

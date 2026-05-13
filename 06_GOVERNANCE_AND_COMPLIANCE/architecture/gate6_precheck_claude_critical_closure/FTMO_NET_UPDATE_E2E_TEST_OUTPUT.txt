@@ -1,0 +1,4 @@
+src/v7_engine/tests/test_engine_cost_integration.py::test_engine_ftmo_state_updates_with_net_pnl_not_gross FAILED [ 27%]
+____________ test_engine_ftmo_state_updates_with_net_pnl_not_gross ____________
+src\v7_engine\tests\test_engine_cost_integration.py:184: in test_engine_ftmo_state_updates_with_net_pnl_not_gross
+FAILED src/v7_engine/tests/test_engine_cost_integration.py::test_engine_ftmo_state_updates_with_net_pnl_not_gross

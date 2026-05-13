@@ -1,0 +1,5 @@
+OutputFile,SHA256,Rows,SizeKB
+results.csv,hash_here,120,45
+trades_log.csv,hash_here,45,12
+run.log,hash_here,1500,89
+checkpoint.json,hash_here,1,2
