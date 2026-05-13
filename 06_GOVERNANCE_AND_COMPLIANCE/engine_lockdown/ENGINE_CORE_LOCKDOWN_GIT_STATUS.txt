@@ -1,0 +1,14 @@
+================================================================================
+ENGINE CORE LOCKDOWN — GIT STATUS REPORT
+================================================================================
+RAMA ACTUAL: clean-sync-branch
+
+LOG RECIENTE:
+e082c40 [v39/artifact] restaurar zip oficial root con rebuild atomico
+cc7eed4 [v39/github] institutional sync - professional surgical clean start
+
+ESTADO DEL ÁRBOL (RESUMEN):
+- Archivos fuente en src/v7_engine/ y src/v6_utils/ restaurados canónicamente (Modificados / untracked listos para stage en la rama limpia).
+- Cero divergencias con el manifiesto criptográfico oficial en caliente.
+- Ticks y parquets en 05_MARKET_DATA_VAULT permanecen estrictamente fuera de seguimiento en Git.
+================================================================================
