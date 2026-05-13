@@ -40,7 +40,6 @@ sys.path.insert(0, str(LAB))
 from src.v6_utils.bars import build_bars
 from src.v7_engine.cost_model import CostModel, CostModelConfig
 from src.v7_engine.engine import UnifiedV7Engine
-from src.v7_engine.eom_integrity import classify_eom, compute_net_r_metrics, metric_inclusion
 from src.v7_engine.news_filter import NewsCalendar, NewsEvent
 from src.R1.r1_levels import R1LevelExtractor
 from src.R1.r1_detector import R1AbsorptionDetector
@@ -135,6 +134,15 @@ def write_csv_append(name, rows, fields):
             w.writerow({k: r.get(k, "") for k in fields})
 
 def main():
+    import subprocess
+    verify_script = BASE / "06_GOVERNANCE_AND_COMPLIANCE" / "engine_lockdown" / "ENGINE_CORE_VERIFY.py"
+    if verify_script.exists():
+        res = subprocess.run([sys.executable, str(verify_script)], capture_output=True, text=True)
+        if res.returncode != 0 or "[OK] ESTADO: ENGINE_CORE_OK" not in res.stdout:
+            print("CRITICAL BLOCKER: El motor central no superó la verificación criptográfica de inmutabilidad.")
+            print(res.stdout)
+            sys.exit(1)
+            
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "checkpoints").mkdir(exist_ok=True)
     
@@ -143,7 +151,8 @@ def main():
         json.dump([asdict(c) for c in configs], f, indent=2, default=str)
     
     ndf, cal = load_news()
-    months = PHASE_MONTHS["TRAIN"] + PHASE_MONTHS["VAL"] + PHASE_MONTHS["TEST"]
+    # Smoke test de preflight limpio ordenado por protocolo: máximo 1 mes
+    months = [(2020, 1)]
     
     processed_file = OUT / "checkpoints" / "processed_months.json"
     processed = []
