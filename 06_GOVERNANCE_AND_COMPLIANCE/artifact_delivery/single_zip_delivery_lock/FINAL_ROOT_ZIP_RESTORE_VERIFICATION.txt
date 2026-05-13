@@ -1,0 +1,16 @@
+FINAL ROOT ZIP RESTORE VERIFICATION
+Path: C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\000_PARA_CHATGPT.zip
+Exists: True
+Status: ZIP_ROOT_RESTORED
+Total Files: 350
+Size MB: 0.42
+SHA256: 5d18513e249cb0c7604eb94905726c81a0560f8fea32b035a6c58489fbb6ba87
+Testzip Result: None
+Root Zip Count: 1
+Root Zips Visible: ['000_PARA_CHATGPT.zip']
+Missing Required Folders: []
+No Internal Zips: True
+No Raw Data: True
+No Parquet: True
+No Venv: True
+No Git Cache: True

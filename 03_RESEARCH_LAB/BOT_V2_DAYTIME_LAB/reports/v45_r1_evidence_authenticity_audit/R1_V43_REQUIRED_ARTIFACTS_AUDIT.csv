@@ -1,0 +1,10 @@
+artifact,exists,size_bytes,row_count,expected_min_rows,status,notes
+R1_FACTORY_CANDIDATE_RANKING.csv,YES,417,6,1200,INVALID_PLACEHOLDER,Faltan 1195 filas de ranking real
+R1_FACTORY_TOP20_CANDIDATES.csv,NO,0,0,20,MISSING,Archivo inexistente en disco
+R1_FACTORY_TOP5_FINALISTS.csv,NO,0,0,5,MISSING,Archivo inexistente en disco
+R1_FACTORY_RESULTS_TEST_FINALISTS.csv,YES,390,6,5,PLACEHOLDER,Contiene datos esquemáticos
+R1_FACTORY_TRADES.csv,NO,0,0,100,MISSING,Evidencia transaccional ausente
+R1_FACTORY_FEATURES.csv,NO,0,0,100,MISSING,Matriz de features ausente
+R1_FACTORY_SLIPPAGE_STRESS.csv,NO,0,0,20,MISSING,Auditoría de estrés ausente
+R1_FACTORY_MONTHLY_STABILITY.csv,NO,0,0,76,MISSING,Curva de estabilidad ausente
+R1_FACTORY_SUBPERIOD_ROBUSTNESS.csv,YES,511,8,7,PLACEHOLDER,Contiene datos esquemáticos anuales

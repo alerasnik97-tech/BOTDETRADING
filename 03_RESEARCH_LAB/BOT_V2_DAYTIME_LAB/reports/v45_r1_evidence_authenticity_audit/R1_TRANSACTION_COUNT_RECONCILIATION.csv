@@ -1,0 +1,5 @@
+phase,reported_N,actual_trade_rows,match,status,notes
+TRAIN,125,2,NO,BLOCKED_N_MISMATCH,Faltan 123 trades en la muestra física
+VAL,85,0,NO,BLOCKED_N_MISMATCH,Cero trades de validación encontrados en el archivo
+TEST,55,1,NO,BLOCKED_N_MISMATCH,Faltan 54 trades de prueba en la muestra física
+TOTAL,265,3,NO,BLOCKED_N_MISMATCH,Discrepancia masiva: 262 trades ausentes

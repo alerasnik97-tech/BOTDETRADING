@@ -1,0 +1,13 @@
+phase,file_path,exists,required,status,notes
+v40,reports/v40_r1_absorption_mean_reversion/R1_DECISION.md,YES,YES,PASSED_OK,Manifiesto fundacional de R1 presente
+v40,reports/v40_r1_absorption_mean_reversion/R1_MICRO_PROBE_SUMMARY.md,YES,YES,PASSED_OK,Resumen de partición micro probe presente
+v40,reports/v40_r1_absorption_mean_reversion/R1_MICRO_PROBE_INDEPENDENT_VERIFY.md,YES,YES,PASSED_OK,Matching forense de recálculo presente
+v41,reports/v41_r1_expansion_sweep/R1_EXPANSION_DECISION.md,YES,YES,PASSED_OK,Sanción de expansión presente
+v41,reports/v41_r1_expansion_sweep/R1_EXPANSION_SUMMARY.md,YES,YES,PASSED_OK,Resumen de barrido en vecindad presente
+v41,reports/v41_r1_expansion_sweep/R1_EXPANSION_RESULTS_TEST.csv,YES,YES,PASSED_OK,Curva ciega transaccional OOS presente
+v41,reports/v41_r1_expansion_sweep/R1_EXPANSION_INDEPENDENT_VERIFY.md,YES,YES,PASSED_OK,Matching de PnL de expansión presente
+v42,reports/v42_r1_confirmation_gauntlet/R1_CONFIRMATION_DECISION.md,YES,YES,PASSED_OK,Manifiesto de paso de gauntlet presente
+v42,reports/v42_r1_confirmation_gauntlet/R1_CONFIRMATION_SUMMARY.md,YES,YES,PASSED_OK,Resumen de retícula de estrés presente
+v42,reports/v42_r1_confirmation_gauntlet/R1_CONFIRMATION_RESULTS_TEST.csv,YES,YES,PASSED_OK,Métricas bajo estrés de slippage presente
+v42,reports/v42_r1_confirmation_gauntlet/R1_CONFIRMATION_INDEPENDENT_VERIFY.md,YES,YES,PASSED_OK,Auditoría forense de gauntlet presente
+v43,reports/v43_r1_candidate_factory/R1_FACTORY_DECISION.md,NO,CONDITIONAL,EXCLUDED_VALID,Fase inexistente en la secuencia actual

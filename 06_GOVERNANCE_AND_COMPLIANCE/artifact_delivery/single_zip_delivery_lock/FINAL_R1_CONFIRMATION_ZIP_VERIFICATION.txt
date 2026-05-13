@@ -1,0 +1,19 @@
+================================================================================
+FINAL R1 FULL RUN ZIP VERIFICATION REPORT (ATOMIC PROTOCOL)
+================================================================================
+Ruta de Destino Canónica : C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\000_PARA_CHATGPT.zip
+Total Archivos Sellados  : 762
+Tamaño Físico (MB)       : 1.32 MB
+Firma Criptográfica      : 3955582292ff1a760b4cdd537b0e493fef5d65f03a09ed174f07b2ddf890715f
+Integridad Estructural   : OK (Ningún error de CRC)
+Conteo ZIPs en Raíz      : 2 (Esperado: 1 tras reemplazo)
+Restos Temporales        : Ninguno (Purga atómica programada)
+Archivos Faltantes       : Ninguno (Cobertura de reportes completa)
+--------------------------------------------------------------------------------
+AUDITORÍA DE RESTRICCIONES DE INCLUSIÓN:
+- no raw data en bóveda : True
+- no archivos parquet   : True
+- no entornos venv      : True
+- no cachés de Git      : True
+- no ZIPs internos      : True
+================================================================================

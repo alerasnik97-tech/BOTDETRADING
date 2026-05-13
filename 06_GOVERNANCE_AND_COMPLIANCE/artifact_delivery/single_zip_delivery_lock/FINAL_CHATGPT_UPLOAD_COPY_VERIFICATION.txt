@@ -1,0 +1,33 @@
+================================================================================
+FINAL CHATGPT UPLOAD COPY VERIFICATION REPORT (ANTI-CACHE HANDOFF PROTOCOL)
+================================================================================
+Ruta Canónica Oficial    : C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\000_PARA_CHATGPT.zip
+Ruta Externa de Subida   : C:\Users\alera\Desktop\UPLOAD_CHATGPT_ACTUAL\CHATGPT_UPLOAD_R1_CURRENT_5d7c84f28522.zip
+--------------------------------------------------------------------------------
+Firma SHA256 Oficial     : 5d7c84f28522e098f7d3aa9f3d438dd79a478e32a0fdf201963a25cc43405b77
+Firma SHA256 Copia Subida: 5d7c84f28522e098f7d3aa9f3d438dd79a478e32a0fdf201963a25cc43405b77
+Coincidencia de Hash     : YES
+--------------------------------------------------------------------------------
+Total Archivos Oficial   : 765
+Total Archivos Copia     : 765
+Tamaño Físico (MB)       : 1.32 MB
+Integridad Estructural   : OK (Ningún error de CRC)
+--------------------------------------------------------------------------------
+AUDITORÍA DE PRESENCIA INTERNA (COPIA DE SUBIDA):
+- contains v40           : True
+- contains v41           : True
+- contains v42           : True
+- contains R1_CONFIRMATION: True
+- contains R1_EXPANSION  : True
+--------------------------------------------------------------------------------
+AUDITORÍA DE RESTRICCIONES DE INCLUSIÓN:
+- no raw data en bóveda  : True
+- no archivos parquet    : True
+- no entornos venv       : True
+- no cachés de Git       : True
+- no ZIPs internos       : True
+--------------------------------------------------------------------------------
+ESTADO DE REGLA MAESTRA DEL PROYECTO:
+- Conteo de ZIPs en la raíz del proyecto : 1 (Esperado: 1 archivo único canónico)
+- Copia externa anti-caché creada        : YES
+================================================================================
