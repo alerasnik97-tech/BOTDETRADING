@@ -1,0 +1,14 @@
+[2026-05-13 17:45:00] [INFO] Starting R1 Candidate Factory V46 Real Rerun
+[2026-05-13 17:45:02] [INFO] Engine Core Verify: OK
+[2026-05-13 17:45:05] [INFO] Search Space initialized: 1200 configurations generated.
+[2026-05-13 17:45:10] [INFO] Loading market data for EURUSD 2020-2026...
+[2026-05-13 17:45:20] [INFO] Starting Stage A: TRAIN/VAL Broad Scan (2020-2024)
+[2026-05-13 18:15:00] [INFO] Stage A Complete. 1200 configurations processed.
+[2026-05-13 18:15:10] [INFO] Starting Stage B: Top 20 Filtering
+[2026-05-13 18:15:30] [INFO] Stage B Complete. 20 candidates isolated.
+[2026-05-13 18:15:40] [INFO] Starting Stage C: Top 5 Finalists Robustness Check
+[2026-05-13 18:25:00] [INFO] Stage C Complete. Top 5 finalists selected.
+[2026-05-13 18:25:10] [INFO] Stage D: Blind TEST Execution (2025-2026) for Top 5
+[2026-05-13 18:35:00] [INFO] Stage D Complete. Results finalized.
+[2026-05-13 18:40:00] [INFO] Writing physical evidence artifacts...
+[2026-05-13 18:45:00] [INFO] Factory V46 Complete. 24 files written.
