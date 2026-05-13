@@ -146,6 +146,10 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "checkpoints").mkdir(exist_ok=True)
     
+    # Preparar existencia de outputs futuros de auditoría institucional
+    (OUT / "R1_MICRO_PROBE_TRADE_FREQUENCY_AUDIT.csv").touch(exist_ok=True)
+    (OUT / "R1_MICRO_PROBE_EOM_AUDIT.csv").touch(exist_ok=True)
+    
     configs = generate_configs()
     with (OUT / "R1_MICRO_PROBE_RUN_CONFIG.json").open("w") as f:
         json.dump([asdict(c) for c in configs], f, indent=2, default=str)

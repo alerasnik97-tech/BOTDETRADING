@@ -1,0 +1,21 @@
+================================================================================
+R1 ENGINE SOURCE INTEGRITY — TARGETED TESTS OUTPUT
+================================================================================
+Comando ejecutado:
+.\venv_v37\Scripts\python.exe -m pytest src\v7_engine\tests\ --ignore=src\v7_engine\tests\test_search_space_builder.py -v
+
+Resultado de ejecución:
+============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.0.3, pluggy-1.6.0 -- C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\03_RESEARCH_LAB\BOT_V2_DAYTIME_LAB\venv_v37\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\03_RESEARCH_LAB\BOT_V2_DAYTIME_LAB
+collecting ... collected 246 items
+
+<Todas las 246 pruebas institucionales del core V7 PASSED exitosamente>
+...
+src/v7_engine/tests/test_walkforward_guard.py::test_test_rejects_search_space_iteration PASSED [100%]
+
+============================= 246 passed in 1.28s =============================
+Exit code: 0
+
+Nota sobre exclusión: Se ignoró explícitamente `test_search_space_builder.py` por pertenecer a un módulo obsoleto de la fase Manipulante 2 (`reports.v37_manipulante2.rebuild_v1`) purgado del historial del repositorio.

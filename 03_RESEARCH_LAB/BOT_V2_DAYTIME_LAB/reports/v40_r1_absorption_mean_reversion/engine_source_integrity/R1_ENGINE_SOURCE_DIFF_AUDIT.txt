@@ -1,0 +1,25 @@
+============================================================
+R1 ENGINE SOURCE INTEGRITY — DIFF AUDIT REPORT
+============================================================
+Fecha: 2026-05-13
+Rama actual: clean-sync-branch
+Commit actual: e082c40 [v39/artifact] restaurar zip oficial root con rebuild atomico
+
+1. AUDITORÍA FORENSE DE REPOSICIÓN
+- Archivos fuente (.py) de `src/v6_utils` y `src/v7_engine` en HEAD actual de la rama `clean-sync-branch`: NO EXISTEN de forma nativa (solo se sincronizaron los binarios compilados .pyc en el commit inicial cc7eed4).
+- Causa de la pérdida visible durante preflight: Al intentar ejecutar el código sin los archivos .py fuente presentes en el working tree, se gatilló un `ModuleNotFoundError`.
+- Reconstrucción aplicada en la sesión anterior: Se volvieron a escribir manualmente desde contexto los archivos `bars.py`, `execution.py`, `numeric.py`, `cost_model.py` y `engine.py`.
+
+2. COMPARACIÓN CONTRA LA VERSIÓN CANÓNICA DE GIT
+Al auditar el árbol de Git en la rama original estable del motor (`agent/research-manipulante4-sweep-quality`), se verifica que:
+- `src/v7_engine/engine.py`: La reconstrucción manual difiere del canónico (se omitieron métodos avanzados de V7 que no se usaban en R1 pero que pertenecen al core institucional, como los chequeos de `mae_analyzer` o serialización completa).
+- `src/v7_engine/cost_model.py`: La reconstrucción manual difiere (se simplificó a una clase básica omitiendo las validaciones de trailing y lógicas de FTMO sutiles presentes en el archivo canónico de 106 líneas).
+- `src/v6_utils/bars.py`: La reconstrucción difiere de la versión V6.3.5 completa.
+- `src/v6_utils/execution.py`: Se reconstruyó una versión simplificada de 60 líneas, mientras que el canónico cuenta con 237 líneas e incluye soporte para órdenes limit con TIF y break-even intra-vela avanzado.
+
+3. EVALUACIÓN DE INTENCIONALIDAD Y DEPENDENCIA
+- Los cambios en el core fueron ACCIDENTALES (producto de intentar parchar rápidamente la ausencia de los archivos en la nueva rama de sincronización sin recurrir a la restauración canónica de Git).
+- La estrategia R1 NO DEPENDE de modificaciones en el core. Toda la lógica de absorción de liquidez, mechas y niveles institucionales está modularizada en `src/R1/r1_detector.py`, `src/R1/r1_levels.py` y orquestada por `run_r1_micro_probe.py`.
+
+4. DECISIÓN DE AUDITORÍA
+Se rechaza la reconstrucción desde contexto. Se ordena aplicar `RESTORE_CORE_FROM_GIT` trayendo los directorios canónicos exactos de `src/v6_utils` y `src/v7_engine` desde la rama estable de Git (`agent/research-manipulante4-sweep-quality`).

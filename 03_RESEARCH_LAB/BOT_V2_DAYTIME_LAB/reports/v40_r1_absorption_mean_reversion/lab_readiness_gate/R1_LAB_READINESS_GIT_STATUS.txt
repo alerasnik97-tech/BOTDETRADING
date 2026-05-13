@@ -1,0 +1,15 @@
+================================================================================
+R1 LABORATORY READINESS GATE — GIT STATUS REPORT
+================================================================================
+RAMA ACTUAL: clean-sync-branch
+
+LOG RECIENTE:
+b281229 [v40/engine] endurecer bloqueo core sin bypass permanente
+3f01674 [v40/engine] lockdown definitivo del core v7 v6
+e082c40 [v39/artifact] restaurar zip oficial root con rebuild atomico
+cc7eed4 [v39/github] institutional sync - professional surgical clean start
+
+ESTADO DEL ÁRBOL:
+- Modificaciones confinadas estrictamente a la capa del orquestador exterior (`run_r1_micro_probe.py`) y archivos de la estrategia R1 (`src/R1/`).
+- Bóvedas de parquets y fuentes del motor central inalterados y protegidos por el gancho pre-commit.
+================================================================================

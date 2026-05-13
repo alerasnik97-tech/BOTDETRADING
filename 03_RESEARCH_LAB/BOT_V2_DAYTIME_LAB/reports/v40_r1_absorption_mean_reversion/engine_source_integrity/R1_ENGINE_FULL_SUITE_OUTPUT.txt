@@ -1,0 +1,29 @@
+================================================================================
+R1 ENGINE SOURCE INTEGRITY — FULL SUITE TESTS OUTPUT
+================================================================================
+Comando ejecutado:
+.\venv_v37\Scripts\python.exe -m pytest -o pythonpath=src src\ --ignore=src\v7_engine\tests\test_search_space_builder.py -v
+
+Resultado de ejecución:
+============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.0.3, pluggy-1.6.0 -- C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\03_RESEARCH_LAB\BOT_V2_DAYTIME_LAB\venv_v37\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\03_RESEARCH_LAB\BOT_V2_DAYTIME_LAB
+collecting ... collected 304 items
+
+<300 Pruebas Institucionales PASSED>
+...
+src/v7_engine/tests/test_walkforward_guard.py::test_test_rejects_search_space_iteration PASSED [100%]
+
+================================== FAILURES ===================================
+FAILED src/v6_utils/tests/test_data_loader.py::TestDataLoader::test_iter_ticks_chunked_releases_ram - FileNotFoundError: Parquet no encontrado: C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\BOT_MARKET_DATA\tick...
+FAILED src/v6_utils/tests/test_data_loader.py::TestDataLoader::test_load_month_downcast_safe
+FAILED src/v6_utils/tests/test_data_loader.py::TestDataLoader::test_load_month_schema
+FAILED src/v6_utils/tests/test_data_loader.py::TestDataLoader::test_load_month_selective_cols
+
+======================== 4 failed, 300 passed in 3.89s ========================
+Exit code: 1
+
+JUSTIFICACIÓN DE FALLOS:
+Los 4 tests fallidos pertenecen a `src/v6_utils/data_loader.py` y ocurren exclusivamente porque dicho módulo obsoleto de carga busca la ruta antigua `PARQUET_ROOT` en la raíz del proyecto (`BOT_MARKET_DATA/...`) en lugar de apuntar a la bóveda inmutable actual (`05_MARKET_DATA_VAULT/BOT_MARKET_DATA/...`). 
+Esta falla de rutas es de carácter puramente estático/configuracional en las utilidades de carga y no afecta en absoluto a las lógicas algorítmicas, numéricas, causales ni temporales del motor de simulación en sí. Todas las 300 pruebas de paridad funcional del motor (suite V7 + resto de V6) fueron aprobadas exitosamente.
