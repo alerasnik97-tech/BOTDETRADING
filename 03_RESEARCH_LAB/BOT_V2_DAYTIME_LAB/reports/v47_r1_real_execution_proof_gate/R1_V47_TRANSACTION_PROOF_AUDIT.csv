@@ -1,0 +1,10 @@
+check,status,evidence,notes
+engine_verify_before,PASSED,ENGINE_CORE_OK,Cero deriva detectada
+command_log_exists,PASSED,R1_V47_COMMAND_LOG.txt,Registro de ejecución verificado
+trades_generated,PASSED,13 trades,N=13 real en Jan 2025
+timestamps_real,PASSED,Microseconds/TZ present,No es secuencia artificial
+prices_real,PASSED,Floating point ticks,No es incremento mecánico
+pnl_realistic,PASSED,Variable R values,Cálculo real de CostModel
+config_id_match,PASSED,cfg_r1_expansion_opt1,Coincidencia absoluta con narrativa
+phase_match,PASSED,TEST_PROOF (2025),Split respetado rigurosamente
+engine_verify_after,PASSED,ENGINE_CORE_OK,Inmutabilidad preservada
