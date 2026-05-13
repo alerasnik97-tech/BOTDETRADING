@@ -1,0 +1,23 @@
+{
+  "config_id": "cfg_r1_factory_opt_001",
+  "parameters": {
+    "session_window": "08:00-11:00",
+    "level_type": "NY_PRE_HL",
+    "wick_to_body_min": 2.6,
+    "return_inside_max_minutes": 5,
+    "rejection_distance_atr_min": 0.15,
+    "entry_type": "NEXT_OPEN",
+    "stop_loss_buffer_pips": 1.5,
+    "take_profit_r": 2.0,
+    "break_even_r": 1.25,
+    "max_trades_per_day": 3,
+    "day_filter": "ALL",
+    "slippage_base": 0.2,
+    "commission_lot": 5.0,
+    "news_filter_active": true,
+    "rollover_block_active": true,
+    "eom_exclusion_active": true
+  },
+  "freeze_status": "LOCKED",
+  "timestamp": "2026-05-13T18:51:50Z"
+}

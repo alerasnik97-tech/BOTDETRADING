@@ -1,0 +1,5 @@
+config_id,slippage_pips,pf_net_train,pf_net_val,pf_net_test,expectancy_net_test,status
+cfg_r1_factory_opt_001,0.0,1.38,1.34,1.26,0.24,OPTIMAL_ZERO
+cfg_r1_factory_opt_001,0.2,1.25,1.22,1.15,0.18,CONFIRMED_BASE
+cfg_r1_factory_opt_001,0.3,1.18,1.15,1.06,0.11,STRESS_0_3_PASSED
+cfg_r1_factory_opt_001,0.5,1.04,1.01,0.94,0.02,STRESS_0_5_DEGRADED

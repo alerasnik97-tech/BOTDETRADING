@@ -1,0 +1,2 @@
+config_id,slippage_pips,total_trades,win_rate,profit_factor_gross,profit_factor_net,expectancy_net_r,max_dd_r,status
+cfg_r1_factory_opt_001,0.2,85,0.541,1.27,1.22,0.19,2.20,CONFIRMED_VAL
