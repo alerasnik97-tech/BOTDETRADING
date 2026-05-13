@@ -1,0 +1,5 @@
+config_id,slippage_pips,total_trades,win_rate,profit_factor_gross,profit_factor_net,expectancy_net_r,max_dd_r,status
+cfg_r1_gauntlet_final,0.0,52,0.538,1.23,1.18,0.19,2.80,BLIND_SINGLE_RUN
+cfg_r1_gauntlet_final,0.2,52,0.528,1.16,1.12,0.17,3.10,PASSED_TEST_FILTER
+cfg_r1_gauntlet_final,0.3,52,0.515,1.08,1.03,0.11,3.60,PASSED_STRESS_FILTER
+cfg_r1_expansion_opt1,0.2,52,0.528,1.15,1.11,0.16,3.10,SEED_BASE

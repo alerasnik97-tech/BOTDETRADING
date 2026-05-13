@@ -1,0 +1,4 @@
+config_id,month,N,net_R,PF_net,drawdown_month,status
+cfg_r1_gauntlet_final,2020-01,3,0.80,1.20,0.50,STABLE_POSITIVE
+cfg_r1_gauntlet_final,2020-02,4,-1.00,0.85,1.20,NORMAL_NEGATIVE
+cfg_r1_gauntlet_final,2020-03,4,1.50,1.40,0.40,STABLE_POSITIVE

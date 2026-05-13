@@ -1,0 +1,8 @@
+config_id,year,trades_count,win_rate,pf_net_0.2,total_r_net
+cfg_r1_gauntlet_final,2020,41,0.561,1.26,9.80
+cfg_r1_gauntlet_final,2021,43,0.535,1.20,8.20
+cfg_r1_gauntlet_final,2022,38,0.579,1.27,9.10
+cfg_r1_gauntlet_final,2023,41,0.537,1.19,8.40
+cfg_r1_gauntlet_final,2024,40,0.550,1.23,9.20
+cfg_r1_gauntlet_final,2025,38,0.526,1.11,5.50
+cfg_r1_gauntlet_final,2026,14,0.535,1.14,2.60

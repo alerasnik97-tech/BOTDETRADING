@@ -1,0 +1,30 @@
+{
+  "execution_environment": {
+    "instrument": "EURUSD",
+    "data_feed": "AM_FORTRESS_V3",
+    "period_start": "2020-01-01",
+    "period_end": "2026-04-30",
+    "total_months": 76,
+    "partitions": {
+      "train": ["2020-01-01", "2022-12-31"],
+      "val": ["2023-01-01", "2024-12-31"],
+      "test": ["2025-01-01", "2026-04-30"]
+    }
+  },
+  "cost_model": {
+    "slippage_pips": [0.0, 0.2, 0.3, 0.5],
+    "commission_round_turn_per_lot": 5.00,
+    "spread_regime": "PHYSICAL_CAUSAL_BID_ASK",
+    "metric_deduction": "NET_R_OFFICIAL"
+  },
+  "gauntlet_hard_filters": {
+    "min_pf_val_net_0.2": 1.20,
+    "min_pf_test_net_0.2": 1.10,
+    "min_pf_test_net_0.3": 1.00,
+    "min_n_val": 50,
+    "min_n_test": 50,
+    "max_dd_test_r": 5.0,
+    "forbid_concentration": true,
+    "forbid_single_year_dependency": true
+  }
+}

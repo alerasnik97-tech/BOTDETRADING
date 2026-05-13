@@ -1,0 +1,2 @@
+flag_id,timestamp,severity,category,description,impact_on_validity,resolved
+rf_gaunt_none,2026-05-13T18:26:42Z,INFO,SYSTEM,"Cero anomalías lógicas o de orquestación en la matriz de Confirmation Gauntlet.",NONE,TRUE

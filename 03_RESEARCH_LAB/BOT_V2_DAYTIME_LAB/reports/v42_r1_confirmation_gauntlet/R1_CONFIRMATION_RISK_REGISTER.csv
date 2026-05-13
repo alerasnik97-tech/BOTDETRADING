@@ -1,0 +1,4 @@
+risk_id,dimension,description,impact_severity,probability,mitigation_protocol,residual_risk,status
+rr_gaunt_001,FRAGILITY,"Degradación acelerada de la curva bajo niveles de estrés por deslizamiento (0.3 a 0.5 pips)",CRITICAL,MEDIUM,"Inclusión del régimen de estrés y filtro duro de retención positiva en PF_test_0.3",ACCEPTABLE,CONTROLLED
+rr_gaunt_002,SINGLE_YEAR_DEPENDENCY,"Concentración espuria del edge en un único año de alta inyección macro (ej. 2020 o 2022)",HIGH,LOW,"Auditoría de robustez por subperíodos forzando supervivencia de PnL en bloques anuales",NEGLIGIBLE,CONTROLLED
+rr_gaunt_003,CONCENTRATION,"Distorsión de los estadísticos globales por colas gordas o PnL extremo en pocos trades",HIGH,LOW,"Veto estricto si 1 a 3 operaciones explican más del 20% del retorno neto total",NEGLIGIBLE,CONTROLLED

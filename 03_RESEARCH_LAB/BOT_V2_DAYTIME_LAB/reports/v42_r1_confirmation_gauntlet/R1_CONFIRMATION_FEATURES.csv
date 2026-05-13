@@ -1,0 +1,4 @@
+trade_id,config_id,atr_m5,ny_time_entry,distance_to_pdh,distance_to_pdl,htf_bias,ltf_absorption_strength,volume_m5
+tr_gaunt_001,cfg_r1_gauntlet_final,0.00085,08:30:00,0.00010,0.00650,LONG,0.88,1520
+tr_gaunt_002,cfg_r1_gauntlet_final,0.00092,08:15:00,0.00550,0.00005,SHORT,0.91,1800
+tr_gaunt_003,cfg_r1_gauntlet_final,0.00078,08:45:00,0.00002,0.00710,LONG,0.85,1410

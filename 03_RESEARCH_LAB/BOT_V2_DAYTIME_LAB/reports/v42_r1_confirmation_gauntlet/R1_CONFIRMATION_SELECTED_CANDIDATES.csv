@@ -1,0 +1,4 @@
+config_id,PF_train_net_0_2,PF_val_net_0_2,N_train,N_val,DD_val,expectancy_val,reason_selected,risk_flag
+cfg_r1_expansion_opt1,1.24,1.21,122,81,2.30,0.22,DOMINANT_VAL_LEADER,NONE
+cfg_r1_expansion_opt2,1.23,1.20,118,78,2.35,0.21,ROBUST_NEIGHBOR,NONE
+cfg_r1_absorption_v4_p3,1.22,1.18,114,76,2.40,0.21,SEED_BASE_REFERENCE,NONE

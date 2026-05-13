@@ -1,0 +1,4 @@
+config_id,slippage_pips,total_trades,win_rate,profit_factor_gross,profit_factor_net,expectancy_net_r,max_dd_r,status
+cfg_r1_gauntlet_final,0.0,122,0.565,1.42,1.38,0.26,1.80,GAUNTLET_OPTIMAL
+cfg_r1_gauntlet_final,0.2,122,0.557,1.28,1.24,0.23,2.10,SELECTED_TRAIN
+cfg_r1_expansion_opt1,0.2,122,0.557,1.28,1.24,0.23,2.10,SEED_BASE

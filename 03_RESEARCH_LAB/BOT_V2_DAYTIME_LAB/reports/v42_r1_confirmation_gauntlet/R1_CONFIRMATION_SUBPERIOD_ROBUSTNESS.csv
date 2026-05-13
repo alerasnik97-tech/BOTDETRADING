@@ -1,0 +1,11 @@
+config_id,period,N,PF_net_0_2,expectancy,WR,DD,total_R,status
+cfg_r1_gauntlet_final,2020,41,1.26,0.24,0.561,1.50,9.80,ROBUST_SURVIVED
+cfg_r1_gauntlet_final,2021,43,1.20,0.19,0.535,1.80,8.20,ROBUST_SURVIVED
+cfg_r1_gauntlet_final,2022,38,1.27,0.24,0.579,1.40,9.10,ROBUST_SURVIVED
+cfg_r1_gauntlet_final,2023,41,1.19,0.20,0.537,1.90,8.40,ROBUST_SURVIVED
+cfg_r1_gauntlet_final,2024,40,1.23,0.23,0.550,1.60,9.20,ROBUST_SURVIVED
+cfg_r1_gauntlet_final,2025,38,1.11,0.14,0.526,2.80,5.50,ROBUST_SURVIVED
+cfg_r1_gauntlet_final,2026,14,1.14,0.18,0.535,1.20,2.60,ROBUST_SURVIVED
+cfg_r1_gauntlet_final,2020-2021,84,1.23,0.21,0.548,1.80,18.00,ROBUST_AGGREGATED
+cfg_r1_gauntlet_final,2022-2023,79,1.23,0.22,0.557,1.90,17.50,ROBUST_AGGREGATED
+cfg_r1_gauntlet_final,2024-2026,92,1.16,0.19,0.538,2.80,17.30,ROBUST_AGGREGATED
