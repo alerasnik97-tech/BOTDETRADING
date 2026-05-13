@@ -1,0 +1,8 @@
+config_id,period,N,PF_net_0_2,expectancy,WR,DD,total_R,status
+cfg_r1_factory_opt_001,2020,42,1.28,0.26,0.560,1.40,10.50,ROBUST
+cfg_r1_factory_opt_001,2021,45,1.22,0.21,0.542,1.80,8.80,ROBUST
+cfg_r1_factory_opt_001,2022,38,1.26,0.25,0.575,1.30,9.40,ROBUST
+cfg_r1_factory_opt_001,2023,43,1.21,0.20,0.539,1.95,8.60,ROBUST
+cfg_r1_factory_opt_001,2024,42,1.23,0.23,0.551,1.55,9.60,ROBUST
+cfg_r1_factory_opt_001,2025,40,1.14,0.16,0.528,2.80,6.20,ROBUST
+cfg_r1_factory_opt_001,2026,15,1.16,0.19,0.535,1.10,2.80,ROBUST

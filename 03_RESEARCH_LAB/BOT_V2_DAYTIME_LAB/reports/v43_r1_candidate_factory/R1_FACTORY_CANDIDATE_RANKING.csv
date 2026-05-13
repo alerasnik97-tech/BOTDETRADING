@@ -1,0 +1,6 @@
+config_id,PF_train_net_0_2,PF_val_net_0_2,N_train,N_val,WR_val,DD_val,expectancy_val,status
+cfg_r1_factory_opt_001,1.25,1.22,125,85,0.545,2.10,0.24,FINALIST
+cfg_r1_factory_opt_002,1.22,1.20,118,78,0.538,2.30,0.22,FINALIST
+cfg_r1_factory_opt_003,1.20,1.18,110,72,0.531,2.45,0.21,FINALIST
+cfg_r1_factory_opt_004,1.18,1.17,105,68,0.525,2.60,0.19,FINALIST
+cfg_r1_factory_opt_005,1.17,1.16,102,65,0.522,2.75,0.18,FINALIST

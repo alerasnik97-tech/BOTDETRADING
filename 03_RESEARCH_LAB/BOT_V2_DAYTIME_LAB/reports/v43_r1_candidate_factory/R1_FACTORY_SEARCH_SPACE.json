@@ -1,0 +1,21 @@
+{
+  "search_space_metadata": {
+    "strategy_class": "R1_NY_OPEN_ABSORPTION",
+    "total_target_configs": 1200,
+    "stratified_seed": 20260513,
+    "sampling_method": "STRATIFIED_LATIN_HYPERCUBE"
+  },
+  "dimensions": {
+    "session_window": ["07:30-10:30", "08:00-11:00", "08:30-11:00", "09:00-11:00"],
+    "level_type": ["ASIA_HL", "LONDON_HL", "NY_PRE_HL", "PDH_L"],
+    "wick_to_body_min": [1.8, 2.2, 2.6, 3.0, 3.4],
+    "return_inside_max_minutes": [2, 5, 8, 10],
+    "rejection_distance_atr_min": [0.10, 0.15, 0.20, 0.25, 0.30],
+    "entry_type": ["NEXT_OPEN", "LIMIT_50", "STOP_MID"],
+    "stop_loss_buffer_pips": [1.0, 1.5, 2.0],
+    "take_profit_r": [1.5, 2.0, 2.5],
+    "break_even_r": [1.0, 1.25, 1.5],
+    "max_trades_per_day": [1, 2, 3],
+    "day_filter": ["ALL", "MON_THU", "TUE_WED_THU", "EXCLUDE_FRI"]
+  }
+}
