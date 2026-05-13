@@ -1,0 +1,8 @@
+config_id,year,trades_count,win_rate,pf_net_0.2,total_r_net
+cfg_r1_absorption_v4_p3,2020,38,0.552,1.25,9.2
+cfg_r1_absorption_v4_p3,2021,40,0.525,1.18,7.5
+cfg_r1_absorption_v4_p3,2022,36,0.555,1.24,8.38
+cfg_r1_absorption_v4_p3,2023,38,0.526,1.16,7.80
+cfg_r1_absorption_v4_p3,2024,38,0.552,1.20,8.76
+cfg_r1_absorption_v4_p3,2025,35,0.514,1.07,4.80
+cfg_r1_absorption_v4_p3,2026,13,0.538,1.10,2.00

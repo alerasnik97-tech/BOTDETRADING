@@ -1,0 +1,7 @@
+config_id,slippage_pips,pf_net_train,pf_net_val,pf_net_test,expectancy_net_test,status
+cfg_r1_absorption_v4_p3,0.0,1.35,1.31,1.20,0.18,ROBUST
+cfg_r1_absorption_v4_p3,0.1,1.28,1.24,1.14,0.16,ROBUST
+cfg_r1_absorption_v4_p3,0.2,1.22,1.18,1.08,0.14,ROBUST_BASE
+cfg_r1_absorption_v4_p3,0.3,1.15,1.11,1.02,0.11,STRESSED_OK
+cfg_r1_absorption_v4_p3,0.4,1.09,1.05,0.96,0.08,DEGRADED
+cfg_r1_absorption_v4_p3,0.5,1.02,0.98,0.90,0.05,EDGE_DESTROYED

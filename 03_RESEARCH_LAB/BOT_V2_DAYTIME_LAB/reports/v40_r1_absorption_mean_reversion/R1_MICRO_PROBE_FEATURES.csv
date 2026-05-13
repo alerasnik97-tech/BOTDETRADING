@@ -1,0 +1,11 @@
+trade_id,config_id,atr_m5,ny_time_entry,distance_to_pdh,distance_to_pdl,htf_bias,ltf_absorption_strength,volume_m5
+tr_r1_001,cfg_r1_absorption_v4_p3,0.00085,08:15:00,0.00012,0.00650,NEUTRAL,0.85,1420
+tr_r1_002,cfg_r1_absorption_v4_p3,0.00090,08:45:00,0.00520,0.00005,LONG,0.92,1850
+tr_r1_003,cfg_r1_absorption_v4_p3,0.00082,09:10:00,0.00002,0.00710,SHORT,0.88,1610
+tr_r1_004,cfg_r1_absorption_v4_p3,0.00078,08:30:00,0.00480,0.00010,LONG,0.81,1300
+tr_r1_005,cfg_r1_absorption_v4_p3,0.00095,10:05:00,0.00015,0.00550,NEUTRAL,0.75,1150
+tr_r1_006,cfg_r1_absorption_v4_p3,0.00105,08:20:00,0.00620,0.00000,SHORT,0.89,2100
+tr_r1_007,cfg_r1_absorption_v4_p3,0.00088,09:35:00,0.00008,0.00580,SHORT,0.91,1550
+tr_r1_008,cfg_r1_absorption_v4_p3,0.00075,08:12:00,0.00450,0.00004,LONG,0.84,1280
+tr_r1_009,cfg_r1_absorption_v4_p3,0.00092,08:50:00,0.00005,0.00680,LONG,0.79,1700
+tr_r1_010,cfg_r1_absorption_v4_p3,0.00080,08:05:00,0.00550,0.00002,LONG,0.95,1450

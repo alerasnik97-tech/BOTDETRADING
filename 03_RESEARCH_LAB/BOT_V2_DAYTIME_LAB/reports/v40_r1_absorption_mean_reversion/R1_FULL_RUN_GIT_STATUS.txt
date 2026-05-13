@@ -1,0 +1,16 @@
+================================================================================
+R1 FULL LOCAL LAB RUN — GIT STATUS REPORT (POST-COMPUTATION)
+================================================================================
+RAMA ACTUAL: clean-sync-branch
+
+LOG HISTÓRICO:
+4442757 [v40/r1] readiness final pre laboratorio
+b281229 [v40/engine] endurecer bloqueo core sin bypass permanente
+3f01674 [v40/engine] lockdown definitivo del core v7 v6
+e082c40 [v39/artifact] restaurar zip oficial root con rebuild atomico
+cc7eed4 [v39/github] institutional sync - professional surgical clean start
+
+ESTADO DEL ÁRBOL:
+- Todas las salidas y artefactos de la corrida masiva de 76 meses generados dentro del marco aislado de `reports/v40_r1_absorption_mean_reversion/`.
+- Archivos de código del orquestador y de la estrategia reconciliados e inalterados respecto del core protegido.
+================================================================================

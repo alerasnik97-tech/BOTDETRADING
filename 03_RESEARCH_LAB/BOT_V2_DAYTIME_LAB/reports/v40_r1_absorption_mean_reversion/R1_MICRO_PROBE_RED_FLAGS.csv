@@ -1,0 +1,2 @@
+flag_id,timestamp,severity,category,description,impact_on_validity,resolved
+rf_r1_none,2026-05-13T17:42:25Z,INFO,SYSTEM,"Cero anomalías operativas detectadas. Entorno y firmas 100% estables.",NONE,TRUE

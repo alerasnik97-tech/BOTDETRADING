@@ -1,0 +1,5 @@
+config_id,phase,gross_pnl,net_pnl_0.2,commission_total,slippage_total,trades_count,win_rate,profit_factor_gross,profit_factor_net_0.2,max_dd_r,expectancy_r,sharpe_ratio,ftmo_blown
+cfg_r1_absorption_v4_p3,VAL,28.4,16.56,7.6,4.24,76,0.539,1.41,1.18,2.80,0.21,1.72,FALSE
+cfg_r1_absorption_v4_p1,VAL,20.1,10.20,6.2,3.70,62,0.516,1.29,1.13,3.50,0.16,1.35,FALSE
+cfg_r1_absorption_v3_p3,VAL,25.0,13.80,8.0,3.20,80,0.525,1.35,1.16,3.10,0.17,1.51,FALSE
+cfg_r1_absorption_base,VAL,8.2,-3.40,7.2,4.40,72,0.472,1.05,0.92,5.80,-0.04,0.08,FALSE

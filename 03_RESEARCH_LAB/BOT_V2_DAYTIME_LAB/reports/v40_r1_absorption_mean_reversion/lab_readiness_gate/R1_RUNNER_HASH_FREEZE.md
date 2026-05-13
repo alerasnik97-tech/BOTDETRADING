@@ -5,7 +5,7 @@ El entorno de ejecución queda vinculado de forma incondicional a las siguientes
 
 | Componente | Ruta Relativa | Hash SHA256 |
 | :--- | :--- | :--- |
-| **Runner Orquestador** | `run_r1_micro_probe.py` | `67f35d0c3ff2a5e0e50ba388f3a1ffb4a75c51bdef5ddfe50e2ee4462c4caa28` |
+| **Runner Orquestador** | `run_r1_micro_probe.py` | `17ad484e8ddb02a0364bb1b47cfd51471c9762c1d06b83d2e5c796f7de1f6e16` |
 | **Detector R1** | `src/R1/r1_detector.py` | `ff7e54296a6e8a9dc39a48f744edc016887fddd220fc2691424950282d20ecdb` |
 | **Extractor Niveles R1** | `src/R1/r1_levels.py` | `95a734aae9420eedbf8c65fa461ca1ba46d2b2150a5bae1ff29f10bad5ae82d0` |
 | **Motor Central Core** | `src/v7_engine/engine.py` | `84319e04a7943297f2dcc9c1ba67d29c22c8e4cd0a2a81dd2960583b07985777` |

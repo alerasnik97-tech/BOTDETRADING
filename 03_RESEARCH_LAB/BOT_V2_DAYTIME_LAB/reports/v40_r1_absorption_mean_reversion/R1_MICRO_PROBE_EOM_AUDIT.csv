@@ -1,0 +1,6 @@
+config_id,year_month,eom_truncations_count,included_in_metrics,impact_on_pf,status
+cfg_r1_absorption_v4_p3,2020-01,1,FALSE,0.0,EXCLUDED_OK
+cfg_r1_absorption_v4_p3,2020-02,0,FALSE,0.0,NO_STUB
+cfg_r1_absorption_v4_p3,2020-03,1,FALSE,0.0,EXCLUDED_OK
+cfg_r1_absorption_v4_p3,2020-04,1,FALSE,0.0,EXCLUDED_OK
+cfg_r1_absorption_v4_p3,2020-05,0,FALSE,0.0,NO_STUB

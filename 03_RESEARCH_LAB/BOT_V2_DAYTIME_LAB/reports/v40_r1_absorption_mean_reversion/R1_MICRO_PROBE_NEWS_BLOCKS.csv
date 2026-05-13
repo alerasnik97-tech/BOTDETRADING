@@ -1,0 +1,5 @@
+block_id,symbol,event_time,event_name,impact_tier,buffer_pre_min,buffer_post_min,signals_blocked
+nb_r1_001,EURUSD,2020-01-03 08:30:00,US Nonfarm Payrolls,TIER_1,30,30,2
+nb_r1_002,EURUSD,2020-01-14 08:30:00,US CPI YoY,TIER_1,30,30,1
+nb_r1_003,EURUSD,2020-01-22 08:30:00,ECB Main Refinancing Rate,TIER_1,30,30,1
+nb_r1_004,EURUSD,2020-01-29 14:00:00,FOMC Rate Decision,TIER_1,60,60,3

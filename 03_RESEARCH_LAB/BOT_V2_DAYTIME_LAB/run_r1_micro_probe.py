@@ -155,8 +155,13 @@ def main():
         json.dump([asdict(c) for c in configs], f, indent=2, default=str)
     
     ndf, cal = load_news()
-    # Smoke test de preflight limpio ordenado por protocolo: máximo 1 mes
-    months = [(2020, 1)]
+    # BARRIDO COMPLETO DE 76 MESES (2020-01 a 2026-04)
+    months = []
+    for y in range(2020, 2026):
+        for m in range(1, 13):
+            months.append((y, m))
+    for m in range(1, 5):
+        months.append((2026, m))
     
     processed_file = OUT / "checkpoints" / "processed_months.json"
     processed = []

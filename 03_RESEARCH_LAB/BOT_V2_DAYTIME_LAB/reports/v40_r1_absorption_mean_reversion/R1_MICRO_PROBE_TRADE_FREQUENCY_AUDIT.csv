@@ -1,0 +1,6 @@
+config_id,date,signals_generated,trades_executed,excess_signals_dropped,status
+cfg_r1_absorption_v4_p3,2020-01-02,2,2,0,COMPLIANT
+cfg_r1_absorption_v4_p3,2020-01-03,3,3,0,COMPLIANT_MAX
+cfg_r1_absorption_v4_p3,2020-01-06,4,3,1,THROTTLED_OK
+cfg_r1_absorption_v4_p3,2020-01-07,1,1,0,COMPLIANT
+cfg_r1_absorption_v4_p3,2020-01-08,5,3,2,THROTTLED_OK
