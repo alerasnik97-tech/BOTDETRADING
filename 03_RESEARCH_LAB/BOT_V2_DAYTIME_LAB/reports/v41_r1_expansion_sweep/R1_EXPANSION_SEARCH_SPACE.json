@@ -1,0 +1,52 @@
+{
+  "search_space_metadata": {
+    "strategy_class": "R1_NY_OPEN_ABSORPTION",
+    "seed_config_id": "cfg_r1_absorption_v4_p3",
+    "total_combinations": 108,
+    "sampling_type": "DENSE_NEIGHBORHOOD",
+    "stratified_seed": 20260513
+  },
+  "dimensions": {
+    "session_window": [
+      "08:00-11:00",
+      "08:00-10:30",
+      "08:30-11:00"
+    ],
+    "wick_to_body_min": [
+      2.3,
+      2.5,
+      2.7
+    ],
+    "return_inside_max_minutes": [
+      20,
+      30,
+      40
+    ],
+    "rejection_distance_atr_min": [
+      0.08,
+      0.10,
+      0.12
+    ],
+    "entry_type": [
+      "ASYMMETRIC_MARKET"
+    ],
+    "sl_buffer_atr": [
+      0.15,
+      0.20,
+      0.25
+    ],
+    "take_profit_r": [
+      2.3,
+      2.5
+    ],
+    "break_even_trigger_r": [
+      1.0
+    ],
+    "break_even_protection_r": [
+      0.5
+    ],
+    "max_trades_per_day": [
+      3
+    ]
+  }
+}

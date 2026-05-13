@@ -1,0 +1,4 @@
+risk_id,dimension,description,impact_severity,probability,mitigation_protocol,residual_risk,status
+rr_exp_001,OVERFITTING,"Afinamiento excesivo de los umbrales finos de mecha-cuerpo o TP sobre la muestra OOS",CRITICAL,LOW,"Blindaje incondicional de la muestra TEST mediante pre-compromiso y single-run final",ACCEPTABLE,CONTROLLED
+rr_exp_002,CAPITAL_EROSION,"Degradación de las utilidades por variaciones en spreads durante eventos macro o alta frecuencia",HIGH,MEDIUM,"Inclusión nativa obligatoria de slippage de 0.2 pips y comisiones FTMO en todas las curvas",ACCEPTABLE,CONTROLLED
+rr_exp_003,COMPUTATIONAL_COST,"Desborde de tiempo o recursos de memoria durante el procesamiento masivo concurrente en la nube",MEDIUM,LOW,"Confinamiento dimensional estricto a 108 configuraciones en la vecindad de la semilla ganadora",NEGLIGIBLE,CONTROLLED

@@ -1,0 +1,16 @@
+================================================================================
+R1 CONTROLLED EXPANSION SWEEP — GIT STATUS REPORT (POST-COMPUTATION)
+================================================================================
+RAMA ACTUAL: clean-sync-branch
+
+LOG HISTÓRICO RECIENTE:
+406654a [v40/r1] full local micro probe results
+4442757 [v40/r1] readiness final pre laboratorio
+b281229 [v40/engine] endurecer bloqueo core sin bypass permanente
+3f01674 [v40/engine] lockdown definitivo del core v7 v6
+e082c40 [v39/artifact] restaurar zip oficial root con rebuild atomico
+
+ESTADO DEL ÁRBOL:
+- Todas las salidas de rectificación de la reserva técnica y los resultados del barrido de vecindad V41 generados y confinados dentro de `reports/v40_r1_absorption_mean_reversion/` y `reports/v41_r1_expansion_sweep/`.
+- Motor e infraestructuras sin modificaciones activas.
+================================================================================

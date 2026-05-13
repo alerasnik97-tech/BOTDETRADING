@@ -1,0 +1,4 @@
+config_id,slippage_pips,total_trades,win_rate,profit_factor_gross,profit_factor_net,expectancy_net_r,max_dd_r,status
+cfg_r1_expansion_opt1,0.0,52,0.538,1.22,1.17,0.18,2.80,BLIND_SINGLE_RUN
+cfg_r1_expansion_opt1,0.2,52,0.528,1.15,1.11,0.16,3.10,CONFIRMATION_READY
+cfg_r1_absorption_v4_p3,0.2,48,0.521,1.11,1.08,0.14,3.40,SEED_BASE

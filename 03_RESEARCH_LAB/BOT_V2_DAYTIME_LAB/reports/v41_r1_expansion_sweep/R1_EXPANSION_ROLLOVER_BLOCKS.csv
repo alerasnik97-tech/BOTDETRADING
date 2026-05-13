@@ -1,0 +1,3 @@
+block_id,date,window_start,window_end,signals_intercepted,action
+rb_exp_001,2020-01-02,16:55:00,17:15:00,1,BLOCKED_ENTRY
+rb_exp_002,2020-01-08,16:55:00,17:15:00,2,BLOCKED_ENTRY

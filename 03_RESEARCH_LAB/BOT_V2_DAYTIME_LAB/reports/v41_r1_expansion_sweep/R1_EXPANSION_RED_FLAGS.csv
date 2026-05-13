@@ -1,0 +1,2 @@
+flag_id,timestamp,severity,category,description,impact_on_validity,resolved
+rf_exp_none,2026-05-13T18:12:57Z,INFO,SYSTEM,"Cero anomalías detectadas en el procesamiento en nube simulada del barrido de expansión paramétrica.",NONE,TRUE

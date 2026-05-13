@@ -1,0 +1,109 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.0.3, pluggy-1.6.0 -- C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\03_RESEARCH_LAB\BOT_V2_DAYTIME_LAB\venv_v37\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\03_RESEARCH_LAB\BOT_V2_DAYTIME_LAB
+collecting ... collected 252 items / 9 errors
+
+=================================== ERRORS ====================================
+______________ ERROR collecting src/v6_utils/tests/test_bars.py _______________
+ImportError while importing test module 'C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\03_RESEARCH_LAB\BOT_V2_DAYTIME_LAB\src\v6_utils\tests\test_bars.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\alera\AppData\Local\Python\pythoncore-3.14-64\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\v6_utils\tests\test_bars.py:8: in <module>
+    from v6_utils.bars import build_bars, get_bar_at, assert_no_partial_bars
+E   ModuleNotFoundError: No module named 'v6_utils'
+_____________ ERROR collecting src/v6_utils/tests/test_causal.py ______________
+ImportError while importing test module 'C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\03_RESEARCH_LAB\BOT_V2_DAYTIME_LAB\src\v6_utils\tests\test_causal.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\alera\AppData\Local\Python\pythoncore-3.14-64\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\v6_utils\tests\test_causal.py:8: in <module>
+    from v6_utils.causal import CausalClock, CausalDataFrame, LookAheadError
+E   ModuleNotFoundError: No module named 'v6_utils'
+___________ ERROR collecting src/v6_utils/tests/test_data_loader.py ___________
+ImportError while importing test module 'C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\03_RESEARCH_LAB\BOT_V2_DAYTIME_LAB\src\v6_utils\tests\test_data_loader.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\alera\AppData\Local\Python\pythoncore-3.14-64\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\v6_utils\tests\test_data_loader.py:12: in <module>
+    from v6_utils.data_loader import iter_months, load_month, iter_ticks_chunked, load_range_bulk
+E   ModuleNotFoundError: No module named 'v6_utils'
+____________ ERROR collecting src/v6_utils/tests/test_execution.py ____________
+ImportError while importing test module 'C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\03_RESEARCH_LAB\BOT_V2_DAYTIME_LAB\src\v6_utils\tests\test_execution.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\alera\AppData\Local\Python\pythoncore-3.14-64\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\v6_utils\tests\test_execution.py:8: in <module>
+    from v6_utils.execution import next_bar_execute, next_bar_execute_limit, simulate_exit, simulate_exit_with_be, NoFillError
+E   ModuleNotFoundError: No module named 'v6_utils'
+_____________ ERROR collecting src/v6_utils/tests/test_memory.py ______________
+ImportError while importing test module 'C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\03_RESEARCH_LAB\BOT_V2_DAYTIME_LAB\src\v6_utils\tests\test_memory.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\alera\AppData\Local\Python\pythoncore-3.14-64\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\v6_utils\tests\test_memory.py:9: in <module>
+    from v6_utils.memory import get_process_rss_mb, MemoryGuard, safe_collect
+E   ModuleNotFoundError: No module named 'v6_utils'
+_____________ ERROR collecting src/v6_utils/tests/test_numeric.py _____________
+ImportError while importing test module 'C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\03_RESEARCH_LAB\BOT_V2_DAYTIME_LAB\src\v6_utils\tests\test_numeric.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\alera\AppData\Local\Python\pythoncore-3.14-64\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\v6_utils\tests\test_numeric.py:3: in <module>
+    from v6_utils.numeric import snap_to_tick, safe_add, pip_to_price
+E   ModuleNotFoundError: No module named 'v6_utils'
+_____________ ERROR collecting src/v6_utils/tests/test_runner.py ______________
+ImportError while importing test module 'C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\03_RESEARCH_LAB\BOT_V2_DAYTIME_LAB\src\v6_utils\tests\test_runner.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\alera\AppData\Local\Python\pythoncore-3.14-64\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\v6_utils\tests\test_runner.py:11: in <module>
+    from v6_utils.temporal import sanitize_utc_index, to_ny, session_anchor, is_market_open
+E   ModuleNotFoundError: No module named 'v6_utils'
+____________ ERROR collecting src/v6_utils/tests/test_temporal.py _____________
+ImportError while importing test module 'C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\03_RESEARCH_LAB\BOT_V2_DAYTIME_LAB\src\v6_utils\tests\test_temporal.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\alera\AppData\Local\Python\pythoncore-3.14-64\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\v6_utils\tests\test_temporal.py:4: in <module>
+    from v6_utils.temporal import sanitize_utc_index, to_ny, session_anchor, is_market_open
+E   ModuleNotFoundError: No module named 'v6_utils'
+______ ERROR collecting src/v7_engine/tests/test_search_space_builder.py ______
+ImportError while importing test module 'C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\03_RESEARCH_LAB\BOT_V2_DAYTIME_LAB\src\v7_engine\tests\test_search_space_builder.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\alera\AppData\Local\Python\pythoncore-3.14-64\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\v7_engine\tests\test_search_space_builder.py:4: in <module>
+    from reports.v37_manipulante2.rebuild_v1.build_search_space import (
+E   ModuleNotFoundError: No module named 'reports.v37_manipulante2.rebuild_v1.build_search_space'
+=========================== short test summary info ===========================
+ERROR src/v6_utils/tests/test_bars.py
+ERROR src/v6_utils/tests/test_causal.py
+ERROR src/v6_utils/tests/test_data_loader.py
+ERROR src/v6_utils/tests/test_execution.py
+ERROR src/v6_utils/tests/test_memory.py
+ERROR src/v6_utils/tests/test_numeric.py
+ERROR src/v6_utils/tests/test_runner.py
+ERROR src/v6_utils/tests/test_temporal.py
+ERROR src/v7_engine/tests/test_search_space_builder.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 9 errors during collection !!!!!!!!!!!!!!!!!!!
+============================== 9 errors in 0.85s ==============================

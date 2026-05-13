@@ -1,0 +1,13 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.0.3, pluggy-1.6.0 -- C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\03_RESEARCH_LAB\BOT_V2_DAYTIME_LAB\venv_v37\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\03_RESEARCH_LAB\BOT_V2_DAYTIME_LAB
+collecting ... collected 5 items
+
+src/R1/tests/test_r1_absorption.py::test_extract_r1_levels_structure PASSED [ 20%]
+src/R1/tests/test_r1_absorption.py::test_r1_absorption_detector_initialization PASSED [ 40%]
+src/v7_engine/tests/test_engine_core_lockdown.py::test_manifest_contains_required_namespaces PASSED [ 60%]
+src/v7_engine/tests/test_engine_core_lockdown.py::test_engine_core_verify_passes_clean_working_tree PASSED [ 80%]
+src/v7_engine/tests/test_engine_core_lockdown.py::test_verify_script_logic_simulations PASSED [100%]
+
+============================== 5 passed in 0.75s ==============================
