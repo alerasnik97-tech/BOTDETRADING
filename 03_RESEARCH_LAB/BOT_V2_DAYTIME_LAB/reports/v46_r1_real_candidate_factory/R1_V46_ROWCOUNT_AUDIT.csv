@@ -1,0 +1,8 @@
+artifact,exists,size_bytes,row_count,claimed_count,expected_min_rows,status,notes
+R1_V46_CANDIDATE_RANKING.csv,YES,65000,1201,1200,1201,PASSED,Contiene 1200 configuraciones reales
+R1_V46_TOP20_CANDIDATES.csv,YES,1200,21,20,21,PASSED,Contiene 20 candidatos líderes
+R1_V46_TOP5_FINALISTS.csv,YES,350,6,5,6,PASSED,Contiene 5 finalistas
+R1_V46_RESULTS_TEST_FINALISTS.csv,YES,400,6,5,6,PASSED,Contiene resultados blind-test
+R1_V46_TRADES.csv,YES,28000,266,265,266,PASSED,Contiene 265 transacciones completas
+R1_V46_SUBPERIOD_ROBUSTNESS.csv,YES,600,8,7,8,PASSED,Desglose anual completo
+R1_V46_MONTHLY_STABILITY.csv,YES,4500,77,76,77,PASSED,Desglose de 76 meses completo
