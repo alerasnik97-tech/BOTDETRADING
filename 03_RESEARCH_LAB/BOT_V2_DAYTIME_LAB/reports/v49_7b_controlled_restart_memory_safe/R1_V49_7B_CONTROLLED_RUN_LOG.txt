@@ -1,0 +1,123 @@
+Starting Controlled preflight Run at 2026-05-14 09:35:38.253057
+Processing Month 2020-03...
+  Batch 1 DONE (115 trades).
+Month 2020-03 DONE.
+Completed Controlled preflight Run at 2026-05-14 09:36:02.748679
+Starting Controlled full Run at 2026-05-14 09:36:13.625054
+Processing Month 2020-03...
+  Batch 1 DONE (509 trades).
+  Batch 2 DONE (498 trades).
+  Batch 3 DONE (414 trades).
+  Batch 4 DONE (449 trades).
+  Batch 5 DONE (490 trades).
+  Batch 6 DONE (473 trades).
+  Batch 7 DONE (473 trades).
+  Batch 8 DONE (456 trades).
+  Batch 9 DONE (511 trades).
+  Batch 10 DONE (582 trades).
+  Batch 11 DONE (484 trades).
+  Batch 12 DONE (554 trades).
+  Batch 13 DONE (477 trades).
+  Batch 14 DONE (485 trades).
+  Batch 15 DONE (424 trades).
+  Batch 16 DONE (485 trades).
+Month 2020-03 DONE.
+Processing Month 2020-09...
+  Batch 1 DONE (570 trades).
+  Batch 2 DONE (531 trades).
+  Batch 3 DONE (447 trades).
+  Batch 4 DONE (486 trades).
+  Batch 5 DONE (531 trades).
+  Batch 6 DONE (480 trades).
+  Batch 7 DONE (508 trades).
+  Batch 8 DONE (525 trades).
+  Batch 9 DONE (528 trades).
+  Batch 10 DONE (589 trades).
+  Batch 11 DONE (524 trades).
+  Batch 12 DONE (550 trades).
+  Batch 13 DONE (537 trades).
+  Batch 14 DONE (498 trades).
+  Batch 15 DONE (485 trades).
+  Batch 16 DONE (603 trades).
+Month 2020-09 DONE.
+Processing Month 2021-02...
+  Batch 1 DONE (304 trades).
+  Batch 2 DONE (285 trades).
+  Batch 3 DONE (223 trades).
+  Batch 4 DONE (259 trades).
+  Batch 5 DONE (267 trades).
+  Batch 6 DONE (262 trades).
+  Batch 7 DONE (276 trades).
+  Batch 8 DONE (262 trades).
+  Batch 9 DONE (298 trades).
+  Batch 10 DONE (346 trades).
+  Batch 11 DONE (282 trades).
+  Batch 12 DONE (317 trades).
+  Batch 13 DONE (277 trades).
+  Batch 14 DONE (263 trades).
+  Batch 15 DONE (252 trades).
+  Batch 16 DONE (300 trades).
+Month 2021-02 DONE.
+Processing Month 2021-08...
+  Batch 1 DONE (596 trades).
+  Batch 2 DONE (573 trades).
+  Batch 3 DONE (492 trades).
+  Batch 4 DONE (530 trades).
+  Batch 5 DONE (558 trades).
+  Batch 6 DONE (536 trades).
+  Batch 7 DONE (538 trades).
+  Batch 8 DONE (525 trades).
+  Batch 9 DONE (582 trades).
+  Batch 10 DONE (644 trades).
+  Batch 11 DONE (573 trades).
+  Batch 12 DONE (616 trades).
+  Batch 13 DONE (570 trades).
+  Batch 14 DONE (546 trades).
+  Batch 15 DONE (521 trades).
+  Batch 16 DONE (625 trades).
+Month 2021-08 DONE.
+Processing Month 2022-05...
+  Batch 1 DONE (356 trades).
+  Batch 2 DONE (329 trades).
+  Batch 3 DONE (297 trades).
+  Batch 4 DONE (312 trades).
+  Batch 5 DONE (303 trades).
+  Batch 6 DONE (312 trades).
+  Batch 7 DONE (304 trades).
+  Batch 8 DONE (311 trades).
+  Batch 9 DONE (323 trades).
+  Batch 10 DONE (361 trades).
+  Batch 11 DONE (310 trades).
+  Batch 12 DONE (327 trades).
+  Batch 13 DONE (335 trades).
+  Batch 14 DONE (314 trades).
+  Batch 15 DONE (290 trades).
+  Batch 16 DONE (326 trades).
+Month 2022-05 DONE.
+Processing Month 2022-11...
+  Batch 1 DONE (579 trades).
+  Batch 2 DONE (498 trades).
+  Batch 3 DONE (496 trades).
+  Batch 4 DONE (511 trades).
+  Batch 5 DONE (494 trades).
+  Batch 6 DONE (496 trades).
+  Batch 7 DONE (474 trades).
+  Batch 8 DONE (521 trades).
+  Batch 9 DONE (487 trades).
+  Batch 10 DONE (502 trades).
+  Batch 11 DONE (447 trades).
+  Batch 12 DONE (455 trades).
+  Batch 13 DONE (550 trades).
+  Batch 14 DONE (463 trades).
+  Batch 15 DONE (522 trades).
+  Batch 16 DONE (526 trades).
+Month 2022-11 DONE.
+Processing Month 2023-01...
+CRITICAL ERROR in 2023-01: [ANTI-LEAKAGE GUARD] Violación crítica de partición OOS: La fase activa 'val' intentó consumir o evaluar datos correspondientes al conjunto reservado TEST (2023-01-02 15:51:00+00:00).
+Processing Month 2023-07...
+CRITICAL ERROR in 2023-07: [ANTI-LEAKAGE GUARD] Violación crítica de partición OOS: La fase activa 'val' intentó consumir o evaluar datos correspondientes al conjunto reservado TEST (2023-07-03 14:15:00+00:00).
+Processing Month 2024-04...
+CRITICAL ERROR in 2024-04: [ANTI-LEAKAGE GUARD] Violación crítica de partición OOS: La fase activa 'val' intentó consumir o evaluar datos correspondientes al conjunto reservado TEST (2024-04-03 12:27:00+00:00).
+Processing Month 2024-10...
+CRITICAL ERROR in 2024-10: [ANTI-LEAKAGE GUARD] Violación crítica de partición OOS: La fase activa 'val' intentó consumir o evaluar datos correspondientes al conjunto reservado TEST (2024-10-02 12:15:00+00:00).
+Completed Controlled full Run at 2026-05-14 10:34:09.549698
