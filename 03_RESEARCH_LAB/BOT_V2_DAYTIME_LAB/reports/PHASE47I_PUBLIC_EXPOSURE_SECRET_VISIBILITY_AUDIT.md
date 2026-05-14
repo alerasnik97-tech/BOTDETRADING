@@ -21,7 +21,7 @@ Se ha detectado que el repositorio GitHub es **PÚBLICO**, lo cual representa un
 
 ## 5. Hallazgos críticos
 - **Hallazgo 1**: Token de Telegram real en `reports/TELEGRAM_PHASE45_TOKEN_SOURCE_REPAIR.md`.
-  - **Línea 8**: `8611526388:AAFs3eFspDQ0I8EDOGYamRzYr5AmuT_JvWQ`
+  - **Línea 8**: `<REDACTED_REVOKED_TELEGRAM_TOKEN>`
   - **Criticidad**: ALTA (Permite control del bot de alertas si no se revoca).
   - **Estado**: Local (Untracked), pero en riesgo de ser subido accidentalmente.
 
