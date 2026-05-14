@@ -1,0 +1,8 @@
+metric,value
+total_configs,800
+configs_with_N_train_gt_0,800
+configs_with_N_val_gt_0,0
+configs_with_N_val_eq_0,800
+configs_passing_PF_train_1.0,6
+configs_passing_PF_val_1.15,0
+configs_passing_both,0
