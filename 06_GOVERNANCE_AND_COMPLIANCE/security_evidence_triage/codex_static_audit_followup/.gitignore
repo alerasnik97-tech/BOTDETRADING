@@ -1,0 +1,6 @@
+# Excluded from triage commits: raw scans can be huge and may contain sensitive context.
+*_RAW*.txt
+*_RAW*.csv
+*_RAW*.json
+*.tmp
+*.log
