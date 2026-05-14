@@ -1,0 +1,8 @@
+path,file_type,size_mb,last_modified,sha256,notes
+05_MARKET_DATA_VAULT/BOT_MARKET_DATA/tick/EURUSD/monthly/,parquet,VARIES,VARIES,VARIES,Historical tick data (monthly parquets)
+05_MARKET_DATA_VAULT/BOT_MARKET_DATA/tick/EURUSD/cache/,parquet,VARIES,VARIES,VARIES,Resampled timeframes (M1, M5, M15)
+05_MARKET_DATA_VAULT/BOT_MARKET_DATA/tick/EURUSD/partial/,parquet,VARIES,VARIES,VARIES,Daily tick parquets
+05_MARKET_DATA_VAULT/data/news_eurusd_am_fortress_v3.csv,csv,VARIES,2026-05-13,CALCULATED,Restored news events file
+05_MARKET_DATA_VAULT/data/NEWS_RESTORE_MANIFEST.json,json,0.0006,2026-05-13,CALCULATED,Governance manifest for data restoration
+05_MARKET_DATA_VAULT/README.md,md,0.0007,2026-05-13,N/A,Documentation
+05_MARKET_DATA_VAULT/OWNERSHIP_RULES.md,md,0.0005,2026-05-13,N/A,Governance rules

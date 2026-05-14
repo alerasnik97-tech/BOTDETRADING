@@ -1,0 +1,11 @@
+item,type,allowed,status,notes
+01_CORE_PRODUCTION,folder,YES,OK,Institutional folder
+02_INCUBATION_STAGING,folder,YES,OK,Institutional folder
+03_RESEARCH_LAB,folder,YES,OK,Institutional folder
+04_INFRASTRUCTURE_ENGINEERING,folder,YES,OK,Institutional folder
+05_MARKET_DATA_VAULT,folder,YES,OK,Institutional folder
+06_GOVERNANCE_AND_COMPLIANCE,folder,YES,OK,Institutional folder
+07_BACKUPS,folder,YES,OK,Institutional folder
+08_CLOUD_FREE_RUN_LAB,folder,YES,OK,Institutional folder
+.gitignore,file,YES,OK,Git configuration
+.git,folder,YES,OK,Git metadata (hidden)

@@ -1,0 +1,9 @@
+risk_id,risk,severity,evidence,mitigation,status
+R01,data vault mutation,HIGH,None,Read-only access mandate,SAFE
+R02,news restore undocumented,MEDIUM,Manifest found,NEWS_RESTORE_MANIFEST.json mandatory,SAFE
+R03,parquet accidentally staged,HIGH,None,.gitignore active,SAFE
+R04,ZIP workflow regression,MEDIUM,None,ZIP_ABSENCE_AUDIT.md active,SAFE
+R05,root hygiene drift,LOW,None,ROOT_HYGIENE_AUDIT.csv active,SAFE
+R06,secrets staged,CRITICAL,None,Manual audit before commit,SAFE
+R07,Git divergence,MEDIUM,origin tracked,Frequent fetch/status,SAFE
+R08,TEST leakage via data,CRITICAL,None,Strict sample isolation,SAFE

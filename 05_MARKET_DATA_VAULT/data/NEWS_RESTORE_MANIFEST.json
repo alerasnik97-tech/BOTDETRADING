@@ -1,0 +1,17 @@
+{
+    "action": "DATA_VAULT_RESTORE",
+    "timestamp": "2026-05-13T23:42:00Z",
+    "files": [
+        {
+            "path": "05_MARKET_DATA_VAULT/data/news_eurusd_am_fortress_v3.csv",
+            "source": "07_BACKUPS legacy archive / 000_PARA_CHATGPT.zip",
+            "reason": "Restore missing news data file required for R1 strategies after hard reset data loss.",
+            "status": "RESTORED_AND_VERIFIED"
+        }
+    ],
+    "verification": {
+        "engine_preflight": "PASSED",
+        "news_events_detected": "YES"
+    },
+    "governance": "ANTIGRAVITY_DATA_SAFETY_PROTOCOL_V1"
+}
