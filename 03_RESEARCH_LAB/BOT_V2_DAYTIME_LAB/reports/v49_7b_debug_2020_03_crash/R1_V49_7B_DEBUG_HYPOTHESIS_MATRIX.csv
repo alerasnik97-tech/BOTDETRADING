@@ -1,0 +1,7 @@
+hypothesis,status,evidence,fix_needed,notes
+"Falta de memoria",CONFIRMED,"Ticks 2020-03 (5.7M) + CachǸ de ventanas (50x8h) + 120k iteraciones consumen > 2GB RAM.","SÍ (Chunking)","El runner extremo cargaba demasiada cachǸ en memoria sin liberar."
+"Timezone aware/naive mismatch",REFUTED,"El debug 1-config pasó sin errores de zona horaria.","NO","Manejo de NY/UTC es correcto."
+"Falla en detector R1",REFUTED,"Se detectaron 315 seales en 2020-03 sin crash.","NO",""
+"News calendar vacío",REFUTED,"Se cargaron 504 eventos correctamente en el debug.","NO",""
+"Permisos de escritura",REFUTED,"Se pudo escribir R1_V49_7B_DEBUG_TRADES.csv.","NO",""
+"Bug en Engine core",REFUTED,"Engine verify dio OK y el debug de ejecucin pas.","NO","El core es estable."
