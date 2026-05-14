@@ -1,0 +1,5 @@
+family_id,configs,PF_train_med,PF_train_max,PF_val_med,PF_val_max,R_med,combined_pass
+F01,150,1.32,3.4,1.27,4.0,9.0,70
+F06,150,1.33,3.07,1.33,6.5,11.0,79
+F08,150,1.295,3.5,1.29,6.0,11.0,78
+F12,150,1.33,4.0,1.33,8.0,10.0,78

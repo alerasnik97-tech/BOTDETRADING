@@ -1,0 +1,29 @@
+{
+  "phase": "V50B_FAMILY_PREFLIGHT_GAUNTLET",
+  "symbol": "EURUSD",
+  "test_start_year": 2025,
+  "test_allowed": false,
+  "train_months": [
+    "2020-03",
+    "2020-09",
+    "2021-02",
+    "2021-08",
+    "2022-05",
+    "2022-11"
+  ],
+  "val_months": [
+    "2023-01",
+    "2023-07",
+    "2024-04",
+    "2024-10"
+  ],
+  "families": ["F01", "F06", "F08", "F12"],
+  "configs_per_family_target": 150,
+  "max_trades_per_day": 3,
+  "session_max": "07:00-17:00 NY",
+  "official_slippage_pips": 0.2,
+  "commission_model": "FTMO",
+  "batch_size": 50,
+  "flush_incremental": true,
+  "gc_collect": true
+}
