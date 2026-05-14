@@ -1,16 +1,20 @@
-# Exclusiones de archivos comprimidos
+# EXCLUSIONES OBLIGATORIAS - BOT DE TRADING
+
+# Archivos Comprimidos
 *.zip
 000_PARA_CHATGPT.zip
+CHATGPT_UPLOAD_*.zip
 UPLOAD_CHATGPT_ACTUAL/
+BOT_ZIP_LEGACY_ARCHIVE/
 
-# Exclusiones de archivos de datos binarios y pesados
+# Datos Pesados y Binarios
 *.parquet
 *.feather
 *.h5
 *.db
 *.sqlite
 
-# Exclusiones de entornos virtuales y cachés
+# Entornos Virtuales y Cachés
 venv/
 venv_v37/
 .venv/
@@ -18,9 +22,9 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
-.git/
+.ipynb_checkpoints/
 
-# Exclusiones de credenciales y secretos
+# Secretos y Credenciales
 .env
 .env.*
 kaggle.json
@@ -29,12 +33,27 @@ kaggle.json
 *.key
 secrets/
 
-# Exclusiones de carpetas de datos crudos/pesados
+# Datos Crudos y de Mercado
 raw/
 tick/
 ticks/
 market_data/
-archive_scratch/
-outputs/
-temp_zip_extract/
-_CHATGPT_EXPORT/
+
+# Bloqueo TOTAL de CSVs y archivos binarios en backups para GitHub
+07_BACKUPS/**/*.csv
+07_BACKUPS/**/*.pyc
+07_BACKUPS/**/*.exe
+07_BACKUPS/**/*.dll
+07_BACKUPS/**/*.bundle
+07_BACKUPS/**/*.lock
+
+# INCLUSIONES PERMITIDAS
+# reports livianos
+# CSVs de auditoría livianos en RESEARCH_LAB
+# markdowns
+# configs
+# tests
+# src
+# governance
+# engine_lockdown
+# external_audit_readiness
