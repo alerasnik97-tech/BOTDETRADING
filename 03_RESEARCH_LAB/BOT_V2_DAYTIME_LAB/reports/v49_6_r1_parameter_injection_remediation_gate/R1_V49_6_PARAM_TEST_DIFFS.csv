@@ -1,0 +1,16 @@
+param_test_id,varied_parameter,entry_time_diff,entry_price_diff,sl_price_diff,tp_price_diff,exit_price_diff,pnl_diff,hash_changed
+PT_ENTRY_1,entry_type,True,0.0,0.0,0.0,0.0,0.0,False
+PT_ENTRY_2,entry_type,True,0.0,0.0,0.0,0.0,0.0,True
+PT_ENTRY_3,entry_type,True,0.0,0.0,0.0,0.0,0.0,True
+PT_SL_1,sl_model,True,0.0,0.0,0.0,0.0,0.0,False
+PT_SL_2,sl_model,True,0.0,-0.00016,0.0002,-0.00016,0.073,True
+PT_SL_3,sl_model,True,0.0,-0.00032,0.0004,-0.00032,0.1094,True
+PT_SL_4,sl_model,True,0.0,-0.00031,0.00039,-0.00031,0.1077,True
+PT_TP_1,target,True,0.0,0.0,0.0,0.0,0.0,False
+PT_TP_2,target,True,0.0,0.0,8e-05,0.0,0.0,True
+PT_TP_3,target,True,0.0,0.0,0.00024,0.0,0.0,True
+PT_TP_4,target,True,0.0,0.0,0.0004,0.0,0.0,True
+PT_BE_1,be_model,True,0.0,0.0,0.0,0.0,0.0,False
+PT_BE_2,be_model,True,0.0,0.0,0.0,0.0,0.0,True
+PT_BE_3,be_model,True,0.0,0.0,0.0,0.0,0.0,False
+PT_BE_4,be_model,True,0.0,0.0,0.0,0.0,0.0,False

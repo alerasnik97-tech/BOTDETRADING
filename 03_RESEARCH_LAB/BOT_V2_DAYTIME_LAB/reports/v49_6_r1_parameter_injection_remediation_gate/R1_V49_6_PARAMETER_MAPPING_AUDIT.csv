@@ -1,0 +1,12 @@
+parameter,declared_in_grid,read_by_runner,passed_to_detector,passed_to_engine,affects_entry,affects_sl,affects_tp,observed_in_trades,status,notes
+entry_type,YES,YES,NO,NO,YES,NO,NO,NO,IGNORED,Atributo leído en R1Config pero omitido en la invocación de engine.execute_signal(). Se fuerza a mercado.
+sl_model,YES,YES,NO,NO,NO,YES,YES,NO,IGNORED,Atributo leído pero sobrescrito incondicionalmente por la constante estática sl_mult = 1.5.
+stop_loss,NO,NO,NO,NO,NO,YES,NO,NO,NOT_IMPLEMENTED,No existe campo directo en grid; se deriva implícitamente de mechas extremas.
+target,YES,YES,NO,NO,NO,NO,YES,YES,PARTIALLY_HONORED,Leído como target_model para derivar tp_r estático pero carente de ancla adaptativa.
+BE,NO,NO,NO,NO,NO,YES,NO,NO,NOT_IMPLEMENTED,Dimensión ausente en el espacio de búsqueda y en el bucle de simulación de cierres.
+max_trades_per_day,YES,YES,NO,YES,YES,NO,NO,YES,HONORED,Transferido exitosamente en la instanciación de UnifiedV7Engine.
+session_window,YES,YES,NO,YES,YES,NO,NO,YES,HONORED,Procesado para extraer horas de inicio y fin de ventana hacia el ScheduleGuard.
+level_type,YES,YES,YES,NO,YES,NO,NO,YES,HONORED,Utilizado de prefijo para filtrar las señales emitidas por el R1AbsorptionDetector.
+wick_to_body_min,YES,YES,YES,NO,YES,NO,NO,YES,HONORED,Inyectado en el constructor del detector de absorción y filtrando ratios válidos.
+return_inside_max_minutes,NO,NO,NO,NO,YES,NO,NO,NO,NOT_IMPLEMENTED,Variable conceptual no plasmada en el esquema real del orquestador.
+rejection_distance_atr_min,NO,NO,NO,NO,YES,NO,NO,NO,NOT_IMPLEMENTED,Variable teórica de filtro ausente en la implementación de fábrica actual.

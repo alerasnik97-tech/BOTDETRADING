@@ -1,0 +1,29 @@
+On branch clean-sync-branch
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/src/v6_utils/tests/__pycache__/test_data_loader.cpython-314-pytest-9.0.3.pyc
+	modified:   03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/src/v7_engine/__pycache__/engine.cpython-314.pyc
+	modified:   03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/v49_expansion_run.py
+	modified:   06_GOVERNANCE_AND_COMPLIANCE/artifact_delivery/single_zip_delivery_lock/FINAL_ROOT_ZIP_RESTORE_VERIFICATION.txt
+	modified:   06_GOVERNANCE_AND_COMPLIANCE/artifact_delivery/single_zip_delivery_lock/current_zip_hash.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/backups/
+	03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/reports/v49_6_r1_parameter_injection_remediation_gate/
+	03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/run_r1_v49_6_param_injection_microtest.py
+	03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/scratch/v48_all_configs.csv
+	05_MARKET_DATA_VAULT/data/
+	05_MARKET_DATA_VAULT/forex/
+	05_MARKET_DATA_VAULT/manual_data/
+	06_GOVERNANCE_AND_COMPLIANCE/artifact_delivery/single_zip_delivery_lock/06_GOVERNANCE_AND_COMPLIANCE/
+	06_GOVERNANCE_AND_COMPLIANCE/github_sync/current_source_of_truth/GITHUB_PUSH_FINAL_REPORT.md
+	06_GOVERNANCE_AND_COMPLIANCE/github_sync/v49_5_quarantine_push/
+	07_BACKUPS/
+
+no changes added to commit (use "git add" and/or "git commit -a")
+clean-sync-branch
+1af19b9 [v49.5/r1] revoke v49 acceptance after parameter integrity audit
+e7ecd25 [v49/r1] sync current source of truth for chatgpt github review
+e2d11d2 [v48/r1] real factory batched run - integrity passed

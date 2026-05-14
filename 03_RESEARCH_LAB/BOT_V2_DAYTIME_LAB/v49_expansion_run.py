@@ -140,18 +140,44 @@ def run_v49():
                 for sig in cfg_sigs.itertuples():
                     ts = sig.timestamp_utc
                     t_window = ticks[ts : ts + timedelta(hours=10)]
-                    fill, reason = engine.execute_signal(sig.direction.lower(), ts, t_window)
+                    side = sig.direction.lower()
+                    
+                    entry_mode = "market"
+                    stop_p = None
+                    if cfg.entry_type == "MIDPOINT_STOP":
+                        entry_mode = "stop"
+                        midpoint = (sig.high + sig.low) / 2.0
+                        stop_p = midpoint + 0.0001 if side == 'long' else midpoint - 0.0001
+                    elif cfg.entry_type == "LIMIT_50_REJECTION":
+                        entry_mode = "stop"
+                        limit_p = sig.low + (sig.high - sig.low)*0.5
+                        stop_p = limit_p + 0.00005 if side == 'long' else limit_p - 0.00005
+                        
+                    fill, reason = engine.execute_signal(side, ts, t_window, entry_mode=entry_mode, stop_price=stop_p)
                     
                     if fill is not None:
+                        base_dist = abs(fill.fill_price - (sig.low if side == 'long' else sig.high))
                         sl_mult = 1.5
-                        sl_dist = abs(fill.fill_price - (sig.low if sig.direction == 'LONG' else sig.high)) * sl_mult
+                        if "1.5P" in cfg.sl_model: sl_mult = 1.5
+                        elif "2.0P" in cfg.sl_model: sl_mult = 2.0
+                        elif "1.0P" in cfg.sl_model: sl_mult = 1.0
+                        
+                        sl_dist = base_dist * sl_mult
+                        if "MICROSTRUCTURE" in cfg.sl_model: sl_dist += 0.00015
+                        
                         if sl_dist <= 0: continue
-                        sl_price = fill.fill_price - sl_dist if sig.direction == 'LONG' else fill.fill_price + sl_dist
+                        sl_price = fill.fill_price - sl_dist if side == 'long' else fill.fill_price + sl_dist
                         tp_r = float(cfg.target_model.split("_")[1].replace("R", ""))
-                        tp_price = fill.fill_price + (sl_dist * tp_r) if sig.direction == 'LONG' else fill.fill_price - (sl_dist * tp_r)
+                        tp_price = fill.fill_price + (sl_dist * tp_r) if side == 'long' else fill.fill_price - (sl_dist * tp_r)
+                        
+                        be_trigger = 1.0 if tp_r >= 2.0 else None
                         
                         try:
-                            res = engine.close_position_with_costs(fill, sl_price, tp_price, t_window)
+                            if be_trigger is not None:
+                                res = engine.close_position_with_costs(fill, sl_price, tp_price, t_window, be_trigger_r=be_trigger)
+                            else:
+                                res = engine.close_position_with_costs(fill, sl_price, tp_price, t_window)
+                                
                             if slip == 0.2:
                                 all_trades.append({
                                     "config_id": cfg.config_id, "phase": phase, "entry_time": ts, "exit_time": res.exit_time,
