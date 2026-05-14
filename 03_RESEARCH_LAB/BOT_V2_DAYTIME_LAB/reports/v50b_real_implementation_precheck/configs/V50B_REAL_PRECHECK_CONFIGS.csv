@@ -1,0 +1,13 @@
+family_id,config_id,session_start_ny,session_end_ny,timeframe,trigger_params,stop_model,target_r,max_trades_per_day,slippage_pips,notes
+F01,F01_REAL_PRE_0001,03:00,04:30,15m,breakout_15m,bar_low,2.0,1,0.2,Precheck F01
+F01,F01_REAL_PRE_0002,03:00,04:30,15m,breakout_15m,bar_low,2.5,1,0.2,Precheck F01 target higher
+F01,F01_REAL_PRE_0003,03:00,05:00,15m,breakout_15m,bar_low,2.0,1,0.2,Precheck F01 window wider
+F06,F06_REAL_PRE_0001,08:00,11:00,15m,bb_20_2,ma20,2.5,1,0.2,Precheck F06
+F06,F06_REAL_PRE_0002,08:00,11:00,15m,bb_20_2,ma20,3.0,1,0.2,Precheck F06 target higher
+F06,F06_REAL_PRE_0003,07:00,12:00,15m,bb_20_2,ma20,2.5,1,0.2,Precheck F06 window wider
+F08,F08_REAL_PRE_0001,08:00,11:00,5m,ema_9_21,swing_5,2.0,2,0.2,Precheck F08
+F08,F08_REAL_PRE_0002,08:00,11:00,5m,ema_9_21,swing_5,2.5,2,0.2,Precheck F08 target higher
+F08,F08_REAL_PRE_0003,07:00,12:00,5m,ema_9_21,swing_5,2.0,2,0.2,Precheck F08 window wider
+F12,F12_REAL_PRE_0001,09:00,12:00,15m,rsi_14_30,15_pips,1.5,1,0.2,Precheck F12
+F12,F12_REAL_PRE_0002,09:00,12:00,15m,rsi_14_30,15_pips,2.0,1,0.2,Precheck F12 target higher
+F12,F12_REAL_PRE_0003,08:00,13:00,15m,rsi_14_30,15_pips,1.5,1,0.2,Precheck F12 window wider

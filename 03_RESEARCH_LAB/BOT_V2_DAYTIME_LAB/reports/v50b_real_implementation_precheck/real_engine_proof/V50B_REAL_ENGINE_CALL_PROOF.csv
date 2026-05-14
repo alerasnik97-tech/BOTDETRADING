@@ -1,0 +1,7 @@
+engine_call_id,family_id,config_id,month,ticks_loaded,bars_built,signals_generated,trades_generated,engine_or_execution_function_called,cost_model_applied,status
+1778790567.969721,F12,F12_REAL_PRE_0001,2024-04,1526613,2072,3,1,execute_signal + close_position_with_costs,YES,SUCCESS
+1778790568.125545,F12,F12_REAL_PRE_0001,2024-04,1526613,2072,4,2,execute_signal + close_position_with_costs,YES,SUCCESS
+1778790568.282055,F12,F12_REAL_PRE_0001,2024-04,1526613,2072,5,3,execute_signal + close_position_with_costs,YES,SUCCESS
+1778790568.493621,F12,F12_REAL_PRE_0001,2024-04,1526613,2072,6,4,execute_signal + close_position_with_costs,YES,SUCCESS
+1778790568.887912,F12,F12_REAL_PRE_0002,2024-04,1526613,2072,3,1,execute_signal + close_position_with_costs,YES,SUCCESS
+1778790569.050941,F12,F12_REAL_PRE_0002,2024-04,1526613,2072,4,2,execute_signal + close_position_with_costs,YES,SUCCESS

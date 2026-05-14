@@ -1,0 +1,17 @@
+{
+  "phase": "V50B_REAL_IMPLEMENTATION_PRECHECK",
+  "symbol": "EURUSD",
+  "test_start_year": 2025,
+  "test_allowed": false,
+  "families": ["F01", "F06", "F08", "F12"],
+  "mode": "micro_real_engine_precheck",
+  "train_months": ["2022-05"],
+  "val_months": ["2023-01", "2024-04"],
+  "configs_per_family": 3,
+  "max_total_configs": 12,
+  "official_slippage_pips": 0.2,
+  "batch_size": 4,
+  "forbid_synthetic_outputs": true,
+  "require_real_timestamps": true,
+  "require_engine_call_proof": true
+}
