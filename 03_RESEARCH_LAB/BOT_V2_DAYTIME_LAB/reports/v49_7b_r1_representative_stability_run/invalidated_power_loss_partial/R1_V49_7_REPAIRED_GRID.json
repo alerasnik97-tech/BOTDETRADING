@@ -1,0 +1,13 @@
+{
+    "level_type": ["ASIA_HL", "LONDON_HL"],
+    "session_window": ["08:00-11:00", "07:00-10:00", "09:00-12:00"],
+    "wick_to_body_min": [1.5, 1.8, 2.0, 2.2, 2.5, 3.0],
+    "max_trades_per_day": [1, 2, 3],
+    "entry_type": ["NEXT_OPEN", "MIDPOINT_STOP"],
+    "sl_model": ["WICK_EXTREME_1.5P", "WICK_EXTREME_2.0P", "MICROSTRUCTURE_SAFE"],
+    "target_model": ["FIXED_1.5R", "FIXED_2.0R", "FIXED_2.5R"],
+    "sampling": {
+        "target_n": 800,
+        "seed": 20260513
+    }
+}
