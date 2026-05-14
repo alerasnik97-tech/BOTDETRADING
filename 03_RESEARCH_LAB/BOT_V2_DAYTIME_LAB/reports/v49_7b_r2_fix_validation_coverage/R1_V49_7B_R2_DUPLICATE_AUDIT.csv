@@ -1,0 +1,4 @@
+check,count,status
+config_duplicates,0,OK
+trade_duplicates,0,OK
+ranking_metric_duplicates,0,OK
