@@ -1,0 +1,6 @@
+file,exists,size_bytes,last_modified,row_count,status,notes
+R1_V49_7B_R2_CONFIGS.csv,YES,65414,2026-05-14 11:54,801,OK,Configs generated
+R1_V49_7B_R2_RUN_LOG.txt,YES,346,2026-05-14 11:54,11,OK,Processing 2020-03
+R1_V49_7B_R2_TRADES.csv,YES,741746,2026-05-14 12:05,6371,OK,Growing (Train 2020 active)
+R1_V49_7B_R2_ENGINE_VERIFY.txt,YES,1088,2026-05-14 11:52,N/A,OK,Pre-run verification passed
+R1_V49_7B_R2_LOCKDOWN.md,YES,573,2026-05-14 11:52,N/A,OK,Governance seal active

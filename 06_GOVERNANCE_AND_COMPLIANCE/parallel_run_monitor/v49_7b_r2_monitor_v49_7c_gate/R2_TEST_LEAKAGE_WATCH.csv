@@ -1,0 +1,6 @@
+check_date,pattern,found,status,notes
+2026-05-14,2025-,NONE,OK,No OOS years in trades
+2026-05-14,2026-,NONE,OK,No OOS years in trades
+2026-05-14,phase TEST,NONE,OK,Phase lockdown intact
+2026-05-14,OOS,NONE,OK,No out-of-sample leakage detected
+VERDICT,ALL,NO_LEAKAGE,OK,R2 Guard is active

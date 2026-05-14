@@ -1,0 +1,5 @@
+period,allowed,found_in_preflight,found_in_full,status,notes
+TRAIN (2020-2022),YES,YES,YES,OK,Processing 2020-03
+VAL (2023-2024),YES,YES,NO,WAITING,Confirmed in preflight; full run hasn't reached 2023
+TEST (2025-2026),NO,NO,NO,LOCKED,Absolutely prohibited
+VERDICT,N/A,N/A,N/A,R2_MONITOR_OK,Anti-leakage guard verified
