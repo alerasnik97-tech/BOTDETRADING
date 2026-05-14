@@ -1,0 +1,18 @@
+{
+  "phase": "V49.7C_FULL_SCOPE_TRAIN_VAL",
+  "symbol": "EURUSD",
+  "train_start": "2020-01",
+  "train_end": "2022-12",
+  "val_start": "2023-01",
+  "val_end": "2024-12",
+  "test_allowed": false,
+  "min_configs_final": 600,
+  "ideal_configs": 800,
+  "max_configs": 1200,
+  "checkpoint_every_configs": 50,
+  "slippage_official": 0.2,
+  "slippage_stress": [0.3, 0.5],
+  "max_trades_per_day": 3,
+  "github_branch": "clean-sync-branch",
+  "zip_workflow": false
+}
