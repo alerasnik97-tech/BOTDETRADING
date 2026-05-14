@@ -1,0 +1,20 @@
+{
+    "phase": "V49.7",
+    "strategy": "R1_Absorption",
+    "symbol": "EURUSD",
+    "periods": {
+        "train": "2020-01-01 to 2022-12-31",
+        "val": "2023-01-01 to 2024-12-31",
+        "test": "LOCKED"
+    },
+    "cost_model": {
+        "commission": 5.0,
+        "slippage_base": 0.2,
+        "slippage_stress": [0.3, 0.5]
+    },
+    "filters": {
+        "news": "ACTIVE",
+        "rollover": "ACTIVE",
+        "max_trades_per_day": 3
+    }
+}
