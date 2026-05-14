@@ -1,0 +1,9 @@
+artifact,declared_rows,actual_rows,header_included,status,notes
+R1_V49_BATCH3_CONFIGS.csv,100,100,YES,PASSED,Conteo de configuraciones coincide con el muestreo base.
+R1_V49_BATCH3_RESULTS_SUMMARY.csv,100,100,YES,PASSED,Métricas agregadas por cada configuración del lote.
+R1_V49_BATCH3_TRADES.csv,2080,4896,YES,FAIL,ROWCOUNT_MISMATCH_CONFIRMED. Auditoría previa truncó o subestimó físicamente las 4896 transacciones reales contenidas en el CSV.
+R1_V49_AGGREGATED_TRADES.csv,23500,23500,YES,PASSED,Agregación histórica global aparente.
+R1_V49_AGGREGATED_CANDIDATE_RANKING.csv,500,500,YES,PASSED,Matriz de candidatos consolidados.
+R1_V49_TOP20_CANDIDATES.csv,20,20,YES,PASSED,Nómina de pre-selección In-Sample.
+R1_V49_TOP10_CANDIDATES.csv,10,10,YES,PASSED,Poda intermedia de candidatos.
+R1_V49_TOP5_FINALISTS.csv,5,5,YES,PASSED,Nómina finalista original. Subyace el Blocker por TRAIN loss.

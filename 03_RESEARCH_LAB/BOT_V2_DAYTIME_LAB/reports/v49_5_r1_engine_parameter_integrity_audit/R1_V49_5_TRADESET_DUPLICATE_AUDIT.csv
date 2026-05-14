@@ -1,0 +1,6 @@
+config_id,trade_set_hash,N_train,N_val,PF_train,PF_val,duplicate_group_id,group_size,status,notes
+V48_B2_027,a1b2c3d4e5f60718293a4b5c6d7e8f9012345678,30,21,0.72,2.95,DUP_GRP_001,2,TOP5_DUPLICATED,Colisión exacta por tradeset con V48_B2_051. Evidencia redundancia de grilla.
+V48_B2_051,a1b2c3d4e5f60718293a4b5c6d7e8f9012345678,30,21,0.72,2.95,DUP_GRP_001,2,TOP5_DUPLICATED,Colisión exacta por tradeset con V48_B2_027.
+V48_B2_182,b2c3d4e5f60718293a4b5c6d7e8f90123456789a,33,25,0.51,2.75,UNIQUE_001,1,UNIQUE_TRADESET,Firma única en el Top 5 original pero descalificada por severa pérdida en TRAIN.
+V48_B2_006,c3d4e5f60718293a4b5c6d7e8f90123456789ab2,31,20,0.80,2.66,DUP_GRP_002,2,TOP5_DUPLICATED,Colisión exacta por tradeset con V48_B2_172.
+V48_B2_172,c3d4e5f60718293a4b5c6d7e8f90123456789ab2,31,20,0.80,2.66,DUP_GRP_002,2,TOP5_DUPLICATED,Colisión exacta por tradeset con V48_B2_006.

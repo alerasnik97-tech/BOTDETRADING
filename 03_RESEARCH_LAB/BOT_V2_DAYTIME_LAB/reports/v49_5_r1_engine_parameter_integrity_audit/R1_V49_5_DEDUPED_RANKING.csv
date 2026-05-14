@@ -1,0 +1,3 @@
+rank_pos,config_id,trade_set_hash,N_train,PF_train,N_val,PF_val,survives_new_criteria,status
+# V49_5_NO_VALID_CANDIDATES_AFTER_REPAIR
+# El embudo de cribado depuró el 100% de las configuraciones por pérdidas en TRAIN y colisiones de grilla.

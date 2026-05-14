@@ -1,0 +1,7 @@
+param_test_id,phase,entry_time,exit_time,entry_price,exit_price,direction,pnl_net_r,trade_set_hash
+PT_001,TRAIN,2023-01-04 08:15:00,2023-01-04 08:45:12,1.06125,1.06250,LONG,1.25,hash_sample_pt001_identical
+PT_002,TRAIN,2023-01-04 08:15:00,2023-01-04 08:45:12,1.06125,1.06250,LONG,1.25,hash_sample_pt001_identical
+PT_003,TRAIN,2023-01-04 08:15:00,2023-01-04 08:45:12,1.06125,1.06250,LONG,1.25,hash_sample_pt001_identical
+PT_004,TRAIN,2024-06-05 09:30:00,2024-06-05 09:35:10,1.08750,1.08620,SHORT,1.50,hash_sample_pt004_identical
+PT_005,TRAIN,2024-06-05 09:30:00,2024-06-05 09:35:10,1.08750,1.08620,SHORT,1.50,hash_sample_pt004_identical
+PT_006,TRAIN,2024-06-05 09:30:00,2024-06-05 09:35:10,1.08750,1.08620,SHORT,1.50,hash_sample_pt004_identical

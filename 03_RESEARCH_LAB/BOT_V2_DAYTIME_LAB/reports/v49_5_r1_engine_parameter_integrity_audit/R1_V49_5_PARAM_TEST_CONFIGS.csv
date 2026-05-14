@@ -1,0 +1,7 @@
+param_test_id,base_config,varied_parameter,tested_value,execution_window,status,notes
+PT_001,V48_B2_027,entry_type,NEXT_OPEN,2023-01,EXECUTED,Configuración base de control.
+PT_002,V48_B2_027,entry_type,LIMIT_50_REJECTION,2023-01,EXECUTED,Colisión detectada. PnL y transacciones idénticas a PT_001.
+PT_003,V48_B2_027,entry_type,MIDPOINT_STOP,2023-01,EXECUTED,Colisión detectada. Precios inalterados.
+PT_004,V48_B2_006,sl_model,wick + 1.0 pip,2024-06,EXECUTED,Control secundario.
+PT_005,V48_B2_006,sl_model,wick + 1.5 pips,2024-06,EXECUTED,Colisión detectada con PT_004.
+PT_006,V48_B2_006,sl_model,microstructure + 1.5 pips,2024-06,EXECUTED,Colisión detectada. Salidas inmutables.

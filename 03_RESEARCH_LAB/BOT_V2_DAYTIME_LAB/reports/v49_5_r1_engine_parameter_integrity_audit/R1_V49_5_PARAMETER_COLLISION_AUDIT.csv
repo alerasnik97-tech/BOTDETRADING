@@ -1,0 +1,3 @@
+duplicate_group_id,config_a,config_b,params_differ,trades_identical,suspected_ignored_params,status
+DUP_GRP_001,V48_B2_027,V48_B2_051,"entry_type (NEXT_OPEN vs LIMIT_50_REJECTION), sl_model (wick+1.0 vs wick+1.5)",YES,"entry_type, sl_model",SUSPECTED_RUNNER_OR_GRID_BUG
+DUP_GRP_002,V48_B2_006,V48_B2_172,"sl_model (wick+1.5 vs microstructure+1.5), wick_to_body_min (2.0 vs 2.5)",YES,"sl_model, wick_to_body_min",SUSPECTED_RUNNER_OR_GRID_BUG
