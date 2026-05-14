@@ -1,0 +1,7 @@
+gate_id,train_threshold,val_threshold,configs_passing,best_total_R
+A,1.0,1.15,0,0.0
+B,0.95,1.15,0,0.0
+C,0.9,1.1,1,2.79
+D,0.9,1.05,2,2.79
+E,0.85,1.15,3,2.79
+F,1.0,1.0,2,4.41
