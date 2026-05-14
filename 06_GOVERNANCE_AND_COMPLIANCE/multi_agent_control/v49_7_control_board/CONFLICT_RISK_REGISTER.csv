@@ -1,0 +1,6 @@
+RiskID,Type,Description,Severity,Status,Mitigation
+R1,Git,Parallel pushes to clean-sync-branch causing merge conflicts,High,Active,Sequential push coordination
+R2,Data,Mutation of Market Data Vault during audit by A2,Critical,Blocked,Write protection on 05_MARKET_DATA_VAULT
+R3,Test,Look-ahead bias or Test leakage in research/cloud runs,High,Monitored,Strict boundary checks and log audits
+R4,Output,Overwriting v49_7 reports by different agents,Medium,Monitored,Unique subfolders for each agent/version
+R5,Secrets,Accidental push of credentials to GitHub by A4,Critical,Active,Pre-push credential scanning

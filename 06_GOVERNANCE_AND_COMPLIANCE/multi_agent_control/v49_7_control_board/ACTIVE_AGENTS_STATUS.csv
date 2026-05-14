@@ -1,0 +1,6 @@
+AgentID,AgentName,ActiveTask,PrimaryFolder,Status,LastUpdate
+A1,ResearchAgent,v49_7b_full_scope_runner,03_RESEARCH_LAB,RUNNING,2026-05-14
+A2,DataQualityAgent,MarketDataNewsAudit,06_GOVERNANCE\data_quality_audits,IDLE,2026-05-14
+A3,GovernanceAgent,ControlBoardV49.7,06_GOVERNANCE\multi_agent_control,RUNNING,2026-05-14
+A4,CloudAgent,v49_7c_KagglePrep,08_CLOUD_FREE_RUN_LAB,RUNNING,2026-05-14
+A5,AuditAgent,ComplianceMonitoring,06_GOVERNANCE,IDLE,2026-05-14
