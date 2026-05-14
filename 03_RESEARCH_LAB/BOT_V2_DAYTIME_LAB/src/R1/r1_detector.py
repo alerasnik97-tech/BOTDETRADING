@@ -9,7 +9,10 @@ class R1AbsorptionDetector:
 
     def detect_signals(self, bars: pd.DataFrame, levels: pd.DataFrame) -> pd.DataFrame:
         df = bars.copy()
-        if df.index.tz is None: df.index = df.index.tz_localize("UTC")
+        if df.index.tz is None:
+            df.index = df.index.tz_localize("UTC")
+        else:
+            df.index = df.index.tz_convert("UTC")
         df["timestamp_ny"] = df.index.tz_convert("America/New_York")
         df["date_ny"] = df["timestamp_ny"].dt.date
         df = df.join(levels, on="date_ny")
