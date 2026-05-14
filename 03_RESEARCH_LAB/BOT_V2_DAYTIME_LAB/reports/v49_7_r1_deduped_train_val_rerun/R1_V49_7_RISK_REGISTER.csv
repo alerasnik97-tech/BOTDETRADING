@@ -1,0 +1,6 @@
+risk_id,risk_name,severity,affected_agent,evidence,impact,recommended_action,status
+RSK-001,Overfitting by selection,HIGH,Research,Multiple parameters,Invalidated edge,Strict VAL criteria,MONITORING
+RSK-002,Parameter Injection relapse,CRITICAL,Runner,V49 error,Incorrect results,Engine verify + Trace,MITIGATED
+RSK-003,TEST Leakage,CRITICAL,Research,Date overlap,Invalidated results,Strict date split,MONITORING
+RSK-004,Slippage Sensitivity,HIGH,Research,Low R trades,Edge collapse,Slippage stress 0.3/0.5,MONITORING
+RSK-005,Duplicate configurations,MEDIUM,Research,Grid overlap,Wasted compute,Deduplication hash,MITIGATED

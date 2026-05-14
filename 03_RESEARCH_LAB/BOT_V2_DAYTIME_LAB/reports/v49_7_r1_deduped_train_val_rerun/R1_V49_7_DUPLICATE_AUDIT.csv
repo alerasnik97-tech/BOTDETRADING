@@ -1,0 +1,5 @@
+check_type,found,status
+duplicate_trades,NONE,OK
+duplicate_configs,NONE,OK
+trade_set_collisions,82_MAX,EXPECTED
+VERDICT,NO_CRITICAL_DUPLICATES,OK

@@ -1,0 +1,11 @@
+parameter,status_in_v49_6,used_in_v49_7,reason,notes
+level_type,HONORED,YES,Dimension funcional base,ASIA_HL / LONDON_HL
+session_window,HONORED,YES,Dimension funcional base,Ventanas de 3 horas NY
+wick_to_body_min,HONORED,YES,Dimension funcional base,Filtro de absorcion
+max_trades_per_day,HONORED,YES,Dimension funcional base,Control de frecuencia
+entry_type,FIXED,YES,Inyeccion reparada en V49.6,NEXT_OPEN / MIDPOINT_STOP
+sl_model,FIXED,YES,Inyeccion reparada en V49.6,WICK_EXTREME / MICROSTRUCTURE
+target_model,FIXED,YES,Inyeccion reparada en V49.6,FIXED R 1.5/2.0/2.5
+return_inside_max_minutes,NOT_HONORED,NO,No implementado en runner actual,Dimension eliminada
+rejection_distance_atr_min,NOT_HONORED,NO,No implementado en runner actual,Dimension eliminada
+BE,PARTIAL,YES,Implementado condicionalmente en runner,Solo para TP >= 2.0R

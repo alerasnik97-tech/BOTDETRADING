@@ -1,0 +1,24 @@
+On branch clean-sync-branch
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	new file:   07_BACKUPS/quarantines/_ARCHIVO_HISTORICO_NO_SUBIR/research_lab/data/news/news_events.csv
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/src/v7_engine/__pycache__/engine.cpython-314.pyc
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/reports/v49_7_r1_deduped_train_val_rerun/
+	03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/v49_7_overnight_runner.py
+	05_MARKET_DATA_VAULT/data/
+	temp_recovery/
+
+Branch: clean-sync-branch
+
+Log:
+d65dac5f [governance] migrate source of truth from zip to github (v2 clean)
+07a6654d [v49.6/r1] parameter injection remediation gate
+1af19b9a [v49.5/r1] revoke v49 acceptance after parameter integrity audit
+e7ecd257 [v49/r1] sync current source of truth for chatgpt github review

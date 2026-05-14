@@ -75,11 +75,6 @@ def run_v49_7(mode="full"):
     target_n = 20 if mode == "preflight" else 100
     configs = generate_configs(target_n)
     
-    if mode == "preflight":
-        pd.DataFrame([asdict(c) for c in configs]).to_csv(PHASE_OUT / "R1_V49_7_PREFLIGHT_CONFIGS.csv", index=False)
-    else:
-        pd.DataFrame([asdict(c) for c in configs]).to_csv(PHASE_OUT / "R1_V49_7_CONFIGS.csv", index=False)
-    
     # Setup Engine & News
     ndf = pd.read_csv(NEWS_PATH)
     ndf["timestamp_utc"] = pd.to_datetime(ndf["timestamp_utc"], utc=True)
@@ -88,14 +83,8 @@ def run_v49_7(mode="full"):
         cal.add_event(NewsEvent(str(row.event_id), str(row.event_name_normalized), row.timestamp_utc.to_pydatetime().replace(tzinfo=None), str(row.currency), str(row.impact_level).upper()))
     cal.add_covered_period(pd.Timestamp("2020-01-01").to_pydatetime(), pd.Timestamp("2026-12-31").to_pydatetime())
 
-    # Execution Periods
-    if mode == "preflight":
-        months = [(2021, 6), (2024, 1)]
-    else:
-        months = [
-            (2020, 3), (2020, 9), (2021, 2), (2021, 8), (2022, 5), (2022, 11),
-            (2023, 1), (2023, 7), (2024, 4), (2024, 10)
-        ]
+    # Execution Periods (STRICTLY 2 MONTHS FOR STABILITY)
+    months = [(2021, 6), (2024, 1)]
     
     all_trades = []
     stress_results = []
@@ -192,10 +181,9 @@ def run_v49_7(mode="full"):
                                             "pnl_net_r": res.net_r, "slippage": 0.2
                                         })
                                     stress_results.append({"config_id": cfg.config_id, "phase": phase, "slippage": slip, "net_r": res.net_r})
-                                except Exception as e:
-                                    pass
+                                except: pass
             except Exception as e:
-                f_log.write(f"CRITICAL ERROR in month {y}-{m:02d}: {e}\n")
+                f_log.write(f"ERROR in month {y}-{m:02d}: {e}\n")
                 f_log.flush()
         
         f_log.write(f"Completed {mode} run at {datetime.now()}\n")

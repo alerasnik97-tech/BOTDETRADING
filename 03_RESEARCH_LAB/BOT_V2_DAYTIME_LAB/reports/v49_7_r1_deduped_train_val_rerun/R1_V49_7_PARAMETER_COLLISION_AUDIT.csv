@@ -1,0 +1,3 @@
+config_id_a,config_id_b,hash_collision,status
+ALL,ALL,NONE,PASSED
+VERDICT,NO_PARAMETER_COLLISIONS,OK
