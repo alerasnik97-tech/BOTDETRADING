@@ -1,0 +1,3 @@
+﻿risk_id,description,impact,mitigation,status
+RR_001,Data Mining,High,Blind Test Protocol,ACTIVE
+RR_002,Synthetic Artifacts,High,Rowcount Audit Policy,MITIGATED

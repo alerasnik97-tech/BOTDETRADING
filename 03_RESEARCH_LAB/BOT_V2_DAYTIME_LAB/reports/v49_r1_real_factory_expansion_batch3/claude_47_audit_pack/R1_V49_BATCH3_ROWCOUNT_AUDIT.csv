@@ -1,0 +1,9 @@
+metric,value,expected,status,notes
+configs_claimed,100,100,PASSED,Muestreo Batch 3
+configs_csv_rows,101,101,PASSED,Incluye header
+results_csv_rows,101,101,PASSED,Métrica por configuración completa
+trades_csv_rows,2080,2080,PASSED,N=2079 trades reales procesados en B3
+rowcount_match,YES,YES,PASSED,Sincronía absoluta en Batch 3
+config_id_present,YES,YES,PASSED,Trazabilidad verificada
+phase_column_present,YES,YES,PASSED,TRAIN/VAL respetados
+no_synthetic_pattern,YES,YES,PASSED,Trades reales confirmados

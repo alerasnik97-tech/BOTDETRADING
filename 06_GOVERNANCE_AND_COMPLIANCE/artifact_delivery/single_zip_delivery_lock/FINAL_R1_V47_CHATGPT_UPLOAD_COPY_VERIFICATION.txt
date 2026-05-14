@@ -1,0 +1,9 @@
+﻿official path: C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\000_PARA_CHATGPT.zip
+upload copy path: C:\Users\alera\Desktop\UPLOAD_CHATGPT_ACTUAL\\CHATGPT_UPLOAD_R1_V47_a68f5dace46e.zip
+official sha256: a68f5dace46ec9c3d84890ffb82d06d4bb5c4d8232026e2c9c6c3cb5b7fcc042
+copy sha256: a68f5dace46ec9c3d84890ffb82d06d4bb5c4d8232026e2c9c6c3cb5b7fcc042
+same hash: YES
+total files: 858
+size MB: 1.40 MB
+testzip: None
+contains v47: YES

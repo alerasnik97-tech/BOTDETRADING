@@ -1,0 +1,19 @@
+GIT STATUS BEFORE GITHUB PUSH - SOURCE OF TRUTH REPORT
+================================================================================
+Branch Actual: clean-sync-branch
+Remote: origin (https://github.com/alerasnik97-tech/bottrading.git)
+
+Último commit en el log local:
+e2d11d2 [v48/r1] real factory batched run - integrity passed
+
+Archivos Untracked / Modificados clave detectados:
+- 000_PARA_CHATGPT.zip (untracked, a ser excluido por .gitignore)
+- 03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/reports/v49_r1_real_factory_expansion_batch3/ (contiene los CSVs y la carpeta acceptance_gate)
+- 03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/v49_expansion_run.py
+- 06_GOVERNANCE_AND_COMPLIANCE/external_audit_readiness/claude_47_r1_v49_v50/
+
+Evaluación de Riesgo Inicial:
+- ZIPs trackeados: NO (000_PARA_CHATGPT.zip está untracked y se asegurará en .gitignore)
+- Datos pesados peligrosos en staging: NO (ninguno en el index)
+- Secrets obvios: NO (se validará con escaneo profundo)
+================================================================================

@@ -1,0 +1,40 @@
+# Exclusiones de archivos comprimidos
+*.zip
+000_PARA_CHATGPT.zip
+UPLOAD_CHATGPT_ACTUAL/
+
+# Exclusiones de archivos de datos binarios y pesados
+*.parquet
+*.feather
+*.h5
+*.db
+*.sqlite
+
+# Exclusiones de entornos virtuales y cachés
+venv/
+venv_v37/
+.venv/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.git/
+
+# Exclusiones de credenciales y secretos
+.env
+.env.*
+kaggle.json
+.netrc
+*.pem
+*.key
+secrets/
+
+# Exclusiones de carpetas de datos crudos/pesados
+raw/
+tick/
+ticks/
+market_data/
+archive_scratch/
+outputs/
+temp_zip_extract/
+_CHATGPT_EXPORT/

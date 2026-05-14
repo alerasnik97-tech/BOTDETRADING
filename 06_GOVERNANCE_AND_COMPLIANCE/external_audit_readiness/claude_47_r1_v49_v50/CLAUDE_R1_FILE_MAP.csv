@@ -1,0 +1,11 @@
+file_id,relative_path,artifact_type,associated_version,trust_status,physical_evidence_required,description
+MAP_001,03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/src/R1/r1_detector.py,source_code,V40-V49,TRUSTED,sha256_hash,Módulo central de detección de patrones de absorción y reversión a la media en apertura NY.
+MAP_002,03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/src/R1/r1_levels.py,source_code,V40-V49,TRUSTED,sha256_hash,Cálculo dinámico de niveles intradiarios y umbrales de volatilidad ortogonal.
+MAP_003,03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/run_r1_micro_probe.py,runner_script,V48-V49,TRUSTED,sha256_hash,Orquestador físico de ejecución de micro-sondas para la estrategia R1.
+MAP_004,03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/reports/v40_r1_absorption_mean_reversion/R1_MICRO_PROBE_RUN_CONFIG.json,configuration,V49,TRUSTED,json_schema_audit,Parámetros dimensionales y restricciones de escaneo del lote actual en revisión.
+MAP_005,03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/reports/v40_r1_absorption_mean_reversion/R1_MICRO_PROBE_TRADES.csv,trade_ledger,V49,CRITICAL_EVIDENCE,rowcount_and_sum,Bitácora física transaccional de operaciones ejecutadas por la iteración V49.
+MAP_006,03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/reports/v40_r1_absorption_mean_reversion/checkpoints/,checkpoint_dir,state_persistence,V49,TRUSTED,dir_listing,Directorios de resguardo de estado de simulación para prevención de fallos en el motor.
+MAP_007,03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/outputs/v43_corrupted_results.csv,legacy_output,V43,DO_NOT_TRUST,none,Resultados históricos de V43 corrompidos por sobreajuste In-Sample. Prohibido su uso.
+MAP_008,03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/outputs/v44_latency_error.csv,legacy_output,V44,DO_NOT_TRUST,none,Salidas de simulación de V44 invalidadas por discrepancia en latencia de ticks.
+MAP_009,03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/outputs/v46_redundant_logic.csv,legacy_output,V46,DO_NOT_TRUST,none,Salidas de V46 descartadas por dobles invocaciones de markdowns de slippage.
+MAP_010,06_GOVERNANCE_AND_COMPLIANCE/external_audit_readiness/claude_47_r1_v49_v50/,governance_brief,V49-V50,TRUSTED,file_existence,Bóveda de resguardo documental inmutable para la presente auditoría externa.

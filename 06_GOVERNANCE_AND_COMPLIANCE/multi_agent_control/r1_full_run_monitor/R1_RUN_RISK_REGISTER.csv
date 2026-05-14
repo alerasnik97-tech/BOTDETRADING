@@ -1,0 +1,15 @@
+risk_id,risk_name,severity,evidence,recommended_action,requires_stop,status
+RSK-R1-01,Runner modificado durante corrida,HIGH,El archivo R1_RUNNER_HASH_FREEZE.md presenta estado modificado en Git documentando el baseline,Verificar que el hash freeze corresponda al bitstream actual,NO,MONITORING
+RSK-R1-02,Core modificado durante corrida,CRITICAL,El código fuente en src/v7_engine/ y src/v6_utils/ está sin cambios (solo .pyc modificado),Mantener congelamiento estricto del core,NO,MONITORING
+RSK-R1-03,CSV dejó de crecer por mucho tiempo,MEDIUM,La corrida completa aún no ha iniciado volcados en la raíz,Esperar al inicio del ciclo de procesamiento por lotes,NO,MONITORING
+RSK-R1-04,Output corrupto o vacío,HIGH,No se detectan archivos malformados en curso,Monitorear tamaño de los archivos al arrancar,NO,MONITORING
+RSK-R1-05,processed_months inconsistente,MEDIUM,El json anterior fue purgado para arrancar desde cero,Vigilar generación secuencial limpia,NO,MONITORING
+RSK-R1-06,Más de 3 trades/día detectados en muestra parcial,HIGH,Sin trades emitidos en la corrida completa actual,Ejecutar auditoria de frecuencia al obtener primeras muestras,NO,MONITORING
+RSK-R1-07,EOM artificial en métricas,CRITICAL,Sin métricas emitidas actualmente,Auditar distribucion de retornos al final de la corrida,NO,MONITORING
+RSK-R1-08,ZIP regenerado durante corrida,HIGH,El contenedor 000_PARA_CHATGPT.zip está intacto y sin marcar como modified,Prohibir empaquetados espurios en caliente,NO,MONITORING
+RSK-R1-09,Git muestra cambios inesperados,MEDIUM,Solo se reflejan borrados asépticos de la fase previa pre-vuelo,Validar consistencia del working tree,NO,MONITORING
+RSK-R1-10,Proceso terminó sin decisión final,HIGH,Corrida en fase inicial/no arrancada,Asegurar emision de veredicto definitivo al concluir,NO,MONITORING
+RSK-R1-11,Falta independent verify,MEDIUM,Existe R1_FULL_RUN_ENGINE_VERIFY_BEFORE.txt,Validar firma de verificacion post-corrida,NO,MONITORING
+RSK-R1-12,Falta benchmark comparison,LOW,Pendiente de emisión en reporte final,Requerir comparativa contra buy and hold,NO,MONITORING
+RSK-R1-13,Falta session edge report,MEDIUM,Pendiente de consolidacion final,Verificar captura exclusiva de NY Open,NO,MONITORING
+RSK-R1-14,Falta constraints audit,HIGH,Existe R1_FULL_RUN_CONFIG_AUDIT.md en el directorio,Asegurar cumplimiento estricto de filtros,NO,MONITORING

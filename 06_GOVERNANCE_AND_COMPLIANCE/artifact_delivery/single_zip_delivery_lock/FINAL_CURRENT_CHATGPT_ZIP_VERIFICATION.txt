@@ -1,0 +1,35 @@
+================================================================================
+FINAL CURRENT CHATGPT ZIP VERIFICATION REPORT
+================================================================================
+Build Timestamp        : 2026-05-13T20:54:41.468056
+Official Path          : C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\000_PARA_CHATGPT.zip
+Upload Copy Path       : C:\Users\alera\Desktop\UPLOAD_CHATGPT_ACTUAL\CHATGPT_UPLOAD_CURRENT_79b6412d5be9.zip
+Official SHA256        : 79b6412d5be93d50a31ecf1644e2ee19f0d55b30529901e0adf3298912eecb6a
+Upload SHA256          : 79b6412d5be93d50a31ecf1644e2ee19f0d55b30529901e0adf3298912eecb6a
+Same Hash              : True
+Total Files            : 752
+Size MB                : 1.80 MB
+Testzip Result         : None
+Root Zip Count         : 1
+Upload Zip Count       : 1
+--------------------------------------------------------------------------------
+CRITICAL CONTENT PRESENCE:
+- contains v40         : True
+- contains v41         : True
+- contains v42         : True
+- contains v45         : True
+- contains v47         : True
+- contains v48         : True
+- contains v49         : True
+- contains acceptance_gate : True
+- contains V49_ACCEPTANCE_DECISION : True
+Missing Critical Files : NONE
+--------------------------------------------------------------------------------
+SECURITY & EXCLUSIONS:
+- excluded raw data    : True
+- excluded parquet     : True
+- excluded venv        : True
+- excluded git/cache   : True
+- excluded internal zips : True
+- excluded secrets     : True
+================================================================================

@@ -1,0 +1,11 @@
+﻿official sha256: 2aec5805b9ce8b81390dd7601d1adb8994fdba33d57598606d53da46b15da54e
+copy sha256: 2aec5805b9ce8b81390dd7601d1adb8994fdba33d57598606d53da46b15da54e
+same hash: True
+total files: 844
+size MB: 1.38 MB
+testzip: None
+contains v46: True
+contains rowcount audit: True
+contains trades: True
+contains ranking: True
+contains Claude pack: True

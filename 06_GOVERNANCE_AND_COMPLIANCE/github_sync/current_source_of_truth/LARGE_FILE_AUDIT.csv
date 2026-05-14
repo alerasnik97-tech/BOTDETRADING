@@ -1,0 +1,3 @@
+path,size_mb,tracked,should_push,status,notes
+000_PARA_CHATGPT.zip,1.80,NO,NO,IGNORED,Archivo ZIP oficial unico excluido por .gitignore
+03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/reports/v49_r1_real_factory_expansion_batch3/R1_V49_AGGREGATED_TRADES.csv,2.73,YES,YES,PASSED,Archivo transaccional agregado menor a 10MB

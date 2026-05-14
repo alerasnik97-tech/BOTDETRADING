@@ -1,0 +1,4 @@
+check,value,status
+trades_have_config_id,YES,PASSED
+all_trade_configs_in_ranking,YES,PASSED
+ranking_count,500,PASSED

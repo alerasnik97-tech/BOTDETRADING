@@ -1,0 +1,28 @@
+================================================================================
+FINAL R1 V48 REAL FACTORY ZIP VERIFICATION REPORT (ATOMIC PROTOCOL)
+================================================================================
+Ruta de Destino Canónica : C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\000_PARA_CHATGPT.zip
+Total Archivos Sellados  : 877
+Tamaño Físico (MB)       : 1.52 MB
+Firma Criptográfica      : 05c9e1c78e32b0971409b1b4ba7438254bce937fb13f29991251292034da9a85
+Integridad Estructural   : OK (Ningún error de CRC)
+Conteo ZIPs en Raíz      : 2 (Esperado: 1 tras reemplazo)
+Restos Temporales        : Ninguno (Purga atómica programada)
+Archivos Faltantes       : Ninguno (Cobertura de reportes completa)
+--------------------------------------------------------------------------------
+AUDITORÍA DE PRESENCIA DE FASES R1:
+- contains v40           : True
+- contains v41           : True
+- contains v42           : True
+- contains v45 (Audit)   : True
+- contains v47 (Real)    : True
+- contains v48 (Factory) : True
+- contains Audit Pack    : True
+--------------------------------------------------------------------------------
+AUDITORÍA DE RESTRICCIONES DE INCLUSIÓN:
+- no raw data en bóveda  : True
+- no archivos parquet    : True
+- no entornos venv       : True
+- no cachés de Git       : True
+- no ZIPs internos       : True
+================================================================================
