@@ -1,0 +1,11 @@
+finding_id,source,category,claim,priority,impact,effort,risk_if_ignored,current_phase_relevance,actionability,notes
+F01,CHATGPT,Infrastructure,Eliminar rutas absolutas de Windows,HIGH,Medium,Low,Reproducibilidad nula en cloud,CURRENT,Immediate,Bloqueante para Cloud/Linux
+F02,CHATGPT,Validation,Implementar Purged Cross-Validation,HIGH,High,Medium,Falsos positivos por leakage temporal,POST-R2,High,Mejora calidad de validación
+F03,MANUS,Risk Management,Controles pre-trade (fat-finger/price),HIGH,High,Medium,Órdenes erróneas catastróficas,BEFORE-PAPER,High,Estándar FIA
+F04,MANUS,Execution,Migración a FIX Protocol,MEDIUM,High,High,Latencia y fallos de API MT5,FUTURE,Low,Para cuentas institucionales
+F05,CHATGPT,Data Pipeline,Migrar a formato Parquet/SQL,MEDIUM,Medium,Medium,Ineficiencia en manejo de Big Data,POST-V49.7C,Medium,Mejora performance de carga
+F06,MANUS,Risk Management,Kill Switch instantáneo,CRITICAL,High,Low,Imposibilidad de detener bot en crisis,BEFORE-DEMO,Immediate,Seguridad básica
+F07,CHATGPT,Observability,Logs estructurados y métricas (Grafana),MEDIUM,Medium,High,Degradación invisible del sistema,BEFORE-PAPER,Medium,Mantenibilidad a largo plazo
+F08,MANUS,Governance,Log de auditoría inmutable,MEDIUM,Medium,Medium,Incapacidad de explicar decisiones pasadas,POST-V50,Medium,Transparencia institucional
+F09,CHATGPT,Validation,Detección de Look-ahead Bias,HIGH,High,Low,Edge ficticio por mirar el futuro,CURRENT,Immediate,Evita errores de lógica graves
+F10,MANUS,Risk Management,Riesgo basado en Equity (FTMO),CRITICAL,High,Low,Incumplimiento de reglas FTMO (Ban),IMMEDIATE,High,Vital para supervivencia de cuenta

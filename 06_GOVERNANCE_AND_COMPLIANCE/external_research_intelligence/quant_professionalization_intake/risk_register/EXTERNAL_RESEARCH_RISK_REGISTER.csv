@@ -1,0 +1,9 @@
+risk_id,risk,source,severity,probability,impact,mitigation,when_to_address,status
+R01,Look-ahead Bias residual,CHATGPT,High,Medium,Falsos positivos masivos,Implementar causal clock/harness,IMMEDIATE,OPEN
+R02,FTMO Breach (Equity),MANUS,Critical,Low,Expulsión inmediata del desafío,Control de riesgo basado en Equity,IMMEDIATE,OPEN
+R03,Data Snooping en OOS,CHATGPT,High,High,Estrategia falla en real,Purged CV y CPCV,POST-V49.7C,OPEN
+R04,Inconsistencia Local vs Cloud,CHATGPT,Medium,High,Resultados irreproducibles,Contenedorización (Docker),BEFORE-PAPER,OPEN
+R05,Slippage Bias en intradía,MANUS,High,High,Edge desaparece en real,Modelado de slippage variable,POST-R2,OPEN
+R06,Fallo de Observabilidad,CHATGPT,Medium,Medium,Bot opera mal sin que el humano lo sepa,Dashboard y alertas externas,BEFORE-PAPER,OPEN
+R07,Path dependence excesivo,CHATGPT,Low,Medium,Resultados frágiles,Combinatorial CV y Monte Carlo,POST-V50,OPEN
+R08,Acceso no autorizado a secrets,CHATGPT,Critical,Low,Robo de cuenta o API keys,Uso de Secret Managers y .env ignorados,IMMEDIATE,OPEN

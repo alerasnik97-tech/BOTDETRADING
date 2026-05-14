@@ -1,0 +1,19 @@
+source,original_path,file_type,size_mb,text_extractable,status,notes
+CHATGPT,CHATGPT/deep-research-report.md,md,0.02,YES,PROCESSED,Auditoría profunda del GitHub
+CHATGPT,CHATGPT/Nuevo_Documento_de_Microsoft_Word.docx,docx,0.02,NO,REQUIRES_MANUAL_REVIEW,Formato binario Word
+CLAUDE,CLAUDE/Investigacion_profunta.pdf,pdf,12.5,NO,REQUIRES_MANUAL_REVIEW,PDF pesado
+GEMINI,GEMINI/Evaluacion_Profesional_de_Trading_Algoritmico.pdf,pdf,0.3,NO,REQUIRES_MANUAL_REVIEW,PDF profesional
+GORK,GORK/auditoria.docx,docx,0.02,NO,REQUIRES_MANUAL_REVIEW,Formato binario Word
+GORK,GORK/Nuevo_Documento_de_Microsoft_Word.docx,docx,0.02,NO,REQUIRES_MANUAL_REVIEW,Formato binario Word
+GORK,GORK/Nuevo_Documento_de_Microsoft_Word__2_.docx,docx,0.02,NO,REQUIRES_MANUAL_REVIEW,Formato binario Word
+GORK,GORK/Nuevo_Documento_de_Microsoft_Word__3_.docx,docx,0.02,NO,REQUIRES_MANUAL_REVIEW,Formato binario Word
+GORK,GORK/Nuevo_Documento_de_Microsoft_Word__4_.docx,docx,0.02,NO,REQUIRES_MANUAL_REVIEW,Formato binario Word
+MANUS,MANUS/An_lisis_Comparativo__Repositorio_vs._Est_ndares_Profesionales.md,md,0.002,YES,PROCESSED,Matriz comparativa
+MANUS,MANUS/engine.py,py,0.04,YES,PROCESSED,Referencia de motor profesional
+MANUS,MANUS/fia_risk_controls.pdf,pdf,0.36,NO,REQUIRES_MANUAL_REVIEW,PDF estándares FIA
+MANUS,MANUS/hiya31.medium.com_a-modular-architecture-for-systematic-quantitative-trading-systems-2a8d46463570.md,md,0.006,YES,PROCESSED,Arquitectura modular
+MANUS,MANUS/Informe_de_Profesionalizaci_n_en_Trading_Alg_r_tmico.md,md,0.014,YES,PROCESSED,Informe integral Manus
+MANUS,MANUS/INFRASTRUCTURE_STATUS_FINAL.md,md,0.002,YES,PROCESSED,Estado infraestructura
+MANUS,MANUS/Investigaci_n_de_Est_ndares_de_Trading_Profesional_y_Reglas_de_Prop_Firms..md,md,0.002,YES,PROCESSED,Estándares y Prop Firms
+MANUS,MANUS/README.md,md,0.003,YES,PROCESSED,README del intake
+MANUS,MANUS/STRATEGY_PROMOTION_POLICY.md,md,0.003,YES,PROCESSED,Política de promoción

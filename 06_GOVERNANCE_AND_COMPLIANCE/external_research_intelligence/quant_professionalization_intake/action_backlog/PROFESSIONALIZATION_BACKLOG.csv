@@ -1,0 +1,11 @@
+task_id,phase,title,description,priority,estimated_effort,blocks_current_research,requires_code_change,requires_core_change,recommended_owner,status
+T01,A,Path Normalization,Convertir todos los paths absolutos a rutas relativas en scripts de research,HIGH,Low,No,Yes,No,Infrastructure,BACKLOG
+T02,A,Anti-Lookahead Harness,Añadir asserts de causalidad en el engine para detectar lookahead bias,HIGH,Low,Yes,Yes,Yes,Research,BACKLOG
+T03,A,Equity Risk Control,Ajustar el monitoreo de riesgo para usar Equity (Balance + Floating),CRITICAL,Medium,No,Yes,No,Infrastructure,BACKLOG
+T04,B,Core v8 Refactor,Separar Alpha de Risk y Execution en módulos independientes,MEDIUM,High,No,Yes,Yes,Core,BACKLOG
+T05,B,Data Versioning,Implementar manifests con hash para cada dataset usado en research,MEDIUM,Medium,No,Yes,No,Data,BACKLOG
+T06,C,Purged CV Implementation,Integrar Purged Cross-Validation en el flujo de validación,HIGH,Medium,No,Yes,Yes,Research,BACKLOG
+T07,D,Kill Switch,Crear un script/mando para detener el bot remotamente,HIGH,Low,No,Yes,No,Infrastructure,BACKLOG
+T08,E,Docker Integration,Crear Dockerfile y docker-compose para despliegue reproducible,MEDIUM,Medium,No,No,No,Infrastructure,BACKLOG
+T09,E,Alerting System,Integrar alertas de Telegram para eventos de riesgo y errores,MEDIUM,Low,No,Yes,No,Infrastructure,BACKLOG
+T10,F,Correlation Matrix,Script para analizar correlaciones entre resultados de múltiples estrategias,LOW,Medium,No,Yes,No,Research,BACKLOG
