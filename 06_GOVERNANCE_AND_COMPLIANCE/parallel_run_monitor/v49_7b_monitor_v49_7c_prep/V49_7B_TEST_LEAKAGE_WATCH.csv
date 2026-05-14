@@ -1,0 +1,7 @@
+check_date,pattern,source_file,found,status,notes
+2026-05-14,2025-,ALL,NONE,OK,No OOS years found in current run
+2026-05-14,2026-,ALL,NONE,OK,Matches found are current runtime dates (metadata)
+2026-05-14,phase TEST,ALL,NONE,OK,No TEST phase identified in logs
+2026-05-14,test,LOCKDOWN.md,YES,OK,Documentation of prohibition only
+2026-05-14,OOS,HANDOFF.md,YES,OK,Documentation of protocol only
+VERDICT,ALL,N/A,NO_LEAKAGE_DETECTED,OK,V49.7B is clean

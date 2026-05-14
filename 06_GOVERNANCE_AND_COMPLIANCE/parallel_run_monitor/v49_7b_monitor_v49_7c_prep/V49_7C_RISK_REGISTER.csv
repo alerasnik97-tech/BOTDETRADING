@@ -1,0 +1,9 @@
+risk_id,risk,severity,mitigation,status
+R001,Power Loss during Run,HIGH,Checkpoints and Resume logic,ACTIVE
+R002,TEST Leakage (OOS),CRITICAL,Fail-close date filtering,ACTIVE
+R003,Core Drift (src modification),HIGH,Targeted git watch,ACTIVE
+R004,Parameter Injection Regression,HIGH,Byte-identical trade-set audit,ACTIVE
+R005,Temporal Concentration,MEDIUM,Monthly stability audit,ACTIVE
+R006,Slippage Fragility,MEDIUM,0.3/0.5 pip stress testing,ACTIVE
+R007,Disk Exhaustion,MEDIUM,Pre-run storage check,ACTIVE
+R008,GitHub Sync Failure,MEDIUM,Pre-execution push check,ACTIVE

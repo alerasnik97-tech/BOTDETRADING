@@ -1,0 +1,5 @@
+file,exists,size_bytes,last_modified,row_count,last_line_complete,status,notes
+R1_V49_7B_CONFIGS.csv,YES,65414,2026-05-14 08:53,801,YES,OK,Configs generated successfully
+R1_V49_7B_RUN_LOG.txt,YES,99,2026-05-14 08:53,2,YES,OK,Processing 2020-03
+R1_V49_7B_TRADES.csv,NO,0,N/A,0,N/A,PENDING,Run in progress
+R1_V49_7B_SLIPPAGE_STRESS.csv,NO,0,N/A,0,N/A,PENDING,Run in progress
