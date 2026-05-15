@@ -33,7 +33,7 @@
   "rejected_count": 0,
   "output_hashes": {
     "ledger/TRADES_bad_multi_runid.csv": "1308fbf17f7474d1ba118e1c773fbc290f35b4b01331b1de86d2b14be33a0d38",
-    "results/RANKING_bad_multi_runid.csv": "7cbe4da7113342306066275c46554dbde3b4b7de0e61983ceb5b09cc2741bc8c",
+    "ranking/RANKING_bad_multi_runid.csv": "7cbe4da7113342306066275c46554dbde3b4b7de0e61983ceb5b09cc2741bc8c",
     "COST_REPORT_bad_multi_runid.json": "7ecbbcddab450d63473ad1c4d5f1abf260bfa44ce68fe27fa3b645b7da9e5dee",
     "HASHES_bad_multi_runid.txt": "47676e089343d597312d2e73d6c24acde52e6ab6de16308edb6c1dd14b6b5b46"
   },
@@ -54,7 +54,7 @@
   "status": "NOT_READY",
   "artifacts": {
     "ledger": "ledger/TRADES_bad_multi_runid.csv",
-    "ranking": "results/RANKING_bad_multi_runid.csv",
+    "ranking": "ranking/RANKING_bad_multi_runid.csv",
     "cost_report": "COST_REPORT_bad_multi_runid.json",
     "hashes": "HASHES_bad_multi_runid.txt"
   }

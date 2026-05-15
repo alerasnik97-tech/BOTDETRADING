@@ -33,7 +33,7 @@
   "rejected_count": 0,
   "output_hashes": {
     "ledger/TRADES_bad_hash_mismatch.csv": "0000000000000000000000000000000000000000000000000000000000000000",
-    "results/RANKING_bad_hash_mismatch.csv": "7cbe4da7113342306066275c46554dbde3b4b7de0e61983ceb5b09cc2741bc8c",
+    "ranking/RANKING_bad_hash_mismatch.csv": "7cbe4da7113342306066275c46554dbde3b4b7de0e61983ceb5b09cc2741bc8c",
     "COST_REPORT_bad_hash_mismatch.json": "7ecbbcddab450d63473ad1c4d5f1abf260bfa44ce68fe27fa3b645b7da9e5dee",
     "HASHES_bad_hash_mismatch.txt": "472e549e3e854170d85ec2522612df7655a347860818f6724d49bc2515d8bcc4"
   },
@@ -54,7 +54,7 @@
   "status": "NOT_READY",
   "artifacts": {
     "ledger": "ledger/TRADES_bad_hash_mismatch.csv",
-    "ranking": "results/RANKING_bad_hash_mismatch.csv",
+    "ranking": "ranking/RANKING_bad_hash_mismatch.csv",
     "cost_report": "COST_REPORT_bad_hash_mismatch.json",
     "hashes": "HASHES_bad_hash_mismatch.txt"
   }

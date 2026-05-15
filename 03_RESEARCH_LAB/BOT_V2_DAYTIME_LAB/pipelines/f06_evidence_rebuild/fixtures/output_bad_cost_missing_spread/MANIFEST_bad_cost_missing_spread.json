@@ -33,7 +33,7 @@
   "rejected_count": 0,
   "output_hashes": {
     "ledger/TRADES_bad_cost_missing_spread.csv": "0116dc1659efd116ea307a01caf8f338aad561bc3477db69738fbfa19164debc",
-    "results/RANKING_bad_cost_missing_spread.csv": "7cbe4da7113342306066275c46554dbde3b4b7de0e61983ceb5b09cc2741bc8c",
+    "ranking/RANKING_bad_cost_missing_spread.csv": "7cbe4da7113342306066275c46554dbde3b4b7de0e61983ceb5b09cc2741bc8c",
     "COST_REPORT_bad_cost_missing_spread.json": "99413abff8193e6582925b0378ef2d4c29ba483bfa4c271abee1b6d24bea5b73",
     "HASHES_bad_cost_missing_spread.txt": "b542b006f1511f198777ba2cbdaf918de6258a1420d6cdfe484ecf797b06645e"
   },
@@ -54,7 +54,7 @@
   "status": "NOT_READY",
   "artifacts": {
     "ledger": "ledger/TRADES_bad_cost_missing_spread.csv",
-    "ranking": "results/RANKING_bad_cost_missing_spread.csv",
+    "ranking": "ranking/RANKING_bad_cost_missing_spread.csv",
     "cost_report": "COST_REPORT_bad_cost_missing_spread.json",
     "hashes": "HASHES_bad_cost_missing_spread.txt"
   }
