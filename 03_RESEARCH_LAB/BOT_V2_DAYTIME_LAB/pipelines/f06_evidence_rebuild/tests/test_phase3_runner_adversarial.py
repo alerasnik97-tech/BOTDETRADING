@@ -196,6 +196,24 @@ class TestPhase3RunnerAdversarial(unittest.TestCase):
         self.assertFalse(os.path.exists(forbidden), forbidden)
         self.assertFalse(os.path.exists(out_dir), out_dir)
 
+    def test_dry_run_rejects_emit_path_traversal(self):
+        out_dir = self.allowed_output_path("dry_emit_traversal")
+        escaped = os.path.abspath(os.path.join(out_dir, os.pardir, "MANIFEST.json"))
+        code, out = self.run_cmd(
+            "dry_run",
+            "--config",
+            self.good_cfg_path,
+            "--output-dir",
+            out_dir,
+            "--emit",
+            "../MANIFEST.json",
+        )
+        self.assertEqual(code, 2, out)
+        self.assertIn("BLOCKED_FORBIDDEN_OUTPUT_PATH", out)
+        self.assertIn("emit path escapes dry_run output_dir", out)
+        self.assertFalse(os.path.exists(escaped), escaped)
+        self.assertFalse(os.path.exists(out_dir), out_dir)
+
     def test_dry_run_does_not_create_nested_project_tree_under_pipeline(self):
         nested = os.path.join(self.pipeline_root, "03_RESEARCH_LAB")
         self.assertFalse(os.path.exists(nested), nested)
