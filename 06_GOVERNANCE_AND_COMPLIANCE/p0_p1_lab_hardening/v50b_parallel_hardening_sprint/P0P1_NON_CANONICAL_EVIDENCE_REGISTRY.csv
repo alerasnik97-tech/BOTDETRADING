@@ -1,0 +1,10 @@
+file,exists,tracked_by_git,mock_behavior_detected,can_generate_official_reports,severity,recommended_action
+src/v7_engine/sweep_direct.py,YES,YES,HIGH (Explicit mock data generation),YES (Generates V37_FINAL_VERDICT.md),CRITICAL,INVALIDATED_SYNTHETIC
+src/v7_engine/walk_forward_runner.py,YES,YES,HIGH (Fake PF/PF_val calculation),YES (Generates V37_TRAIN/VAL_RESULTS.csv),CRITICAL,INVALIDATED_SYNTHETIC
+reports/v50b_family_preflight_gauntlet/scripts/generate_v50b_results.py,YES,YES,HIGH (np.random trades/pnl),YES (V50B_MOCK_RESULTS.csv),CRITICAL,TEST_ONLY_NOT_EVIDENCE
+reports/v50b_family_preflight_gauntlet/scripts/v50b_final_audit.py,YES,YES,MEDIUM (Validates synthetic data),YES,HIGH,NEEDS_REVIEW
+v50b_limited_config_generator.py,YES,YES,HIGH (np.random parameters),NO,MEDIUM,LEGACY_NON_CANONICAL
+v50b_real_micro_runner.py,YES,YES,MEDIUM (DummyNews usage),NO,MEDIUM,TEST_ONLY_NOT_EVIDENCE
+test_gate4_operational.py,YES,YES,HIGH (Synthetic pass via assert True),NO,HIGH,TEST_ONLY_NOT_EVIDENCE
+benchmark_loader.py,YES,YES,LOW (Dummy processing),NO,LOW,SAFE
+cache_builder.py,YES,YES,LOW (Dummy dataframe creation),NO,LOW,SAFE

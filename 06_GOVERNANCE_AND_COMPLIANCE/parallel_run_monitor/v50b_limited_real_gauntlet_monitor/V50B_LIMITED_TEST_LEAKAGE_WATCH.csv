@@ -1,0 +1,6 @@
+check_date,pattern,found,status,notes
+2026-05-14,2025-,NONE,OK,Zero OOS data in outputs
+2026-05-14,2026-,NONE,OK,Zero OOS data in outputs
+2026-05-14,phase TEST,NONE,OK,Lockdown strictly respected
+2026-05-14,OOS,NONE,OK,No leakage detected
+VERDICT,ALL,NO_LEAKAGE,OK,V50B Guard is active

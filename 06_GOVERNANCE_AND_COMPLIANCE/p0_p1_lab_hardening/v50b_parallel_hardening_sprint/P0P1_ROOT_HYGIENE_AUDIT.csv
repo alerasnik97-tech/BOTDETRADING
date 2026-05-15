@@ -1,0 +1,14 @@
+path,type,status,action_required
+01_CORE_PRODUCTION,folder,OK,NONE
+02_INCUBATION_STAGING,folder,OK,NONE
+03_RESEARCH_LAB,folder,OK,NONE
+04_INFRASTRUCTURE_ENGINEERING,folder,OK,NONE
+05_MARKET_DATA_VAULT,folder,OK,NONE
+06_GOVERNANCE_AND_COMPLIANCE,folder,OK,NONE
+07_BACKUPS,folder,OK,NONE
+08_CLOUD_FREE_RUN_LAB,folder,OK,NONE
+.gitignore,file,OK,NONE
+000_PARA_CHATGPT.zip,file,NOT_FOUND,PASSED (Rule 3)
+.env,file,NOT_FOUND,PASSED (Rule 15)
+*.parquet (root),file,NOT_FOUND,PASSED (Rule 2)
+v49_7b_full_scope_runner.py (root),file,NOT_FOUND,PASSED (Moved to RESEARCH_LAB)

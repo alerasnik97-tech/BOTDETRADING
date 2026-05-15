@@ -1,0 +1,6 @@
+file,exists,size_bytes,last_modified,status,notes
+V50B_LIMITED_SIGNALS.csv,YES,107684,2026-05-14 21:09,OK,Signals for 2020-03
+V50B_LIMITED_TRADES.csv,YES,244375,2026-05-14 21:09,OK,1324 trades recorded
+V50B_LIMITED_REJECTION_AUDIT.csv,YES,285267,2026-05-14 21:09,OK,High fidelity rejection logs
+V50B_LIMITED_ENGINE_CALL_PROOF.csv,YES,94050,2026-05-14 21:09,OK,Audit trail for engine calls
+V50B_LIMITED_CONFIGS_ALL.csv,YES,10684,2026-05-14 20:53,OK,800 configurations loaded
