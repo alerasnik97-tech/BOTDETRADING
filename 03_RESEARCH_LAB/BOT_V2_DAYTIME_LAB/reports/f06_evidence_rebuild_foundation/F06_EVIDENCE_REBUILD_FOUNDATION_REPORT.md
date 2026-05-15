@@ -1,4 +1,16 @@
 > ---
+> ## ADDENDUM 2026-05-15 -- PR4 warning closure
+> `PR4_WARNING_CLOSURE_REPORT.md` supersedes the previous warning state.
+> Current evidence: **78/78 tests OK**, `validate_config` PASS, `dry_run`
+> `DRY_RUN_SCHEMA_VALIDATED`, `output_good` `READY_FOR_CLAUDE_AUDIT`, and all
+> bad synthetic output fixtures `BLOCKED_GUARD_FAILED`. W1 is closed on
+> complete synthetic fixtures, W2 is closed, W3 is closed with limits, and W4
+> is closed with lightweight stdlib runtime validators. F06/F08/F12 remain
+> **NOT CERTIFIED**. No strategy/backtest/validation/holdout/2025/2026 was run
+> or touched.
+> ---
+
+> ---
 > ## ℹ️ ADDENDUM 2026-05-15 — superseded by internal surgical audit
 > Una auditoría interna posterior (`PR4_INTERNAL_SURGICAL_AUDIT.md`) encontró
 > y corrigió un bug crítico **fail-OPEN** (`_mini_yaml_load`) más otros

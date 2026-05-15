@@ -1,3 +1,12 @@
+> ---
+> ## ADDENDUM 2026-05-15 -- warning closure supersedes this warning state
+> Follow-up hardening is recorded in `PR4_WARNING_CLOSURE_REPORT.md`.
+> Current evidence is **78/78 tests OK**. W1 is closed on complete synthetic
+> output fixtures, W2 is closed, W3 is closed with limits, and W4 is closed
+> with lightweight stdlib runtime validators. F06/F08/F12 remain
+> **NOT CERTIFIED** and Fase 3 remains blocked until external audit accepts PR4.
+> ---
+
 # PR4 INTERNAL SURGICAL AUDIT
 
 **Fecha:** 2026-05-15
