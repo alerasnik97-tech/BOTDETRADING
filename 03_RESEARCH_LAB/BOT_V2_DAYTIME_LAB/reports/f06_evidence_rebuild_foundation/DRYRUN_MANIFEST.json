@@ -1,0 +1,52 @@
+{
+  "run_id": "RB97331e6d",
+  "generated_at": "2026-05-15T15:03:14.521273+00:00",
+  "git_branch": "research/f06-evidence-rebuild-foundation-20260515",
+  "git_commit_sha": "560909600364b50a688925a55a84e225e8a8c369",
+  "generator_pid": 19184,
+  "script_path": "pipelines/f06_evidence_rebuild/scripts/f06_rebuild_pipeline.py",
+  "script_sha256": "76b08dc4cac30dcbaec93c1f409d4975a6db06c7bc69e654c590e9849cd1828f",
+  "script_is_tracked": true,
+  "config_path": "pipelines/f06_evidence_rebuild/configs/F06_REBUILD_TRAIN_ONLY_TEMPLATE.yaml",
+  "config_sha256": "88d4b469be32cf8fa2b9f5cf6c0901d969c711e3ff8432d9033c7dd54e90927d",
+  "input_dataset_path": "DRY_RUN_NO_INPUT",
+  "input_dataset_sha256_or_reference": "DRY_RUN_NO_INPUT",
+  "input_is_quarantined_path": false,
+  "symbol": "EURUSD",
+  "families": [
+    "F06"
+  ],
+  "exact_months": [
+    "2020-03",
+    "2021-08",
+    "2022-05",
+    "2023-01",
+    "2024-04"
+  ],
+  "train_only": true,
+  "validation_evaluated": false,
+  "holdout_touched": false,
+  "allow_2025": false,
+  "allow_2026": false,
+  "row_count_input": 0,
+  "trade_count": 0,
+  "rejected_count": 0,
+  "output_hashes": {
+    "DRY_RUN": "76b08dc4cac30dcbaec93c1f409d4975a6db06c7bc69e654c590e9849cd1828f"
+  },
+  "safety_flags": {
+    "test_touched": false,
+    "validation_touched": false,
+    "holdout_touched": false,
+    "raw_data_mutated": false,
+    "sweep_run": false,
+    "optimization_run": false
+  },
+  "cost_model": {
+    "spread_component": true,
+    "slippage_component": true,
+    "round_turn_commission": true
+  },
+  "sample_size_floor": 100,
+  "status": "DRY_RUN_SCHEMA_VALIDATED"
+}

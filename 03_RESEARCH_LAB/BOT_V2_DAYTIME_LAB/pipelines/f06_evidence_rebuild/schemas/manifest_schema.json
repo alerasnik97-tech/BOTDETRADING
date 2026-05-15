@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "f06_evidence_rebuild/manifest_schema.json",
+  "title": "F06 Evidence Rebuild Manifest",
+  "description": "Fail-closed manifest. Every field required. Safety constants enforced.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "run_id",
+    "generated_at",
+    "git_branch",
+    "git_commit_sha",
+    "generator_pid",
+    "script_path",
+    "script_sha256",
+    "script_is_tracked",
+    "config_path",
+    "config_sha256",
+    "input_dataset_path",
+    "input_dataset_sha256_or_reference",
+    "input_is_quarantined_path",
+    "symbol",
+    "families",
+    "exact_months",
+    "train_only",
+    "validation_evaluated",
+    "holdout_touched",
+    "allow_2025",
+    "allow_2026",
+    "row_count_input",
+    "trade_count",
+    "rejected_count",
+    "output_hashes",
+    "safety_flags",
+    "cost_model",
+    "sample_size_floor",
+    "status"
+  ],
+  "properties": {
+    "run_id": { "type": "string", "minLength": 4 },
+    "generated_at": { "type": "string", "minLength": 10 },
+    "git_branch": { "type": "string", "minLength": 1 },
+    "git_commit_sha": { "type": "string", "minLength": 7 },
+    "generator_pid": { "type": "integer" },
+    "script_path": { "type": "string", "minLength": 1 },
+    "script_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "script_is_tracked": { "type": "boolean", "const": true },
+    "config_path": { "type": "string", "minLength": 1 },
+    "config_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "input_dataset_path": { "type": "string", "minLength": 1 },
+    "input_dataset_sha256_or_reference": { "type": "string", "minLength": 4 },
+    "input_is_quarantined_path": { "type": "boolean", "const": false },
+    "symbol": { "type": "string", "const": "EURUSD" },
+    "families": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "exact_months": { "type": "array", "items": { "type": "string", "pattern": "^20(20|21|22|23|24)-(0[1-9]|1[0-2])$" }, "minItems": 1 },
+    "train_only": { "type": "boolean", "const": true },
+    "validation_evaluated": { "type": "boolean", "const": false },
+    "holdout_touched": { "type": "boolean", "const": false },
+    "allow_2025": { "type": "boolean", "const": false },
+    "allow_2026": { "type": "boolean", "const": false },
+    "row_count_input": { "type": "integer", "minimum": 0 },
+    "trade_count": { "type": "integer", "minimum": 0 },
+    "rejected_count": { "type": "integer", "minimum": 0 },
+    "output_hashes": { "type": "object", "minProperties": 1, "additionalProperties": { "type": "string", "pattern": "^[a-f0-9]{64}$" } },
+    "safety_flags": {
+      "type": "object",
+      "required": ["test_touched", "validation_touched", "holdout_touched", "raw_data_mutated", "sweep_run", "optimization_run"],
+      "properties": {
+        "test_touched": { "type": "boolean", "const": false },
+        "validation_touched": { "type": "boolean", "const": false },
+        "holdout_touched": { "type": "boolean", "const": false },
+        "raw_data_mutated": { "type": "boolean", "const": false },
+        "sweep_run": { "type": "boolean", "const": false },
+        "optimization_run": { "type": "boolean", "const": false }
+      }
+    },
+    "cost_model": {
+      "type": "object",
+      "required": ["spread_component", "slippage_component", "round_turn_commission"],
+      "properties": {
+        "spread_component": { "type": "boolean", "const": true },
+        "slippage_component": { "type": "boolean", "const": true },
+        "round_turn_commission": { "type": "boolean", "const": true }
+      }
+    },
+    "sample_size_floor": { "type": "integer", "minimum": 100 },
+    "status": {
+      "type": "string",
+      "enum": ["DRY_RUN_SCHEMA_VALIDATED", "BLOCKED_GUARD_FAILED", "READY_FOR_CLEAN_TRAIN_RERUN", "NOT_READY"]
+    }
+  }
+}

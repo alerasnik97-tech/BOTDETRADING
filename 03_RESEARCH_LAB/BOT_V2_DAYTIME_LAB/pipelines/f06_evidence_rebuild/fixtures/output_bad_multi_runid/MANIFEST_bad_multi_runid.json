@@ -1,0 +1,61 @@
+{
+  "run_id": "RBPR4W1GOOD",
+  "generated_at": "2026-05-15T12:00:00+00:00",
+  "git_branch": "research/f06-evidence-rebuild-foundation-20260515",
+  "git_commit_sha": "560909600364b50a688925a55a84e225e8a8c369",
+  "generator_pid": 1,
+  "script_path": "03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/pipelines/f06_evidence_rebuild/scripts/f06_rebuild_pipeline.py",
+  "script_sha256": "76b08dc4cac30dcbaec93c1f409d4975a6db06c7bc69e654c590e9849cd1828f",
+  "script_is_tracked": true,
+  "config_path": "03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/pipelines/f06_evidence_rebuild/configs/F06_REBUILD_TRAIN_ONLY_TEMPLATE.yaml",
+  "config_sha256": "88d4b469be32cf8fa2b9f5cf6c0901d969c711e3ff8432d9033c7dd54e90927d",
+  "input_dataset_path": "SYNTHETIC_FIXTURE_NO_RAW_DATA",
+  "input_dataset_sha256_or_reference": "SYNTHETIC_FIXTURE_NO_RAW_DATA",
+  "input_is_quarantined_path": false,
+  "symbol": "EURUSD",
+  "families": [
+    "F06"
+  ],
+  "exact_months": [
+    "2020-03",
+    "2021-08",
+    "2022-05",
+    "2023-01",
+    "2024-04"
+  ],
+  "train_only": true,
+  "validation_evaluated": false,
+  "holdout_touched": false,
+  "allow_2025": false,
+  "allow_2026": false,
+  "row_count_input": 100,
+  "trade_count": 100,
+  "rejected_count": 0,
+  "output_hashes": {
+    "ledger/TRADES_bad_multi_runid.csv": "1308fbf17f7474d1ba118e1c773fbc290f35b4b01331b1de86d2b14be33a0d38",
+    "ranking/RANKING_bad_multi_runid.csv": "7cbe4da7113342306066275c46554dbde3b4b7de0e61983ceb5b09cc2741bc8c",
+    "COST_REPORT_bad_multi_runid.json": "7ecbbcddab450d63473ad1c4d5f1abf260bfa44ce68fe27fa3b645b7da9e5dee",
+    "HASHES_bad_multi_runid.txt": "47676e089343d597312d2e73d6c24acde52e6ab6de16308edb6c1dd14b6b5b46"
+  },
+  "safety_flags": {
+    "test_touched": false,
+    "validation_touched": false,
+    "holdout_touched": false,
+    "raw_data_mutated": false,
+    "sweep_run": false,
+    "optimization_run": false
+  },
+  "cost_model": {
+    "spread_component": true,
+    "slippage_component": true,
+    "round_turn_commission": true
+  },
+  "sample_size_floor": 100,
+  "status": "NOT_READY",
+  "artifacts": {
+    "ledger": "ledger/TRADES_bad_multi_runid.csv",
+    "ranking": "ranking/RANKING_bad_multi_runid.csv",
+    "cost_report": "COST_REPORT_bad_multi_runid.json",
+    "hashes": "HASHES_bad_multi_runid.txt"
+  }
+}

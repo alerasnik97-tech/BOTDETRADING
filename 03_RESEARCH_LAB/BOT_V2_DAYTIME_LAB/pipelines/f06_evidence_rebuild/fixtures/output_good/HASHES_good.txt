@@ -1,0 +1,3 @@
+0116dc1659efd116ea307a01caf8f338aad561bc3477db69738fbfa19164debc  ledger/TRADES_good.csv
+7cbe4da7113342306066275c46554dbde3b4b7de0e61983ceb5b09cc2741bc8c  ranking/RANKING_good.csv
+7ecbbcddab450d63473ad1c4d5f1abf260bfa44ce68fe27fa3b645b7da9e5dee  COST_REPORT_good.json

@@ -1,0 +1,28 @@
+{
+  "input_ledger_run_id": "RBPR4W1GOOD",
+  "input_is_quarantined_path": false,
+  "components_applied": {
+    "slippage_component": true,
+    "round_turn_commission": true
+  },
+  "scenarios": [
+    {
+      "name": "base",
+      "spread_pips": 0.2,
+      "slippage_pips": 0.1,
+      "commission_round_turn_usd": 7.0
+    },
+    {
+      "name": "stress_1",
+      "spread_pips": 0.4,
+      "slippage_pips": 0.2,
+      "commission_round_turn_usd": 8.0
+    },
+    {
+      "name": "stress_2",
+      "spread_pips": 0.6,
+      "slippage_pips": 0.3,
+      "commission_round_turn_usd": 9.0
+    }
+  ]
+}
