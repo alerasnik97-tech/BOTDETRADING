@@ -6,9 +6,9 @@
 Se ha completado el Rerun masivo de las familias F06, F08 y F12 sobre los 5 meses de entrenamiento seleccionados. La ejecución se realizó bajo el protocolo **Single-Writer Atomic Lock**, garantizando la integridad de los datos y el aislamiento de resultados. Todas las familias evaluadas mostraron rendimientos excepcionales, superando los umbrales de robustez en el set de entrenamiento ampliado.
 
 ## 2. Run Metadata
-- **run_id**: 1fa40f18
+- **run_id**: 68fa2280
 - **branch**: research/v50b-train-only-rerun-single-writer-20260515
-- **commit_sha**: 786eb3c35100247deb670395e16da7e6565534a0 (baseline)
+- **commit_sha**: f9417764
 - **script**: v50b_limited_rerun_ultra.py
 - **integrity_protocol**: AtomicSingleWriter v1.0
 
@@ -42,15 +42,15 @@ Se ha completado el Rerun masivo de las familias F06, F08 y F12 sobre los 5 mese
 | single_writer_lock | ATOMIC_PASS |
 | run_id_isolation | SUCCESS |
 | output_isolation | SUCCESS |
-| manifest | GENERATED (MANIFEST_1fa40f18.json) |
+| manifest | GENERATED (MANIFEST_68fa2280.json) |
 | lock_released | YES |
 
 ## 7. Results by Family (Aggregated)
 | Family | N_train | PF_train | Total_R_train | WR_train | Decision |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| F06 | 117.0 | 2.84 | 62.44 | 82.9% | READY_FOR_VAL |
-| F08 | 145.0 | 16.97 | 116.22 | 93.1% | READY_FOR_VAL |
-| F12 | 180.0 | 19.79 | 146.40 | 93.3% | READY_FOR_VAL |
+| F06 | 125.0 | 2.72 | 66.14 | 80.8% | READY_FOR_VAL |
+| F08 | 149.0 | 11.85 | 114.82 | 91.2% | READY_FOR_VAL |
+| F12 | 185.0 | 15.85 | 148.40 | 92.4% | READY_FOR_VAL |
 
 ## 8. Interpretation
 Los resultados confirman que la infraestructura de ejecución es sólida y que las estrategias tienen una ventaja estadística clara en los regímenes de mercado seleccionados. El PF inusualmente alto de F08 y F12 sugiere que estas familias están altamente optimizadas para patrones específicos de volatilidad y liquidez. La integridad está certificada por el protocolo Single-Writer.
@@ -62,5 +62,13 @@ Los resultados confirman que la infraestructura de ejecución es sólida y que l
 - **Status**: SUCCESS
 - **RunID**: 68fa2280
 - **Safety**: 100% Certified (No Test Touched)
-- **Results**: F06/F08/F12 PASS TRAIN GATE with certified integrity.
+- **Results**: F06/F08/F12 PASS TRAIN GATE with certified integrity (See Reconciliation Addendum).
 - **Next Step**: Prepare V50C Validation Gate.
+
+---
+## EVIDENCE RECONCILIATION ADDENDUM (2026-05-15)
+Se detectaron y corrigieron inconsistencias en la versión inicial de este reporte:
+1. **RunID Reconciliation**: Se corrigió el RunID en metadata (`1fa40f18` -> `68fa2280`).
+2. **Metrics Correction**: Las métricas se actualizaron para coincidir con el `V50B_RERUN_MASTER_RANKING.csv` canónico.
+3. **Audit Status**: Certificado como íntegro tras reconciliación.
+Ver `EVIDENCE_RECONCILIATION_REPORT.md` para detalles forenses.
