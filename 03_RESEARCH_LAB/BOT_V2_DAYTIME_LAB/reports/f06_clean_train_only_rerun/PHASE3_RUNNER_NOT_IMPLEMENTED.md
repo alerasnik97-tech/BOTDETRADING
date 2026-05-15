@@ -15,7 +15,7 @@ Según el diseño documentado, el script declara explícitamente:
 ## 3. Decision
 Siguiendo las reglas absolutas de esta FASE 3, **NO se ha improvisado un runner real**, y **NO se han utilizado scripts de legacy V50B** (que están fuertemente contaminados o cuarentenados). 
 
-El proyecto carece actualmente del módulo seguro que enlace la nueva `Foundation V2` con el `src/v7_engine` bajo las reglas fail-closed requeridas (por ejemplo, impidiendo inyección de datos 2025/2026 a nivel de runner o aplicando el cálculo de slippage/spread requerido antes de escribir los CSVs de ranking/ledger).
+El proyecto carece actualmente del módulo seguro que enlace la nueva `Foundation V2` con la superficie real del engine visible en este checkout (`research_lab/engine.py`) bajo las reglas fail-closed requeridas (por ejemplo, impidiendo inyección de datos 2025/2026 a nivel de runner o aplicando el cálculo de slippage/spread requerido antes de escribir los CSVs de ranking/ledger).
 
 ## 4. Next Step
 El resultado final de esta operación debe derivar en:

@@ -37,6 +37,25 @@ VALIDATION_COLUMNS = ["N_val", "PF_val", "Total_R_val", "WR_val", "val_pass", "c
 FORBIDDEN_YEARS = ["2025", "2026"]
 DEFAULT_SAMPLE_FLOOR = 100
 COST_COMPONENTS = ["spread_component", "slippage_component", "round_turn_commission"]
+EXPECTED_PHASE3_CONFIG = {
+    "phase": "F06_PHASE3_CLEAN_TRAIN_ONLY_RERUN",
+    "mode": "TRAIN_ONLY",
+    "symbol": "EURUSD",
+    "families": ["F06"],
+    "session": {
+        "timezone": "America/New_York",
+        "start": "07:00",
+        "end": "17:00",
+    },
+    "risk": {"max_trades_per_day": 3},
+    "exact_months": ["2020-03", "2021-08", "2022-05", "2023-01", "2024-04"],
+}
+REPO_REL_ALLOWED_PHASE3_REPORTS = os.path.join(
+    "03_RESEARCH_LAB",
+    "BOT_V2_DAYTIME_LAB",
+    "reports",
+    "f06_clean_train_only_rerun",
+)
 
 # Column-name substrings that mark a column as temporal (W2).
 TEMPORAL_HINTS = ("time", "date", "datetime", "timestamp", "_ts", "ts_",
@@ -385,6 +404,120 @@ def check_output_dir_absent(path) -> tuple[bool, list[str]]:
     return (True, [])
 
 
+def resolve_repo_root() -> str:
+    script_dir = os.path.abspath(os.path.dirname(__file__))
+    try:
+        r = subprocess.run(
+            ["git", "-C", script_dir, "rev-parse", "--show-toplevel"],
+            capture_output=True,
+            text=True,
+        )
+        if r.returncode == 0 and r.stdout.strip():
+            return os.path.abspath(r.stdout.strip())
+    except Exception:
+        pass
+    marker = os.path.join(
+        "03_RESEARCH_LAB",
+        "BOT_V2_DAYTIME_LAB",
+        "pipelines",
+        "f06_evidence_rebuild",
+        "scripts",
+    )
+    norm_script_dir = script_dir.replace("\\", "/")
+    norm_marker = marker.replace("\\", "/")
+    if norm_marker in norm_script_dir:
+        return os.path.abspath(norm_script_dir.split(norm_marker, 1)[0])
+    raise RuntimeError("repo root unavailable for Phase 3 path resolution")
+
+
+def _phase3_pipeline_root() -> str:
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+
+
+def assert_no_forbidden_path_tokens(path) -> tuple[bool, list[str]]:
+    return check_no_quarantined_path(path)
+
+
+def allowed_phase3_reports_root(repo_root: str | None = None) -> str:
+    root = repo_root or resolve_repo_root()
+    return os.path.abspath(os.path.join(root, REPO_REL_ALLOWED_PHASE3_REPORTS))
+
+
+def resolve_output_dir(path) -> tuple[str | None, list[str]]:
+    errs: list[str] = []
+    if not path:
+        return None, ["output_dir is empty (fail-closed)"]
+    raw = str(path)
+    ok_raw, e_raw = assert_no_forbidden_path_tokens(raw)
+    errs += e_raw
+    try:
+        repo_root = resolve_repo_root()
+    except Exception as ex:
+        return None, errs + [f"repo root resolution failed (fail-closed): {ex}"]
+    if os.path.isabs(raw):
+        resolved = os.path.abspath(raw)
+    else:
+        norm_raw = raw.replace("\\", "/")
+        if norm_raw == "03_RESEARCH_LAB" or norm_raw.startswith("03_RESEARCH_LAB/"):
+            resolved = os.path.abspath(os.path.join(repo_root, raw))
+        else:
+            # Explicit root for CLI-relative Phase 3 paths. This preserves the
+            # documented ../../reports/... command without depending on cwd.
+            resolved = os.path.abspath(os.path.join(_phase3_pipeline_root(), raw))
+    ok_resolved, e_resolved = assert_no_forbidden_path_tokens(resolved)
+    errs += e_resolved
+    return resolved, errs
+
+
+def assert_output_under_allowed_reports(output_dir: str) -> tuple[bool, list[str]]:
+    try:
+        allowed = allowed_phase3_reports_root()
+        out = os.path.abspath(output_dir)
+        if os.path.commonpath([allowed, out]) != allowed or out == allowed:
+            return (
+                False,
+                [f"output_dir outside allowed Phase 3 reports subtree: {output_dir}"],
+            )
+    except Exception as ex:
+        return False, [f"allowed output path check failed (fail-closed): {ex}"]
+    return True, []
+
+
+def check_phase3_output_path(path, *, must_not_exist: bool = True) -> tuple[str | None, list[str]]:
+    resolved, errors = resolve_output_dir(path)
+    if not resolved:
+        return None, errors
+    ok_allowed, e_allowed = assert_output_under_allowed_reports(resolved)
+    errors += e_allowed
+    if must_not_exist:
+        ok_absent, e_absent = check_output_dir_absent(resolved)
+        errors += e_absent
+    return resolved, errors
+
+
+def reserve_output_dir_atomic(output_dir: str) -> tuple[bool, list[str]]:
+    parent = os.path.dirname(output_dir)
+    if not os.path.isdir(parent):
+        return False, [f"output_dir parent does not exist: {parent}"]
+    try:
+        os.mkdir(output_dir)
+    except FileExistsError:
+        return False, [f"output_dir already exists (fail-closed): {output_dir}"]
+    except Exception as ex:
+        return False, [f"output_dir reservation failed (fail-closed): {ex}"]
+    return True, []
+
+
+def _phase3_path_block_status(errors: list[str], default: str) -> str:
+    joined = "\n".join(errors).lower()
+    if "already exists" in joined:
+        return "BLOCKED_OUTPUT_DIR_EXISTS"
+    if ("quarantined token" in joined or "outside allowed" in joined
+            or "forbidden" in joined or "escapes" in joined):
+        return "BLOCKED_FORBIDDEN_OUTPUT_PATH"
+    return default
+
+
 def _truthy(v) -> bool:
     return str(v).strip().lower() in ("1", "true", "yes", "y")
 
@@ -612,31 +745,72 @@ def load_config(path: str) -> dict:
 # ============================================================================
 def _config_invariants(cfg: dict) -> list[str]:
     e = []
-    if str(cfg.get("mode")) != "TRAIN_ONLY":
-        e.append("mode must be TRAIN_ONLY")
-    ds = cfg.get("data_scope", {}) or {}
+    if not isinstance(cfg, dict):
+        return ["config must be a mapping"]
+
+    def require_equal(path: str, actual, expected) -> None:
+        if actual != expected:
+            e.append(f"{path} must be {expected!r} (got {actual!r})")
+
+    def require_mapping(path: str):
+        value = cfg.get(path) if "." not in path else None
+        if "." in path:
+            value = cfg
+            for part in path.split("."):
+                value = value.get(part) if isinstance(value, dict) else None
+        if not isinstance(value, dict):
+            e.append(f"{path} must be a mapping")
+            return {}
+        return value
+
+    require_equal("phase", cfg.get("phase"), EXPECTED_PHASE3_CONFIG["phase"])
+    require_equal("mode", cfg.get("mode"), EXPECTED_PHASE3_CONFIG["mode"])
+    require_equal("symbol", cfg.get("symbol"), EXPECTED_PHASE3_CONFIG["symbol"])
+    require_equal("families", cfg.get("families"), EXPECTED_PHASE3_CONFIG["families"])
+
+    session = require_mapping("session")
+    require_equal("session.timezone", session.get("timezone"), EXPECTED_PHASE3_CONFIG["session"]["timezone"])
+    require_equal("session.start", session.get("start"), EXPECTED_PHASE3_CONFIG["session"]["start"])
+    require_equal("session.end", session.get("end"), EXPECTED_PHASE3_CONFIG["session"]["end"])
+
+    risk = require_mapping("risk")
+    require_equal("risk.max_trades_per_day", risk.get("max_trades_per_day"), 3)
+
+    ds = require_mapping("data_scope")
     for k in ("allow_2025", "allow_2026", "validation_enabled", "holdout_enabled"):
-        if ds.get(k) not in (False, "false", "False"):
-            e.append(f"data_scope.{k} must be false")
-    fam = cfg.get("families")
-    if fam != ["F06"]:
-        e.append(f"families must be exactly [F06] (got {fam!r})")
-    months = ds.get("exact_months", []) or []
-    ok_m, e_m = check_no_2025_2026(months)
+        require_equal(f"data_scope.{k}", ds.get(k), False)
+    months = ds.get("exact_months")
+    require_equal("data_scope.exact_months", months, EXPECTED_PHASE3_CONFIG["exact_months"])
+    ok_m, e_m = check_no_2025_2026(months if isinstance(months, list) else [])
     e += e_m
-    ir = cfg.get("input_rules", {}) or {}
+
+    ir = require_mapping("input_rules")
     for k in ("forbid_quarantined_paths", "forbid_legacy_v50b_outputs",
               "forbid_old_master_ranking", "forbid_old_trades_csv"):
-        if ir.get(k) not in (True, "true", "True"):
-            e.append(f"input_rules.{k} must be true")
-    ok_cm, e_cm = check_cost_model_components(cfg.get("cost_model", {}) or {})
+        require_equal(f"input_rules.{k}", ir.get(k), True)
+
+    out_rules = require_mapping("output_rules")
+    for k in ("output_dir_must_not_exist", "single_run_id_only",
+              "no_validation_columns_in_train_only", "manifest_required", "hashes_required"):
+        require_equal(f"output_rules.{k}", out_rules.get(k), True)
+
+    cm = require_mapping("cost_model")
+    for k in ("require_real_spread_component", "require_slippage_component",
+              "require_round_turn_commission"):
+        require_equal(f"cost_model.{k}", cm.get(k), True)
+    ok_cm, e_cm = check_cost_model_components(cm)
     e += e_cm
-    ss = cfg.get("sample_size", {}) or {}
-    try:
-        if int(ss.get("min_trades_per_family", 0)) < DEFAULT_SAMPLE_FLOOR:
-            e.append(f"sample_size.min_trades_per_family must be >= {DEFAULT_SAMPLE_FLOOR}")
-    except Exception:
-        e.append("sample_size.min_trades_per_family must be an int")
+
+    ss = require_mapping("sample_size")
+    for k, floor in (("min_trades_per_family", DEFAULT_SAMPLE_FLOOR),
+                     ("min_trades_per_month_for_reporting", 10)):
+        try:
+            value = int(ss.get(k))
+        except Exception:
+            e.append(f"sample_size.{k} must be an int >= {floor}")
+            continue
+        if value < floor:
+            e.append(f"sample_size.{k} must be >= {floor} (got {value!r})")
     return e
 
 
@@ -666,27 +840,38 @@ def cmd_dry_run(args) -> int:
         return 2
     errors = list(_config_invariants(cfg))
 
-    # output dir must NOT exist
-    out_dir = args.output_dir
-    if not out_dir:
-        out_dir = ("03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/reports/"
-                   "v50b_f06_evidence_rebuild_" + datetime.now().strftime("%Y%m%d_%H%M"))
-    ok_od, e_od = check_output_dir_absent(out_dir)
+    out_dir = args.output_dir or os.path.join(
+        REPO_REL_ALLOWED_PHASE3_REPORTS,
+        "dry_run_" + datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S"),
+    )
+    resolved_out_dir, e_od = check_phase3_output_path(out_dir)
     errors += e_od
+    ok_cfg_path, e_cfg_path = assert_no_forbidden_path_tokens(args.config)
+    errors += e_cfg_path
 
-    # quarantined token guard on any declared input-ish path
-    for p in (args.config, out_dir):
-        ok, e = check_no_quarantined_path(p)
-        errors += e
-
-    # script tracked guard (best-effort; fail-closed)
     script_self = os.path.relpath(__file__).replace("\\", "/")
     ok_t, e_t = check_script_tracked(script_self)
     script_tracked = ok_t  # recorded; not hard-fail in dry_run if git unavailable
     if not ok_t:
-        print(" warn: " + "; ".join(e_t) + " (recorded; must be tracked before FASE 3)")
+        errors += e_t
 
-    status = "DRY_RUN_SCHEMA_VALIDATED" if not errors else "BLOCKED_GUARD_FAILED"
+    if errors:
+        status = _phase3_path_block_status(errors, "BLOCKED_GUARD_FAILED")
+        print(f"STATUS: {status}")
+        print("ERRORS (fail-closed):")
+        for x in errors:
+            print(" - " + x)
+        return 2
+
+    ok_reserve, e_reserve = reserve_output_dir_atomic(resolved_out_dir)
+    if not ok_reserve:
+        status = _phase3_path_block_status(e_reserve, "BLOCKED_GUARD_FAILED")
+        print(f"STATUS: {status}")
+        for x in e_reserve:
+            print(" - " + x)
+        return 2
+
+    status = "DRY_RUN_SCHEMA_VALIDATED"
     cfg_sha = sha256_file(args.config)
     self_sha = sha256_file(__file__)
     run_id = "RB" + uuid.uuid4().hex[:8]
@@ -732,22 +917,32 @@ def cmd_dry_run(args) -> int:
         status = "BLOCKED_GUARD_FAILED"
         errors += e_m
 
-    emit = args.emit or ("03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/reports/"
-                          "f06_evidence_rebuild_foundation/DRYRUN_MANIFEST.json")
-    try:
-        os.makedirs(os.path.dirname(emit), exist_ok=True)
-        with open(emit, "w", encoding="utf-8") as fh:
-            json.dump(manifest, fh, indent=2)
-        print(f" dry-run manifest written: {emit}")
-    except Exception as ex:
-        print(f" warn: could not write manifest: {ex}")
+    if args.emit:
+        emit = args.emit
+        if not os.path.isabs(emit):
+            emit = os.path.join(resolved_out_dir, emit)
+        emit = os.path.abspath(emit)
+        if os.path.commonpath([resolved_out_dir, emit]) != resolved_out_dir:
+            errors.append(f"emit path escapes dry_run output_dir: {args.emit}")
+    else:
+        emit = os.path.join(resolved_out_dir, "DRYRUN_MANIFEST.json")
 
-    print(f"STATUS: {status}")
     if errors:
+        print(f"STATUS: {status}")
         print("ERRORS (fail-closed):")
         for x in errors:
             print(" - " + x)
         return 2
+
+    try:
+        with open(emit, "w", encoding="utf-8") as fh:
+            json.dump(manifest, fh, indent=2)
+        print(f" dry-run manifest written: {emit}")
+    except Exception as ex:
+        print(f"STATUS: BLOCKED_GUARD_FAILED\n - could not write manifest: {ex}")
+        return 2
+
+    print(f"STATUS: {status}")
     print("dry_run OK: schema validated, no strategy/backtest/data touched.")
     return 0
 
@@ -765,12 +960,10 @@ def cmd_preflight_phase3(args) -> int:
         print(f"BLOCKED_PHASE3_PREFLIGHT_FAILED\nconfig load error (fail-closed): {ex}")
         return 2
     errors = list(_config_invariants(cfg))
-    out_dir = args.output_dir
-    ok_od, e_od = check_output_dir_absent(out_dir)
+    resolved_out_dir, e_od = check_phase3_output_path(args.output_dir)
     errors += e_od
-    for p in (args.config, out_dir):
-        ok, e = check_no_quarantined_path(p)
-        errors += e
+    ok_cfg_path, e_cfg_path = assert_no_forbidden_path_tokens(args.config)
+    errors += e_cfg_path
     script_self = os.path.relpath(__file__).replace("\\", "/")
     ok_t, e_t = check_script_tracked(script_self)
     if not ok_t:
@@ -792,29 +985,39 @@ def cmd_prepare_phase3_run(args) -> int:
         print(f"BLOCKED_PHASE3_PREP_FAILED\nconfig load error: {ex}")
         return 2
     errors = list(_config_invariants(cfg))
+    resolved_out_dir, e_od = check_phase3_output_path(args.output_dir)
+    errors += e_od
+    ok_cfg_path, e_cfg_path = assert_no_forbidden_path_tokens(args.config)
+    errors += e_cfg_path
+    script_self = os.path.relpath(__file__).replace("\\", "/")
+    ok_t, e_t = check_script_tracked(script_self)
+    if not ok_t:
+        errors += e_t
     if errors:
         print("STATUS: BLOCKED_PHASE3_PREP_FAILED")
         for e in errors:
             print(f" - {e}")
         return 2
-    
-    out_dir = args.output_dir
-    if not out_dir:
-        print("STATUS: BLOCKED_PHASE3_PREP_FAILED\n - output_dir is required")
+
+    ok_reserve, e_reserve = reserve_output_dir_atomic(resolved_out_dir)
+    if not ok_reserve:
+        print("STATUS: BLOCKED_PHASE3_PREP_FAILED")
+        for e in e_reserve:
+            print(f" - {e}")
         return 2
-    os.makedirs(out_dir, exist_ok=True)
+
     run_id = "PH3" + uuid.uuid4().hex[:8]
     
     manifest_draft = {
         "run_id": run_id,
-        "planned_output_dir": str(out_dir),
+        "planned_output_dir": str(resolved_out_dir),
         "status": "PHASE3_RUN_PREPARED"
     }
-    with open(os.path.join(out_dir, "PRE_RUN_MANIFEST_DRAFT.json"), "w", encoding="utf-8") as f:
+    with open(os.path.join(resolved_out_dir, "PRE_RUN_MANIFEST_DRAFT.json"), "w", encoding="utf-8") as f:
         json.dump(manifest_draft, f, indent=2)
-    with open(os.path.join(out_dir, "COMMANDS_PLANNED.md"), "w", encoding="utf-8") as f:
+    with open(os.path.join(resolved_out_dir, "COMMANDS_PLANNED.md"), "w", encoding="utf-8") as f:
         f.write("# Planned Commands\nPhase 3 execution plan.")
-    with open(os.path.join(out_dir, "SAFETY_PRECHECK.md"), "w", encoding="utf-8") as f:
+    with open(os.path.join(resolved_out_dir, "SAFETY_PRECHECK.md"), "w", encoding="utf-8") as f:
         f.write("# Safety Precheck\nAll safety gates passed.")
         
     print("STATUS: PHASE3_RUN_PREPARED")
@@ -833,12 +1036,10 @@ def cmd_run_phase3(args) -> int:
         return 2
     
     errors = list(_config_invariants(cfg))
-    out_dir = args.output_dir
-    ok_od, e_od = check_output_dir_absent(out_dir)
+    resolved_out_dir, e_od = check_phase3_output_path(args.output_dir)
     errors += e_od
-    for p in (args.config, out_dir):
-        ok, e = check_no_quarantined_path(p)
-        errors += e
+    ok_cfg_path, e_cfg_path = assert_no_forbidden_path_tokens(args.config)
+    errors += e_cfg_path
     
     if errors:
         print("STATUS: BLOCKED_PHASE3_RUN_FAILED")
@@ -847,7 +1048,7 @@ def cmd_run_phase3(args) -> int:
         return 2
         
     print("STATUS: NOT_IMPLEMENTED_FAIL_CLOSED")
-    print(" - Missing safe engine adapter. Cannot connect Phase 3 to src/v7_engine yet.")
+    print(" - Missing safe engine adapter. Cannot connect Phase 3 to the audited engine yet.")
     return 2
 
 

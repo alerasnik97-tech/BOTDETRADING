@@ -5,7 +5,7 @@
 
 ## 2. Executive Summary
 Se ha implementado satisfactoriamente la estructura "fail-closed" exigida para la ejecución segura del `Phase 3 F06 Clean Train-Only Rerun`.
-Esto incluye los nuevos comandos CLI de preflight y preparación de entorno que bloquean activamente cualquier parametrización insegura, pero respeta el estado actual de desacople donde todavía no se cuenta con un adaptador de engine limpio para correr el backtest. El comando de ejecución final quedó implementado de forma restrictiva (solicitando la flag explícita) pero configurado para fallar seguro (`NOT_IMPLEMENTED_FAIL_CLOSED`) debido a la falta del adaptador directo con `src/v7_engine`.
+Esto incluye los nuevos comandos CLI de preflight y preparación de entorno que bloquean activamente cualquier parametrización insegura, pero respeta el estado actual de desacople donde todavía no se cuenta con un adaptador de engine limpio para correr el backtest. El comando de ejecución final quedó implementado de forma restrictiva (solicitando la flag explícita) pero configurado para fallar seguro (`NOT_IMPLEMENTED_FAIL_CLOSED`) debido a la falta de un adapter auditado hacia la superficie real del engine.
 
 ## 3. What Was Implemented
 - `preflight_phase3`: Analiza la configuración y los directorios y dictamina `PREFLIGHT_PHASE3_PASS` o falla cerrado.
@@ -20,7 +20,7 @@ Esto incluye los nuevos comandos CLI de preflight y preparación de entorno que 
 - **F06 NO FUE CERTIFICADA**.
 
 ## 5. Engine Interface Audit
-El engine principal reside en `research_lab/engine.py` (cuyo mapping real en el proyecto se encuentra externalizado desde `src/v7_engine` e impacta por dependencias sucias anteriores). Las rutas directas requieren enviar un diccionario riguroso a `run_strategy()`. Dado que se documentó la indisponibilidad de usar scripts heredados de `V50B`, se optó por crear el andamiaje CLI y solicitar un audit para la conexión última al engine.
+El inventario corregido identifica `research_lab/engine.py` como la superficie de engine visible en este checkout. Los paths `src/v7_engine` y `src/v6_utils` no estan presentes en el head auditado de PR #6. No se autoriza adapter hasta completar un inventario real del API de `research_lab.engine.run_backtest(...)`, sus dataframes esperados y su integracion con el contrato de outputs Phase 3.
 
 ## 6. Tests
 Se agregaron **12** tests a la suite `test_phase3_runner.py` que comprueban los límites operativos negativos y positivos de la inyección Phase 3:
