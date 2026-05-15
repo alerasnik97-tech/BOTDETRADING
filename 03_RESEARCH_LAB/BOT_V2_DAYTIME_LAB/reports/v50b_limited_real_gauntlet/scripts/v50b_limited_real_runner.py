@@ -29,10 +29,11 @@ class LimitedRealRunner:
         self.news_calendar = self.load_real_news()
         self.configs_df = pd.read_csv(self.configs_csv)
         
-        self.all_signals = []
-        self.all_trades = []
-        self.all_rejections = []
-        self.engine_proof = []
+        # Load existing data to append
+        self.all_signals = pd.read_csv(self.base_dir / "signals" / "V50B_LIMITED_SIGNALS.csv").to_dict("records") if (self.base_dir / "signals" / "V50B_LIMITED_SIGNALS.csv").exists() else []
+        self.all_trades = pd.read_csv(self.base_dir / "trades" / "V50B_LIMITED_TRADES.csv").to_dict("records") if (self.base_dir / "trades" / "V50B_LIMITED_TRADES.csv").exists() else []
+        self.all_rejections = pd.read_csv(self.base_dir / "audits" / "V50B_LIMITED_REJECTION_AUDIT.csv").to_dict("records") if (self.base_dir / "audits" / "V50B_LIMITED_REJECTION_AUDIT.csv").exists() else []
+        self.engine_proof = pd.read_csv(self.base_dir / "engine_proof" / "V50B_LIMITED_ENGINE_CALL_PROOF.csv").to_dict("records") if (self.base_dir / "engine_proof" / "V50B_LIMITED_ENGINE_CALL_PROOF.csv").exists() else []
 
     def load_real_news(self):
         print(f"Loading real news from {self.news_csv}")
@@ -64,127 +65,74 @@ class LimitedRealRunner:
             df.index = df.index.tz_localize(None)
         return df
 
-    def run(self):
-        print("Starting V50B Limited Real Gauntlet...")
-        months = ["2020-03", "2021-08", "2022-05", "2023-01", "2024-04"]
+    def run_month(self, month):
+        print(f"Processing Month: {month}")
+        ticks = self.load_ticks(month)
+        if ticks is None: return
         
-        families_map = {
-            "F06": F06VolatilityRegime,
-            "F08": F08SessionOverlap,
-            "F12": F12MacroSafeWindow
-        }
+        bars_5m = ticks["bid"].resample("5min").ohlc().dropna()
+        bars_15m = ticks["bid"].resample("15min").ohlc().dropna()
         
-        for month in months:
-            print(f"Processing Month: {month}")
-            ticks = self.load_ticks(month)
-            if ticks is None: 
-                print(f"Skipping {month}, data not found.")
-                continue
+        target_fams = ["F06", "F08", "F12"]
+        families_map = {"F06": F06VolatilityRegime, "F08": F08SessionOverlap, "F12": F12MacroSafeWindow}
+        
+        for idx, cfg_row in self.configs_df.iterrows():
+            fam_id = cfg_row["family_id"]
+            tf = cfg_row["timeframe"]
+            bars = bars_5m if tf == "5m" else bars_15m
             
-            bars_5m = ticks["bid"].resample("5min").ohlc().dropna()
-            bars_15m = ticks["bid"].resample("15min").ohlc().dropna()
+            engine_id = f"ENG_{uuid.uuid4().hex[:8]}"
+            engine = UnifiedV7Engine(
+                news_calendar=self.news_calendar, test_start_year=2025,
+                active_phase="validation", entry_start_hour=7, entry_end_hour=17
+            )
             
-            # Batching configs to avoid memory bloat
-            for idx, cfg_row in self.configs_df.iterrows():
-                fam_id = cfg_row["family_id"]
-                tf = cfg_row["timeframe"]
-                bars = bars_5m if tf == "5m" else bars_15m
+            detector = families_map[fam_id](cfg_row)
+            win_start, win_end = cfg_row["session_window"].split("-")
+            w_sh, w_sm = map(int, win_start.split(":"))
+            w_eh, w_em = map(int, win_end.split(":"))
+            
+            for i in range(30, len(bars)):
+                ts_utc = bars.index[i]
+                ts_ny = ts_utc.replace(tzinfo=ZoneInfo("UTC")).astimezone(ZoneInfo("America/New_York"))
+                if not ((w_sh <= ts_ny.hour < w_eh) or (ts_ny.hour == w_eh and ts_ny.minute <= w_em)):
+                    continue
                 
-                # Isolation: Fresh engine per config
-                engine_id = f"ENG_{uuid.uuid4().hex[:8]}"
-                engine = UnifiedV7Engine(
-                    news_calendar=self.news_calendar, 
-                    test_start_year=2025,
-                    active_phase="validation",
-                    entry_start_hour=7,
-                    entry_end_hour=17
-                )
-                
-                detector = families_map[fam_id](cfg_row)
-                win_start, win_end = cfg_row["session_window"].split("-")
-                w_sh, w_sm = map(int, win_start.split(":"))
-                w_eh, w_em = map(int, win_end.split(":"))
-                
-                # Iterate through bars
-                for i in range(30, len(bars)):
-                    hist_bars = bars.iloc[:i]
-                    ts_utc = hist_bars.index[-1]
+                signal = detector.generate_signal(bars.iloc[:i+1])
+                if signal:
+                    ticks_after = ticks[ticks.index > ts_utc].head(15000)
+                    fill, reason = engine.execute_signal(signal["side"], ts_utc, ticks_after)
                     
-                    # Window check in NY
-                    ts_ny = ts_utc.replace(tzinfo=ZoneInfo("UTC")).astimezone(ZoneInfo("America/New_York"))
-                    if not ((w_sh <= ts_ny.hour < w_eh) or (ts_ny.hour == w_eh and ts_ny.minute <= w_em)):
-                        continue
-                        
-                    signal = detector.generate_signal(hist_bars)
-                    if signal:
-                        # Call engine
-                        ticks_after = ticks[ticks.index > ts_utc].head(20000)
-                        fill, reason = engine.execute_signal(
-                            side=signal["side"],
-                            signal_bar_close=ts_utc,
-                            ticks_after=ticks_after
-                        )
-                        
-                        self.all_signals.append({
-                            "family_id": fam_id, "config_id": cfg_row["config_id"],
-                            "signal_time": ts_utc, "side": signal["side"]
-                        })
-                        
-                        self.all_rejections.append({
+                    self.all_rejections.append({
+                        "family_id": fam_id, "config_id": cfg_row["config_id"],
+                        "month": month, "signal_time": ts_utc, "rejection_reason": reason, "engine_instance_id": engine_id
+                    })
+                    
+                    if fill:
+                        ticks_during = ticks[(ticks.index > fill.fill_time) & (ticks.index < fill.fill_time + pd.Timedelta(hours=10))]
+                        trade = engine.close_position_with_costs(fill, signal["stop_reference"], fill.fill_price + abs(fill.fill_price-signal["stop_reference"])*signal["target_r"], ticks_during)
+                        self.all_trades.append({
                             "family_id": fam_id, "config_id": cfg_row["config_id"],
                             "phase": "VAL" if ts_utc.year >= 2023 else "TRAIN",
-                            "month": month, "signal_time": ts_utc, "signal_time_ny": ts_ny.strftime("%H:%M"),
-                            "engine_called": True, "fill_created": fill is not None,
-                            "rejection_reason": reason, "engine_instance_id": engine_id,
-                            "status": "ENGINE_ACCEPTED" if fill else "ENGINE_REJECTED"
+                            "month": month, "entry_time": trade.fill_time, "exit_time": trade.exit_time,
+                            "side": signal["side"], "entry_price": trade.entry_price, "exit_price": trade.exit_price,
+                            "pnl_net_r": trade.net_r, "engine_instance_id": engine_id
                         })
-                        
-                        if fill:
-                            # Close position
-                            ticks_during = ticks[(ticks.index > fill.fill_time) & (ticks.index < fill.fill_time + pd.Timedelta(hours=12))]
-                            sl = signal["stop_reference"]
-                            risk = abs(fill.fill_price - sl)
-                            tp = fill.fill_price + (risk * signal["target_r"]) if signal["side"] == "buy" else fill.fill_price - (risk * signal["target_r"])
-                            
-                            trade = engine.close_position_with_costs(
-                                fill=fill, sl_price=sl, tp_price=tp, ticks_during=ticks_during
-                            )
-                            
-                            self.all_trades.append({
-                                "family_id": fam_id, "config_id": cfg_row["config_id"],
-                                "phase": "VAL" if ts_utc.year >= 2023 else "TRAIN",
-                                "month": month, "entry_time": trade.fill_time, "exit_time": trade.exit_time,
-                                "entry_time_ny": trade.fill_time.replace(tzinfo=ZoneInfo("UTC")).astimezone(ZoneInfo("America/New_York")).strftime("%H:%M"),
-                                "side": signal["side"], "entry_price": trade.entry_price, "exit_price": trade.exit_price,
-                                "stop_price": sl, "target_price": tp, "pnl_net_r": trade.net_r,
-                                "slippage_pips": 0.2, "engine_instance_id": engine_id,
-                                "data_file_source": f"EURUSD_ticks_{month}", "is_real_trade": True
-                            })
-                            
-                            self.engine_proof.append({
-                                "engine_instance_id": engine_id, "config_id": cfg_row["config_id"],
-                                "trade_id": str(uuid.uuid4()), "status": "CLOSED"
-                            })
-
-                if idx % 10 == 0:
-                    self.flush_incremental()
             
-            del ticks
-            gc.collect()
-        
-        self.flush_incremental()
-        print("Limited Gauntlet Finished.")
+            if idx % 50 == 0: self.flush_incremental()
+            
+        del ticks
+        gc.collect()
+
+    def run(self):
+        months = ["2020-03", "2021-08", "2022-05", "2023-01", "2024-04"]
+        for month in months:
+            self.run_month(month)
+            self.flush_incremental()
 
     def flush_incremental(self):
-        if self.all_signals:
-            pd.DataFrame(self.all_signals).to_csv(self.base_dir / "signals" / "V50B_LIMITED_SIGNALS.csv", index=False)
-        if self.all_trades:
-            pd.DataFrame(self.all_trades).to_csv(self.base_dir / "trades" / "V50B_LIMITED_TRADES.csv", index=False)
-        if self.all_rejections:
-            pd.DataFrame(self.all_rejections).to_csv(self.base_dir / "audits" / "V50B_LIMITED_REJECTION_AUDIT.csv", index=False)
-        if self.engine_proof:
-            pd.DataFrame(self.engine_proof).to_csv(self.base_dir / "engine_proof" / "V50B_LIMITED_ENGINE_CALL_PROOF.csv", index=False)
+        if self.all_trades: pd.DataFrame(self.all_trades).to_csv(self.base_dir / "trades" / "V50B_LIMITED_TRADES.csv", index=False)
+        if self.all_rejections: pd.DataFrame(self.all_rejections).to_csv(self.base_dir / "audits" / "V50B_LIMITED_REJECTION_AUDIT.csv", index=False)
 
 if __name__ == "__main__":
-    runner = LimitedRealRunner()
-    runner.run()
+    LimitedRealRunner().run()

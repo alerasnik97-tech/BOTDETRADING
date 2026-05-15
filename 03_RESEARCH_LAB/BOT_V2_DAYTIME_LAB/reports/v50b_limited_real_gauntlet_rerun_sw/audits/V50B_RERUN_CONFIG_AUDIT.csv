@@ -1,0 +1,4 @@
+family_id,config_count,duplicate_count,parameter_space_ok,max_trades_per_day_ok,status,notes
+F06,50,0,YES,YES,PASSED,Generated with deterministic linear spacing
+F08,50,0,YES,YES,PASSED,Generated with deterministic linear spacing
+F12,50,0,YES,YES,PASSED,Generated with deterministic linear spacing

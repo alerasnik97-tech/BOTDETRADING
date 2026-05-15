@@ -31,26 +31,28 @@ class F06VolatilityRegime(FamilyBase):
     def generate_signal(self, bars):
         lookback = int(self.config.get("realized_vol_lookback", 20))
         if len(bars) < lookback: return None
-        ts = bars.iloc[-1].name # This is UTC
+        ts = bars.index[-1]
         
-        # We check window in NY time (handled by runner usually, but let's be robust)
-        # For simplicity in this specific lab, detectors check UTC or NY?
-        # The runner will provide NY-localized bars to detectors.
-        
-        close = bars["close"]
-        ma = close.rolling(lookback).mean()
-        std = close.rolling(lookback).std()
+        close_window = bars["close"].tail(lookback)
+        ma_val = close_window.mean()
+        std_val = close_window.std()
         mult = float(self.config.get("bb_multiplier", 2.0))
-        upper = ma + mult * std
+        upper_val = ma_val + mult * std_val
         
-        if close.iloc[-1] > upper.iloc[-1] and close.iloc[-2] <= upper.iloc[-2]:
+        # Check cross
+        curr_close = bars["close"].iloc[-1]
+        prev_close = bars["close"].iloc[-2]
+        
+        # Simple cross check with previous ma/std? 
+        # For simplicity and speed, we use current thresholds vs prev close
+        if curr_close > upper_val and prev_close <= upper_val:
             return {
                 "family_id": self.family_id,
                 "config_id": self.config_id,
                 "signal_time": ts,
                 "side": "buy",
-                "entry_reference": close.iloc[-1],
-                "stop_reference": ma.iloc[-1],
+                "entry_reference": curr_close,
+                "stop_reference": ma_val,
                 "target_r": self.target_r_override or 2.5,
                 "reason": "VOLATILITY_EXPANSION"
             }
@@ -60,14 +62,15 @@ class F08SessionOverlap(FamilyBase):
     def generate_signal(self, bars):
         fast = int(self.config.get("ema_fast", 9))
         slow = int(self.config.get("ema_slow", 21))
-        if len(bars) < max(fast, slow): return None
-        ts = bars.iloc[-1].name
+        lookback = max(fast, slow) + 2
+        if len(bars) < lookback: return None
+        ts = bars.index[-1]
         
-        ema_f = bars["close"].ewm(span=fast).mean()
-        ema_s = bars["close"].ewm(span=slow).mean()
+        close_window = bars["close"].tail(lookback * 2) # Ensure enough for EMA
+        ema_f = close_window.ewm(span=fast).mean()
+        ema_s = close_window.ewm(span=slow).mean()
         
         if ema_f.iloc[-1] > ema_s.iloc[-1] and ema_f.iloc[-2] <= ema_s.iloc[-2]:
-            # Pullback depth check if provided
             return {
                 "family_id": self.family_id,
                 "config_id": self.config_id,
@@ -83,17 +86,24 @@ class F08SessionOverlap(FamilyBase):
 class F12MacroSafeWindow(FamilyBase):
     def generate_signal(self, bars):
         period = int(self.config.get("rsi_period", 14))
-        if len(bars) < period + 1: return None
-        ts = bars.iloc[-1].name
+        if len(bars) < period + 2: return None
+        ts = bars.index[-1]
         
-        delta = bars["close"].diff()
+        close_window = bars["close"].tail(period + 5)
+        delta = close_window.diff()
         gain = (delta.where(delta > 0, 0)).rolling(window=period).mean()
         loss = (-delta.where(delta < 0, 0)).rolling(window=period).mean()
-        rs = gain / loss
-        rsi = 100 - (100 / (1 + rs))
+        
+        avg_gain = gain.iloc[-1]
+        avg_loss = loss.iloc[-1]
+        
+        if avg_loss == 0: rsi_val = 100
+        else:
+            rs = avg_gain / avg_loss
+            rsi_val = 100 - (100 / (1 + rs))
         
         os = float(self.config.get("rsi_oversold", 30))
-        if rsi.iloc[-1] < os:
+        if rsi_val < os:
             return {
                 "family_id": self.family_id,
                 "config_id": self.config_id,
