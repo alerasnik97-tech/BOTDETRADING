@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "f06_evidence_rebuild/cost_report_schema.json",
+  "title": "F06 Evidence Rebuild Cost Report",
+  "description": "Cost report must declare and apply spread + slippage + round-turn commission.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["scenarios", "components_applied", "input_ledger_run_id", "input_is_quarantined_path"],
+  "properties": {
+    "components_applied": {
+      "type": "object",
+      "required": ["spread_component", "slippage_component", "round_turn_commission"],
+      "properties": {
+        "spread_component": { "type": "boolean", "const": true },
+        "slippage_component": { "type": "boolean", "const": true },
+        "round_turn_commission": { "type": "boolean", "const": true }
+      }
+    },
+    "input_is_quarantined_path": { "type": "boolean", "const": false },
+    "input_ledger_run_id": { "type": "string", "minLength": 4 },
+    "scenarios": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["name", "spread_pips", "slippage_pips", "commission_round_turn_usd"],
+        "properties": {
+          "name": { "type": "string" },
+          "spread_pips": { "type": "number", "minimum": 0 },
+          "slippage_pips": { "type": "number", "minimum": 0 },
+          "commission_round_turn_usd": { "type": "number", "minimum": 0 }
+        }
+      }
+    }
+  }
+}

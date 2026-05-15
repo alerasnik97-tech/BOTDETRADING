@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "f06_evidence_rebuild/ledger_schema.json",
+  "title": "F06 Evidence Rebuild Ledger (train-only)",
+  "description": "CSV ledger contract. Exactly one run_id. No validation columns. No 2025/2026.",
+  "type": "object",
+  "properties": {
+    "required_columns": {
+      "const": ["run_id", "family_id", "config_id", "signal_time", "side", "gross_r", "sl_pips", "net_r", "month"]
+    },
+    "forbidden_columns": {
+      "const": ["N_val", "PF_val", "Total_R_val", "WR_val", "val_pass", "combined_pass"]
+    },
+    "constraints": {
+      "const": {
+        "single_run_id": true,
+        "no_year_2025_in_any_datetime": true,
+        "no_year_2026_in_any_datetime": true,
+        "month_in_exact_months_only": true,
+        "min_rows_per_family": 100
+      }
+    }
+  },
+  "required": ["required_columns", "forbidden_columns", "constraints"]
+}
