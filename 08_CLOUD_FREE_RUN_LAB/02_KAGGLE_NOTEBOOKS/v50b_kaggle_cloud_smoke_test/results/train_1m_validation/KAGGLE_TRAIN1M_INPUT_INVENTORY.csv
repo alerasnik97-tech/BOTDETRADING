@@ -1,0 +1,4 @@
+relative_path,size_mb,suffix,contains_2025,contains_2026,looks_2022_05
+datasets/alejandrorasnik/news-restore-manifest-json/EURUSD_ticks_2022_05.parquet,46.352,.parquet,False,False,True
+datasets/alejandrorasnik/news-restore-manifest-json/NEWS_RESTORE_MANIFEST.json,0.001,.json,False,False,False
+datasets/alejandrorasnik/news-restore-manifest-json/news_eurusd_am_fortress_v3.csv,0.104,.csv,False,False,False

@@ -1,0 +1,2 @@
+phase,month,side,entry_time,exit_time,entry_price,exit_price,sl_price,tp_price,exit_reason,pnl_r_raw_probe,data_file_source,real_ticks_used,real_execution_function,test_touched,usable_for_edge,usable_for_ranking
+KAGGLE_MICRO_REAL_EXECUTION_PROBE,2022-05,long,2022-05-12 14:48:26.212000+00:00,2022-05-12 14:52:02.848000+00:00,1.04085,1.04135,1.04035,1.04135,TP,1.0,/kaggle/input/datasets/alejandrorasnik/news-restore-manifest-json/EURUSD_ticks_2022_05.parquet,YES,src.v6_utils.execution.simulate_exit,NO,NO,NO

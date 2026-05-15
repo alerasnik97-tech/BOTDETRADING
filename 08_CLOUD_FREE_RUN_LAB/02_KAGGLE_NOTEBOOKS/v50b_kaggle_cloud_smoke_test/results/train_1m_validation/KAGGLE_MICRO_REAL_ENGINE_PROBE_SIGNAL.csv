@@ -1,0 +1,2 @@
+signal_id,family_id,config_id,phase,month,signal_time_utc,signal_time_ny,side,entry_reference_price,stop_reference_price,target_reference_price,source,usable_for_edge,usable_for_ranking
+KAGGLE_MICRO_PROBE_001,TECHNICAL_PROBE_ONLY,KAGGLE_MICRO_001,TRAIN,2022-05,2022-05-17 12:00:00+00:00,2022-05-17 08:00:00-04:00,BUY,1.05396,1.0529600000000001,1.05596,REAL_2022_05_TICKS_M1_BAR_PROBE,NO,NO

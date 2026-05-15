@@ -1,0 +1,2 @@
+phase,branch,month,backtest_run,sweep_run,test_touched,raw_data_mutated,usable_for_edge,usable_for_ranking,status,selected_file,rows_loaded_train,rows_session_08_11_ny,execution_called,exit_reason,entry_time,exit_time,pnl_r_raw_probe
+KAGGLE_MICRO_REAL_EXECUTION_PROBE,clean-sync-branch,2022-05,NO_FULL_BACKTEST,NO,NO,NO,NO,NO,SUCCESS_REAL_EXECUTION_PROBE,/kaggle/input/datasets/alejandrorasnik/news-restore-manifest-json/EURUSD_ticks_2022_05.parquet,2632575,549092,YES,TP,2022-05-12 14:48:26.212000+00:00,2022-05-12 14:52:02.848000+00:00,1.0

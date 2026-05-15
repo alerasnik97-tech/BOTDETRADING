@@ -1,0 +1,12 @@
+module,import_status,classes,functions,error
+src.v7_engine,OK,,,
+src.v7_engine.engine,OK,"TestLeakageGuard,TestLeakageViolation,UnifiedV7Engine",,
+src.v7_engine.cost_model,OK,"CostCalculationBlockedError,CostModel,CostModelConfig,UnknownCostModeError",,
+src.v7_engine.metrics,OK,,"_get_val,calculate_equity_curve,calculate_expectancy,calculate_max_drawdown,calculate_profit_factor,summarize_trades",
+src.v7_engine.schedule_guard,OK,ScheduleGuard,,
+src.v7_engine.ftmo_compliance,OK,FtmoComplianceEngine,,
+src.v6_utils,OK,"CausalClock,CausalDataFrame,CausalLog,FillResult,LookAheadError,MemoryGuard","build_bars,get_bar_at,get_process_rss_mb,get_system_available_mb,is_market_open,iter_months,iter_ticks_chunked,load_month,load_range_bulk,next_bar_execute,pip_to_price,r_to_pips,safe_add,safe_collect,sanitize_utc_index,session_anchor,simulate_exit,snap_to_tick,to_ny",
+src.v6_utils.execution,OK,"FillResult,NoFillError","next_bar_execute,next_bar_execute_limit,next_bar_execute_stop,simulate_exit,simulate_exit_with_be",
+src.v6_utils.bars,OK,,"assert_no_partial_bars,build_bars,get_bar_at",
+src.v6_utils.data_loader,OK,,"estimate_chunk_rss_mb,iter_months,iter_ticks_chunked,load_month,load_range_bulk,parquet_path_for",
+src.v50b_research_families,OK,,,

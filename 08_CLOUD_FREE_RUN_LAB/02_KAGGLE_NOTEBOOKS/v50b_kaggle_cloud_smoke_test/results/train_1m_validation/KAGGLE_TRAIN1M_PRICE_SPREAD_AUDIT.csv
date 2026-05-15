@@ -1,0 +1,2 @@
+rows,bid_nulls,ask_nulls,bid_le_0,ask_le_0,ask_lt_bid,spread_pips_mean,spread_pips_median,spread_pips_max
+2632575,0,0,0,0,0,0.4039184448686222,0.40000000000040004,24.800000000000377

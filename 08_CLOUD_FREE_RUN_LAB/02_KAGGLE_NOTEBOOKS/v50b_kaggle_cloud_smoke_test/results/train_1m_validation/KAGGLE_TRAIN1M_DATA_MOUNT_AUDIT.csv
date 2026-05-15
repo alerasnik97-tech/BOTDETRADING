@@ -1,0 +1,2 @@
+phase,branch,input_files,test_2025_2026_files_detected,train_2022_05_candidates,backtest_run,sweep_run,test_touched,raw_data_mutated,status,selected_file,rows_metadata,columns,read_method
+KAGGLE_TRAIN_1M_DATA_MOUNT_TEST,clean-sync-branch,3,0,1,NO,NO,NO,NO,SUCCESS,/kaggle/input/datasets/alejandrorasnik/news-restore-manifest-json/EURUSD_ticks_2022_05.parquet,2632575,"timestamp_utc,bid,ask,bid_volume,ask_volume,timestamp_ny,spread,spread_pips,source,symbol",pyarrow_metadata_only
