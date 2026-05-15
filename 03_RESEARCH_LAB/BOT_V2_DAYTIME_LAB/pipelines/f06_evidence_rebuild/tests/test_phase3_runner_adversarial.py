@@ -162,6 +162,40 @@ class TestPhase3RunnerAdversarial(unittest.TestCase):
         self.assertEqual(code, 2, out)
         self.assertIn("BLOCKED_FORBIDDEN_OUTPUT_PATH", out)
 
+    def test_dry_run_rejects_emit_with_quarantined_token(self):
+        out_dir = self.allowed_output_path("dry_emit_quarantine")
+        forbidden = os.path.join(out_dir, "QUARANTINED_DO_NOT_USE.json")
+        code, out = self.run_cmd(
+            "dry_run",
+            "--config",
+            self.good_cfg_path,
+            "--output-dir",
+            out_dir,
+            "--emit",
+            "QUARANTINED_DO_NOT_USE.json",
+        )
+        self.assertEqual(code, 2, out)
+        self.assertIn("BLOCKED_FORBIDDEN_OUTPUT_PATH", out)
+        self.assertFalse(os.path.exists(forbidden), forbidden)
+        self.assertFalse(os.path.exists(out_dir), out_dir)
+
+    def test_dry_run_rejects_emit_legacy_v50b_name(self):
+        out_dir = self.allowed_output_path("dry_emit_v50b")
+        forbidden = os.path.join(out_dir, "V50B_RERUN_TRADES.csv")
+        code, out = self.run_cmd(
+            "dry_run",
+            "--config",
+            self.good_cfg_path,
+            "--output-dir",
+            out_dir,
+            "--emit",
+            "V50B_RERUN_TRADES.csv",
+        )
+        self.assertEqual(code, 2, out)
+        self.assertIn("BLOCKED_FORBIDDEN_OUTPUT_PATH", out)
+        self.assertFalse(os.path.exists(forbidden), forbidden)
+        self.assertFalse(os.path.exists(out_dir), out_dir)
+
     def test_dry_run_does_not_create_nested_project_tree_under_pipeline(self):
         nested = os.path.join(self.pipeline_root, "03_RESEARCH_LAB")
         self.assertFalse(os.path.exists(nested), nested)

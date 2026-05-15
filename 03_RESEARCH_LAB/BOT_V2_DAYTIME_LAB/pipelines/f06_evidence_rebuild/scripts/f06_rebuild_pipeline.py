@@ -37,6 +37,7 @@ VALIDATION_COLUMNS = ["N_val", "PF_val", "Total_R_val", "WR_val", "val_pass", "c
 FORBIDDEN_YEARS = ["2025", "2026"]
 DEFAULT_SAMPLE_FLOOR = 100
 COST_COMPONENTS = ["spread_component", "slippage_component", "round_turn_commission"]
+CURRENT_SCRIPT_SHA256_MARKER = "__CURRENT_SCRIPT_SHA256__"
 EXPECTED_PHASE3_CONFIG = {
     "phase": "F06_PHASE3_CLEAN_TRAIN_ONLY_RERUN",
     "mode": "TRAIN_ONLY",
@@ -79,6 +80,11 @@ def sha256_file(path: str) -> str:
         for chunk in iter(lambda: fh.read(65536), b""):
             h.update(chunk)
     return h.hexdigest()
+
+
+def _is_sha256(x) -> bool:
+    s = str(x).lower()
+    return len(s) == 64 and all(c in "0123456789abcdef" for c in s)
 
 
 # ---- CSV helper (stdlib only) ------------------------------------------------
@@ -434,6 +440,20 @@ def _phase3_pipeline_root() -> str:
     return os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 
 
+def _is_under_dir(path: str, root: str) -> bool:
+    try:
+        return os.path.commonpath([os.path.abspath(root), os.path.abspath(path)]) == os.path.abspath(root)
+    except Exception:
+        return False
+
+
+def _is_fixture_manifest_path(path: str | None) -> bool:
+    if not path:
+        return False
+    fixtures_root = os.path.join(_phase3_pipeline_root(), "fixtures")
+    return _is_under_dir(path, fixtures_root)
+
+
 def assert_no_forbidden_path_tokens(path) -> tuple[bool, list[str]]:
     return check_no_quarantined_path(path)
 
@@ -577,7 +597,8 @@ _STATUS_ENUM = ["DRY_RUN_SCHEMA_VALIDATED", "BLOCKED_GUARD_FAILED",
                 "READY_FOR_CLEAN_TRAIN_RERUN", "NOT_READY"]
 
 
-def validate_manifest(manifest: dict, schema: dict | None = None) -> tuple[bool, list[str]]:
+def validate_manifest(manifest: dict, schema: dict | None = None,
+                      allow_current_script_marker: bool = False) -> tuple[bool, list[str]]:
     errs = []
     if not isinstance(manifest, dict):
         return (False, ["manifest is not a JSON object (fail-closed)"])
@@ -603,10 +624,6 @@ def validate_manifest(manifest: dict, schema: dict | None = None) -> tuple[bool,
                 errs.append(f"manifest.{nf} must be a non-negative integer "
                             f"(got {manifest.get(nf)!r})")
 
-    def _is_sha256(x) -> bool:
-        s = str(x).lower()
-        return len(s) == 64 and all(c in "0123456789abcdef" for c in s)
-
     oh = manifest.get("output_hashes")
     if "output_hashes" in manifest and (not isinstance(oh, dict) or len(oh) == 0):
         errs.append("manifest.output_hashes must be a non-empty object")
@@ -616,6 +633,9 @@ def validate_manifest(manifest: dict, schema: dict | None = None) -> tuple[bool,
                 errs.append(f"manifest.output_hashes['{hk}'] is not a sha256 "
                             f"(fake/short hash forbidden): {hv!r}")
     for hf in ("script_sha256", "config_sha256"):
+        if (hf == "script_sha256" and allow_current_script_marker
+                and manifest.get(hf) == CURRENT_SCRIPT_SHA256_MARKER):
+            continue
         if hf in manifest and not _is_sha256(manifest[hf]):
             errs.append(f"manifest.{hf} is not a valid sha256: {manifest[hf]!r}")
     st = manifest.get("status")
@@ -855,6 +875,31 @@ def cmd_dry_run(args) -> int:
     if not ok_t:
         errors += e_t
 
+    emit = None
+    if resolved_out_dir:
+        if args.emit:
+            raw_emit = str(args.emit)
+            ok_emit_raw, e_emit_raw = assert_no_forbidden_path_tokens(raw_emit)
+            errors += e_emit_raw
+            ok_emit_base, e_emit_base = assert_no_forbidden_path_tokens(os.path.basename(raw_emit))
+            errors += e_emit_base
+            if os.path.isabs(raw_emit):
+                emit = os.path.abspath(raw_emit)
+            else:
+                emit = os.path.abspath(os.path.join(resolved_out_dir, raw_emit))
+        else:
+            emit = os.path.join(resolved_out_dir, "DRYRUN_MANIFEST.json")
+
+        ok_emit_path, e_emit_path = assert_no_forbidden_path_tokens(emit)
+        errors += e_emit_path
+        ok_emit_name, e_emit_name = assert_no_forbidden_path_tokens(os.path.basename(emit))
+        errors += e_emit_name
+        try:
+            if os.path.commonpath([resolved_out_dir, emit]) != resolved_out_dir:
+                errors.append(f"emit path escapes dry_run output_dir: {args.emit}")
+        except Exception:
+            errors.append(f"emit path cannot be resolved safely: {args.emit}")
+
     if errors:
         status = _phase3_path_block_status(errors, "BLOCKED_GUARD_FAILED")
         print(f"STATUS: {status}")
@@ -916,16 +961,6 @@ def cmd_dry_run(args) -> int:
         manifest["status"] = "BLOCKED_GUARD_FAILED"
         status = "BLOCKED_GUARD_FAILED"
         errors += e_m
-
-    if args.emit:
-        emit = args.emit
-        if not os.path.isabs(emit):
-            emit = os.path.join(resolved_out_dir, emit)
-        emit = os.path.abspath(emit)
-        if os.path.commonpath([resolved_out_dir, emit]) != resolved_out_dir:
-            errors.append(f"emit path escapes dry_run output_dir: {args.emit}")
-    else:
-        emit = os.path.join(resolved_out_dir, "DRYRUN_MANIFEST.json")
 
     if errors:
         print(f"STATUS: {status}")
@@ -1169,8 +1204,21 @@ def validate_output_dir(output_dir: str, manifest_path: str | None,
         except Exception as ex:
             errors.append(f"manifest unreadable (fail-closed): {ex}")
     if manifest is not None:
-        ok_m, e_m = validate_manifest(manifest)
+        fixture_manifest = _is_fixture_manifest_path(manifest_path)
+        allow_script_marker = (
+            fixture_manifest
+            and manifest.get("script_sha256") == CURRENT_SCRIPT_SHA256_MARKER
+        )
+        ok_m, e_m = validate_manifest(
+            manifest,
+            allow_current_script_marker=allow_script_marker,
+        )
         errors += e_m
+        if manifest.get("script_sha256") == CURRENT_SCRIPT_SHA256_MARKER and not fixture_manifest:
+            errors.append(
+                "manifest.script_sha256 marker is forbidden outside "
+                "pipelines/f06_evidence_rebuild/fixtures"
+            )
         run_id = str(manifest.get("run_id", "")).strip()
         if config_path:
             ok_cp, e_cp = check_no_quarantined_path(config_path)
@@ -1191,7 +1239,12 @@ def validate_output_dir(output_dir: str, manifest_path: str | None,
                 errors.append(f"manifest.{path_field} not found on disk: {declared}")
                 continue
             actual = sha256_file(full)
-            expected = str(manifest.get(hash_field, "")).lower()
+            raw_expected = str(manifest.get(hash_field, "")).lower()
+            expected = actual.lower() if (
+                hash_field == "script_sha256"
+                and allow_script_marker
+                and manifest.get(hash_field) == CURRENT_SCRIPT_SHA256_MARKER
+            ) else raw_expected
             if actual.lower() != expected:
                 errors.append(f"manifest.{hash_field} mismatch for {declared}: "
                               f"manifest={expected} disk={actual}")

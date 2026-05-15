@@ -1,3 +1,10 @@
+# HISTORICAL REPORT - SUPERSEDED BY PR6 REPRODUCIBILITY + EMIT GUARD PATCH
+
+This hardening report is retained as chronology for the first PR #6 hardening
+patch. Current authority moved to `PR6_REPRODUCIBILITY_EMIT_GUARD_PATCH_REPORT.md`
+after the follow-up fixes for `dry_run --emit` forbidden tokens and fixture
+script hash reproducibility.
+
 # PR6 RUNNER HARDENING PATCH REPORT
 
 ## 1. Status

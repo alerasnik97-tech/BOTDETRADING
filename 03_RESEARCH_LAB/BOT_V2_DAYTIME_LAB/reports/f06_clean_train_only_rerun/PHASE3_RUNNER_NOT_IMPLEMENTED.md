@@ -1,24 +1,39 @@
-# PHASE 3 RUNNER NOT IMPLEMENTED
+# HISTORICAL REPORT - SUPERSEDED BY PR6 HARDENING PATCH
 
-## 1. Status
-**RUNNER_NOT_IMPLEMENTED**
+This file is retained only as chronology for the earlier scaffold state. It is
+not the current audit authority and must not be used to decide adapter work.
 
-## 2. Assessment
-El pipeline actual (`f06_rebuild_pipeline.py`) funciona exclusivamente como un andamio institucional (`scaffold`). Los únicos comandos que expone son:
+# PHASE 3 RUNNER SCAFFOLD HISTORY
+
+## 1. Historical Assessment
+
+The original pipeline was a scaffold that did not run strategy logic, did not run
+backtests, did not read raw data, and did not produce F06 evidence.
+
+## 2. Current Assessment
+
+The current PR #6 runner has additional Phase 3 guard commands:
+
 - `validate_config`
 - `dry_run`
 - `validate_outputs`
+- `preflight_phase3`
+- `prepare_phase3_run`
+- `run_phase3`
 
-Según el diseño documentado, el script declara explícitamente:
-> `F06 evidence rebuild scaffold (NO strategy / NO backtest).`
+The execution command remains intentionally blocked without a safe engine
+adapter. F06 is still not certified.
 
-## 3. Decision
-Siguiendo las reglas absolutas de esta FASE 3, **NO se ha improvisado un runner real**, y **NO se han utilizado scripts de legacy V50B** (que están fuertemente contaminados o cuarentenados). 
+## 3. Current Authority
 
-El proyecto carece actualmente del módulo seguro que enlace la nueva `Foundation V2` con la superficie real del engine visible en este checkout (`research_lab/engine.py`) bajo las reglas fail-closed requeridas (por ejemplo, impidiendo inyección de datos 2025/2026 a nivel de runner o aplicando el cálculo de slippage/spread requerido antes de escribir los CSVs de ranking/ledger).
+Use the current runner source, test suite, and patch reports as authority:
 
-## 4. Next Step
-El resultado final de esta operación debe derivar en:
-**READY_FOR_PHASE3_RUNNER_IMPLEMENTATION**
+- `PR6_RUNNER_HARDENING_PATCH_REPORT.md`
+- `PR6_REPRODUCIBILITY_EMIT_GUARD_PATCH_REPORT.md`
 
-Es necesario desarrollar el comando de ejecución real (ej. `run_strategy`) que respete estrictamente los schemas exigidos en esta FASE 3.
+## 4. Decision
+
+SUPERSEDED_BY_PR6_HARDENING_PATCH
+
+No adapter, real F06 run, validation, holdout, 2025/2026 access, demo, FTMO, or
+real trading is authorized by this file.
