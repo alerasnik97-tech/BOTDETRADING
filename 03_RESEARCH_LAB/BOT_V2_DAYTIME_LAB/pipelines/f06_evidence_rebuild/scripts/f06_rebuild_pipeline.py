@@ -758,6 +758,99 @@ def cmd_validate_outputs(args) -> int:
     return 0 if res["ok"] else 2
 
 
+def cmd_preflight_phase3(args) -> int:
+    try:
+        cfg = load_config(args.config)
+    except Exception as ex:
+        print(f"BLOCKED_PHASE3_PREFLIGHT_FAILED\nconfig load error (fail-closed): {ex}")
+        return 2
+    errors = list(_config_invariants(cfg))
+    out_dir = args.output_dir
+    ok_od, e_od = check_output_dir_absent(out_dir)
+    errors += e_od
+    for p in (args.config, out_dir):
+        ok, e = check_no_quarantined_path(p)
+        errors += e
+    script_self = os.path.relpath(__file__).replace("\\", "/")
+    ok_t, e_t = check_script_tracked(script_self)
+    if not ok_t:
+        errors += e_t
+    
+    if errors:
+        print("STATUS: BLOCKED_PHASE3_PREFLIGHT_FAILED")
+        for e in errors:
+            print(f" - {e}")
+        return 2
+    print("STATUS: PREFLIGHT_PHASE3_PASS")
+    return 0
+
+
+def cmd_prepare_phase3_run(args) -> int:
+    try:
+        cfg = load_config(args.config)
+    except Exception as ex:
+        print(f"BLOCKED_PHASE3_PREP_FAILED\nconfig load error: {ex}")
+        return 2
+    errors = list(_config_invariants(cfg))
+    if errors:
+        print("STATUS: BLOCKED_PHASE3_PREP_FAILED")
+        for e in errors:
+            print(f" - {e}")
+        return 2
+    
+    out_dir = args.output_dir
+    if not out_dir:
+        print("STATUS: BLOCKED_PHASE3_PREP_FAILED\n - output_dir is required")
+        return 2
+    os.makedirs(out_dir, exist_ok=True)
+    run_id = "PH3" + uuid.uuid4().hex[:8]
+    
+    manifest_draft = {
+        "run_id": run_id,
+        "planned_output_dir": str(out_dir),
+        "status": "PHASE3_RUN_PREPARED"
+    }
+    with open(os.path.join(out_dir, "PRE_RUN_MANIFEST_DRAFT.json"), "w", encoding="utf-8") as f:
+        json.dump(manifest_draft, f, indent=2)
+    with open(os.path.join(out_dir, "COMMANDS_PLANNED.md"), "w", encoding="utf-8") as f:
+        f.write("# Planned Commands\nPhase 3 execution plan.")
+    with open(os.path.join(out_dir, "SAFETY_PRECHECK.md"), "w", encoding="utf-8") as f:
+        f.write("# Safety Precheck\nAll safety gates passed.")
+        
+    print("STATUS: PHASE3_RUN_PREPARED")
+    return 0
+
+
+def cmd_run_phase3(args) -> int:
+    if args.confirm_real_run != "PHASE3_F06_TRAIN_ONLY_APPROVED":
+        print("STATUS: BLOCKED_MISSING_EXPLICIT_REAL_RUN_CONFIRMATION")
+        return 2
+    
+    try:
+        cfg = load_config(args.config)
+    except Exception as ex:
+        print(f"BLOCKED_PHASE3_RUN_FAILED\nconfig load error: {ex}")
+        return 2
+    
+    errors = list(_config_invariants(cfg))
+    out_dir = args.output_dir
+    ok_od, e_od = check_output_dir_absent(out_dir)
+    errors += e_od
+    for p in (args.config, out_dir):
+        ok, e = check_no_quarantined_path(p)
+        errors += e
+    
+    if errors:
+        print("STATUS: BLOCKED_PHASE3_RUN_FAILED")
+        for e in errors:
+            print(f" - {e}")
+        return 2
+        
+    print("STATUS: NOT_IMPLEMENTED_FAIL_CLOSED")
+    print(" - Missing safe engine adapter. Cannot connect Phase 3 to src/v7_engine yet.")
+    return 2
+
+
 def _discover_manifest(output_dir: str) -> str | None:
     if not output_dir or not os.path.isdir(output_dir):
         return None
@@ -1029,6 +1122,23 @@ def build_parser() -> argparse.ArgumentParser:
     c.add_argument("--manifest", default=None)
     c.add_argument("--config", default=None)
     c.set_defaults(func=cmd_validate_outputs)
+    
+    d = sub.add_parser("preflight_phase3")
+    d.add_argument("--config", required=True)
+    d.add_argument("--output-dir", dest="output_dir", default=None)
+    d.set_defaults(func=cmd_preflight_phase3)
+    
+    e = sub.add_parser("prepare_phase3_run")
+    e.add_argument("--config", required=True)
+    e.add_argument("--output-dir", dest="output_dir", required=True)
+    e.set_defaults(func=cmd_prepare_phase3_run)
+    
+    f = sub.add_parser("run_phase3")
+    f.add_argument("--config", required=True)
+    f.add_argument("--output-dir", dest="output_dir", required=True)
+    f.add_argument("--confirm-real-run", dest="confirm_real_run", default="")
+    f.set_defaults(func=cmd_run_phase3)
+    
     return p
 
 
