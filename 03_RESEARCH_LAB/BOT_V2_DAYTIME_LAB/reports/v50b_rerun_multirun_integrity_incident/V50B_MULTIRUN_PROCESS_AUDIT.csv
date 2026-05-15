@@ -1,0 +1,5 @@
+timestamp,pid,run_id,activity_detected,status
+2026-05-14T20:55,7536,24bb295d,Initial runner start,ACTIVE
+2026-05-14T23:57,7536,24bb295d,Decision written & Ranking generated,FINISHED?
+2026-05-15T00:03,7668,bfe49625,New run_id detected writing to same official files,CONTAMINATION
+2026-05-15T08:12,NONE,N/A,No active python processes detected,RUNNER_FINISHED

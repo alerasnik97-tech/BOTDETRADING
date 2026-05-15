@@ -1,0 +1,7 @@
+file,unique_run_ids,contaminated,impact
+trades/V50B_RERUN_TRADES.csv,"24bb295d, bfe49625",YES,High (Mixed trade history)
+audits/V50B_RERUN_REJECTION_AUDIT.csv,"24bb295d, bfe49625",YES,High (Mixed audit log)
+engine_proof/V50B_RERUN_ENGINE_CALL_PROOF.csv,"24bb295d, bfe49625",YES,High (Mixed proofs)
+checkpoints/V50B_RERUN_CHECKPOINTS.csv,"24bb295d, bfe49625",YES,High (Inconsistent state)
+results/V50B_RERUN_MASTER_RANKING.csv,EMPTY,NO (but stale),Decision invalidated
+V50B_RERUN_DECISION.md,N/A,YES,Written before second run finished
