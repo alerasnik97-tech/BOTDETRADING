@@ -1,0 +1,2 @@
+run_id,family_id,config_id,N_train,PF_train,WR_train,N_val,PF_val,Total_R_val,WR_val,val_pass,combined_pass
+RBCLEAN01,F06,F06_0001,120,2.1,0.55,118,2.4,55.0,0.6,True,True

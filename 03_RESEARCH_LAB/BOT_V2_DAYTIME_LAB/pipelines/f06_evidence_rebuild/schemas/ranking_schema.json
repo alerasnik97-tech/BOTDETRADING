@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "f06_evidence_rebuild/ranking_schema.json",
+  "title": "F06 Evidence Rebuild Ranking (train-only)",
+  "description": "Ranking contract. No validation columns in train-only. Non-degenerate configs.",
+  "type": "object",
+  "properties": {
+    "required_columns": {
+      "const": ["family_id", "config_id", "N_train", "PF_train", "Total_R_train", "WR_train"]
+    },
+    "forbidden_columns": {
+      "const": ["N_val", "PF_val", "Total_R_val", "WR_val", "val_pass", "combined_pass"]
+    },
+    "degeneracy_rule": {
+      "const": {
+        "description": "Fail if many configs collapse to a few result tuples without an explicit 'deduplicated' marker.",
+        "min_unique_ratio": 0.5,
+        "hard_fail_if_single_unique_and_configs_gt": 1,
+        "dedup_flag_column": "deduplicated"
+      }
+    }
+  },
+  "required": ["required_columns", "forbidden_columns", "degeneracy_rule"]
+}

@@ -1,0 +1,55 @@
+# ============================================================
+# F06 EVIDENCE REBUILD - TRAIN-ONLY CONFIG TEMPLATE
+# ============================================================
+# TEMPLATE ONLY. DO NOT USE TO RUN ANYTHING YET.
+# No strategy run. No backtest. No certification.
+# F06/F08/F12 = NOT CERTIFIED. Holdout 2025-2026 = INTOCABLE.
+# Every field is enforced by a fail-closed guard (see configs/SCHEMA.md).
+# ============================================================
+
+project: Trading BOT
+phase: F06_EVIDENCE_REBUILD
+mode: TRAIN_ONLY
+symbol: EURUSD
+families:
+  - F06
+session:
+  timezone: America/New_York
+  start: "07:00"
+  end: "17:00"
+risk:
+  max_trades_per_day: 3
+data_scope:
+  allow_2025: false
+  allow_2026: false
+  validation_enabled: false
+  holdout_enabled: false
+  exact_months:
+    - "2020-03"
+    - "2021-08"
+    - "2022-05"
+    - "2023-01"
+    - "2024-04"
+input_rules:
+  forbid_quarantined_paths: true
+  forbid_legacy_v50b_outputs: true
+  forbid_old_master_ranking: true
+  forbid_old_trades_csv: true
+output_rules:
+  output_dir_must_not_exist: true
+  single_run_id_only: true
+  no_validation_columns_in_train_only: true
+  manifest_required: true
+  hashes_required: true
+cost_model:
+  require_real_spread_component: true
+  require_slippage_component: true
+  require_round_turn_commission: true
+  # institutional extension: explicit component list checked by guard
+  components:
+    - spread_component
+    - slippage_component
+    - round_turn_commission
+sample_size:
+  min_trades_per_family: 100
+  min_trades_per_month_for_reporting: 10
