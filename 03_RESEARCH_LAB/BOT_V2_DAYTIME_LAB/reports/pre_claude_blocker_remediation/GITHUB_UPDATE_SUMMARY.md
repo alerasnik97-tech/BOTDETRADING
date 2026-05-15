@@ -13,8 +13,9 @@
 - `SUPERSEDED_CERTIFICATIONS.md`
 - `FULL_EVIDENCE_REBUILD_PLAN.md`
 - `GITHUB_UPDATE_SUMMARY.md`
-- Addendums livianos (banner SUPERSEDED) en `FULL_RERUN_TRAIN_ONLY_REPORT.md`
-  y `COST_HARDENING_REPORT.md` (contenido original intacto).
+- Addendums livianos (banner SUPERSEDED) en `FULL_RERUN_TRAIN_ONLY_REPORT.md`,
+  `EVIDENCE_RECONCILIATION_REPORT.md` y `COST_HARDENING_REPORT.md`
+  (contenido original intacto).
 
 ## 2. Qué NO incluye (deliberadamente excluido)
 

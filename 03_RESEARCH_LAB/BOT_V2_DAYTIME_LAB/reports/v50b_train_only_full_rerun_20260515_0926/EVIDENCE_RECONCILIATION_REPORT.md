@@ -1,3 +1,30 @@
+# SUPERSEDED / NOT CERTIFIED
+**Status**: **SUPERSEDED_BY_CLAUDE_EXTREME_AUDIT**
+**Current Institutional Status**: **NOT_CERTIFIED**
+**Do Not Use For Promotion / Validation / V50C**
+
+## 0. Supersede Notice
+
+Este reporte queda revocado por:
+- `03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/reports/pre_claude_blocker_remediation/PRE_CLAUDE_FREEZE_NOTICE.md`
+- `03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/reports/pre_claude_blocker_remediation/FORENSIC_VERIFICATION_REPORT.md`
+- `03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/reports/pre_claude_blocker_remediation/SUPERSEDED_CERTIFICATIONS.md`
+
+Motivos:
+- ledger contaminado;
+- source of truth dentro de cuarentena;
+- ranking degenerado;
+- columnas validation pobladas;
+- script generador ausente;
+- cost hardening invalido;
+- F06/F08/F12 NOT CERTIFIED.
+
+El contenido viejo se conserva debajo solo como evidencia historica. Ninguna
+frase posterior de este archivo puede usarse para promocion, validation, V50C,
+demo, FTMO o real.
+
+---
+
 # V50B TRAIN-ONLY EVIDENCE RECONCILIATION REPORT
 **Status**: **RECONCILED_CERTIFIED**
 **Fecha**: 2026-05-15
