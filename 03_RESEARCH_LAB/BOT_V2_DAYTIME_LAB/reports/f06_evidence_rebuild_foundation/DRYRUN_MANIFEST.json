@@ -1,11 +1,11 @@
 {
-  "run_id": "RB819ff3ec",
-  "generated_at": "2026-05-15T14:23:19.058090+00:00",
+  "run_id": "RB57373c12",
+  "generated_at": "2026-05-15T14:35:25.144704+00:00",
   "git_branch": "research/f06-evidence-rebuild-foundation-20260515",
-  "git_commit_sha": "1d04e696d549b00ddf9fa6125983e6e38f86d9ed",
-  "generator_pid": 14500,
+  "git_commit_sha": "398162a8e3783e1b14d2d3279bca2eeffda97aed",
+  "generator_pid": 4276,
   "script_path": "scripts/f06_rebuild_pipeline.py",
-  "script_sha256": "65f0660487a45543719bc19904a81fe3c53f406940d27a4d72aefefd57f532ae",
+  "script_sha256": "27cc849bf28a828020426c316b2ac0fa4117e0514e165ffa04316e973e666396",
   "script_is_tracked": true,
   "config_path": "configs/F06_REBUILD_TRAIN_ONLY_TEMPLATE.yaml",
   "config_sha256": "88d4b469be32cf8fa2b9f5cf6c0901d969c711e3ff8432d9033c7dd54e90927d",
@@ -32,7 +32,7 @@
   "trade_count": 0,
   "rejected_count": 0,
   "output_hashes": {
-    "DRY_RUN": "65f0660487a45543719bc19904a81fe3c53f406940d27a4d72aefefd57f532ae"
+    "DRY_RUN": "27cc849bf28a828020426c316b2ac0fa4117e0514e165ffa04316e973e666396"
   },
   "safety_flags": {
     "test_touched": false,

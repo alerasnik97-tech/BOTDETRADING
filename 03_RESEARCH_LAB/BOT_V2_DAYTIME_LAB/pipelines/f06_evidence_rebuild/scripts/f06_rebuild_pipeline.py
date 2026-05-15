@@ -154,6 +154,16 @@ def check_sample_size_floor(n: int, floor: int = DEFAULT_SAMPLE_FLOOR) -> tuple[
     return (True, [])
 
 
+def check_output_dir_absent(path) -> tuple[bool, list[str]]:
+    """Fail-closed: refuse to (re)write into an existing output dir
+    (prevents the multi-writer / mixed-output failure mode)."""
+    if not path:
+        return (False, ["output_dir is empty (fail-closed)"])
+    if os.path.exists(path):
+        return (False, [f"output_dir already exists (fail-closed): {path}"])
+    return (True, [])
+
+
 def _truthy(v) -> bool:
     return str(v).strip().lower() in ("1", "true", "yes", "y")
 
@@ -214,9 +224,21 @@ def validate_manifest(manifest: dict, schema: dict | None = None) -> tuple[bool,
     for k, want in _MANIFEST_CONST.items():
         if k in manifest and manifest[k] != want:
             errs.append(f"manifest.{k} must be {want} (got {manifest[k]!r})")
+    def _is_sha256(x) -> bool:
+        s = str(x).lower()
+        return len(s) == 64 and all(c in "0123456789abcdef" for c in s)
+
     oh = manifest.get("output_hashes")
     if "output_hashes" in manifest and (not isinstance(oh, dict) or len(oh) == 0):
         errs.append("manifest.output_hashes must be a non-empty object")
+    elif isinstance(oh, dict):
+        for hk, hv in oh.items():
+            if not _is_sha256(hv):
+                errs.append(f"manifest.output_hashes['{hk}'] is not a sha256 "
+                            f"(fake/short hash forbidden): {hv!r}")
+    for hf in ("script_sha256", "config_sha256"):
+        if hf in manifest and not _is_sha256(manifest[hf]):
+            errs.append(f"manifest.{hf} is not a valid sha256: {manifest[hf]!r}")
     st = manifest.get("status")
     if "status" in manifest and st not in _STATUS_ENUM:
         errs.append(f"manifest.status invalid: {st!r} (allowed {_STATUS_ENUM})")
@@ -265,45 +287,49 @@ def _coerce(v: str):
 
 
 def _mini_yaml_load(text: str):
+    """Constrained YAML loader for our fixed template shape (maps, nested
+    maps, sequences of scalars). Correctly converts a 'key:' whose first
+    indented child is a '- ' item into a LIST (the prior version mis-nested
+    it, which under the no-PyYAML fallback turned the 2025/2026 guard into a
+    fail-OPEN path). Tested directly by test_config_parsing."""
     root: dict = {}
-    stack = [(-1, root)]            # (indent, container)
-    pending_list_key = None
+    # frame = [indent, container, key_in_parent, parent_container]
+    stack = [[-1, root, None, None]]
     for raw in text.splitlines():
-        line = raw.split("#", 1)[0].rstrip() if not raw.strip().startswith("#") else ""
+        if raw.strip().startswith("#") or not raw.strip():
+            continue
+        line = raw.split(" #", 1)[0].rstrip()
         if not line.strip():
             continue
         indent = len(line) - len(line.lstrip(" "))
         content = line.strip()
-        while stack and indent <= stack[-1][0] and not (content.startswith("- ")):
-            if len(stack) == 1:
-                break
+        while len(stack) > 1 and indent <= stack[-1][0]:
             stack.pop()
-        parent = stack[-1][1]
+        cont = stack[-1][1]
         if content.startswith("- "):
             val = _coerce(content[2:])
-            # attach to the most recent list
-            if isinstance(parent, list):
-                parent.append(val)
-            else:
-                lst = parent.get(pending_list_key)
-                if not isinstance(lst, list):
-                    lst = []
-                    parent[pending_list_key] = lst
-                lst.append(val)
+            if not isinstance(cont, list):
+                # the just-opened child must actually be a list: replace it
+                _, _, pkey, pparent = stack[-1]
+                newlist: list = []
+                if pkey is not None and isinstance(pparent, dict):
+                    pparent[pkey] = newlist
+                stack[-1][1] = newlist
+                cont = newlist
+            cont.append(val)
             continue
         if ":" in content:
             key, _, rest = content.partition(":")
             key = key.strip()
             rest = rest.strip()
+            if not isinstance(cont, dict):
+                continue  # fail-closed: malformed structure -> drop
             if rest == "":
-                # could be nested map OR list
                 child: dict = {}
-                parent[key] = child
-                stack.append((indent, child))
-                pending_list_key = key
+                cont[key] = child
+                stack.append([indent, child, key, cont])
             else:
-                parent[key] = _coerce(rest)
-                pending_list_key = key
+                cont[key] = _coerce(rest)
     return root
 
 
@@ -386,8 +412,8 @@ def cmd_dry_run(args) -> int:
     if not out_dir:
         out_dir = ("03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/reports/"
                    "v50b_f06_evidence_rebuild_" + datetime.now().strftime("%Y%m%d_%H%M"))
-    if os.path.exists(out_dir):
-        errors.append(f"output_dir already exists (fail-closed): {out_dir}")
+    ok_od, e_od = check_output_dir_absent(out_dir)
+    errors += e_od
 
     # quarantined token guard on any declared input-ish path
     for p in (args.config, out_dir):

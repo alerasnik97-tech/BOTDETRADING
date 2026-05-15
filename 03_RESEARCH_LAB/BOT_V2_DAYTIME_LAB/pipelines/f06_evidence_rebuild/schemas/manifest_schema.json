@@ -52,7 +52,7 @@
     "input_is_quarantined_path": { "type": "boolean", "const": false },
     "symbol": { "type": "string", "const": "EURUSD" },
     "families": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
-    "exact_months": { "type": "array", "items": { "type": "string", "pattern": "^20(20|21|22|23|24)-[0-1][0-9]$" }, "minItems": 1 },
+    "exact_months": { "type": "array", "items": { "type": "string", "pattern": "^20(20|21|22|23|24)-(0[1-9]|1[0-2])$" }, "minItems": 1 },
     "train_only": { "type": "boolean", "const": true },
     "validation_evaluated": { "type": "boolean", "const": false },
     "holdout_touched": { "type": "boolean", "const": false },

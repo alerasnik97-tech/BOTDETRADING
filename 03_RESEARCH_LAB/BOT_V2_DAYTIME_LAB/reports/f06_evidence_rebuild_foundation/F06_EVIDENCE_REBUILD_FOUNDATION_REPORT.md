@@ -1,3 +1,12 @@
+> ---
+> ## ℹ️ ADDENDUM 2026-05-15 — superseded by internal surgical audit
+> Una auditoría interna posterior (`PR4_INTERNAL_SURGICAL_AUDIT.md`) encontró
+> y corrigió un bug crítico **fail-OPEN** (`_mini_yaml_load`) más otros
+> huecos. Cifras vigentes: **54/54 tests OK** (no 35/35). Estado:
+> PR4_READY_WITH_WARNINGS. Este reporte se conserva como registro histórico
+> de la Fase 2; la fuente de verdad de tests/hallazgos es el audit PR4.
+> ---
+
 # F06 EVIDENCE REBUILD FOUNDATION REPORT
 
 **Fecha:** 2026-05-15
