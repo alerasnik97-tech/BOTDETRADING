@@ -1,3 +1,14 @@
+> ---
+> ## ⛔ SUPERSEDED / NOT CERTIFIED — DO NOT USE (Addendum 2026-05-15)
+> **This report is superseded and must not be used for promotion/validation
+> decisions until the evidence rebuild is complete.**
+> Input real = archivo cuarentenado 91.7% contaminado; F06 "COST_ROBUST"
+> sobre N=10; sin modelo de spread (STRESS_COMBO no es worst-case). Ver
+> `reports/pre_claude_blocker_remediation/SUPERSEDED_CERTIFICATIONS.md` y
+> `FORENSIC_VERIFICATION_REPORT.md`. Contenido original conservado abajo
+> intacto como evidencia del incidente.
+> ---
+
 # V50B TRAIN-ONLY COST HARDENING REPORT
 **Status**: **COMPLETED_AUDIT_READY**
 **Fecha**: 2026-05-15

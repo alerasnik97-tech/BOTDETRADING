@@ -1,3 +1,15 @@
+> ---
+> ## ⛔ SUPERSEDED — DO NOT USE (Addendum 2026-05-15)
+> **This report is superseded and must not be used for promotion/validation
+> decisions until the evidence rebuild is complete.**
+> Veredicto vigente: BLOCKED_MAJOR_RISK. Ledger 91.7% RunIDs cuarentenados;
+> N canónico trivial; columnas `_val` contradicen `validation_touched: NO`;
+> script generador ausente. Ver
+> `reports/pre_claude_blocker_remediation/SUPERSEDED_CERTIFICATIONS.md` y
+> `FORENSIC_VERIFICATION_REPORT.md`. Contenido original conservado abajo
+> intacto como evidencia del incidente.
+> ---
+
 **Status**: **SUCCESS**
 **Fecha**: 2026-05-15
 **RunID**: 68fa2280
