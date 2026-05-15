@@ -3,6 +3,7 @@ import sys
 import json
 import uuid
 import time
+import shutil
 import pandas as pd
 import numpy as np
 from pathlib import Path
@@ -17,6 +18,7 @@ from src.v7_engine.news_filter import NewsCalendar, NewsEvent
 from src.v50b_research_families.v50b_family_definitions import (
     F06VolatilityRegime, F08SessionOverlap, F12MacroSafeWindow
 )
+from src.v6_utils.integrity import AtomicSingleWriter
 
 class OptimizedRerunRunner:
     def __init__(self):
@@ -24,10 +26,22 @@ class OptimizedRerunRunner:
         self.lock_file = self.base_dir / "locks" / "V50B_RERUN.lock"
         self.run_id = str(uuid.uuid4())[:8]
         self.pid = os.getpid()
+        
+        # ISOLATION: Cada corrida escribe en su propia subcarpeta
+        self.run_dir = self.base_dir / "runs" / self.run_id
+        self.run_dir.mkdir(parents=True, exist_ok=True)
+        (self.run_dir / "audits").mkdir(exist_ok=True)
+        (self.run_dir / "trades").mkdir(exist_ok=True)
+        (self.run_dir / "engine_proof").mkdir(exist_ok=True)
+        (self.run_dir / "checkpoints").mkdir(exist_ok=True)
+        
         self.vault_dir = Path(r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\05_MARKET_DATA_VAULT\BOT_MARKET_DATA\tick\EURUSD\monthly")
         self.news_csv = Path(r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\05_MARKET_DATA_VAULT\data\news_eurusd_am_fortress_v3.csv")
         self.news_calendar = self.load_real_news()
         self.configs_df = pd.read_csv(self.base_dir / "configs" / "V50B_RERUN_CONFIGS_ALL.csv")
+        
+        # Integridad Atómica
+        self.integrity = AtomicSingleWriter(self.lock_file, self.run_id, self.pid)
 
     def load_real_news(self):
         df = pd.read_csv(self.news_csv)
@@ -45,28 +59,11 @@ class OptimizedRerunRunner:
             ))
         return calendar
 
-    def acquire_lock(self, status="STARTED"):
-        if self.lock_file.exists(): return False
-        lock_info = {"pid": self.pid, "run_id": self.run_id, "start_time": datetime.now().isoformat(), "status": status}
-        with open(self.lock_file, "w") as f: json.dump(lock_info, f)
-        return True
-
-    def release_lock(self):
-        if self.lock_file.exists(): os.remove(self.lock_file)
-
-    def load_ticks(self, month_str):
-        y, m = month_str.split("-")
-        path = self.vault_dir / f"EURUSD_ticks_{y}_{m}.parquet"
-        if not path.exists(): return None
-        df = pd.read_parquet(path)
-        if "timestamp_utc" in df.columns:
-            df["timestamp_utc"] = pd.to_datetime(df["timestamp_utc"])
-            df.set_index("timestamp_utc", inplace=True)
-        if df.index.tz is not None: df.index = df.index.tz_localize(None)
-        return df
-
     def run_full(self):
-        if not self.acquire_lock(status="RUNNING_FULL_OPTIMIZED"): return
+        # ATOMIC LOCK
+        if not self.integrity.acquire(metadata={"mode": "full_optimized"}):
+            print(f"CRITICAL: Resource locked by another runner. Aborting. RunID: {self.run_id}")
+            return
         
         try:
             families_map = {"F06": F06VolatilityRegime, "F08": F08SessionOverlap, "F12": F12MacroSafeWindow}
@@ -77,10 +74,7 @@ class OptimizedRerunRunner:
                 if ticks is None: continue
                 bars_m5 = ticks["bid"].resample("5min").ohlc().dropna()
                 
-                # Pre-instantiate all detectors and engines for this month
                 active_detectors = []
-                active_engines = {}
-                
                 for _, cfg_row in self.configs_df.iterrows():
                     fid = cfg_row["family_id"]
                     cid = cfg_row["config_id"]
@@ -97,7 +91,6 @@ class OptimizedRerunRunner:
                         test_start_year=2025
                     )
                     engine.engine_instance_id = f"{self.run_id}_{cid}_{month_str}"
-                    
                     active_detectors.append((fid, cid, detector, engine))
                 
                 print(f"Starting optimized loop for {month_str}...")
@@ -105,8 +98,6 @@ class OptimizedRerunRunner:
                 for i in range(lookback, len(bars_m5)):
                     hist_bars = bars_m5.iloc[i-lookback:i]
                     ts = hist_bars.index[-1]
-                    
-                    # Optimization: Filter ticks once per bar if signals are found
                     ticks_after = None
                     
                     for fid, cid, detector, engine in active_detectors:
@@ -114,7 +105,6 @@ class OptimizedRerunRunner:
                         if signal:
                             if ticks_after is None:
                                 ticks_after = ticks[ticks.index > ts].head(3000)
-                            
                             if ticks_after.empty: continue
                             
                             fill, reason = engine.execute_signal(
@@ -122,8 +112,6 @@ class OptimizedRerunRunner:
                                 signal_bar_close=ts,
                                 ticks_after=ticks_after
                             )
-                            
-                            # Log result (signals/rejections)
                             self.append_rejection(fid, cid, month_str, signal, fill, reason, engine)
                             
                             if fill:
@@ -135,7 +123,6 @@ class OptimizedRerunRunner:
                                 trade = engine.close_position_with_costs(fill=fill, sl_price=sl, tp_price=tp, ticks_during=ticks_during)
                                 self.append_trade(fid, cid, month_str, trade, engine)
                 
-                # Final proof and checkpoints for the month
                 for fid, cid, _, engine in active_detectors:
                     self.append_proof(fid, cid, month_str, engine)
                     self.save_checkpoint(fid, cid, month_str, "COMPLETED")
@@ -143,9 +130,23 @@ class OptimizedRerunRunner:
                 del ticks
                 import gc
                 gc.collect()
+            
+            # PUBLISH RESULTS ATOMICALLY
+            self.publish_official_results()
                         
         finally:
-            self.release_lock()
+            self.integrity.release()
+
+    def load_ticks(self, month_str):
+        y, m = month_str.split("-")
+        path = self.vault_dir / f"EURUSD_ticks_{y}_{m}.parquet"
+        if not path.exists(): return None
+        df = pd.read_parquet(path)
+        if "timestamp_utc" in df.columns:
+            df["timestamp_utc"] = pd.to_datetime(df["timestamp_utc"])
+            df.set_index("timestamp_utc", inplace=True)
+        if df.index.tz is not None: df.index = df.index.tz_localize(None)
+        return df
 
     def append_rejection(self, fid, cid, month, signal, fill, reason, engine):
         ts = signal["signal_time"]
@@ -154,22 +155,62 @@ class OptimizedRerunRunner:
             "signal_time": ts.isoformat(), "fill_created": fill is not None, "rejection_reason": reason,
             "engine_instance_id": engine.engine_instance_id, "status": "ACCEPTED" if fill else "REJECTED"
         }
-        pd.DataFrame([row]).to_csv(self.base_dir / "audits" / "V50B_RERUN_REJECTION_AUDIT.csv", mode='a', index=False, header=not (self.base_dir / "audits" / "V50B_RERUN_REJECTION_AUDIT.csv").exists())
+        # ISOLATED WRITE
+        out = self.run_dir / "audits" / "REJECTIONS.csv"
+        pd.DataFrame([row]).to_csv(out, mode='a', index=False, header=not out.exists())
 
     def append_trade(self, fid, cid, month, trade, engine):
         row = vars(trade).copy()
         row.update({"run_id": self.run_id, "writer_pid": self.pid, "family_id": fid, "config_id": cid, "month": month, "engine_instance_id": engine.engine_instance_id})
         for k, v in row.items():
             if isinstance(v, (datetime, pd.Timestamp)): row[k] = v.isoformat()
-        pd.DataFrame([row]).to_csv(self.base_dir / "trades" / "V50B_RERUN_TRADES.csv", mode='a', index=False, header=not (self.base_dir / "trades" / "V50B_RERUN_TRADES.csv").exists())
+        # ISOLATED WRITE
+        out = self.run_dir / "trades" / "TRADES.csv"
+        pd.DataFrame([row]).to_csv(out, mode='a', index=False, header=not out.exists())
 
     def append_proof(self, fid, cid, month, engine):
         proof = {"run_id": self.run_id, "writer_pid": self.pid, "engine_instance_id": engine.engine_instance_id, "family_id": fid, "config_id": cid, "month": month, "trades": len(engine.trade_ledger), "signals": len(engine.causal_log)}
-        pd.DataFrame([proof]).to_csv(self.base_dir / "engine_proof" / "V50B_RERUN_ENGINE_CALL_PROOF.csv", mode='a', index=False, header=not (self.base_dir / "engine_proof" / "V50B_RERUN_ENGINE_CALL_PROOF.csv").exists())
+        # ISOLATED WRITE
+        out = self.run_dir / "engine_proof" / "PROOF.csv"
+        pd.DataFrame([proof]).to_csv(out, mode='a', index=False, header=not out.exists())
 
     def save_checkpoint(self, fid, cid, month, status):
         cp = {"run_id": self.run_id, "family_id": fid, "config_id": cid, "month": month, "status": status, "timestamp": datetime.now().isoformat()}
-        pd.DataFrame([cp]).to_csv(self.base_dir / "checkpoints" / "V50B_RERUN_CHECKPOINTS.csv", mode='a', index=False, header=not (self.base_dir / "checkpoints" / "V50B_RERUN_CHECKPOINTS.csv").exists())
+        # ISOLATED WRITE
+        out = self.run_dir / "checkpoints" / "CHECKPOINTS.csv"
+        pd.DataFrame([cp]).to_csv(out, mode='a', index=False, header=not out.exists())
+
+    def publish_official_results(self):
+        """Publica los resultados aislados a las carpetas oficiales."""
+        print(f"Publishing results for RunID: {self.run_id}")
+        mapping = {
+            "audits/REJECTIONS.csv": "audits/V50B_RERUN_REJECTION_AUDIT.csv",
+            "trades/TRADES.csv": "trades/V50B_RERUN_TRADES.csv",
+            "engine_proof/PROOF.csv": "engine_proof/V50B_RERUN_ENGINE_CALL_PROOF.csv",
+            "checkpoints/CHECKPOINTS.csv": "checkpoints/V50B_RERUN_CHECKPOINTS.csv"
+        }
+        
+        for local_rel, official_rel in mapping.items():
+            local_path = self.run_dir / local_rel
+            official_path = self.base_dir / official_rel
+            
+            if local_path.exists():
+                df = pd.read_csv(local_path)
+                # Appending to official but with sanity check (if needed)
+                df.to_csv(official_path, mode='a', index=False, header=not official_path.exists())
+                print(f"Published {local_rel} -> {official_rel}")
+
+        # Escribir manifiesto de publicación
+        manifest = {
+            "run_id": self.run_id,
+            "pid": self.pid,
+            "timestamp": datetime.now().isoformat(),
+            "status": "PUBLISHED_SUCCESSFULLY",
+            "files": list(mapping.values())
+        }
+        with open(self.run_dir / "PUBLICATION_MANIFEST.json", "w") as f:
+            json.dump(manifest, f, indent=4)
+        shutil.copy(self.run_dir / "PUBLICATION_MANIFEST.json", self.base_dir / f"MANIFEST_{self.run_id}.json")
 
 if __name__ == "__main__":
     runner = OptimizedRerunRunner()
@@ -177,3 +218,4 @@ if __name__ == "__main__":
         runner.run_full()
     else:
         print("Usage: python v50b_limited_rerun_optimized.py full_rerun")
+

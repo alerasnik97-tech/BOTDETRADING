@@ -3,6 +3,7 @@ import sys
 import json
 import uuid
 import time
+import shutil
 import pandas as pd
 import numpy as np
 from pathlib import Path
@@ -17,17 +18,28 @@ from src.v7_engine.news_filter import NewsCalendar, NewsEvent, is_blocked_by_new
 from src.v50b_research_families.v50b_family_definitions import (
     F06VolatilityRegime, F08SessionOverlap, F12MacroSafeWindow
 )
+from scripts.utils.integrity import AtomicSingleWriter
 
-class UltraOptimizedRerunRunner:
+class UltraOptimizedIsolatedRunner:
     def __init__(self):
         self.base_dir = Path(r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\03_RESEARCH_LAB\BOT_V2_DAYTIME_LAB\reports\v50b_limited_real_gauntlet_rerun_sw")
         self.lock_file = self.base_dir / "locks" / "V50B_RERUN.lock"
         self.run_id = str(uuid.uuid4())[:8]
         self.pid = os.getpid()
+        
+        # ISOLATION
+        self.run_dir = self.base_dir / "runs" / self.run_id
+        self.run_dir.mkdir(parents=True, exist_ok=True)
+        for d in ["audits", "trades", "engine_proof", "checkpoints"]:
+            (self.run_dir / d).mkdir(exist_ok=True)
+            
         self.vault_dir = Path(r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\05_MARKET_DATA_VAULT\BOT_MARKET_DATA\tick\EURUSD\monthly")
         self.news_csv = Path(r"C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\05_MARKET_DATA_VAULT\data\news_eurusd_am_fortress_v3.csv")
         self.news_calendar = self.load_real_news()
         self.configs_df = pd.read_csv(self.base_dir / "configs" / "V50B_RERUN_CONFIGS_ALL.csv")
+        
+        # INTEGRITY
+        self.integrity = AtomicSingleWriter(self.lock_file, self.run_id, self.pid)
 
     def load_real_news(self):
         df = pd.read_csv(self.news_csv)
@@ -37,15 +49,6 @@ class UltraOptimizedRerunRunner:
             if ts.tzinfo is not None: ts = ts.astimezone(ZoneInfo("UTC")).replace(tzinfo=None)
             calendar.add_event(NewsEvent(str(row["event_id"]), str(row["event_name_normalized"]), ts, str(row["currency"]), str(row["impact_level"])))
         return calendar
-
-    def acquire_lock(self, status="STARTED"):
-        if self.lock_file.exists(): return False
-        lock_info = {"pid": self.pid, "run_id": self.run_id, "start_time": datetime.now().isoformat(), "status": status}
-        with open(self.lock_file, "w") as f: json.dump(lock_info, f)
-        return True
-
-    def release_lock(self):
-        if self.lock_file.exists(): os.remove(self.lock_file)
 
     def load_ticks(self, month_str):
         y, m = month_str.split("-")
@@ -59,7 +62,9 @@ class UltraOptimizedRerunRunner:
         return df
 
     def run_full(self):
-        if not self.acquire_lock(status="RUNNING_FULL_ULTRA_OPTIMIZED"): return
+        if not self.integrity.acquire(metadata={"mode": "ultra_isolated"}):
+            print(f"CRITICAL: Locked. RunID: {self.run_id}")
+            return
         
         try:
             families_map = {"F06": F06VolatilityRegime, "F08": F08SessionOverlap, "F12": F12MacroSafeWindow}
@@ -70,21 +75,15 @@ class UltraOptimizedRerunRunner:
                 if ticks is None: continue
                 bars_m5 = ticks["bid"].resample("5min").ohlc().dropna()
                 
-                # Pre-calculate News/Schedule blocks for all bars once
                 print(f"Pre-calculating blocks for {month_str}...")
                 blocks = {}
                 for ts in bars_m5.index:
                     ts_utc = ts.to_pydatetime()
-                    # Schedule check (Hardcoded 7-17 for speed)
                     ts_ny = ts.replace(tzinfo=ZoneInfo("UTC")).astimezone(ZoneInfo("America/New_York"))
                     sched_ok = (7 <= ts_ny.hour < 17)
-                    
-                    # News check
                     news_blocked, _ = is_blocked_by_news(ts_utc, self.news_calendar, pre_minutes=15, post_minutes=15)
-                    
                     blocks[ts] = {"sched_ok": sched_ok, "news_blocked": news_blocked}
                 
-                # Pre-instantiate detectors and engines
                 active_detectors = []
                 for _, cfg_row in self.configs_df.iterrows():
                     fid, cid = cfg_row["family_id"], cfg_row["config_id"]
@@ -100,27 +99,20 @@ class UltraOptimizedRerunRunner:
                 for i in range(lookback, len(bars_m5)):
                     ts = bars_m5.index[i-1]
                     block = blocks[ts]
-                    
-                    # Skip all if globally blocked
                     if not block["sched_ok"] or block["news_blocked"]: continue
                     
                     hist_bars = bars_m5.iloc[i-lookback:i]
                     ticks_after = None
                     
                     for fid, cid, detector, engine in active_detectors:
-                        # Throttler check (fast)
                         if not engine.throttler.allow_trade(ts.to_pydatetime()): continue
-                        
                         signal = detector.generate_signal(hist_bars)
                         if signal:
                             if ticks_after is None:
                                 ticks_after = ticks[ticks.index > ts].head(3000)
-                            
                             if ticks_after.empty: continue
                             
                             side_fixed = "long" if signal["side"] == "buy" else "short"
-                            
-                            # Execute (skips internal sched/news check if we want, but let's keep it for safety)
                             fill, reason = engine.execute_signal(side=side_fixed, signal_bar_close=ts, ticks_after=ticks_after)
                             self.append_rejection(fid, cid, month_str, signal, fill, reason, engine)
                             
@@ -139,31 +131,57 @@ class UltraOptimizedRerunRunner:
                 del ticks
                 import gc
                 gc.collect()
+            
+            self.publish_official_results()
         finally:
-            self.release_lock()
+            self.integrity.release()
 
     def append_rejection(self, fid, cid, month, signal, fill, reason, engine):
         ts = signal["signal_time"]
         row = {"run_id": self.run_id, "writer_pid": self.pid, "family_id": fid, "config_id": cid, "month": month, "signal_time": ts.isoformat(), "fill_created": fill is not None, "rejection_reason": reason, "engine_instance_id": engine.engine_instance_id, "status": "ACCEPTED" if fill else "REJECTED"}
-        pd.DataFrame([row]).to_csv(self.base_dir / "audits" / "V50B_RERUN_REJECTION_AUDIT.csv", mode='a', index=False, header=not (self.base_dir / "audits" / "V50B_RERUN_REJECTION_AUDIT.csv").exists())
+        out = self.run_dir / "audits" / "REJECTIONS.csv"
+        pd.DataFrame([row]).to_csv(out, mode='a', index=False, header=not out.exists())
 
     def append_trade(self, fid, cid, month, trade, engine):
         row = vars(trade).copy()
         row.update({"run_id": self.run_id, "writer_pid": self.pid, "family_id": fid, "config_id": cid, "month": month, "engine_instance_id": engine.engine_instance_id})
         for k, v in row.items():
             if isinstance(v, (datetime, pd.Timestamp)): row[k] = v.isoformat()
-        pd.DataFrame([row]).to_csv(self.base_dir / "trades" / "V50B_RERUN_TRADES.csv", mode='a', index=False, header=not (self.base_dir / "trades" / "V50B_RERUN_TRADES.csv").exists())
+        out = self.run_dir / "trades" / "TRADES.csv"
+        pd.DataFrame([row]).to_csv(out, mode='a', index=False, header=not out.exists())
 
     def append_proof(self, fid, cid, month, engine):
         proof = {"run_id": self.run_id, "writer_pid": self.pid, "engine_instance_id": engine.engine_instance_id, "family_id": fid, "config_id": cid, "month": month, "trades": len(engine.trade_ledger), "signals": len(engine.causal_log)}
-        pd.DataFrame([proof]).to_csv(self.base_dir / "engine_proof" / "V50B_RERUN_ENGINE_CALL_PROOF.csv", mode='a', index=False, header=not (self.base_dir / "engine_proof" / "V50B_RERUN_ENGINE_CALL_PROOF.csv").exists())
+        out = self.run_dir / "engine_proof" / "PROOF.csv"
+        pd.DataFrame([proof]).to_csv(out, mode='a', index=False, header=not out.exists())
 
     def save_checkpoint(self, fid, cid, month, status):
         cp = {"run_id": self.run_id, "family_id": fid, "config_id": cid, "month": month, "status": status, "timestamp": datetime.now().isoformat()}
-        pd.DataFrame([cp]).to_csv(self.base_dir / "checkpoints" / "V50B_RERUN_CHECKPOINTS.csv", mode='a', index=False, header=not (self.base_dir / "checkpoints" / "V50B_RERUN_CHECKPOINTS.csv").exists())
+        out = self.run_dir / "checkpoints" / "CHECKPOINTS.csv"
+        pd.DataFrame([cp]).to_csv(out, mode='a', index=False, header=not out.exists())
+
+    def publish_official_results(self):
+        print(f"Publishing results for RunID: {self.run_id}")
+        mapping = {
+            "audits/REJECTIONS.csv": "audits/V50B_RERUN_REJECTION_AUDIT.csv",
+            "trades/TRADES.csv": "trades/V50B_RERUN_TRADES.csv",
+            "engine_proof/PROOF.csv": "engine_proof/V50B_RERUN_ENGINE_CALL_PROOF.csv",
+            "checkpoints/CHECKPOINTS.csv": "checkpoints/V50B_RERUN_CHECKPOINTS.csv"
+        }
+        for local_rel, official_rel in mapping.items():
+            local_path = self.run_dir / local_rel
+            official_path = self.base_dir / official_rel
+            if local_path.exists():
+                df = pd.read_csv(local_path)
+                df.to_csv(official_path, mode='a', index=False, header=not official_path.exists())
+        
+        manifest = {"run_id": self.run_id, "pid": self.pid, "timestamp": datetime.now().isoformat(), "status": "PUBLISHED_SUCCESSFULLY"}
+        with open(self.run_dir / "PUBLICATION_MANIFEST.json", "w") as f:
+            json.dump(manifest, f, indent=4)
+        shutil.copy(self.run_dir / "PUBLICATION_MANIFEST.json", self.base_dir / f"MANIFEST_{self.run_id}.json")
 
 if __name__ == "__main__":
-    runner = UltraOptimizedRerunRunner()
+    runner = UltraOptimizedIsolatedRunner()
     if len(sys.argv) > 1 and sys.argv[1] == "full_rerun":
         runner.run_full()
     else:
