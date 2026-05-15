@@ -1,0 +1,26 @@
+On branch clean-sync-branch
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/reports/v50b_limited_real_gauntlet/audits/V50B_LIMITED_REJECTION_AUDIT.csv
+	modified:   03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/reports/v50b_limited_real_gauntlet/engine_proof/V50B_LIMITED_ENGINE_CALL_PROOF.csv
+	modified:   03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/reports/v50b_limited_real_gauntlet/scripts/v50b_limited_real_runner.py
+	modified:   03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/reports/v50b_limited_real_gauntlet/signals/V50B_LIMITED_SIGNALS.csv
+	modified:   03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/reports/v50b_limited_real_gauntlet/trades/V50B_LIMITED_TRADES.csv
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	08_CLOUD_FREE_RUN_LAB/02_KAGGLE_NOTEBOOKS/v50b_kaggle_cloud_smoke_test/
+
+no changes added to commit (use "git add" and/or "git commit -a")
+clean-sync-branch
+4a881f16 [v50b] halt limited gauntlet due race condition
+6d547537 Merge branch 'clean-sync-branch' of https://github.com/alerasnik97-tech/bottrading into clean-sync-branch
+d12f52f6 [governance] P0/P1 lab hardening during V50B limited run
+39ea4abc [governance] parallel V50B monitor + acceptance gate prep established
+69ed689f [v50b] schedule timezone and real news wiring gate
+c3b68bd6 [v50b] QA real precheck engine rejection audit
+fc4e0c31 [v50b] real implementation precheck with engine proof
+66768383 [security] revoke and mask exposed telegram token
+9dc9a0ef [v50b] invalidate synthetic placeholder results
+280c161c [governance] complete codex static audit triage

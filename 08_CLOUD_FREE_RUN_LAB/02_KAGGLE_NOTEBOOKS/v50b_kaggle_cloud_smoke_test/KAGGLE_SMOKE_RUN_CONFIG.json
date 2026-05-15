@@ -1,0 +1,19 @@
+{
+  "phase": "KAGGLE_CLOUD_SMOKE_TEST",
+  "repo": "alerasnik97-tech/bottrading",
+  "branch": "clean-sync-branch",
+  "mode": "infrastructure_only",
+  "test_allowed": false,
+  "backtest_allowed": false,
+  "sweep_allowed": false,
+  "secrets_allowed": false,
+  "zip_workflow": false,
+  "expected_runtime_minutes": "short",
+  "outputs": [
+    "KAGGLE_SMOKE_ENV_REPORT.md",
+    "KAGGLE_SMOKE_IMPORT_TEST.txt",
+    "KAGGLE_SMOKE_GIT_REPORT.txt",
+    "KAGGLE_SMOKE_SECURITY_SCAN.txt",
+    "KAGGLE_SMOKE_ARTIFACT_PROOF.csv"
+  ]
+}
