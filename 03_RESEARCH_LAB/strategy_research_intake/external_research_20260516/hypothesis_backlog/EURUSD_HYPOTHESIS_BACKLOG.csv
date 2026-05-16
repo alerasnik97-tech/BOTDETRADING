@@ -1,0 +1,26 @@
+ID,Name,Family,Trigger,Entry,Exit,Scoring,Priority
+MR-01,Anchor Elastic,Mean Reversion,"Desviacion >1.2 ATR / 1.8 sigma vs APM, ADX < 22","Cierre M1 reingreso banda","TP APM (max 1.5R), SL extremo + buffer",95,A
+VE-01,RV Shock Break,Volatility Expansion,Ruptura Donchian 30m + Shock rv5 (>=2x),Cierre M5 fuera canal,"TP 2.0R, SL debajo ruptura",92,A
+TP-01,Trend Day EMA Pullback,Trend Pullback,Trend Day + Toque EMA20 (sin cierre < EMA50),Cierre M1 giro tendencia,"TP 2.0R, SL bajo pullback",91,A
+SD-01,Europe Extreme Failure,Session Dynamics,Falsa extension europeo (excursion < 0.08 ATR),Reingreso en 3 velas M1,TP midpoint europeo,89,A
+ED-01,Post-News Stabilization,Event Driven,Consolidacion pos-noticia + normalizacion spread,Ruptura max/min consolidacion M1,"TP 1.8R, SL lado opuesto",88,A
+SD-02,London Session H/L Breakout,Session Dynamics,Ruptura H/L Londres con filtro pre-sesion,Cierre M1 fuera rango,"TP 2x ATR, SL 1x ATR",87,B
+MR-02,VWAP Stretch Reversion,Mean Reversion,Desviacion +-2.25 SD VWAP,RSI(14) cruce 28/72,"TP VWAP / +-1 SD, SL 1.5x ATR",86,B
+TP-02,Institutional EMA Pullback,Trend Pullback,Retroceso EMA50/200 M15 en tendencia,Cierre M5 confirmacion,"TP 2.5x Riesgo, SL bajo minimo local",85,B
+VE-02,BB Squeeze Momentum,Volatility Expansion,BB Bandwidth < SMA50 + Ruptura ADX > 25,Cierre M15 fuera bandas,TP 1:2 RR,84,B
+SD-03,Asian Range Fakeout,Session Dynamics,Ruptura falsa rango asiatico,Cierre M1 reingreso rango,"TP 1.5x SL, SL 10 pips fuera",83,B
+SD-04,Initial Balance Failure,Session Dynamics,Fallo breakout Initial Balance (07:00-08:30),Cierre M5 reingreso IB,"TP 1x ATR, SL lado opuesto IB",82,B
+MR-03,London Close Mean Reversion,Mean Reversion,Desviacion VWAP al cierre LDN (>5 pips),Vela M1 giro,"TP 8 pips, SL 10 pips",81,C
+SE-01,Friday Reversion,Statistical Edge,Viernes 12:00 NY + tendencia semanal > 0.8%,Ejecucion directa 12:00 NY,Cierre tiempo 15:45 NY,80,C
+SE-02,London Lunch Fade,Statistical Edge,Ruptura fallida rango almuerzo (>0.12 ATR),Reingreso en 2 min,TP midpoint rango,79,C
+HY-01,GARCH Adaptive,Hybrid,Cambio regimen GARCH(1,1) / HMM,Ruptura o Reversion segun regimen,Variable,78,C
+MR-04,Keltner Snapback,Mean Reversion,Ruptura Keltner (20,2) sin volumen,Cierre M5 reingreso,"TP EMA central, SL extremo",77,C
+VE-03,ATR Compression-Expansion,Volatility Expansion,ATR percentil < 30 + Shock,Cierre M5 fuera compresion,TP 2.0R,76,C
+TP-03,Fibonacci 61.8% Pullback,Trend Pullback,Retroceso 61.8% + ADX > 25,Rechazo M5 nivel Fib,"TP 1.5x SL, SL bajo swing",75,C
+TP-04,Breakout-Retest Structural,Trend Pullback,Ruptura H/L sesion previa + retest (3 pips),Vela M1 confirmacion,"TP 15 pips, SL 10 pips",74,C
+ED-02,Post-News Volatility Reversion,Event Driven,Reversion shock news (ATR > 2x pre),Vela M1 giro rompe vela shock,"TP 0.75x ATR_pre, SL 1.0x",73,C
+ED-03,PNMC-15 Momentum,Event Driven,Estabilizacion 15 min posnoticia (StdDev low),Ruptura rango estabilizacion,"TP 2x ATR(15m), SL 1x ATR",72,C
+VE-04,NY Mid-Day Volatility Expansion,Volatility Expansion,Ruptura rango 11:30-12:00 NY,Cierre M1 fuera rango,"TP 2x ATR, SL 1x ATR",71,C
+HY-02,HVFTF Trend Following,Hybrid,SuperTrend(10,3) M5 + M15 confirmation,Apertura M5,"TP 2.5R, SL SuperTrend",70,C
+HY-03,M15 Trend + VWAP MR,Hybrid,Desviacion VWAP (>3 pips) a favor tendencia M15,Vela reversal M1,"TP1 VWAP, TP2 extension",69,C
+SD-05,Programmable Structure Break + Fill,Session Dynamics,Ruptura swing + llenado imbalance,Cierre M5 mitigacion valor,Variable,68,C
