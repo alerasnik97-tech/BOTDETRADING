@@ -10,7 +10,7 @@ No implementation is authorized by this document alone.
 
 | field | value |
 |---|---|
-| current status | `ROOT_CANONICALIZATION_PLAN_READY_FOR_OWNER_DECISION` |
+| current status | `ROOT_CANONICALIZATION_OWNER_DECISION_APPROVED_WITH_LIMITS` |
 | tracked root items | 115 |
 | tracked non-canonical root items | 112 |
 | missing canonical folder | `08_CLOUD_FREE_RUN_LAB` |
@@ -25,56 +25,75 @@ Choose one:
 
 - [ ] OPTION A - Minimal visual cleanup
 - [ ] OPTION B - Strict 8-folder canonical root
-- [ ] OPTION C - Hybrid institutional
+- [x] OPTION C - Hybrid institutional
 
 Owner decision:
 
-`D1_SELECTED_OPTION = `
+`D1_SELECTED_OPTION = OPTION_C_HYBRID_INSTITUTIONAL`
 
 ### D2 - `.github`
 
 Choose one:
 
-- [ ] Keep `.github` as root technical exception.
+- [x] Keep `.github` as root technical exception.
 - [ ] Move or redesign GitHub workflow structure in strict mode.
 
 Owner decision:
 
-`D2_GITHUB_ROOT_EXCEPTION = YES/NO`
+`D2_GITHUB_ROOT_EXCEPTION = YES`
 
 ### D3 - README and Requirements
 
 Choose one:
 
-- [ ] Keep `README.md`, `requirements.txt`, and `requirements-vps-optional.txt` as root technical exceptions.
+- [x] Keep `README.md`, `requirements.txt`, and `requirements-vps-optional.txt` as root technical exceptions.
 - [ ] Move docs/requirements into canonical folders and update all tooling/docs references.
 
 Owner decision:
 
-`D3_README_REQUIREMENTS_ROOT_EXCEPTION = YES/NO`
+`D3_README_REQUIREMENTS_ROOT_EXCEPTION = YES`
+
+Scope:
+
+- `README.md`: keep root exception.
+- `requirements.txt`: keep root exception.
+- `requirements-vps-optional.txt`: keep root exception.
 
 ### D4 - `research_lab`
 
 Choose one:
 
-- [ ] Keep `research_lab` as root technical exception until a dedicated import migration.
+- [x] Keep `research_lab` as root technical exception until a dedicated import migration.
 - [ ] Move `research_lab` now and update imports/path references in the same implementation phase.
 
 Owner decision:
 
-`D4_RESEARCH_LAB_ROOT_EXCEPTION_UNTIL_IMPORT_MIGRATION = YES/NO`
+`D4_RESEARCH_LAB_ROOT_EXCEPTION_UNTIL_IMPORT_MIGRATION = YES_TEMPORARY`
+
+Reason:
+
+`research_lab` remains a temporary root exception to avoid breaking imports until a dedicated import migration is scoped and approved.
 
 ### D5 - ZIPs
 
 Choose one for `000_PARA_CHATGPT.zip` and related legacy ZIP workflow artifacts:
 
-- [ ] Remove `000_PARA_CHATGPT.zip` from Git and preserve a local ignored quarantine copy.
+- [x] Remove `000_PARA_CHATGPT.zip` from Git and preserve a local ignored quarantine copy.
 - [ ] Move tracked ZIP material into `07_BACKUPS/legacy_zip_workflow/`.
 - [ ] Keep ZIP material temporarily in root.
 
 Owner decision:
 
-`D5_ZIP_POLICY = REMOVE_FROM_GIT_KEEP_LOCAL / ARCHIVE_TO_07_BACKUPS / KEEP_TEMPORARILY`
+`D5_ZIP_POLICY = REMOVE_FROM_GIT_KEEP_LOCAL`
+
+Required local preservation path:
+
+`_LOCAL_QUARANTINE_DO_NOT_COMMIT/root_zip_legacy/000_PARA_CHATGPT.zip`
+
+Additional owner constraints:
+
+- Do not use ZIP as the primary workflow.
+- Do not permanently delete the local ZIP copy in the canonicalization phase.
 
 ### D6 - Data-Like Root Folders
 
@@ -88,11 +107,17 @@ Applies to:
 Choose one:
 
 - [ ] Move to `05_MARKET_DATA_VAULT/legacy_data/` after data inventory and manifest.
-- [ ] Leave in root until a separate data audit.
+- [x] Leave in root until a separate data audit.
 
 Owner decision:
 
-`D6_DATA_LIKE_FOLDERS = MOVE_AFTER_DATA_AUDIT / LEAVE_UNTIL_SEPARATE_DATA_AUDIT`
+`D6_DATA_LIKE_FOLDERS = LEAVE_UNTIL_SEPARATE_DATA_AUDIT`
+
+Blocked until separate data audit:
+
+- `DATA MANUAL`
+- `data_usdjpy_*`
+- any CSV/parquet/data folder
 
 ### D7 - Legacy Strategy Folders
 
@@ -106,26 +131,53 @@ Applies to:
 
 Choose one:
 
-- [ ] Move to `03_RESEARCH_LAB/legacy_strategy_sources/`.
+- [x] Move to `03_RESEARCH_LAB/legacy_strategy_sources/`.
 - [ ] Move selected certified/authority surfaces to `01_CORE_PRODUCTION/`.
 - [ ] Leave in root until a separate strategy authority audit.
 
 Owner decision:
 
-`D7_LEGACY_STRATEGY_FOLDERS = MOVE_TO_03 / SELECTIVE_PRODUCTION_SPLIT / LEAVE_UNTIL_STRATEGY_AUDIT`
+`D7_LEGACY_STRATEGY_FOLDERS = MOVE_TO_03`
+
+Implementation constraint:
+
+This approves the destination policy only. It does not authorize strategy execution, backtest execution, or any trading logic change. If any selected legacy strategy folder is classified high-risk in the move map, implementation remains blocked until the separate high-risk phase approved by D8.
 
 ### D8 - Approval To Apply Move Map
 
 Choose one:
 
-- [ ] Approve future implementation of the move map under the selected decisions.
+- [x] Approve future implementation of the move map under the selected decisions.
 - [ ] Do not apply yet; revise plan first.
 
 Owner decision:
 
-`D8_APPROVE_APPLY_MOVE_MAP = YES/NO`
+`D8_APPROVE_APPLY_MOVE_MAP = YES_LOW_MEDIUM_RISK_ONLY`
 
-## 4. Explicit Non-Authorization
+Application boundary:
+
+- Approved now: low-risk and medium-risk move map rows only.
+- Blocked now: high-risk move map rows.
+- High-risk rows require a separate future phase and explicit owner approval before implementation.
+
+## 4. High-Risk Block
+
+`HIGH_RISK_CANONICALIZATION_STATUS = BLOCKED_FOR_SEPARATE_PHASE`
+
+High-risk examples currently blocked from implementation:
+
+- `research_lab`
+- `DATA MANUAL`
+- `data_usdjpy_*`
+- `MANIPULANTE`
+- `ROCKI_AM`
+- `ESTRATEGIAS`
+- `STRATEGIES`
+- `LAB_STRATEGIES`
+
+No high-risk move is authorized by this decision.
+
+## 5. Explicit Non-Authorization
 
 This owner decision does not authorize:
 
@@ -141,15 +193,19 @@ This owner decision does not authorize:
 - force push,
 - merge to main,
 - deleting tracked files outside the approved move map.
+- applying any high-risk move map row in the low/medium implementation phase.
 
-## 5. Signature Block
+## 6. Signature Block
 
 Owner approval status:
 
-`OWNER_ROOT_CANONICALIZATION_DECISION_STATUS = PENDING / APPROVED / REJECTED / NEEDS_REVISION`
+`OWNER_ROOT_CANONICALIZATION_DECISION_STATUS = APPROVED_WITH_HIGH_RISK_BLOCK`
 
 Owner notes:
 
 ```
-
+Owner approves OPTION C - Hybrid Institutional.
+Owner approves future application only for low/medium risk move map rows.
+High-risk rows remain blocked for a separate scoped phase.
+No move map application is authorized in this documentation-only update.
 ```
