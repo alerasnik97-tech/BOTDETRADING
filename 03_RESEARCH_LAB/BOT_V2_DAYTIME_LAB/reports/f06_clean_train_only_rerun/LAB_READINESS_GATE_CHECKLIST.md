@@ -8,11 +8,11 @@ D1 remains validated with warnings. D2 remains validated. D3, D4, and D5 are now
 
 ## 2. Current Score
 
-PREVIOUS_SCORE_0_100: `60`
+PREVIOUS_SCORE_0_100: `68`
 
-CURRENT_SCORE_0_100: `68`
+CURRENT_SCORE_0_100: `78`
 
-This score is intentionally not inflated. Governance is now closed, but the critical technical gates are still missing: D5 telemetry implementation/audit, safe adapter implementation/audit, train-only micro-run, validator output, external output audit, and final hygiene.
+This score is intentionally not inflated. Governance is closed and the scoped D5 telemetry implementation exists with synthetic behavior-neutral tests, but Claude telemetry audit, safe adapter implementation/audit, train-only micro-run, validator output, external output audit, and final hygiene are still missing.
 
 Score basis:
 
@@ -21,11 +21,12 @@ Score basis:
 | Governance D1-D5 owner decisions | 55 | 55 | Complete, with D1 warning carried forward |
 | Next-gate prompts and documentation | 8 | 8 | Complete |
 | Scope safety preserved in this task | 5 | 5 | Complete |
-| D5 telemetry implemented and audited | 12 | 0 | Not started |
+| D5 telemetry implemented and locally tested | 10 | 10 | Complete, pending Claude audit |
+| D5 telemetry Claude audit | 2 | 0 | Not started |
 | Adapter mocks/tests/audit | 10 | 0 | Not started |
 | Train-only micro-run and output audit | 7 | 0 | Not started |
 | Local/repo hygiene final claim | 3 | 0 | Not complete |
-| Total | 100 | 68 | No lab green light |
+| Total | 100 | 78 | No lab green light |
 
 ## 3. Required Score For Lab
 
@@ -39,7 +40,6 @@ CURRENT_BLOCKERS:
 
 | Blocker | Severity | Resolution required |
 | :--- | :--- | :--- |
-| D5 telemetry not implemented | CRITICAL | Separate scoped change request must add behavior-neutral telemetry and tests. |
 | Telemetry audit not passed | CRITICAL | Claude audit must pass before adapter implementation. |
 | Adapter absent | CRITICAL | Future adapter must be implemented with mocks/tests only after telemetry audit PASS. |
 | Adapter audit not passed | CRITICAL | Claude audit must pass before any real run. |
@@ -64,10 +64,10 @@ CURRENT_BLOCKERS:
 
 | Item | Status |
 | :--- | :--- |
-| separate change request opened | NOT_STARTED |
-| core telemetry implemented | NOT_STARTED |
-| behavior-neutral tests pass | NOT_STARTED |
-| ledger telemetry fields available | NOT_STARTED |
+| separate change request opened | DONE_LOCAL_BRANCH |
+| core telemetry implemented | DONE_LOCAL_SYNTHETIC_TESTED |
+| behavior-neutral tests pass | DONE_LOCAL_SYNTHETIC_TESTED |
+| ledger telemetry fields available | PARTIAL_GROSS_R_UNAVAILABLE_FLAGGED |
 | Claude telemetry audit PASS | NOT_STARTED |
 
 ### C. Adapter
@@ -141,8 +141,8 @@ ChatGPT may only give green light to the laboratory when all of the following ar
 
 ## 8. Final Decision
 
-FINAL_DECISION: `D3_D4_D5_APPROVED_BUT_LAB_GREEN_LIGHT_BLOCKED`
+FINAL_DECISION: `D5_TELEMETRY_IMPLEMENTED_READY_FOR_CLAUDE_AUDIT_BUT_LAB_GREEN_LIGHT_BLOCKED`
 
-NEXT_GATE: `D5_TELEMETRY_CHANGE_REQUEST_ONLY`
+NEXT_GATE: `CLAUDE_D5_TELEMETRY_AUDIT`
 
 GREEN_LIGHT_NOW: `NO`
