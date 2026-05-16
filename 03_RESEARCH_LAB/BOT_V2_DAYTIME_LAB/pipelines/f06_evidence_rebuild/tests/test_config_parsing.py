@@ -7,6 +7,7 @@ from _loader import load_pipeline, ROOT
 
 P = load_pipeline()
 TEMPLATE = os.path.join(ROOT, "configs", "F06_REBUILD_TRAIN_ONLY_TEMPLATE.yaml")
+PHASE3_CONFIG = os.path.join(ROOT, "configs", "F06_PHASE3_CLEAN_TRAIN_ONLY.yaml")
 
 
 class TestConfigParsing(unittest.TestCase):
@@ -18,6 +19,8 @@ class TestConfigParsing(unittest.TestCase):
     def setUp(self):
         with open(TEMPLATE, "r", encoding="utf-8") as fh:
             self.text = fh.read()
+        with open(PHASE3_CONFIG, "r", encoding="utf-8") as fh:
+            self.phase3_text = fh.read()
 
     def test_mini_yaml_lists_are_real_lists(self):
         cfg = P._mini_yaml_load(self.text)
@@ -45,12 +48,12 @@ class TestConfigParsing(unittest.TestCase):
         self.assertTrue(ok, errs)
 
     def test_load_config_invariants_pass(self):
-        cfg = P.load_config(TEMPLATE)
+        cfg = P.load_config(PHASE3_CONFIG)
         self.assertEqual(P._config_invariants(cfg), [])
 
     def test_mini_yaml_invariants_pass_even_without_pyyaml(self):
         # _config_invariants must hold on the fallback-parsed config too
-        cfg = P._mini_yaml_load(self.text)
+        cfg = P._mini_yaml_load(self.phase3_text)
         self.assertEqual(P._config_invariants(cfg), [])
 
 
