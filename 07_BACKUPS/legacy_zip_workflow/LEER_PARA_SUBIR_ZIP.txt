@@ -1,0 +1,6 @@
+Subir a ChatGPT este archivo exacto:
+SUBIR_A_CHATGPT_PHASE26A_771efe.zip
+
+Debe pesar aprox 2.248 MB.
+Debe tener SHA256:
+771efe023d9888673a2bd2e4a58362de9cb5fb08b5a0b7152cc805fd8c255782

@@ -1,7 +1,0 @@
-ruta exacta del ZIP: C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\000_PARA_CHATGPT.zip
-tamaño: 2.248 MB
-SHA256: 771efe023d9888673a2bd2e4a58362de9cb5fb08b5a0b7152cc805fd8c255782
-entry count: 784
-fecha de modificación: 2026-04-28T17:13:04.793500
-
-Instrucción: Subir el archivo 000_PARA_CHATGPT.zip que está en esta misma carpeta.

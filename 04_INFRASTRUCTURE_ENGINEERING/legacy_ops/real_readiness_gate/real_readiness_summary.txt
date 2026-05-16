@@ -1,0 +1,4 @@
+VEREDICTO: SHADOW_READY
+LINEA: tp_1p50_timeout_4h_sl_1p0_longbuf_0p3_win_0_1_mode_close_reclaim_pick_first_levels_all_levels_news_sweep_plus_minus_30m
+PRIMARY_BLOCKER: MISSING_OPERATIONAL_NAMESPACE
+NEXT_STEP: **ACTIVAR INFRAESTRUCTURA SHADOW.** La línea es robusta en backtest. Se requiere crear el namespace `results/shadow` e iniciar ejecución forward controlada (N=20).

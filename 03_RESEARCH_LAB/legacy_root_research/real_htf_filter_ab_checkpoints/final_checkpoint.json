@@ -1,0 +1,46 @@
+{
+  "test": "REAL_HTF_FILTER_AB_REVALIDATION",
+  "runner": "scratch/run_real_htf_filter_ab.py",
+  "probe_trigger": "SWEEP_CLOSE_BACK_INSIDE_M5",
+  "dataset": "EURUSD H1(25034 bars) M5(300407 bars) 2022-2025",
+  "spread_pips": 0.3,
+  "trading_days": 1251,
+  "deltas": {
+    "delta_pf": -1.338,
+    "delta_expectancy": -0.3877,
+    "delta_dd": -11.23,
+    "delta_win_rate": -0.147,
+    "frequency_reduction_pct": 30.6
+  },
+  "decision": "FILTER_REAL_AB_REJECTED",
+  "reason": "Delta PF=-1.3379999999999999 < 0 (filtro empeora PF)",
+  "integrity_checks": {
+    "DATA_LOADED": "PASS (H1=25034, M5=300407)",
+    "TRADES_HAVE_TIMESTAMPS": "PASS",
+    "NO_HARDCODED_FALLBACK": "PASS",
+    "TRADES_COUNT_NONZERO": "A=1080, B=749",
+    "CHRONOLOGICAL": "PASS (sweeps processed in chronological order)"
+  },
+  "rama_a_metrics": {
+    "N": 1080,
+    "wins": 671,
+    "losses": 409,
+    "pf": 2.444,
+    "expectancy": 0.4297,
+    "max_drawdown": -9.6,
+    "win_rate": 0.621,
+    "total_r": 464.04
+  },
+  "rama_b_metrics": {
+    "N": 749,
+    "wins": 355,
+    "losses": 394,
+    "pf": 1.106,
+    "expectancy": 0.042,
+    "max_drawdown": -20.83,
+    "win_rate": 0.474,
+    "total_r": 31.43
+  },
+  "rama_a_N": 1080,
+  "rama_b_N": 749
+}

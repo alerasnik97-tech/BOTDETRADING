@@ -1,0 +1,15 @@
+{
+  "timestamp_utc": "2026-04-29T13:56:36.933396+00:00",
+  "latest_phase": "PHASE37D_FTMO_TRIAL_API_NEWS_SIGNAL",
+  "verdict": "FTMO_TRIAL_BLOCKED_NEWS_PROVIDER",
+  "authority": "MANIPULANTE_PHASE25",
+  "strategy_changed": false,
+  "real_blocked": true,
+  "ftmo_trial_api_news_primary": true,
+  "calendar_bridge": "FALLBACK_LEGACY",
+  "risk_default": 0.005,
+  "risk_075_trial_stress_only": true,
+  "risk_100_prohibited": true,
+  "news_sync_required": true,
+  "signal_sync_required": true
+}
