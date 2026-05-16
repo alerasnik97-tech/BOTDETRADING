@@ -34,6 +34,7 @@ data/tick/
 datasets/raw/
 outputs/**/raw/
 05_MARKET_DATA_VAULT/eurusd_data/prepared_train_2015_2024/
+05_MARKET_DATA_VAULT/eurusd_data/sealed_holdout_2025_2026/
 
 # --- BASURA HISTÓRICA Y TEMPORALES ---
 archive_scratch/

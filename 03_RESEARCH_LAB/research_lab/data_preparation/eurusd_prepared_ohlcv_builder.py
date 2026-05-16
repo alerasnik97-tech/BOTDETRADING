@@ -25,7 +25,11 @@ BUILDER_VERSION = "eurusd_prepared_ohlcv_builder_v1_20260516"
 RAW_MONTHLY_RE = re.compile(r"^EURUSD_ticks_(?P<year>\d{4})_(?P<month>\d{2})\.parquet$")
 DEFAULT_RAW_DIR = Path("05_MARKET_DATA_VAULT/BOT_MARKET_DATA/tick/EURUSD")
 DEFAULT_OUTPUT_DIR = Path("05_MARKET_DATA_VAULT/eurusd_data/prepared_train_2015_2024/prepared")
+DEFAULT_HOLDOUT_OUTPUT_DIR = Path("05_MARKET_DATA_VAULT/eurusd_data/sealed_holdout_2025_2026/prepared")
+DEFAULT_HOLDOUT_MANIFEST_DIR = Path("05_MARKET_DATA_VAULT/eurusd_data/sealed_holdout_2025_2026/manifests")
 DEFAULT_GOVERNANCE_MANIFEST = Path("06_GOVERNANCE_AND_COMPLIANCE/lab_readiness/EURUSD_PREPARED_OHLCV_MANIFEST.csv")
+DEFAULT_HOLDOUT_MANIFEST = DEFAULT_HOLDOUT_MANIFEST_DIR / "EURUSD_HOLDOUT_MANIFEST.csv"
+DEFAULT_HOLDOUT_SEAL_REPORT = DEFAULT_HOLDOUT_MANIFEST_DIR / "EURUSD_HOLDOUT_SEAL_REPORT.json"
 LOCAL_MANIFEST_NAME = "MANIFEST_LOCAL_DO_NOT_COMMIT.json"
 LOADER_MANIFEST_NAME = "prepared_data_manifest.json"
 RAW_COLUMNS = ("timestamp_utc", "bid", "ask", "bid_volume", "ask_volume", "source", "symbol")
@@ -49,11 +53,13 @@ class SourceFile:
 
 @dataclass(frozen=True)
 class RawDiscovery:
+    partition: str
     raw_dir: str
     files_found_total: int
     monthly_files_found: int
     included_files: list[str]
     excluded_2025_2026_files: list[str]
+    excluded_before_min_date_files: list[str]
     skipped_non_monthly_files_count: int
     skipped_non_monthly_files_sample: list[str]
     min_source_period: str | None
@@ -68,11 +74,13 @@ class RawDiscovery:
 class BuildStats:
     source_files_used: int = 0
     source_files_excluded_2025_2026: int = 0
+    source_files_excluded_before_min_date: int = 0
     source_files_skipped_non_monthly: int = 0
     raw_rows_read: int = 0
     raw_rows_kept: int = 0
     exact_duplicate_ticks_removed: int = 0
     duplicate_timestamps_detected_after_exact_dedup: int = 0
+    rows_filtered_before_min_date: int = 0
     rows_filtered_by_max_date: int = 0
     min_raw_timestamp_utc: str | None = None
     max_raw_timestamp_utc: str | None = None
@@ -101,6 +109,13 @@ def _normalize_max_exclusive(max_date: str) -> pd.Timestamp:
     return timestamp
 
 
+def _normalize_min_inclusive(min_date: str) -> pd.Timestamp:
+    timestamp = pd.Timestamp(min_date)
+    if timestamp.tzinfo is None:
+        return timestamp.tz_localize("UTC")
+    return timestamp.tz_convert("UTC")
+
+
 def _period_label(year: int, month: int) -> str:
     return f"{year:04d}-{month:02d}"
 
@@ -112,10 +127,17 @@ def _file_period(path: Path) -> tuple[int, int] | None:
     return int(match.group("year")), int(match.group("month"))
 
 
-def discover_raw_files(raw_dir: Path, *, max_exclusive_utc: pd.Timestamp) -> tuple[RawDiscovery, list[SourceFile]]:
+def discover_raw_files(
+    raw_dir: Path,
+    *,
+    partition: str,
+    min_inclusive_utc: pd.Timestamp | None,
+    max_exclusive_utc: pd.Timestamp | None,
+) -> tuple[RawDiscovery, list[SourceFile]]:
     all_files = sorted([path for path in raw_dir.rglob("*") if path.is_file()])
     source_files: list[SourceFile] = []
     excluded: list[str] = []
+    excluded_before_min_date: list[str] = []
     skipped: list[str] = []
     monthly_periods: list[tuple[int, int]] = []
 
@@ -128,10 +150,11 @@ def discover_raw_files(raw_dir: Path, *, max_exclusive_utc: pd.Timestamp) -> tup
         monthly_periods.append(period)
         size_bytes = int(path.stat().st_size)
         period_start = pd.Timestamp(year=year, month=month, day=1, tz="UTC")
-        if period_start >= max_exclusive_utc:
-            excluded.append(str(path))
+        period_end_exclusive = period_start + pd.offsets.MonthBegin(1)
+        if min_inclusive_utc is not None and period_end_exclusive <= min_inclusive_utc:
+            excluded_before_min_date.append(str(path))
             continue
-        if year >= 2025:
+        if max_exclusive_utc is not None and period_start >= max_exclusive_utc:
             excluded.append(str(path))
             continue
         source_files.append(SourceFile(path=path, year=year, month=month, size_bytes=size_bytes))
@@ -139,11 +162,13 @@ def discover_raw_files(raw_dir: Path, *, max_exclusive_utc: pd.Timestamp) -> tup
     periods_sorted = sorted(monthly_periods)
     included_periods = sorted((item.year, item.month) for item in source_files)
     discovery = RawDiscovery(
+        partition=partition,
         raw_dir=str(raw_dir),
         files_found_total=len(all_files),
         monthly_files_found=len(monthly_periods),
         included_files=[str(item.path) for item in source_files],
         excluded_2025_2026_files=excluded,
+        excluded_before_min_date_files=excluded_before_min_date,
         skipped_non_monthly_files_count=len(skipped),
         skipped_non_monthly_files_sample=skipped[:25],
         min_source_period=_period_label(*periods_sorted[0]) if periods_sorted else None,
@@ -191,7 +216,13 @@ def _read_source_frame(path: Path) -> pd.DataFrame:
     return frame
 
 
-def _clean_ticks(frame: pd.DataFrame, source: SourceFile, max_exclusive_utc: pd.Timestamp, stats: BuildStats) -> pd.DataFrame:
+def _clean_ticks(
+    frame: pd.DataFrame,
+    source: SourceFile,
+    min_inclusive_utc: pd.Timestamp | None,
+    max_exclusive_utc: pd.Timestamp | None,
+    stats: BuildStats,
+) -> pd.DataFrame:
     stats.raw_rows_read += int(len(frame))
     required_nulls = frame[list(REQUIRED_RAW_COLUMNS)].isna().any(axis=1)
     if bool(required_nulls.any()):
@@ -208,9 +239,14 @@ def _clean_ticks(frame: pd.DataFrame, source: SourceFile, max_exclusive_utc: pd.
 
     frame = frame.copy()
     frame["timestamp_utc"] = pd.to_datetime(frame["timestamp_utc"], utc=True, errors="raise")
-    before_max = len(frame)
-    frame = frame.loc[frame["timestamp_utc"] < max_exclusive_utc].copy()
-    stats.rows_filtered_by_max_date += int(before_max - len(frame))
+    if min_inclusive_utc is not None:
+        before_min = len(frame)
+        frame = frame.loc[frame["timestamp_utc"] >= min_inclusive_utc].copy()
+        stats.rows_filtered_before_min_date += int(before_min - len(frame))
+    if max_exclusive_utc is not None:
+        before_max = len(frame)
+        frame = frame.loc[frame["timestamp_utc"] < max_exclusive_utc].copy()
+        stats.rows_filtered_by_max_date += int(before_max - len(frame))
     if frame.empty:
         return frame
 
@@ -248,11 +284,18 @@ def _resample_ticks_to_ohlcv(frame: pd.DataFrame, rule: str) -> pd.DataFrame:
     return bars.loc[:, OUTPUT_COLUMNS]
 
 
-def _merge_bars(frames: list[pd.DataFrame], max_exclusive_utc: pd.Timestamp) -> pd.DataFrame:
+def _merge_bars(
+    frames: list[pd.DataFrame],
+    min_inclusive_utc: pd.Timestamp | None,
+    max_exclusive_utc: pd.Timestamp | None,
+) -> pd.DataFrame:
     if not frames:
         return pd.DataFrame(columns=OUTPUT_COLUMNS)
     merged = pd.concat(frames).sort_index()
-    merged = merged.loc[merged.index < max_exclusive_utc].copy()
+    if min_inclusive_utc is not None:
+        merged = merged.loc[merged.index >= min_inclusive_utc].copy()
+    if max_exclusive_utc is not None:
+        merged = merged.loc[merged.index < max_exclusive_utc].copy()
     if merged.empty:
         return merged
     merged = (
@@ -279,12 +322,19 @@ def _gap_summary(index: pd.DatetimeIndex, rule: str) -> str:
     )
 
 
-def _validate_output_frame(frame: pd.DataFrame, timeframe: str, max_exclusive_utc: pd.Timestamp) -> None:
+def _validate_output_frame(
+    frame: pd.DataFrame,
+    timeframe: str,
+    min_inclusive_utc: pd.Timestamp | None,
+    max_exclusive_utc: pd.Timestamp | None,
+) -> None:
     if frame.empty:
         raise ValueError(f"BUILDER_FAILURE: {timeframe} output frame is empty.")
     if frame.index.tz is None:
         raise ValueError(f"BUILDER_FAILURE: {timeframe} output index is timezone-naive.")
-    if bool((frame.index >= max_exclusive_utc).any()):
+    if min_inclusive_utc is not None and bool((frame.index < min_inclusive_utc).any()):
+        raise ValueError(f"EURUSD_PREPARED_OHLCV_BLOCKED_PARTITION_LEAKAGE: {timeframe} contains < {min_inclusive_utc}")
+    if max_exclusive_utc is not None and bool((frame.index >= max_exclusive_utc).any()):
         raise ValueError(f"EURUSD_PREPARED_OHLCV_BLOCKED_2025_2026_LEAKAGE: {timeframe} contains >= {max_exclusive_utc}")
     if frame.index.duplicated().any():
         raise ValueError(f"BUILDER_FAILURE: {timeframe} output contains duplicate timestamps.")
@@ -309,17 +359,37 @@ def _write_csv_atomic(frame: pd.DataFrame, path: Path, *, allow_overwrite: bool)
 def build_prepared_ohlcv(
     *,
     raw_dir: Path = DEFAULT_RAW_DIR,
-    output_dir: Path = DEFAULT_OUTPUT_DIR,
-    max_date: str = "2024-12-31",
+    output_dir: Path | None = None,
+    partition: str = "train",
+    min_date: str | None = None,
+    max_date: str | None = None,
     dry_run: bool = False,
     allow_overwrite: bool = False,
 ) -> dict[str, Any]:
-    max_exclusive_utc = _normalize_max_exclusive(max_date)
-    discovery, source_files = discover_raw_files(raw_dir, max_exclusive_utc=max_exclusive_utc)
+    normalized_partition = partition.strip().lower()
+    if normalized_partition not in {"train", "holdout"}:
+        raise ValueError(f"Unsupported EURUSD prepared partition: {partition!r}")
+    if output_dir is None:
+        output_dir = DEFAULT_HOLDOUT_OUTPUT_DIR if normalized_partition == "holdout" else DEFAULT_OUTPUT_DIR
+    if normalized_partition == "train":
+        min_inclusive_utc = _normalize_min_inclusive(min_date) if min_date else None
+        max_date = max_date or "2024-12-31"
+        max_exclusive_utc = _normalize_max_exclusive(max_date)
+    else:
+        min_date = min_date or "2025-01-01"
+        min_inclusive_utc = _normalize_min_inclusive(min_date)
+        max_exclusive_utc = _normalize_max_exclusive(max_date) if max_date else None
+    discovery, source_files = discover_raw_files(
+        raw_dir,
+        partition=normalized_partition,
+        min_inclusive_utc=min_inclusive_utc,
+        max_exclusive_utc=max_exclusive_utc,
+    )
     schema_info = detect_schema(source_files)
     stats = BuildStats(
         source_files_used=len(source_files),
         source_files_excluded_2025_2026=len(discovery.excluded_2025_2026_files),
+        source_files_excluded_before_min_date=len(discovery.excluded_before_min_date_files),
         source_files_skipped_non_monthly=discovery.skipped_non_monthly_files_count,
     )
     base_summary: dict[str, Any] = {
@@ -327,18 +397,22 @@ def build_prepared_ohlcv(
         "builder_version": BUILDER_VERSION,
         "build_timestamp_utc": utc_now_iso(),
         "pair": PAIR,
+        "partition": normalized_partition,
         "raw_dir": str(raw_dir),
         "output_dir": str(output_dir),
         "max_date_argument": max_date,
-        "max_timestamp_exclusive_utc": str(max_exclusive_utc),
+        "min_date_argument": min_date,
+        "min_timestamp_inclusive_utc": str(min_inclusive_utc) if min_inclusive_utc is not None else None,
+        "max_timestamp_exclusive_utc": str(max_exclusive_utc) if max_exclusive_utc is not None else None,
         "raw_discovery": asdict(discovery),
         "raw_schema": schema_info,
         "timeframes": {},
         "stats": asdict(stats),
         "safety": {
-            "train_only": True,
-            "excluded_2025_2026_by_filename": True,
-            "excluded_rows_at_or_after_max_timestamp": True,
+            "train_only": normalized_partition == "train",
+            "sealed_not_for_research_selection": normalized_partition == "holdout",
+            "excluded_rows_before_min_timestamp": min_inclusive_utc is not None,
+            "excluded_rows_at_or_after_max_timestamp": max_exclusive_utc is not None,
             "price_synthesized": False,
             "gaps_forward_filled": False,
             "empty_bars_fabricated": False,
@@ -352,7 +426,7 @@ def build_prepared_ohlcv(
     per_timeframe_frames: dict[str, list[pd.DataFrame]] = {timeframe: [] for timeframe in TIMEFRAME_RULES}
     for source in source_files:
         raw_frame = _read_source_frame(source.path)
-        ticks = _clean_ticks(raw_frame, source, max_exclusive_utc, stats)
+        ticks = _clean_ticks(raw_frame, source, min_inclusive_utc, max_exclusive_utc, stats)
         if ticks.empty:
             continue
         for timeframe, rule in TIMEFRAME_RULES.items():
@@ -360,8 +434,8 @@ def build_prepared_ohlcv(
 
     output_manifest: dict[str, Any] = {}
     for timeframe, rule in TIMEFRAME_RULES.items():
-        frame = _merge_bars(per_timeframe_frames[timeframe], max_exclusive_utc)
-        _validate_output_frame(frame, timeframe, max_exclusive_utc)
+        frame = _merge_bars(per_timeframe_frames[timeframe], min_inclusive_utc, max_exclusive_utc)
+        _validate_output_frame(frame, timeframe, min_inclusive_utc, max_exclusive_utc)
         output_path = output_dir / f"{PAIR}_{timeframe}.csv"
         _write_csv_atomic(frame, output_path, allow_overwrite=allow_overwrite)
         output_manifest[timeframe] = {
@@ -395,7 +469,6 @@ def build_prepared_ohlcv(
 
 
 def write_governance_manifest(summary: dict[str, Any], manifest_path: Path = DEFAULT_GOVERNANCE_MANIFEST) -> None:
-    raw_discovery = summary["raw_discovery"]
     stats = summary["stats"]
     rows: list[dict[str, Any]] = []
     for timeframe, payload in summary["timeframes"].items():
@@ -422,29 +495,83 @@ def write_governance_manifest(summary: dict[str, Any], manifest_path: Path = DEF
     tmp_path.replace(manifest_path)
 
 
+def write_holdout_seal(summary: dict[str, Any], manifest_dir: Path = DEFAULT_HOLDOUT_MANIFEST_DIR) -> None:
+    if summary.get("partition") != "holdout":
+        raise ValueError("Holdout seal can only be written for partition='holdout'.")
+    manifest_dir.mkdir(parents=True, exist_ok=True)
+    stats = summary["stats"]
+    rows: list[dict[str, Any]] = []
+    for timeframe, payload in summary["timeframes"].items():
+        rows.append(
+            {
+                "timeframe": timeframe,
+                "output_path": payload["path"],
+                "sha256": payload["sha256"],
+                "row_count": payload["row_count"],
+                "min_timestamp_utc": payload["min_timestamp_utc"],
+                "max_timestamp_utc": payload["max_timestamp_utc"],
+                "source_files_used": stats["source_files_used"],
+                "source_files_excluded_before_min_date": stats["source_files_excluded_before_min_date"],
+                "duplicate_rows_removed": stats["exact_duplicate_ticks_removed"],
+                "gaps_summary": payload["gaps_summary"],
+                "schema": "|".join(payload["schema"]),
+                "seal_status": "SEALED_NOT_FOR_RESEARCH_SELECTION",
+                "default_loader_access": "NO",
+                "git_tracked": "NO",
+                "notes": "sealed_holdout_local_only_not_for_research_selection",
+            }
+        )
+    manifest_path = manifest_dir / DEFAULT_HOLDOUT_MANIFEST.name
+    tmp_manifest = manifest_path.with_name(f".{manifest_path.name}.tmp")
+    pd.DataFrame(rows).to_csv(tmp_manifest, index=False)
+    tmp_manifest.replace(manifest_path)
+
+    seal_report = {
+        "seal_status": "SEALED_NOT_FOR_RESEARCH_SELECTION",
+        "default_loader_access": "NO",
+        "research_selection_authorized": False,
+        "strategy_backtest_authorized": False,
+        "validation_authorized": False,
+        "holdout_partition": summary,
+    }
+    seal_path = manifest_dir / DEFAULT_HOLDOUT_SEAL_REPORT.name
+    tmp_seal = seal_path.with_name(f".{seal_path.name}.tmp")
+    tmp_seal.write_text(json.dumps(seal_report, indent=2, sort_keys=True), encoding="utf-8")
+    tmp_seal.replace(seal_path)
+
+
 def build_arg_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Build train-only EURUSD prepared OHLCV from local raw tick parquet.")
+    parser = argparse.ArgumentParser(description="Build EURUSD prepared OHLCV partitions from local raw tick parquet.")
     parser.add_argument("--raw-dir", default=str(DEFAULT_RAW_DIR))
-    parser.add_argument("--output-dir", default=str(DEFAULT_OUTPUT_DIR))
-    parser.add_argument("--max-date", default="2024-12-31")
+    parser.add_argument("--output-dir", default=None)
+    parser.add_argument("--partition", choices=("train", "holdout"), default="train")
+    parser.add_argument("--build-holdout", action="store_true")
+    parser.add_argument("--min-date", default=None)
+    parser.add_argument("--max-date", default=None)
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--allow-overwrite", action="store_true")
     parser.add_argument("--write-governance-manifest", action="store_true")
     parser.add_argument("--governance-manifest", default=str(DEFAULT_GOVERNANCE_MANIFEST))
+    parser.add_argument("--manifest-dir", default=str(DEFAULT_HOLDOUT_MANIFEST_DIR))
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = build_arg_parser().parse_args(argv)
+    partition = "holdout" if args.build_holdout else args.partition
     summary = build_prepared_ohlcv(
         raw_dir=Path(args.raw_dir),
-        output_dir=Path(args.output_dir),
+        output_dir=Path(args.output_dir) if args.output_dir else None,
+        partition=partition,
+        min_date=args.min_date,
         max_date=args.max_date,
         dry_run=bool(args.dry_run),
         allow_overwrite=bool(args.allow_overwrite),
     )
     if args.write_governance_manifest and not args.dry_run:
         write_governance_manifest(summary, Path(args.governance_manifest))
+    if partition == "holdout" and not args.dry_run:
+        write_holdout_seal(summary, Path(args.manifest_dir))
     print(json.dumps(summary, indent=2, sort_keys=True))
     return 0
 
