@@ -61,6 +61,9 @@ class BacktestResult:
     news_filter_used: bool
 
 
+D5_TELEMETRY_VERSION = "d5_core_telemetry_v1"
+
+
 def quote_to_usd(pair: str, pair_price: float) -> float:
     quote = PAIR_META[pair]["quote"]
     if quote == "USD":
@@ -886,6 +889,7 @@ def run_backtest(
         if position:
             exit_reason = None
             exit_price_signal = None
+            gap_reason = None
             
             # --- NEWS FORTRESS: ACTIVE POSITION PROTECTION ---
             if forced_exit_pre_news and force_flat_mask[i]:
@@ -956,6 +960,10 @@ def run_backtest(
                 exit_commission_usd = (engine_config.commission_per_lot_roundturn_usd * position.lots) / 2.0
                 pnl_usd -= exit_commission_usd
                 cash += (position.risk_usd + pnl_usd)
+                pnl_r = pnl_usd / position.risk_usd
+                pip_size = float(PAIR_META[pair]["pip_size"])
+                sl_pips = position.initial_risk_distance / pip_size if pip_size > 0 else np.nan
+                commission_total_usd = position.entry_commission_usd + exit_commission_usd
                 
                 trades.append({
                     "strategy_name": position.strategy_name,
@@ -968,9 +976,51 @@ def run_backtest(
                     "exit_price": exit_price,
                     "exit_reason": exit_reason,
                     "pnl_usd": pnl_usd,
-                    "pnl_r": pnl_usd / position.risk_usd,
+                    "pnl_r": pnl_r,
                     "lots": position.lots,
                     "session_date": session_date,
+                    "telemetry_version": D5_TELEMETRY_VERSION,
+                    "telemetry_behavior_neutral": True,
+                    "net_r": pnl_r,
+                    "gross_r": None,
+                    "gross_r_available": False,
+                    "gross_r_reason": "not_available_without_explicit_pre_cost_pnl_source",
+                    "sl_pips": sl_pips,
+                    "sl_pips_available": True,
+                    "risk_pips": sl_pips,
+                    "risk_distance_price": position.initial_risk_distance,
+                    "initial_risk_distance": position.initial_risk_distance,
+                    "risk_usd": position.risk_usd,
+                    "stop_price": position.sl,
+                    "initial_stop_price": position.sl,
+                    "final_stop_price": position.sl,
+                    "sl": position.sl,
+                    "tp": position.tp,
+                    "fill_time": position.fill_time,
+                    "fill_price": position.entry_price,
+                    "exit_signal_price": exit_price_signal,
+                    "exit_fill_price": exit_price,
+                    "gap_exit_flag": bool(gap_reason),
+                    "gap_exit_type": gap_reason,
+                    "entry_spread_pips": position.entry_spread_pips,
+                    "entry_slippage_pips": position.entry_slippage_pips,
+                    "exit_slippage_pips": exit_slippage_pips,
+                    "slippage_applied": exit_slippage_pips,
+                    "entry_commission_usd": position.entry_commission_usd,
+                    "exit_commission_usd": exit_commission_usd,
+                    "commission_total_usd": commission_total_usd,
+                    "spread_cost_r": None,
+                    "slippage_cost_r": None,
+                    "commission_cost_r": None,
+                    "cost_total_r": None,
+                    "cost_breakdown_r_available": False,
+                    "cost_breakdown_r_reason": "not_available_without_explicit_per_component_pnl_source",
+                    "execution_mode_used": position.execution_mode_used,
+                    "cost_profile_used": position.cost_profile_used,
+                    "entry_cost_regime": position.entry_cost_regime,
+                    "intrabar_policy_used": position.intrabar_policy_used,
+                    "price_source_used": position.price_source_used,
+                    "data_source_used": position.data_source_used,
                 })
                 position = None
                 cooldown_until_index = i + 1
