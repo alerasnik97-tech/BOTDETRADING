@@ -20,6 +20,9 @@ DEFAULT_PARAMS: dict[str, Any] = {
     "atr_percentile": 65.0,
     "min_or_atr": 0.40,
     "max_or_atr": 3.00,
+    "min_or_coverage_pct": 0.90,
+    "allow_inferred_timeframe": True,
+    "min_or_bars": None,
     "target_rr": 2.0,
     "session_name": "all_day",
 }
@@ -67,6 +70,53 @@ def _atr_series(frame: pd.DataFrame, period: int) -> pd.Series:
     return true_range.rolling(period, min_periods=period).mean()
 
 
+def _infer_cadence_minutes(index: pd.DatetimeIndex) -> int | None:
+    if len(index) < 3 or index.has_duplicates:
+        return None
+    deltas = index.to_series().diff().dropna().dt.total_seconds() / 60.0
+    positive = deltas[deltas > 0]
+    if positive.empty:
+        return None
+    cadence = float(positive.median())
+    rounded = int(round(cadence))
+    if abs(cadence - rounded) > 0.01 or rounded not in {1, 2, 3, 5, 10, 15}:
+        return None
+    return rounded
+
+
+def _or_window_is_complete(window: pd.DataFrame, rows: pd.DataFrame, params: dict[str, Any]) -> bool:
+    if window.empty or window.index.has_duplicates:
+        return False
+    if not bool(params.get("allow_inferred_timeframe", True)):
+        return False
+
+    cadence = _infer_cadence_minutes(pd.DatetimeIndex(rows.index))
+    if cadence is None:
+        return False
+
+    expected_bars = int(np.floor((_minute(str(params["or_end"])) - _minute(str(params["or_start"]))) / cadence))
+    explicit_min = params.get("min_or_bars")
+    if explicit_min is not None:
+        expected_bars = max(expected_bars, int(explicit_min))
+    if expected_bars < 2:
+        return False
+
+    required_bars = int(np.ceil(expected_bars * float(params["min_or_coverage_pct"])))
+    unique_count = len(pd.DatetimeIndex(window.index).unique())
+    if unique_count < max(2, required_bars):
+        return False
+
+    first_minute = _minute_of(window.index.min())
+    last_minute = _minute_of(window.index.max())
+    start = _minute(str(params["or_start"]))
+    end = _minute(str(params["or_end"]))
+    if first_minute > start + cadence:
+        return False
+    if last_minute < end - cadence:
+        return False
+    return True
+
+
 def _opening_range(frame: pd.DataFrame, i: int, params: dict[str, Any]) -> tuple[float, float] | None:
     ts = frame.index[i]
     start = _minute(str(params["or_start"]))
@@ -77,7 +127,9 @@ def _opening_range(frame: pd.DataFrame, i: int, params: dict[str, Any]) -> tuple
         for idx in rows.index
     ]
     window = rows.loc[mask]
-    if window.empty:
+    if not _or_window_is_complete(window, rows, params):
+        return None
+    if window[["high", "low", "close"]].isna().any().any():
         return None
     high = float(window["high"].max())
     low = float(window["low"].min())

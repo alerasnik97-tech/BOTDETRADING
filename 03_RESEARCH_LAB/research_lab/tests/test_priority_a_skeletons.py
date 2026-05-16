@@ -102,21 +102,32 @@ def _mr_frame(module_name: str, direction: str) -> tuple[pd.DataFrame, int]:
     return frame, i
 
 
-def _tp_frame(*, active: bool = True) -> tuple[pd.DataFrame, int]:
+def _tp_frame(*, active: bool = True, direction: str = "long") -> tuple[pd.DataFrame, int]:
     periods = 270
     frame = _minute_frame("2024-01-02 04:00:00", periods, base=1.1000)
     close = np.full(periods, 1.1000)
     if active:
-        for idx in range(periods):
-            close[idx] = 1.1000 + idx * 0.000002
         i = 260
-        close[i - 6] = 1.1000
-        close[i - 5] = 1.1002
-        close[i - 4] = 1.1004
-        close[i - 3] = 1.1006
-        close[i - 2] = 1.1008
-        close[i - 1] = 1.1009
-        close[i] = 1.1011
+        if direction == "long":
+            for idx in range(periods):
+                close[idx] = 1.1000 + idx * 0.000002
+            close[i - 6] = 1.1000
+            close[i - 5] = 1.1002
+            close[i - 4] = 1.1004
+            close[i - 3] = 1.1006
+            close[i - 2] = 1.1008
+            close[i - 1] = 1.1009
+            close[i] = 1.1011
+        else:
+            for idx in range(periods):
+                close[idx] = 1.1015 - idx * 0.000002
+            close[i - 6] = 1.1012
+            close[i - 5] = 1.1010
+            close[i - 4] = 1.1008
+            close[i - 3] = 1.1006
+            close[i - 2] = 1.1004
+            close[i - 1] = 1.1003
+            close[i] = 1.1001
     else:
         i = 260
         close[:] = 1.1000 + np.sin(np.arange(periods) / 5.0) * 0.00002
@@ -127,12 +138,16 @@ def _tp_frame(*, active: bool = True) -> tuple[pd.DataFrame, int]:
     frame.loc[frame.index[i], "high"] = frame["close"].iat[i] + 0.00110
     frame.loc[frame.index[i], "low"] = frame["close"].iat[i] - 0.00055
     if active:
-        frame.loc[frame.index[i - 1], "high"] = frame["close"].iat[i - 1] + 0.00005
-        frame.loc[frame.index[i], "low"] = frame["close"].iat[i] - 0.00070
+        if direction == "long":
+            frame.loc[frame.index[i - 1], "high"] = frame["close"].iat[i - 1] + 0.00005
+            frame.loc[frame.index[i], "low"] = frame["close"].iat[i] - 0.00070
+        else:
+            frame.loc[frame.index[i - 1], "low"] = frame["close"].iat[i - 1] - 0.00005
+            frame.loc[frame.index[i], "high"] = frame["close"].iat[i] + 0.00070
     return frame, i
 
 
-def _orb_frame() -> tuple[pd.DataFrame, int, int]:
+def _orb_frame(*, direction: str = "long") -> tuple[pd.DataFrame, int, int]:
     periods = 280
     frame = _minute_frame("2024-01-02 04:00:00", periods, base=1.1000)
     frame["high"] = 1.10010
@@ -144,11 +159,36 @@ def _orb_frame() -> tuple[pd.DataFrame, int, int]:
     frame.loc[or_mask, "close"] = 1.10000
     pre_i = int(frame.index.get_loc(pd.Timestamp("2024-01-02 07:30:00", tz=NY_TZ)))
     i = int(frame.index.get_loc(pd.Timestamp("2024-01-02 08:20:00", tz=NY_TZ)))
-    frame.iloc[i - 1, frame.columns.get_loc("close")] = 1.10020
-    frame.iloc[i, frame.columns.get_loc("close")] = 1.10055
-    frame.iloc[i, frame.columns.get_loc("high")] = 1.10140
-    frame.iloc[i, frame.columns.get_loc("low")] = 1.09995
+    if direction == "long":
+        frame.iloc[i - 1, frame.columns.get_loc("close")] = 1.10020
+        frame.iloc[i, frame.columns.get_loc("close")] = 1.10055
+        frame.iloc[i, frame.columns.get_loc("high")] = 1.10140
+        frame.iloc[i, frame.columns.get_loc("low")] = 1.09995
+    else:
+        frame.iloc[i - 1, frame.columns.get_loc("close")] = 1.09980
+        frame.iloc[i, frame.columns.get_loc("close")] = 1.09945
+        frame.iloc[i, frame.columns.get_loc("high")] = 1.10005
+        frame.iloc[i, frame.columns.get_loc("low")] = 1.09860
     return frame, i, pre_i
+
+
+def _orb_incomplete_frame() -> tuple[pd.DataFrame, int]:
+    index = list(pd.date_range(pd.Timestamp("2024-01-02 03:20:00", tz=NY_TZ), pd.Timestamp("2024-01-02 06:59:00", tz=NY_TZ), freq="min"))
+    index.append(pd.Timestamp("2024-01-02 07:00:00", tz=NY_TZ))
+    index.extend(pd.date_range(pd.Timestamp("2024-01-02 08:00:00", tz=NY_TZ), pd.Timestamp("2024-01-02 08:20:00", tz=NY_TZ), freq="min"))
+    frame = pd.DataFrame(index=pd.DatetimeIndex(index))
+    frame["open"] = 1.1000
+    frame["high"] = 1.1001
+    frame["low"] = 1.0999
+    frame["close"] = 1.1000
+    frame["volume"] = 1000.0
+    frame["atr14"] = 0.00050
+    frame["adx14"] = 12.0
+    frame.loc[pd.Timestamp("2024-01-02 07:00:00", tz=NY_TZ), ["high", "low", "close"]] = [1.1003, 1.0997, 1.1000]
+    frame.loc[pd.Timestamp("2024-01-02 08:19:00", tz=NY_TZ), "close"] = 1.1002
+    frame.loc[pd.Timestamp("2024-01-02 08:20:00", tz=NY_TZ), ["high", "low", "close"]] = [1.1014, 1.09995, 1.10055]
+    i = int(frame.index.get_loc(pd.Timestamp("2024-01-02 08:20:00", tz=NY_TZ)))
+    return frame, i
 
 
 class PriorityASkeletonTests(unittest.TestCase):
@@ -163,12 +203,18 @@ class PriorityASkeletonTests(unittest.TestCase):
             self.assertIsNone(module.signal(tiny, 2, module.default_params()))
 
     def test_no_file_access_during_signal_calls(self) -> None:
-        frame, i = _mr_frame("mr01", "long")
+        cases = [
+            (mr01_anchor_elastic, *_mr_frame("mr01", "long")),
+            (mr02_vwap_stretch_reversion, *_mr_frame("mr02", "long")),
+            (tp01_london_ny_momentum_pullback, *_tp_frame(active=True)),
+            (ve_orb_volatility_expansion, *_orb_frame()[:2]),
+        ]
         read_name = "read_" + "csv"
         with patch.object(builtins, "open", side_effect=AssertionError("file access")):
             with patch.object(pd, read_name, side_effect=AssertionError("tabular file access")):
-                result = mr01_anchor_elastic.signal(frame, i, mr01_anchor_elastic.default_params())
-        _assert_engine_contract(self, result)
+                for module, frame, i in cases:
+                    result = module.signal(frame, i, module.default_params())
+                    _assert_engine_contract(self, result)
 
     def test_source_has_no_blocked_external_dependencies(self) -> None:
         text = _source_text()
@@ -235,12 +281,33 @@ class PriorityASkeletonTests(unittest.TestCase):
         self.assertIsNone(lateral_signal)
         _assert_engine_contract(self, active_signal)
 
-    def test_ve_orb_waits_for_completed_opening_range(self) -> None:
+    def test_tp01_short_signal(self) -> None:
+        frame, i = _tp_frame(active=True, direction="short")
+        result = tp01_london_ny_momentum_pullback.signal(
+            frame,
+            i,
+            tp01_london_ny_momentum_pullback.default_params(),
+        )
+        self.assertEqual(_signal_value(result), -1)
+        _assert_engine_contract(self, result)
+
+    def test_ve_orb_fails_closed_with_incomplete_opening_range(self) -> None:
+        frame, i = _orb_incomplete_frame()
+        result = ve_orb_volatility_expansion.signal(frame, i, ve_orb_volatility_expansion.default_params())
+        self.assertIsNone(result)
+
+    def test_ve_orb_allows_complete_opening_range(self) -> None:
         frame, i, pre_i = _orb_frame()
         params = ve_orb_volatility_expansion.default_params()
         self.assertIsNone(ve_orb_volatility_expansion.signal(frame, pre_i, params))
         result = ve_orb_volatility_expansion.signal(frame, i, params)
         self.assertEqual(_signal_value(result), 1)
+        _assert_engine_contract(self, result)
+
+    def test_ve_orb_short_signal(self) -> None:
+        frame, i, _ = _orb_frame(direction="short")
+        result = ve_orb_volatility_expansion.signal(frame, i, ve_orb_volatility_expansion.default_params())
+        self.assertEqual(_signal_value(result), -1)
         _assert_engine_contract(self, result)
 
     def test_nan_critical_inputs_fail_closed(self) -> None:
@@ -250,6 +317,21 @@ class PriorityASkeletonTests(unittest.TestCase):
         frame2, i2, _ = _orb_frame()
         frame2.iloc[i2, frame2.columns.get_loc("high")] = np.nan
         self.assertIsNone(ve_orb_volatility_expansion.signal(frame2, i2, ve_orb_volatility_expansion.default_params()))
+
+    def test_mr02_nan_fail_closed(self) -> None:
+        for column in ("close", "high", "low"):
+            frame, i = _mr_frame("mr02", "long")
+            frame.iloc[i, frame.columns.get_loc(column)] = np.nan
+            self.assertIsNone(mr02_vwap_stretch_reversion.signal(frame, i, mr02_vwap_stretch_reversion.default_params()))
+        frame, i = _mr_frame("mr02", "long")
+        frame.iloc[i - 5, frame.columns.get_loc("volume")] = np.nan
+        self.assertIsNone(mr02_vwap_stretch_reversion.signal(frame, i, mr02_vwap_stretch_reversion.default_params()))
+
+    def test_tp01_nan_fail_closed(self) -> None:
+        for column in ("close", "high", "low"):
+            frame, i = _tp_frame(active=True)
+            frame.iloc[i, frame.columns.get_loc(column)] = np.nan
+            self.assertIsNone(tp01_london_ny_momentum_pullback.signal(frame, i, tp01_london_ny_momentum_pullback.default_params()))
 
     def test_no_disallowed_family_tokens_in_sources(self) -> None:
         text = _source_text()

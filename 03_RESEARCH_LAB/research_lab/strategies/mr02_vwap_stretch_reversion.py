@@ -92,6 +92,8 @@ def _vwap_stats(window: pd.DataFrame) -> tuple[float, float] | None:
         return None
     volume = window["volume"].astype(float)
     close = window["close"].astype(float)
+    if volume.isna().any() or close.isna().any() or not np.isfinite(volume).all() or not np.isfinite(close).all():
+        return None
     if (volume <= 0).any():
         return None
     cumulative_volume = volume.cumsum()
