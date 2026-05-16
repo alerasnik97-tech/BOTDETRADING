@@ -12,7 +12,7 @@ Esta política es de cumplimiento obligatorio para todo operador del laboratorio
 - La conexión a una cuenta REAL en la VPS resultará en la suspensión inmediata del entorno de ejecución.
 
 ## 3. Integridad de Código
-- No instalar paquetes de Python externos a `requirements.txt` sin previa validación en local.
+- No instalar paquetes de Python externos a `04_INFRASTRUCTURE_ENGINEERING/python_environment/requirements.txt` sin previa validación en local.
 - No ejecutar scripts de origen desconocido.
 - Todas las actualizaciones de código deben llegar a través de la rama segura `chore/github-clean-sync`.
 

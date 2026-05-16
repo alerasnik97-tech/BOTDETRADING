@@ -35,7 +35,7 @@ Esta guía detalla el proceso para configurar el entorno de trading en una VPS W
 2. Instalar dependencias:
    ```powershell
    python -m pip install --upgrade pip
-   pip install -r requirements.txt
+   pip install -r 04_INFRASTRUCTURE_ENGINEERING/python_environment/requirements.txt
    ```
 
 ## 5. Configuración Local (Crítico)

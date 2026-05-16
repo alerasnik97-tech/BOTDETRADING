@@ -25,7 +25,7 @@ python -c "import pandas; import numpy; import pytz; import MetaTrader5; print('
 if ($LASTEXITCODE -eq 0) {
     Write-Host "[OK] Librerías instaladas correctamente."
 } else {
-    Write-Error "Faltan librerías. Ejecute pip install -r requirements.txt"
+    Write-Error "Faltan librerías. Ejecute pip install -r 04_INFRASTRUCTURE_ENGINEERING/python_environment/requirements.txt"
 }
 
 # 4. Verificar Config Local

@@ -23,27 +23,20 @@
 
 ```
 C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\
-├── research_lab/           ← Motor oficial, estrategias, validación, tests
-│   ├── main.py             ← Orquestador canónico
-│   ├── engine.py           ← Motor de backtesting
-│   ├── validation.py       ← WFA y harness OOS
-│   ├── rejection_protocol.py ← Protocolo de rechazo IS/OOS
-│   ├── strategies/         ← Estrategias activas
-│   ├── tests/              ← Tests críticos de infraestructura
-│   └── version.py          ← Versionado del laboratorio
-├── run_canonical.py        ← Único entrypoint autorizado
-├── data_free_2020/prepared/EURUSD_M5.csv    ← Dataset IS 2020-2021
-├── data_candidates_2022_2025/prepared/EURUSD_M5.csv ← Dataset OOS 2022-2025
-├── handoff/                ← ZIP de intercambio ChatGPT (no fuente)
-├── docs/                   ← Documentación técnica
-├── legacy/                 ← Código archivado (no activo)
-├── requirements.txt
-├── STRATEGY_PROMOTION_POLICY.md
-├── OOS_REJECTION_PROTOCOL.md
-├── CANONICAL_EXECUTION_CONTRACT.md
-├── COMPARABILITY_2020_2025_NOTE.md
-├── INFRASTRUCTURE_STATUS_FINAL.md
-└── CLOUD_WORKFLOW.md
+├── 01_CORE_PRODUCTION          ← Releases aprobadas para producción
+├── 02_INCUBATION_STAGING       ← Paper trading y demo controlado
+├── 03_RESEARCH_LAB             ← Motor de research, estrategias y backtesting
+├── 04_INFRASTRUCTURE_ENGINEERING ← VPS, entorno Python y scripts de soporte
+│   └── python_environment/
+│       └── requirements.txt
+├── 05_MARKET_DATA_VAULT        ← Fuente de verdad de datos (Solo Lectura)
+├── 06_GOVERNANCE_AND_COMPLIANCE ← Políticas, auditorías y documentación raíz
+│   └── root_docs/
+│       └── README.md
+├── 07_BACKUPS                  ← Copias de seguridad institucionales
+├── 08_CLOUD_FREE_RUN_LAB       ← Laboratorio de ejecución en la nube (Kaggle/Colab)
+├── .gitignore
+└── .github                     ← Workflows de CI/CD (Excepción técnica)
 ```
 
 ---
@@ -52,7 +45,7 @@ C:\Users\alera\Desktop\Bot\BOT DE TRADING ultimo\
 
 **Instalar entorno:**
 ```bash
-pip install -r requirements.txt
+pip install -r 04_INFRASTRUCTURE_ENGINEERING/python_environment/requirements.txt
 ```
 
 **Correr una estrategia (entrypoint canónico):**

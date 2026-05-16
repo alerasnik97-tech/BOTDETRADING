@@ -10,7 +10,7 @@ Estrategia de sincronización para mantener la VPS actualizada de forma segura.
 ## Flujo de Trabajo (VPS)
 1. Realizar `git pull` desde la rama `chore/github-clean-sync`.
 2. Ejecutar `vps_preflight_check.ps1` para validar que los cambios no rompieron el entorno.
-3. Actualizar `requirements.txt` si hubo cambios.
+3. Actualizar `04_INFRASTRUCTURE_ENGINEERING/python_environment/requirements.txt` si hubo cambios.
 4. Reiniciar el servicio de monitoreo (Forward Demo).
 
 ## Reglas de Oro
