@@ -1,0 +1,54 @@
+{
+  "run_id": "EURUSD_PRIORITY_A_MICRO_TRAIN_ONLY_20260516_205000",
+  "datetime": "2026-05-16T18:15:28.230107",
+  "authorized_scope": "EURUSD_PRIORITY_A_MICRO_TRAIN_ONLY",
+  "data_path": [
+    "05_MARKET_DATA_VAULT\\eurusd_data\\prepared_train_2015_2024\\prepared"
+  ],
+  "data_range": [
+    "2015-01-01",
+    "2024-12-31"
+  ],
+  "strategies_run": [
+    "mr01_anchor_elastic",
+    "mr02_vwap_stretch_reversion",
+    "tp01_london_ny_momentum_pullback",
+    "ve_orb_volatility_expansion"
+  ],
+  "holdout_used": false,
+  "optimization_run": false,
+  "results": [
+    {
+      "strategy": "mr01_anchor_elastic",
+      "status": "MICRO_RUN_PASS",
+      "trades_count": 1,
+      "runtime": 4.962172031402588,
+      "pf": 0.0,
+      "expectancy": -1.0807319876278982
+    },
+    {
+      "strategy": "mr02_vwap_stretch_reversion",
+      "status": "MICRO_RUN_PASS",
+      "trades_count": 1,
+      "runtime": 4.984869718551636,
+      "pf": 0.0,
+      "expectancy": -1.09958938917602
+    },
+    {
+      "strategy": "tp01_london_ny_momentum_pullback",
+      "status": "MICRO_RUN_PASS",
+      "trades_count": 139,
+      "runtime": 636.2988977432251,
+      "pf": 1.2002396676540352,
+      "expectancy": 0.09377814159784803
+    },
+    {
+      "strategy": "ve_orb_volatility_expansion",
+      "status": "MICRO_RUN_PASS",
+      "trades_count": 1,
+      "runtime": 6.2893922328948975,
+      "pf": Infinity,
+      "expectancy": 1.9837962962962974
+    }
+  ]
+}

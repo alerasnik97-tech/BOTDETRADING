@@ -1,0 +1,23 @@
+{
+  "strategy_name": "mr01_anchor_elastic",
+  "params": {
+    "session_start": "07:00",
+    "session_end": "19:00",
+    "deviation_sd": 1.8,
+    "adx_max": 22.0,
+    "ema_period": 20,
+    "ema_slope_bars": 10,
+    "ema_slope_atr_max": 0.45,
+    "atr_period": 14,
+    "stop_atr_buffer": 0.35,
+    "max_target_rr": 1.5,
+    "min_anchor_bars": 25,
+    "session_name": "all_day"
+  },
+  "engine_config": "EngineConfig(pair='EURUSD', risk_pct=0.5, shock_candle_atr_max=4.0, assumed_spread_pips=1.2, max_spread_pips=3.0, commission_per_lot_roundturn_usd=7.0, slippage_pips=0.2, opening_session_end='13:00', late_session_start='17:00', high_vol_range_atr=1.0, spread_opening_multiplier=1.05, spread_high_vol_multiplier=1.25, spread_late_session_multiplier=3.0, slippage_opening_multiplier=1.1, slippage_high_vol_multiplier=1.5, slippage_stop_multiplier=1.5, slippage_stop_entry_multiplier=1.5, slippage_target_multiplier=1.0, slippage_late_session_multiplier=2.0, slippage_forced_close_multiplier=1.1, slippage_final_close_multiplier=1.05, stress_spread_multiplier=1.35, stress_slippage_multiplier=1.6, ambiguity_slippage_multiplier=1.5, intrabar_exit_priority='stop_first', max_trades_per_day=3, max_open_positions=1, price_source='bid', execution_mode='normal_mode', cost_profile='base', intrabar_policy='standard', session_cutoff=None, enforce_hard_stop=True)",
+  "data_range": [
+    "2015-01-01",
+    "2024-12-31"
+  ],
+  "no_holdout": true
+}

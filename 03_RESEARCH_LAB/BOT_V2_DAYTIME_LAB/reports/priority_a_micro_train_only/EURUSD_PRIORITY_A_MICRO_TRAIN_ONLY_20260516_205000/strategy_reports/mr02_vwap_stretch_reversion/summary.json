@@ -1,0 +1,33 @@
+{
+  "strategy_name": "mr02_vwap_stretch_reversion",
+  "total_trades": 1,
+  "avg_trades_per_month": 0.041666666666666664,
+  "win_rate": 0.0,
+  "breakeven_rate": 0.0,
+  "profit_factor": 0.0,
+  "expectancy_r": -1.09958938917602,
+  "total_return_pct": -0.06814010838360751,
+  "max_drawdown_pct": 0.06814010838360991,
+  "negative_months": 1,
+  "negative_years": 1,
+  "positive_years": 0,
+  "years_positive": 0,
+  "parameter_set_used": {
+    "session_start": "07:00",
+    "session_end": "19:00",
+    "band_sd": 2.25,
+    "target_band_sd": 0.0,
+    "atr_period": 14,
+    "stop_atr_buffer": 0.3,
+    "min_anchor_bars": 25,
+    "session_name": "all_day"
+  },
+  "insufficient_sample": true,
+  "sample_penalty_applied": true,
+  "selected_score": 0.0,
+  "news_filter_used": false,
+  "costs_used": {},
+  "timeframe": "M1",
+  "schedule_used": {},
+  "break_even_setting": null
+}
