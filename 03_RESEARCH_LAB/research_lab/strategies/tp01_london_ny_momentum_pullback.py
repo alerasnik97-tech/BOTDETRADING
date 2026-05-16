@@ -103,6 +103,28 @@ def _build_signal(
     }
 
 
+_CACHE: dict[tuple[int, int, Any, int, int], tuple[np.ndarray, np.ndarray]] = {}
+
+
+def _get_cached_indicators(frame: pd.DataFrame, params: dict[str, Any]) -> tuple[np.ndarray, np.ndarray]:
+    p = {**DEFAULT_PARAMS, **params}
+    atr_period = int(p["atr_period"])
+    ema_period = int(p["ema_period"])
+    
+    # Cache key based on frame id, frame shape/length, last index timestamp, and parameters
+    key = (id(frame), len(frame), frame.index[-1] if len(frame) > 0 else None, atr_period, ema_period)
+    
+    if key not in _CACHE:
+        # Precompute indicators safely as numpy float64 arrays
+        atr_series = _atr_series(frame, atr_period)
+        atr_values = atr_series.to_numpy(dtype=float)
+        close_series = frame["close"].astype(float)
+        ema_values = close_series.ewm(span=ema_period, adjust=False).mean().to_numpy(dtype=float)
+        _CACHE[key] = (atr_values, ema_values)
+        
+    return _CACHE[key]
+
+
 def signal(frame: pd.DataFrame, i: int, params: dict[str, Any]) -> dict[str, Any] | None:
     p = {**DEFAULT_PARAMS, **params}
     required = ("open", "high", "low", "close")
@@ -114,24 +136,25 @@ def signal(frame: pd.DataFrame, i: int, params: dict[str, Any]) -> dict[str, Any
     atr_period = int(p["atr_period"])
     lookback = int(p["atr_percentile_lookback"])
     momentum_bars = int(p["momentum_bars"])
+    ema_period = int(p["ema_period"])
+    
     if i < lookback + atr_period + momentum_bars:
         return None
-
-    atr_values = _atr_series(frame, atr_period)
-    current_atr = float(atr_values.iat[i])
-    previous_atr_window = atr_values.iloc[i - lookback : i].dropna()
-    if len(previous_atr_window) < lookback:
+    if i < ema_period + 2:
         return None
-    threshold = float(np.percentile(previous_atr_window.to_numpy(dtype=float), float(p["atr_percentile"])))
+
+    # Retrieve precomputed indicator arrays
+    atr_values, ema_values = _get_cached_indicators(frame, p)
+
+    current_atr = float(atr_values[i])
+    # Directly slice numpy array view - extremely fast, no NaNs possible for i >= lookback + atr_period + momentum_bars
+    previous_atr_window = atr_values[i - lookback : i]
+    threshold = float(np.percentile(previous_atr_window, float(p["atr_percentile"])))
     if not _all_finite([current_atr, threshold]) or current_atr <= threshold or current_atr <= 0:
         return None
 
-    close_series = frame["close"].astype(float)
-    ema = close_series.iloc[:i].ewm(span=int(p["ema_period"]), adjust=False).mean()
-    if len(ema) < int(p["ema_period"]) + 2:
-        return None
-    ema_now = float(ema.iat[-1])
-    ema_prev = float(ema.iat[-2])
+    ema_now = float(ema_values[i - 1])
+    ema_prev = float(ema_values[i - 2])
 
     close = float(frame["close"].iat[i])
     prev_close = float(frame["close"].iat[i - 1])
