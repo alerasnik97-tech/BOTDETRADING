@@ -9,10 +9,13 @@ Cada finalización de tarea o fase debe concluir con un reporte siguiendo esta e
 
 ## GitHub
 - **repo**: alerasnik97-tech/bottrading
-- **branch**: clean-sync-branch
+- **branch**: [rama canónica vigente declarada en el gate — actualmente `governance/root-hygiene-20260516`; NUNCA hardcodear `clean-sync-branch`]
 - **commit**: [Hash del último commit]
-- **push**: SUCCESS
+- **push**: SUCCESS (non-force)
 - **main touched**: NO
+- **force push**: NO
+- **ZIP used**: NO
+- **blockers**: [lista de blockers vigentes o NONE]
 
 ## Archivos clave
 - [Ruta del archivo 1]
