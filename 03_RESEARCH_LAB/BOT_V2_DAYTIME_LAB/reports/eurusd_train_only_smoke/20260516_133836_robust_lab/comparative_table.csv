@@ -1,0 +1,2 @@
+strategy_name,pf_oos,expectancy_oos,dd_oos,return_oos,years_positive_oos,trades_mes_oos,selected_score,parameter_set_used
+adr_exhaustion_fade,1.1996548851000597,0.07294502930651625,2.899277804266554,1.578577784622337,5,0.7241379310344828,-9999.0,"{""target_rr"": 1.5, ""break_even_at_r"": null, ""exhaustion_mult"": 1.5, ""session_name"": ""light_fixed""}"

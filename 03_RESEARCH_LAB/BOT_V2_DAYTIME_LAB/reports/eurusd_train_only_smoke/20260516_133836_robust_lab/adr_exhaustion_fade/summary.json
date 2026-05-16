@@ -1,0 +1,29 @@
+{
+  "strategy_name": "adr_exhaustion_fade",
+  "total_trades": 63,
+  "avg_trades_per_month": 0.7241379310344828,
+  "win_rate": 57.14285714285714,
+  "breakeven_rate": 0.0,
+  "profit_factor": 1.1996548851000597,
+  "expectancy_r": 0.07294502930651625,
+  "total_return_pct": 1.578577784622337,
+  "max_drawdown_pct": 2.899277804266554,
+  "negative_months": 14,
+  "negative_years": 3,
+  "positive_years": 5,
+  "years_positive": 5,
+  "parameter_set_used": {
+    "target_rr": 1.5,
+    "break_even_at_r": null,
+    "exhaustion_mult": 1.5,
+    "session_name": "light_fixed"
+  },
+  "insufficient_sample": true,
+  "sample_penalty_applied": true,
+  "selected_score": -9999.0,
+  "news_filter_used": true,
+  "costs_used": {},
+  "timeframe": "M15",
+  "schedule_used": {},
+  "break_even_setting": null
+}

@@ -700,7 +700,11 @@ def run_backtest(
         # --- SIGNAL GENERATION ---
         if not position and not pending_signal and i >= cooldown_until_index:
             if opened_total_by_date.get(session_date, 0) < engine_config.max_trades_per_day:
-                raw_signal = strategy_module.generate_signal(frame, i, params)
+                # CORE_REMEDIATION: Fallback to legacy .signal() if .generate_signal() is missing
+                if hasattr(strategy_module, "generate_signal"):
+                    raw_signal = strategy_module.generate_signal(frame, i, params)
+                else:
+                    raw_signal = strategy_module.signal(frame, i, params)
                 if raw_signal:
                     pending_signal = validate_signal_risk_contract(raw_signal, signal_price=close[i], engine_config=engine_config)
                     pending_signal["signal_index"] = i
@@ -986,6 +990,7 @@ def run_backtest(
                 commission_total_usd = position.entry_commission_usd + exit_commission_usd
                 
                 trades.append({
+                    "pair": pair,
                     "strategy_name": position.strategy_name,
                     "direction": position.direction,
                     "signal_time": position.signal_time,
@@ -1072,6 +1077,7 @@ def run_backtest(
         commission_total_usd = position.entry_commission_usd + exit_commission_usd
         
         trades.append({
+            "pair": pair,
             "strategy_name": position.strategy_name,
             "direction": position.direction,
             "signal_time": position.signal_time,
