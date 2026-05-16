@@ -1,10 +1,10 @@
 ID,Name,Family,Priority,Status,Complexity
 MR-01,Anchor Elastic,Mean Reversion,A,APPROVED_FOR_SKELETON,Medium
 MR-02,VWAP Stretch,Mean Reversion,A,APPROVED_FOR_SKELETON,Low
+TP-01,LDN-NY Momentum,Trend,A,APPROVED_FOR_SKELETON,Medium
 VE-ORB,Opening Range Break,Volatility,A,APPROVED_FOR_SKELETON,Low
-SD-01,Europe Extreme Failure,Session,B,ON_HOLD_CORRELATION,Medium
+SD-01,Europe Extreme Failure,Session,REJECTED,HIGH_CORRELATION,Medium
 SD-02,London Session H/L,Session,B,ON_HOLD_REFINEMENT,Medium
 SD-03,Asian Range Fakeout,Session,B,ON_HOLD_REFINEMENT,Medium
-VE-01,RV Shock Break,Volatility,REVIEW,BLOCKED_HALLUCINATION,High
-TP-01,Trend Day Pullback,Trend,REVIEW,BLOCKED_UNDEFINED,Medium
+VE-01,RV Shock Break,Volatility,REVIEW,GHOST_PARAMS,High
 ED-01,Post-News Stabilization,Event,DEFERRED,BLOCKED_NEWS_DATA,High
