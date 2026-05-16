@@ -1,2 +1,0 @@
-train_period,test_period,params_used,trades,win_rate,pnl_r,pnl_usd,max_drawdown_pct,profit_factor
-,,"{""label"": ""trend_ema_rsi7__trend_active__early__balanced"", ""style"": ""trend_ema_rsi7"", ""variant"": ""balanced"", ""regime"": ""trend_active"", ""session"": ""early""}",197,35.025380710659896,-69.9280888651131,-69928.0888651131,74.0092451759984,0.4780813134305202

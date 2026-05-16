@@ -1,3 +1,0 @@
-stage,accepted_pair_count,pairs,initial_capital,final_equity,total_return_pct,max_drawdown_pct,sharpe_ratio,profit_factor,total_trades,wins,losses,break_even_trades,win_rate_pct,trades_per_month,profit_month_ratio,avg_monthly_net_pnl_usd,expectancy_usd,avg_trade_minutes,median_trade_minutes,max_consecutive_wins,max_consecutive_losses,accepted_block
-design,0,,100000.0,100000.0,0.0,0.0,0.0,0.0,0,0,0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0,False
-oos,0,,100000.0,100000.0,0.0,0.0,0.0,0.0,0,0,0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0,False

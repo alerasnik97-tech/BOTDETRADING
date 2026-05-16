@@ -1,2 +1,0 @@
-pair,direction,entry_time,exit_time,entry_price,exit_price,units,gross_pnl_usd,net_pnl_usd,r_multiple,commission_usd,exit_reason,strategy_family,context_key,setup_tag,context_trades_before,context_win_rate_before,context_expectancy_before
-USDJPY,short,2021-08-20 13:55:00-04:00,2021-08-20 14:00:00-04:00,109.8245,109.81989432794472,2000000,83.86987144154922,3.869871441549222,0.020973966762247095,80.0,take_profit,usdjp_session_playbook,core_reversion|fri|core|balanced|deep|short,core_reversion,0,0.0,0.0

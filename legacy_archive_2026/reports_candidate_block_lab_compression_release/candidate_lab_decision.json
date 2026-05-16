@@ -1,6 +1,0 @@
-{
-  "strategy_family": "session_compression_release",
-  "decision": "reject",
-  "accepted_pairs": [],
-  "next_step": "volatility_normalization_or_post_expansion_mean_reversion"
-}

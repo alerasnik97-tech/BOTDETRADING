@@ -1,6 +1,0 @@
-component,status,evidence,note
-lifecycle_config,READY,runner_lifecycle_config.json found,Contains forced_safe_close at 19:45
-bot_runner_logic,READY,phase37_ftmo_trial_bot_runner.py line 272,Calls safe_close.execute_safe_close
-safe_close_implementation,READY,phase37x_safe_close.py,Implements MT5 market close order
-forward_logs,WAITING,decisions.csv,FORWARD_TRADES=0. No events triggered yet.
-determinism_match,HIGH,Historical EOD close at 20:00 NY,Operational rule is more conservative (19:45)

@@ -1,9 +1,0 @@
-{
-    "month": "2019-08",
-    "sample_total": 20,
-    "auditables": 18,
-    "non_auditables": 2,
-    "total_R_net_FTMO": 3.3816,
-    "expectancy_net_FTMO": 0.1879,
-    "PF_net_FTMO": 1.38
-}

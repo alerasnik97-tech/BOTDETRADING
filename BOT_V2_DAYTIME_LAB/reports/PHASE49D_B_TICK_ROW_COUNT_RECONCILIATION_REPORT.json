@@ -1,7 +1,0 @@
-{
-    "phase": "Phase49D-B",
-    "verdict": "TICK_ROW_COUNT_RECONCILIED_OK",
-    "canonical_rows": 2220449,
-    "canonical_sha256": "87ea62859794f406bb087b40e0826a7151dfe250c79ec2c126163f82199fa3f7",
-    "caches_aligned": true
-}

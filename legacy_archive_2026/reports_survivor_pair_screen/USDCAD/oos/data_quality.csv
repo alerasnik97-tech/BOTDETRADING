@@ -1,2 +1,0 @@
-pair,bars,coverage_ratio,missing_bars,max_missing_streak_bars,duplicate_timestamps,unexpected_schedule_bars,weekend_bars,zero_range_bars,nonpositive_prices,invalid_hilo_bars,outlier_return_bars,quality_score,quality_status
-USDCAD,300407,1.0,0,0,0,0,0,1570,0,0,94,87.45,warn

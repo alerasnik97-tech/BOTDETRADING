@@ -1,3 +1,0 @@
-file_path,exists,rows,columns,contains_real_fills_yes_no,contains_spread_yes_no,contains_commission_yes_no,contains_slippage_yes_no,usable_for_cost_calibration_yes_no,notes
-MANIPULANTE/10_LOGS_PAPER/dry_run_decisions,True,0,,NO,NO,NO,NO,NO,Empty
-MANIPULANTE/15_FORWARD_DEMO_SCORECARD/forward_demo_master_scorecard.csv,True,1,"date,status,trades...",NO,NO,NO,NO,NO,No trades executed

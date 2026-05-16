@@ -1,9 +1,0 @@
-{
-  "verdict": "WARNING",
-  "findings": [
-    {
-      "issue": "Obsolete folder in root: legacy",
-      "severity": "WARNING"
-    }
-  ]
-}

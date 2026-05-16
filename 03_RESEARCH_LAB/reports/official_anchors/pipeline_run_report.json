@@ -1,0 +1,80 @@
+{
+  "pipeline": "official_anchor_events_free",
+  "source_approved_config": false,
+  "range": {
+    "start": "2020-01-01",
+    "end": "2026-12-31"
+  },
+  "output_clean_csv": "05_MARKET_DATA_VAULT\\data\\official_anchors\\out\\canonical_anchor_events.csv",
+  "output_audit_csv": "05_MARKET_DATA_VAULT\\data\\official_anchors\\out\\canonical_anchor_events_audit.csv",
+  "connectors": [
+    {
+      "id": "bls_employment_situation",
+      "status": "partial",
+      "message": "Regla de primer viernes + hora oficial BLS. No sustituye verificación mensual del calendario BLS ante feriados.",
+      "events_emitted": 168,
+      "meta": {
+        "official_reference": "https://www.bls.gov/schedule/news_release/empsit.htm"
+      }
+    },
+    {
+      "id": "user_manifest_json",
+      "status": "blocked",
+      "message": "Manifiesto no encontrado: C:\\Users\\alera\\Desktop\\Bot\\BOT DE TRADING ultimo\\data\\official_anchors\\manifests\\user_curated_releases.json",
+      "events_emitted": 0,
+      "meta": {}
+    },
+    {
+      "id": "fed_fomc_official",
+      "status": "blocked",
+      "message": "La Reserva Federal publica calendarios de FOMC en federalreserve.gov (PDF/HTML). Sin descarga oficial local ni parser estable aprobado, este conector permanece bloqueado.",
+      "events_emitted": 0,
+      "meta": {
+        "hint": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+      }
+    },
+    {
+      "id": "ecb_official",
+      "status": "blocked",
+      "message": "ECB publica calendario de reuniones y conferencias. Integración estable pendiente (ICS/PDF oficial o filas en user_curated_releases.json).",
+      "events_emitted": 0,
+      "meta": {
+        "hint": "https://www.ecb.europa.eu/press/calendars/mgcgc/html/index.en.html"
+      }
+    },
+    {
+      "id": "bea_official",
+      "status": "blocked",
+      "message": "GDP advance/prelim/final y datos BEA: usar manifiesto curado desde bea.gov o conector futuro.",
+      "events_emitted": 0,
+      "meta": {
+        "hint": "https://www.bea.gov/news/schedule"
+      }
+    },
+    {
+      "id": "ism_official",
+      "status": "blocked",
+      "message": "ISM publica fechas en ismworld.org; sin feed estructurado oficial incluido en el repo, permanece bloqueado.",
+      "events_emitted": 0,
+      "meta": {
+        "hint": "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-report-on-business/"
+      }
+    }
+  ],
+  "build_stats": {
+    "raw_intermediate": 168,
+    "audit_rows": 168,
+    "technical_approved": 168,
+    "technical_rejected": 0,
+    "operational_eligible_rows": 0,
+    "status_breakdown": {
+      "approved_technical": 168
+    }
+  },
+  "policy": {
+    "utc_canonical_field": "scheduled_at_utc",
+    "ny_derived_field": "scheduled_at_ny",
+    "operational_eligible_requires_source_approved": true,
+    "default_source_approved": false
+  }
+}

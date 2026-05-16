@@ -1,2 +1,0 @@
-pair,direction,entry_time,exit_time,entry_price,exit_price,units,gross_pnl_usd,net_pnl_usd,r_multiple,commission_usd,exit_reason,strategy_family,context_key,setup_tag,context_trades_before,context_win_rate_before,context_expectancy_before
-USDJPY,short,2023-04-26 13:20:00-04:00,2023-04-26 13:50:00-04:00,133.79149999999998,133.7585,1701000,419.67029269917356,351.6302926991736,0.3517986836206454,68.04,time_stop,core_session_reversion,wed_thu|core|balanced|deep|short,,0,0.0,0.0

@@ -1,4 +1,0 @@
-context_key,trades,wins,losses,win_rate_pct,profit_factor,net_pnl_usd,avg_r_multiple
-fri|core|balanced|deep|long,1,1,0,100.0,inf,161.66197128458037,0.3270348356259762
-wed_thu|core|balanced|deep|long,1,0,1,0.0,0.0,-622.8800085650163,-1.2684713344332708
-fri|core|balanced|deep|short,2,1,1,50.0,0.1407206574391749,-922.849991405581,-0.41603141684425266

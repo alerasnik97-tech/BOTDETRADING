@@ -1,9 +1,0 @@
-{
-  "timestamp": "2026-04-30T14:40:44-03:00",
-  "lock_status": "LOCK_STALE",
-  "pid_in_lock": 17844,
-  "pid_alive": false,
-  "heartbeat_age_seconds": 941,
-  "position_open": false,
-  "safe_to_clean": true
-}

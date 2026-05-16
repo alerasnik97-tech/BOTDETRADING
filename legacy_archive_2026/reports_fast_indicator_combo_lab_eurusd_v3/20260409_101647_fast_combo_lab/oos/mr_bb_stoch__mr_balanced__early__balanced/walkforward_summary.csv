@@ -1,2 +1,0 @@
-train_period,test_period,params_used,trades,win_rate,pnl_r,pnl_usd,max_drawdown_pct,profit_factor
-,,"{""label"": ""mr_bb_stoch__mr_balanced__early__balanced"", ""style"": ""mr_bb_stoch"", ""variant"": ""balanced"", ""regime"": ""mr_balanced"", ""session"": ""early""}",39,38.46153846153847,-15.633222575282778,-15633.222575282773,15.633222575282765,0.23156294967591914

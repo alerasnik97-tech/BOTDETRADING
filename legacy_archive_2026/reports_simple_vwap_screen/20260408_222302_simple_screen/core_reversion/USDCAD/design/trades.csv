@@ -1,4 +1,0 @@
-pair,direction,entry_time,exit_time,entry_price,exit_price,units,gross_pnl_usd,net_pnl_usd,r_multiple,commission_usd,exit_reason,strategy_family,context_key,setup_tag,context_trades_before,context_win_rate_before,context_expectancy_before
-USDCAD,short,2020-04-03 14:20:00-04:00,2020-04-03 14:25:00-04:00,1.414955,1.4139650000000001,2000000,1400.3621138392898,1320.3621138392898,1.6612520448264265,80.0,mean_reversion_exit,core_session_reversion,fri|core|calm|mild|short,,0,0.0,0.0
-USDCAD,short,2020-04-24 13:40:00-04:00,2020-04-24 13:45:00-04:00,1.410525,1.4103222363944574,2026000,291.25390111618947,210.21390111618945,0.35443494137578135,81.04,take_profit,core_session_reversion,fri|core|balanced|deep|short,,0,0.0,0.0
-USDCAD,long,2021-05-28 14:05:00-04:00,2021-05-28 14:10:00-04:00,1.207835,1.2079252518163637,2030000,151.64982552915234,70.44982552915235,0.18596148665887463,81.2,take_profit,core_session_reversion,fri|core|balanced|deep|long,,0,0.0,0.0

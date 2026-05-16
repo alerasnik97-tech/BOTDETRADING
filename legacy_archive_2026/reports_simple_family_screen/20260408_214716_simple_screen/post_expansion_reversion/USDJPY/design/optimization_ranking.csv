@@ -1,5 +1,0 @@
-family,pemr_h1_adx_max,pemr_expansion_atr_min,stop_atr_multiple,pemr_take_profit_rr_cap,score,initial_capital,final_equity,total_return_pct,max_drawdown_pct,sharpe_ratio,profit_factor,total_trades,wins,losses,break_even_trades,win_rate_pct,trades_per_month,profit_month_ratio,avg_monthly_net_pnl_usd,expectancy_usd,avg_trade_minutes,median_trade_minutes,max_consecutive_wins,max_consecutive_losses
-post_expansion_reversion,18.0,1.2,0.7,0.8,-56.970768372029355,100000.0,98147.0330897101,-1.8529669102899105,1.852966910289906,-0.8839468207439006,0.0,2,0,2,0,0.0,1.0,0.0,-926.4834551449569,-926.4834551449569,12.5,12.5,0,2
-post_expansion_reversion,22.0,1.2,0.7,0.8,-64.33846251001484,100000.0,96808.79106999788,-3.1912089300021207,3.191208930002118,-1.242982662783507,0.0,4,0,4,0,0.0,1.3333333333333333,0.0,-1063.7363100007085,-797.8022325005314,10.0,10.0,0,4
-post_expansion_reversion,18.0,1.5,0.7,0.8,-1000.0,100000.0,100000.0,0.0,0.0,0.0,inf,0,0,0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0
-post_expansion_reversion,22.0,1.5,0.7,0.8,-1000.0,100000.0,100000.0,0.0,0.0,0.0,inf,0,0,0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0

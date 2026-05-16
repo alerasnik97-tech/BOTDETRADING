@@ -1,2 +1,0 @@
-pair,bars,coverage_ratio,missing_bars,max_missing_streak_bars,duplicate_timestamps,unexpected_schedule_bars,weekend_bars,zero_range_bars,nonpositive_prices,invalid_hilo_bars,outlier_return_bars,quality_score,quality_status
-USDJPY,450983,0.9999977826264347,1,1,0,0,0,2485,0,0,219,79.04113050573874,warn

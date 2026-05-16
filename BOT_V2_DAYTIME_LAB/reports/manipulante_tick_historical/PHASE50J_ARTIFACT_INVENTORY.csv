@@ -1,7 +1,0 @@
-Artifact,Status,Count/Value,Notes
-Canonical Trade-Level CSV,VALIDATED,166,Excluded 19 trades from 2025-08.
-Canonical Monthly Metrics,VALIDATED,8 months,Missing 2024-06.
-Aggregate JSON,VALIDATED,PF=0.036,Validated against reconstructed trade-level.
-PHASE50H Multi-Month Source,CONTAMINATED,185,"Included 2025-08, Missing 2024-06."
-PHASE50I Results,VALIDATED,Pass,"Stress tests and profit concentration were clean."
-Raw Auditables,INCOMPLETE,154/166,12 trades were not auditable (NO_TICK_DATA).

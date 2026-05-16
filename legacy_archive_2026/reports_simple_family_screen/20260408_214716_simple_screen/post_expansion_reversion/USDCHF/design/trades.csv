@@ -1,3 +1,0 @@
-pair,direction,entry_time,exit_time,entry_price,exit_price,units,gross_pnl_usd,net_pnl_usd,r_multiple,commission_usd,exit_reason,strategy_family,context_key,setup_tag,context_trades_before,context_win_rate_before,context_expectancy_before
-USDCHF,long,2020-10-14 11:00:00-04:00,2020-10-14 11:05:00-04:00,0.912195,0.9118329878259059,2000000,-793.9211678013063,-873.9211678013063,-1.2574470775899949,80.0,stop_loss,post_expansion_mean_reversion,,post_expansion_mean_reversion,0,0.0,0.0
-USDCHF,short,2021-04-20 13:05:00-04:00,2021-04-20 13:10:00-04:00,0.9157150000000001,0.9159901441497615,1982000,-595.2276897850478,-674.5076897850478,-1.3541592095189432,79.28,stop_loss,post_expansion_mean_reversion,,post_expansion_mean_reversion,0,0.0,0.0

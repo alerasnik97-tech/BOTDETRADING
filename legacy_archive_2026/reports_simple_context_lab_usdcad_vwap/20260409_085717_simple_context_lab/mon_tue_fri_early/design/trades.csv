@@ -1,2 +1,0 @@
-pair,direction,entry_time,exit_time,entry_price,exit_price,units,gross_pnl_usd,net_pnl_usd,r_multiple,commission_usd,exit_reason,strategy_family,context_key,setup_tag,context_trades_before,context_win_rate_before,context_expectancy_before
-USDCAD,long,2020-07-31 12:00:00-04:00,2020-07-31 12:05:00-04:00,1.338505,1.3388741665871242,1939000,534.1656436530784,456.60564365307846,0.45665737698546677,77.56,take_profit,post_expansion_mean_reversion,,post_expansion_mean_reversion,0,0.0,0.0

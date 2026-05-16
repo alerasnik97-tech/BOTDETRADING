@@ -1,3 +1,0 @@
-pair,month,trades,wins,losses,win_rate,total_pnl_r,total_pnl_usd,avg_pnl_r,max_drawdown_pct,profit_factor
-EURUSD,2020-05,1,1,0,100.0,0.4492692535997749,449.26925359977486,0.4492692535997749,0.0,inf
-EURUSD,2021-01,1,0,1,0.0,-1.2845253957372726,-1284.5253957372727,-1.2845253957372726,0.0,0.0

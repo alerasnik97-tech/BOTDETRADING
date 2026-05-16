@@ -1,5 +1,0 @@
-file_path,exists,rows,columns,has_trade_id,has_signal_time,has_requested_price,has_executed_price,has_bid,has_ask,has_spread,has_commission,has_slippage,has_close_reason,has_order_ticket,usable_for_reconciliation_yes_no,notes
-MANIPULANTE/10_LOGS_PAPER/ftmo_trial_bot/decisions.csv,True,9000+,timestamp;final_decision;order_sent;reason;gates,No,Yes,No,No,No,No,No,No,No,No,No,No,Decision/Gate logs only
-MANIPULANTE/10_LOGS_PAPER/ftmo_trial_orders/2026-05-01_ftmo_trial_order_decisions.csv,False,0,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,No,File does not exist yet
-MANIPULANTE/15_FORWARD_DEMO_SCORECARD/forward_demo_master_scorecard.csv,True,1,date;status;trades;errors;warnings;decisions;can_count_for_sample,No,No,No,No,No,No,No,No,No,No,No,No,High level daily status only
-MANIPULANTE/16_OBSERVABILITY/jsonl/bot_events.jsonl,False,0,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,No,File does not exist yet

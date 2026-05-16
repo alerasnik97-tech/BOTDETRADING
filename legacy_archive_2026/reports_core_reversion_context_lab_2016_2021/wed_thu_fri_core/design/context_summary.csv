@@ -1,6 +1,0 @@
-context_key,trades,wins,losses,win_rate_pct,profit_factor,net_pnl_usd,avg_r_multiple
-core_reversion|wed_thu|core|balanced|deep|short,2,2,0,100.0,inf,864.714211815749,0.6067519209606738
-core_reversion|wed_thu|core|balanced|deep|long,3,2,1,66.66666666666666,1.1648742140933557,83.43793117740557,-0.1351556135611526
-core_reversion|fri|core|balanced|deep|long,1,1,0,100.0,inf,22.299667736741583,0.10665663137017384
-core_reversion|fri|core|balanced|deep|short,1,1,0,100.0,inf,3.881481055873863,0.02097396676224706
-core_reversion|wed_thu|core|calm|deep|short,1,0,1,0.0,0.0,-503.85533792079127,-1.4150563460707815

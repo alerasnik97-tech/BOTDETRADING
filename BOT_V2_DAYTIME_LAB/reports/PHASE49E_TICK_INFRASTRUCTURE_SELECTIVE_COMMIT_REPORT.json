@@ -1,8 +1,0 @@
-{
-    "phase": "Phase 49E",
-    "verdict": "PHASE49E_TICK_INFRASTRUCTURE_COMMITTED_OK",
-    "commit_hash": "f46f1c2",
-    "infrastructure_ready": true,
-    "data_excluded": true,
-    "safety_checks": { "phase46": "PASS" }
-}

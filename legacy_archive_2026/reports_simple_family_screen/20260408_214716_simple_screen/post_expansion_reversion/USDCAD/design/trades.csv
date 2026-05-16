@@ -1,3 +1,0 @@
-pair,direction,entry_time,exit_time,entry_price,exit_price,units,gross_pnl_usd,net_pnl_usd,r_multiple,commission_usd,exit_reason,strategy_family,context_key,setup_tag,context_trades_before,context_win_rate_before,context_expectancy_before
-USDCAD,short,2020-02-20 11:55:00-05:00,2020-02-20 12:00:00-05:00,1.325335,1.325807093836622,2000000,-712.1591127266444,-792.1591127266444,-1.2294223471551395,80.0,stop_loss,post_expansion_mean_reversion,,post_expansion_mean_reversion,0,0.0,0.0
-USDCAD,long,2020-07-31 12:00:00-04:00,2020-07-31 12:05:00-04:00,1.338505,1.3390122221161658,1939000,733.9251102527695,656.3651102527696,0.6564394762946457,77.56,take_profit,post_expansion_mean_reversion,,post_expansion_mean_reversion,0,0.0,0.0

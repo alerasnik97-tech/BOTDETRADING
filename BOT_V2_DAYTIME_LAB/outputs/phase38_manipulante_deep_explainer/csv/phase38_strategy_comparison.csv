@@ -1,8 +1,0 @@
-estrategia_fase,sample,pf,expectancy,wr,dd,max_streak,tpm,estado,motivo
-Phase25 / MANIPULANTE,2625,2.793,0.2809,32.53,-5.584,14,19.36,Authority,"Mejor balance institucional: PF alto, DD bajo, evidencia 2015-2026, seguridad fail-closed."
-Phase18 Baseline,1040,1.63,DATO_NO_DISPONIBLE,38.0,-6.5,DATO_NO_DISPONIBLE,DATO_NO_DISPONIBLE,Baseline,"Fundacion H1 sweep + M3 CHOCH, robusta pero superada."
-Phase20 Balanced,DATO_NO_DISPONIBLE,1.58,DATO_NO_DISPONIBLE,40.3,-12.0,8,31.4,Benchmark,"Recupero frecuencia, pero quedo superada por Phase22/24/25."
-Phase22 High WR,1048,1.72,DATO_NO_DISPONIBLE,55.2,-8.45,6,DATO_NO_DISPONIBLE,Superada,"Mayor WR, pero menor PF/mas fragilidad que Phase25."
-Phase24 Robust Peak,1602,2.79,0.328,39.7,-5.0,DATO_NO_DISPONIBLE,DATO_NO_DISPONIBLE,Backup,"Muy fuerte, pero Phase25 subio PF manteniendo DD."
-TP1.4_BE0.5_BF70,2625,2.641,0.3038,36.46,-5.598,12,19.36,Shadow,Mejora WR/racha pero BE0.5 no es autoridad.
-Phase19,DATO_NO_DISPONIBLE,DATO_NO_DISPONIBLE,DATO_NO_DISPONIBLE,DATO_NO_DISPONIBLE,DATO_NO_DISPONIBLE,DATO_NO_DISPONIBLE,DATO_NO_DISPONIBLE,Rechazada,Invalidada/archivada por fallas forenses segun reportes.
