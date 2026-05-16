@@ -113,4 +113,10 @@ MANIPULANTE_BACKUP_*.zip
 000_PARA_CHATGPT.zip
 *.parquet
 EURUSD_M1_*.csv
-reorganize_manipulante*.py
+# === REGLAS INSTITUCIONALES DE INVESTIGACIÓN (PROTECCIÓN DE GIT) ===
+03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/reports/**/*.csv
+03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/reports/**/*.png
+03_RESEARCH_LAB/BOT_V2_DAYTIME_LAB/reports/**/*.json
+07_BACKUPS/local_quarantine_do_not_commit/
+*_DO_NOT_COMMIT*
+000_PARA_CHATGPT.zip

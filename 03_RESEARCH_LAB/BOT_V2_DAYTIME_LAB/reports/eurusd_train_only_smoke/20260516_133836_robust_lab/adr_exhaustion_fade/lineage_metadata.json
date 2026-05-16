@@ -1,8 +1,0 @@
-{
-  "strategy": "adr_exhaustion_fade",
-  "execution_mode": "normal_mode",
-  "is_months": 24,
-  "oos_months": 6,
-  "news_enabled": false,
-  "timestamp": "2026-05-16T13:41:03.384118"
-}
