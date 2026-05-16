@@ -47,6 +47,8 @@ class LongSignalStrategy:
             }
         return None
 
+    generate_signal = signal
+
 
 class MissingStopStrategy:
     NAME = "missing_stop"
@@ -62,6 +64,8 @@ class MissingStopStrategy:
                 "session_name": "all_day",
             }
         return None
+
+    generate_signal = signal
 
 
 class EngineTests(unittest.TestCase):

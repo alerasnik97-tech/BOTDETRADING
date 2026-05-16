@@ -17,6 +17,15 @@ DEFAULT_TRADING_ECONOMICS_IMPORT_DIR = Path("05_MARKET_DATA_VAULT/data") / "news
 DEFAULT_RAW_NEWS_FILE_OBSOLETE = Path("05_MARKET_DATA_VAULT/data/forex_factory_cache.csv")
 DEFAULT_NEWS_FILE_OBSOLETE = Path("05_MARKET_DATA_VAULT/data/news_eurusd_m15_validated.csv")
 DEFAULT_NEWS_V2_UTC_FILE = Path("05_MARKET_DATA_VAULT/data/news_eurusd_v2_utc.csv")
+# Backward-compatibility aliases (behavior-neutral). The Phase D config remap
+# renamed these symbols with an *_OBSOLETE suffix but left active importers
+# (light_runner / news_rebuild / audit_project / audit_level3 / legacy tests) referencing the
+# old names, breaking `import research_lab.*`. These aliases restore the exact
+# original Path values (no new data source, no behavior change); the importers
+# use them only as default CLI path constants.
+DEFAULT_NEWS_FILE = DEFAULT_NEWS_FILE_OBSOLETE
+DEFAULT_RAW_NEWS_FILE = DEFAULT_RAW_NEWS_FILE_OBSOLETE
+DEFAULT_NEWS_SUMMARY_FILE = DEFAULT_NEWS_FILE_OBSOLETE.with_name(f"{DEFAULT_NEWS_FILE_OBSOLETE.stem}_summary.json")
 DEFAULT_NEWS_ENABLED = True  # ENABLED for research phase
 DEFAULT_NEWS_SOURCE_APPROVED = True  # APPROVED for UTC-based sources
 DEFAULT_RESULTS_DIR = Path("results") / "research_lab_robust"

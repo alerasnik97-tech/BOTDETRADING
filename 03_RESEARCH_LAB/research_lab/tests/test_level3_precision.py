@@ -60,10 +60,21 @@ class LongSignalStrategy:
             }
         return None
 
+    generate_signal = signal
+
 
 class Level3PrecisionTests(unittest.TestCase):
     def setUp(self) -> None:
         self.news_block = np.zeros(4, dtype=bool)
+
+    def _skip_if_default_news_files_missing(self) -> None:
+        missing = [
+            str(path)
+            for path in (Path(DEFAULT_NEWS_FILE), Path(DEFAULT_RAW_NEWS_FILE), Path(DEFAULT_NEWS_SUMMARY_FILE))
+            if not path.exists()
+        ]
+        if missing:
+            self.skipTest("SKIPPED_MISSING_REQUIRED_DATA: default legacy news files absent: " + ", ".join(missing))
 
     def _base_config(self, **overrides) -> EngineConfig:
         payload = {
@@ -253,6 +264,7 @@ class Level3PrecisionTests(unittest.TestCase):
         self.assertEqual(str(pd.to_datetime(trade["exit_time"], utc=True).tz_convert(NY_TZ).strftime("%H:%M")), "11:08")
 
     def test_real_validated_news_dataset_is_rejected_even_when_force_enabled(self) -> None:
+        self._skip_if_default_news_files_missing()
         result = load_news_events(
             "EURUSD",
             NewsConfig(
@@ -269,6 +281,7 @@ class Level3PrecisionTests(unittest.TestCase):
         self.assertEqual(result.disabled_reason, "source_not_approved")
 
     def test_real_news_summary_reports_rejected_diagnosis(self) -> None:
+        self._skip_if_default_news_files_missing()
         summary = load_news_summary(Path(DEFAULT_NEWS_SUMMARY_FILE))
         self.assertEqual(summary.get("module_verdict"), "REJECTED_DISABLED")
         self.assertFalse(bool(summary.get("source_approved")))
@@ -277,6 +290,7 @@ class Level3PrecisionTests(unittest.TestCase):
         self.assertIn(key_status.get("ppi y/y"), {"SOURCE_ABSENT", "PASS"})
 
     def test_real_news_summary_json_is_valid_json(self) -> None:
+        self._skip_if_default_news_files_missing()
         payload = json.loads(Path(DEFAULT_NEWS_SUMMARY_FILE).read_text(encoding="utf-8"))
         self.assertIn("operational_source_verdict", payload)
         self.assertIn("key_event_validation", payload)

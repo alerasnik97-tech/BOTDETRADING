@@ -20,8 +20,8 @@ class TestAmSilverBullet(unittest.TestCase):
                 "atr14": 0.0005,
                 "day_running_high": 1.1005,
                 "day_running_low": 1.0995,
-                "sb_anchor_high": 1.1010,
-                "sb_anchor_low": 1.0990,
+                "session_range_high_03_00_08_30": 1.1010,
+                "session_range_low_03_00_08_30": 1.0990,
                 "bullish_choch": False,
                 "bearish_choch": False,
                 "bullish_fvg": False,
@@ -39,8 +39,8 @@ class TestAmSilverBullet(unittest.TestCase):
         # 1. Sweep happens (Low below anchor_low)
         self.frame.loc[self.frame.index[:idx_1015+1], "day_running_low"] = 1.0985 # Anchor was 1.0990
         
-        # 2. Bull MSS (CHoCH) at index i
-        self.frame.at[self.frame.index[idx_1015], "bullish_choch"] = True
+        # 2. Bull MSS (CHoCH) inside the setup lookback
+        self.frame.at[self.frame.index[idx_1015-1], "bullish_choch"] = True
         
         # 3. FVG nearby (at i-1)
         self.frame.at[self.frame.index[idx_1015-1], "bullish_fvg"] = True

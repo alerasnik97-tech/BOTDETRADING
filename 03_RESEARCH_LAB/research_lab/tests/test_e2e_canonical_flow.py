@@ -2,7 +2,17 @@ import os
 import json
 from pathlib import Path
 import subprocess
-import pytest
+import unittest
+
+try:
+    import pytest
+except ModuleNotFoundError:
+    class _PytestFallback:
+        @staticmethod
+        def skip(reason: str) -> None:
+            raise unittest.SkipTest(reason)
+
+    pytest = _PytestFallback()
 
 def get_root_dir() -> Path:
     return Path(__file__).parent.parent.parent

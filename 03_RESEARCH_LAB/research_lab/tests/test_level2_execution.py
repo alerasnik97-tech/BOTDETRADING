@@ -45,6 +45,8 @@ class LongSignalStrategy:
             }
         return None
 
+    generate_signal = signal
+
 
 class Level2ExecutionTests(unittest.TestCase):
     def setUp(self) -> None:

@@ -8,7 +8,9 @@ class TestStrategyLSSR(unittest.TestCase):
         self.params = strategy_ls_sr.default_params()
         self.cols = [
             "open", "high", "low", "close",
-            "session_range_high_11_00", "session_range_low_11_00", "session_range_complete_11_00"
+            "session_range_high_07_00_11_00",
+            "session_range_low_07_00_11_00",
+            "session_range_complete_07_00_11_00",
         ]
         
     def create_mock_frame(self, data):
@@ -18,7 +20,7 @@ class TestStrategyLSSR(unittest.TestCase):
         # Rango AM: 1.1020 - 1.1010 = 10 pips (< 15 pips)
         data = [
             {"open": 1.1015, "high": 1.1016, "low": 1.1009, "close": 1.1012, 
-             "session_range_high_11_00": 1.1020, "session_range_low_11_00": 1.1010, "session_range_complete_11_00": True}
+             "session_range_high_07_00_11_00": 1.1020, "session_range_low_07_00_11_00": 1.1010, "session_range_complete_07_00_11_00": True}
         ]
         frame = self.create_mock_frame(data)
         sig = strategy_ls_sr.signal(frame, 0, self.params)
@@ -31,7 +33,7 @@ class TestStrategyLSSR(unittest.TestCase):
         # Intencion: (1.1051 - 1.1045) / (1.1051 - 1.1040) = 0.0006 / 0.0011 = 0.54 (> 0.5)
         data = [
             {"open": 1.1042, "high": 1.1051, "low": 1.1040, "close": 1.1045, 
-             "session_range_high_11_00": 1.1050, "session_range_low_11_00": 1.1000, "session_range_complete_11_00": True}
+             "session_range_high_07_00_11_00": 1.1050, "session_range_low_07_00_11_00": 1.1000, "session_range_complete_07_00_11_00": True}
         ]
         frame = self.create_mock_frame(data)
         sig = strategy_ls_sr.signal(frame, 0, self.params)
@@ -48,7 +50,7 @@ class TestStrategyLSSR(unittest.TestCase):
         # Intencion: (1.1051 - 1.1048) / (1.1051 - 1.1040) = 0.0003 / 0.0011 = 0.27 (< 0.5)
         data = [
             {"open": 1.1042, "high": 1.1051, "low": 1.1040, "close": 1.1048, 
-             "session_range_high_11_00": 1.1050, "session_range_low_11_00": 1.1000, "session_range_complete_11_00": True}
+             "session_range_high_07_00_11_00": 1.1050, "session_range_low_07_00_11_00": 1.1000, "session_range_complete_07_00_11_00": True}
         ]
         frame = self.create_mock_frame(data)
         sig = strategy_ls_sr.signal(frame, 0, self.params)
@@ -61,7 +63,7 @@ class TestStrategyLSSR(unittest.TestCase):
         # Intencion: (1.1005 - 1.0999) / (1.1010 - 1.0999) = 0.0006 / 0.0011 = 0.54 (> 0.5)
         data = [
             {"open": 1.1008, "high": 1.1010, "low": 1.0999, "close": 1.1005, 
-             "session_range_high_11_00": 1.1050, "session_range_low_11_00": 1.1000, "session_range_complete_11_00": True}
+             "session_range_high_07_00_11_00": 1.1050, "session_range_low_07_00_11_00": 1.1000, "session_range_complete_07_00_11_00": True}
         ]
         frame = self.create_mock_frame(data)
         sig = strategy_ls_sr.signal(frame, 0, self.params)
@@ -76,7 +78,7 @@ class TestStrategyLSSR(unittest.TestCase):
     def test_flat_bar_rejection(self):
         data = [
             {"open": 1.1051, "high": 1.1051, "low": 1.1051, "close": 1.1051, 
-             "session_range_high_11_00": 1.1050, "session_range_low_11_00": 1.1000, "session_range_complete_11_00": True}
+             "session_range_high_07_00_11_00": 1.1050, "session_range_low_07_00_11_00": 1.1000, "session_range_complete_07_00_11_00": True}
         ]
         frame = self.create_mock_frame(data)
         sig = strategy_ls_sr.signal(frame, 0, self.params)

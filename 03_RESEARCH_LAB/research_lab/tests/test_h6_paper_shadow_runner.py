@@ -8,7 +8,13 @@ from pathlib import Path
 import pandas as pd
 
 
-MODULE_PATH = Path(__file__).resolve().parents[3] / "scripts" / "h6_paper_shadow_runner.py"
+MODULE_PATH = (
+    Path(__file__).resolve().parents[3]
+    / "04_INFRASTRUCTURE_ENGINEERING"
+    / "legacy_scripts"
+    / "root_scripts_archive"
+    / "h6_paper_shadow_runner.py"
+)
 SPEC = importlib.util.spec_from_file_location("h6_paper_shadow_runner", MODULE_PATH)
 assert SPEC is not None and SPEC.loader is not None
 MODULE = importlib.util.module_from_spec(SPEC)

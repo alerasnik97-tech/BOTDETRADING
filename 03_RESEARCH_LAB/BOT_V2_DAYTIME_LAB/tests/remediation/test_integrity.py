@@ -2,7 +2,10 @@ import unittest
 import os
 import shutil
 import json
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from scripts.utils.integrity import AtomicSingleWriter
 
 class TestIntegrity(unittest.TestCase):

@@ -3,7 +3,7 @@ from __future__ import annotations
 import unittest
 from pathlib import Path
 
-from research_lab.build_usdjpy_news_fortress_dataset import build_usdjpy_news_fortress_dataset
+from research_lab.build_usdjpy_news_fortress_dataset import DEFAULT_JPY_RAW_FILE, build_usdjpy_news_fortress_dataset
 from research_lab.config import (
     canonical_news_config,
     canonical_news_file,
@@ -15,6 +15,10 @@ from research_lab.news_filter import load_news_events
 
 
 class USDJPYReadinessTests(unittest.TestCase):
+    def _skip_if_missing_jpy_raw_news(self) -> None:
+        if not Path(DEFAULT_JPY_RAW_FILE).exists():
+            self.skipTest(f"SKIPPED_MISSING_REQUIRED_DATA: {DEFAULT_JPY_RAW_FILE}")
+
     def test_usdjpy_canonical_data_dirs_are_pair_specific_and_present(self) -> None:
         data_dirs = canonical_prepared_data_dirs("USDJPY")
         self.assertEqual(
@@ -36,6 +40,7 @@ class USDJPYReadinessTests(unittest.TestCase):
         self.assertFalse(first_family_requires_high_precision("USDJPY"))
 
     def test_build_usdjpy_news_fortress_dataset_closes_critical_families(self) -> None:
+        self._skip_if_missing_jpy_raw_news()
         summary = build_usdjpy_news_fortress_dataset()
         self.assertTrue(Path(summary["clean_dataset_path"]).exists())
         self.assertEqual(summary["module_verdict"], "USDJPY_READY_FOR_FIRST_RESEARCH_FAMILY_DESIGN")
@@ -47,6 +52,7 @@ class USDJPYReadinessTests(unittest.TestCase):
         self.assertEqual(summary["family_coverage"]["boj press conference"], "JPY_CURATED_LOCAL_EXACT")
 
     def test_usdjpy_canonical_news_config_loads_usd_and_jpy_events(self) -> None:
+        self._skip_if_missing_jpy_raw_news()
         build_usdjpy_news_fortress_dataset()
         settings = canonical_news_config("USDJPY")
         self.assertEqual(canonical_news_file("USDJPY"), settings.file_path)

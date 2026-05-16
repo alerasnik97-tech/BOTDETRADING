@@ -43,6 +43,8 @@ class StopEntryStrategy:
             "session_name": "all_day",
         }
 
+    generate_signal = signal
+
 
 class InvalidStopEntryStrategy:
     NAME = "invalid_stop_entry_strategy"
@@ -62,6 +64,8 @@ class InvalidStopEntryStrategy:
             "target_rr": 1.0,
             "session_name": "all_day",
         }
+
+    generate_signal = signal
 
 
 class EngineStopEntryTests(unittest.TestCase):
