@@ -230,6 +230,9 @@ def _empty_news_details(index: pd.DatetimeIndex) -> pd.DataFrame:
 
 
 def validate_signal_risk_contract(signal: dict[str, Any], *, signal_price: float, engine_config: EngineConfig) -> dict[str, Any]:
+    if signal is None:
+        raise ValueError("Signal invalida: signal no puede ser None.")
+        
     validated = dict(signal)
     direction = str(validated.get("direction", "")).strip().lower()
     if direction not in {"long", "short"}:
@@ -238,6 +241,8 @@ def validate_signal_risk_contract(signal: dict[str, Any], *, signal_price: float
 
     entry_mode = str(validated.get("entry_mode", "market")).strip().lower()
     validated["entry_mode"] = entry_mode
+    
+    # Pre-calculate entry reference for validation
     entry_reference_price = float(signal_price)
     if entry_mode == "limit":
         limit_price = _safe_float(validated.get("limit_price"))
@@ -249,31 +254,36 @@ def validate_signal_risk_contract(signal: dict[str, Any], *, signal_price: float
         stop_entry_price = _safe_float(validated.get("stop_entry_price"))
         if stop_entry_price is None:
             raise ValueError("Signal invalida: entry_mode='stop' requiere stop_entry_price numerico.")
+        
+        # STOP ENTRY DIRECTION VALIDATION
         if direction == "long" and stop_entry_price <= signal_price:
-            raise ValueError("Signal invalida: en long el stop entry debe quedar por encima del precio de senal.")
+            raise ValueError(f"Signal invalida: en long el stop entry ({stop_entry_price}) debe quedar por encima del precio de senal ({signal_price}).")
         if direction == "short" and stop_entry_price >= signal_price:
-            raise ValueError("Signal invalida: en short el stop entry debe quedar por debajo del precio de senal.")
+            raise ValueError(f"Signal invalida: en short el stop entry ({stop_entry_price}) debe quedar por debajo del precio de senal ({signal_price}).")
+            
         validated["stop_entry_price"] = stop_entry_price
         entry_reference_price = stop_entry_price
 
+    # Hard Stop is mandatory for institutional research
     if not getattr(engine_config, "enforce_hard_stop", True):
-        return validated
+        # We enforce it anyway for Phase 3 safety
+        pass
 
     stop_mode = str(validated.get("stop_mode", "")).strip().lower()
     validated["stop_mode"] = stop_mode
     if stop_mode == "price":
         stop_price = _safe_float(validated.get("stop_price"))
-        if stop_price is None:
+        if stop_price is None or not np.isfinite(stop_price):
             raise ValueError("Signal invalida: stop_mode='price' requiere stop_price numerico finito.")
         if direction == "long" and stop_price >= entry_reference_price:
-            raise ValueError("Signal invalida: en long el stop hard debe quedar por debajo del precio de señal.")
+            raise ValueError(f"Signal invalida: en long el stop hard ({stop_price}) debe quedar por debajo de la entrada ({entry_reference_price}).")
         if direction == "short" and stop_price <= entry_reference_price:
-            raise ValueError("Signal invalida: en short el stop hard debe quedar por encima del precio de señal.")
+            raise ValueError(f"Signal invalida: en short el stop hard ({stop_price}) debe quedar por encima de la entrada ({entry_reference_price}).")
         validated["stop_price"] = stop_price
     elif stop_mode == "atr":
         stop_atr = _safe_float(validated.get("stop_atr"))
-        if stop_atr is None or stop_atr <= 0:
-            raise ValueError("Signal invalida: stop_mode='atr' requiere stop_atr > 0.")
+        if stop_atr is None or stop_atr <= 0 or not np.isfinite(stop_atr):
+            raise ValueError("Signal invalida: stop_mode='atr' requiere stop_atr > 0 finito.")
         validated["stop_atr"] = stop_atr
     else:
         raise ValueError("Signal invalida: falta un hard stop valido (stop_mode debe ser 'price' o 'atr').")
@@ -282,30 +292,36 @@ def validate_signal_risk_contract(signal: dict[str, Any], *, signal_price: float
     validated["target_mode"] = target_mode
     if target_mode == "price":
         target_price = _safe_float(validated.get("target_price"))
-        if target_price is None:
+        if target_price is None or not np.isfinite(target_price):
             raise ValueError("Signal invalida: target_mode='price' requiere target_price numerico finito.")
         if direction == "long" and target_price <= entry_reference_price:
-            raise ValueError("Signal invalida: en long el target por precio debe quedar por encima del precio de señal.")
+            raise ValueError(f"Signal invalida: en long el target ({target_price}) debe quedar por encima de la entrada ({entry_reference_price}).")
         if direction == "short" and target_price >= entry_reference_price:
-            raise ValueError("Signal invalida: en short el target por precio debe quedar por debajo del precio de señal.")
+            raise ValueError(f"Signal invalida: en short el target ({target_price}) debe quedar por debajo de la entrada ({entry_reference_price}).")
         validated["target_price"] = target_price
     elif target_mode == "rr":
         target_rr = _safe_float(validated.get("target_rr"))
-        if target_rr is None or target_rr <= 0:
-            raise ValueError("Signal invalida: target_mode='rr' requiere target_rr > 0.")
+        if target_rr is None or target_rr <= 0 or not np.isfinite(target_rr):
+            raise ValueError("Signal invalida: target_mode='rr' requiere target_rr > 0 finito.")
         validated["target_rr"] = target_rr
     else:
         raise ValueError(f"Signal invalida: target_mode no soportado: {target_mode!r}")
 
     max_hold_bars = validated.get("max_hold_bars")
-    if max_hold_bars is not None and int(max_hold_bars) <= 0:
-        raise ValueError("Signal invalida: max_hold_bars debe ser positivo si se informa.")
+    if max_hold_bars is not None:
+        try:
+            mhb_val = int(max_hold_bars)
+            if mhb_val <= 0:
+                raise ValueError()
+            validated["max_hold_bars"] = mhb_val
+        except (ValueError, TypeError):
+            raise ValueError("Signal invalida: max_hold_bars debe ser un entero positivo.")
 
     break_even_at_r = validated.get("break_even_at_r")
     if break_even_at_r is not None:
         break_even_numeric = _safe_float(break_even_at_r)
         if break_even_numeric is None or break_even_numeric <= 0:
-            raise ValueError("Signal invalida: break_even_at_r debe ser > 0 si se informa.")
+            raise ValueError("Signal invalida: break_even_at_r debe ser > 0.")
         validated["break_even_at_r"] = break_even_numeric
 
     return validated
@@ -859,8 +875,8 @@ def run_backtest(
                             entry_side=pending_signal["direction"],
                             signal_time=pending_signal["signal_time"],
                             signal_price=pending_signal["signal_price"],
-                            fill_time=ts_utc,
-                            entry_time=ts_utc,
+                            fill_time=bar_open_utc[i],
+                            entry_time=bar_open_utc[i],
                             entry_price=entry_price,
                             sl=sl_trigger,
                             tp=tp_trigger,
@@ -894,7 +910,14 @@ def run_backtest(
             # --- NEWS FORTRESS: ACTIVE POSITION PROTECTION ---
             if forced_exit_pre_news and force_flat_mask[i]:
                 exit_reason = "news_fortress_kill"
-                exit_price_signal = close[i]
+                exit_price_signal = open_[i] # Use OPEN for news kill
+            
+            if not exit_reason:
+                if position.max_hold_bars is not None:
+                    bars_held = i - position.entry_bar_index
+                    if bars_held >= position.max_hold_bars:
+                        exit_reason = "time_exit"
+                        exit_price_signal = close[i]
             
             if not exit_reason:
                 if precision_enabled:
@@ -946,7 +969,7 @@ def run_backtest(
                         exit_price_signal = trigger
 
             if not exit_reason and force_close_mask[i]:
-                exit_reason = "timeout"
+                exit_reason = "forced_session_close"
                 exit_price_signal = close[i]
 
             if exit_reason:
@@ -972,7 +995,7 @@ def run_backtest(
                     "signal_price": position.signal_price,
                     "entry_time": position.entry_time,
                     "entry_price": position.entry_price,
-                    "exit_time": ts_utc,
+                    "exit_time": bar_open_utc[i], # OPEN time of exit bar
                     "exit_price": exit_price,
                     "exit_reason": exit_reason,
                     "pnl_usd": pnl_usd,
@@ -1001,7 +1024,9 @@ def run_backtest(
                     "exit_signal_price": exit_price_signal,
                     "exit_fill_price": exit_price,
                     "gap_exit_flag": bool(gap_reason),
-                    "gap_exit_type": gap_reason,
+                    "gap_exit_type": gap_reason if gap_reason else "no_gap",
+                    "blocking_rule_used": news_details.at[timestamp_utc[i], "blocking_rule_used"] if news_filter_used else "",
+                    "blocking_event_name": news_details.at[timestamp_utc[i], "blocking_event_name"] if news_filter_used else "",
                     "entry_spread_pips": position.entry_spread_pips,
                     "entry_slippage_pips": position.entry_slippage_pips,
                     "exit_slippage_pips": exit_slippage_pips,
@@ -1029,15 +1054,83 @@ def run_backtest(
             if opened_total_by_date.get(session_date, 0) < engine_config.max_trades_per_day:
                 raw_signal = strategy_module.generate_signal(frame, i, params)
                 if raw_signal:
-                    try:
-                        pending_signal = validate_signal_risk_contract(raw_signal, signal_price=close[i], engine_config=engine_config)
-                        pending_signal["signal_index"] = i
-                        pending_signal["signal_time"] = ts_utc
-                        pending_signal["signal_price"] = close[i]
-                    except ValueError:
-                        pending_signal = None
+                    pending_signal = validate_signal_risk_contract(raw_signal, signal_price=close[i], engine_config=engine_config)
+                    pending_signal["signal_index"] = i
+                    pending_signal["signal_time"] = timestamp_utc[i] # Current bar index (CLOSE time)
+                    pending_signal["signal_price"] = close[i]
 
-        equity_points.append({"timestamp": ts_utc, "equity": cash + (0 if not position else 0)}) # Simplificado
+        equity_points.append({"timestamp": ts_utc, "equity": cash + (0 if not position else 0)})
+
+    # --- FINAL CLOSE: CLOSE ANY OPEN POSITION AT BACKTEST END ---
+    if position:
+        last_idx = len(frame) - 1
+        exit_reason = "final_bar_close"
+        exit_price_signal = close[last_idx]
+        exit_slippage_pips = estimate_slippage_pips(bar_open_local[last_idx], range_atr[last_idx], engine_config, fill_kind=exit_reason)
+        
+        if precision_enabled:
+            exit_price = high_precision_exit_execution_price(pair, position.direction, exit_price_signal, exit_slippage_pips)
+        else:
+            exit_price = exit_execution_price(pair, position.direction, exit_price_signal, position.entry_spread_pips, exit_slippage_pips)
+            
+        pnl_usd = (exit_price - position.entry_price) * position.units * quote_to_usd(pair, exit_price)
+        exit_commission_usd = (engine_config.commission_per_lot_roundturn_usd * position.lots) / 2.0
+        pnl_usd -= exit_commission_usd
+        cash += (position.risk_usd + pnl_usd)
+        pnl_r = pnl_usd / position.risk_usd
+        pip_size = float(PAIR_META[pair]["pip_size"])
+        sl_pips = position.initial_risk_distance / pip_size if pip_size > 0 else np.nan
+        commission_total_usd = position.entry_commission_usd + exit_commission_usd
+        
+        trades.append({
+            "strategy_name": position.strategy_name,
+            "direction": position.direction,
+            "signal_time": position.signal_time,
+            "signal_price": position.signal_price,
+            "entry_time": position.entry_time,
+            "entry_price": position.entry_price,
+            "exit_time": bar_open_utc[last_idx],
+            "exit_price": exit_price,
+            "exit_reason": exit_reason,
+            "pnl_usd": pnl_usd,
+            "pnl_r": pnl_r,
+            "lots": position.lots,
+            "session_date": session_dates[last_idx],
+            "telemetry_version": D5_TELEMETRY_VERSION,
+            "telemetry_behavior_neutral": True,
+            "net_r": pnl_r,
+            "sl_pips": sl_pips,
+            "sl_pips_available": True,
+            "risk_pips": sl_pips,
+            "risk_distance_price": position.initial_risk_distance,
+            "initial_risk_distance": position.initial_risk_distance,
+            "risk_usd": position.risk_usd,
+            "stop_price": position.sl,
+            "initial_stop_price": position.sl,
+            "final_stop_price": position.sl,
+            "sl": position.sl,
+            "tp": position.tp,
+            "fill_time": position.fill_time,
+            "fill_price": position.entry_price,
+            "exit_signal_price": exit_price_signal,
+            "exit_fill_price": exit_price,
+            "gap_exit_flag": False,
+            "gap_exit_type": "no_gap",
+            "entry_spread_pips": position.entry_spread_pips,
+            "entry_slippage_pips": position.entry_slippage_pips,
+            "exit_slippage_pips": exit_slippage_pips,
+            "slippage_applied": exit_slippage_pips,
+            "entry_commission_usd": position.entry_commission_usd,
+            "exit_commission_usd": exit_commission_usd,
+            "commission_total_usd": commission_total_usd,
+            "execution_mode_used": position.execution_mode_used,
+            "cost_profile_used": position.cost_profile_used,
+            "entry_cost_regime": position.entry_cost_regime,
+            "intrabar_policy_used": position.intrabar_policy_used,
+            "price_source_used": position.price_source_used,
+            "data_source_used": position.data_source_used,
+        })
+        position = None
 
     return BacktestResult(
         strategy_name=strategy_module.NAME,
