@@ -1,0 +1,10 @@
+{
+  "best_params": {
+    "label": "mr_bb_stoch__mr_strict__core__tight",
+    "style": "mr_bb_stoch",
+    "variant": "tight",
+    "regime": "mr_strict",
+    "session": "core"
+  },
+  "score": null
+}

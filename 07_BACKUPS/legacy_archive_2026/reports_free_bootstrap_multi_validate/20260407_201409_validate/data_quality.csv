@@ -1,0 +1,8 @@
+pair,bars,coverage_ratio,missing_bars,max_missing_streak_bars,duplicate_timestamps,unexpected_schedule_bars,weekend_bars,zero_range_bars,nonpositive_prices,invalid_hilo_bars,outlier_return_bars,quality_score,quality_status
+AUDUSD,863,1.0,0,0,0,23,23,287,0,341,0,73.335,fail
+GBPUSD,863,1.0,0,0,0,23,23,287,0,341,0,73.335,fail
+GBPJPY,863,1.0,0,0,0,23,23,288,0,376,0,73.33,fail
+USDCAD,863,1.0,0,0,0,23,23,289,0,341,0,73.325,fail
+USDJPY,863,1.0,0,0,0,23,23,287,0,351,1,73.285,fail
+USDCHF,863,1.0,0,0,0,23,23,287,0,288,2,73.235,fail
+EURUSD,863,1.0,0,0,0,23,23,290,0,322,3,73.16999999999999,fail

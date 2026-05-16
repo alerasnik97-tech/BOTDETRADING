@@ -1,0 +1,4 @@
+pair,month,trades,wins,losses,net_pnl_usd,profit_factor
+USDCHF,2020-05,1,1,0,26.901412562240637,inf
+USDCHF,2021-09,1,0,1,-567.2357989412553,0.0
+USDCHF,2021-10,1,0,1,-614.1050742575984,0.0

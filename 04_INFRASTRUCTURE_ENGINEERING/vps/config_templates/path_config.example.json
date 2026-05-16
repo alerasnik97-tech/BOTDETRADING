@@ -1,0 +1,5 @@
+{
+  "logs_path": "./VPS_READINESS/logs",
+  "reports_path": "./REPORTS/vps_readiness",
+  "data_path": "./DATA"
+}

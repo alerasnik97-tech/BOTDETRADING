@@ -1,0 +1,28 @@
+{
+  "portfolio_summary": {
+    "initial_capital": 100000.0,
+    "final_equity": -38959.72203413412,
+    "total_return_pct": -138.95972203413413,
+    "max_drawdown_pct": 138.78893698172286,
+    "sharpe_ratio": -0.6892563066720873,
+    "profit_factor": 0.17119549945751691,
+    "total_trades": 217,
+    "wins": 85,
+    "losses": 132,
+    "break_even_trades": 0,
+    "win_rate_pct": 39.1705069124424,
+    "trades_per_month": 9.041666666666666,
+    "trades_per_active_month": 9.041666666666666,
+    "calendar_months": 24,
+    "active_months": 24,
+    "profit_month_ratio": 0.0,
+    "profit_calendar_month_ratio": 0.0,
+    "avg_monthly_net_pnl_usd": -5789.98841808892,
+    "avg_calendar_monthly_net_pnl_usd": -5789.98841808892,
+    "expectancy_usd": -640.3673826457792,
+    "avg_trade_minutes": 1.935483870967742,
+    "median_trade_minutes": 0.0,
+    "max_consecutive_wins": 4,
+    "max_consecutive_losses": 9
+  }
+}

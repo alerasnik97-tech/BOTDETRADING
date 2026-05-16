@@ -1,0 +1,16 @@
+context_key,trades,wins,losses,win_rate_pct,profit_factor,net_pnl_usd,avg_r_multiple
+late_continuation|fri|late|active|mild|long,3,2,1,66.66666666666666,1.323902317635829,161.39975981024548,-0.09561050216875928
+late_continuation|mon_tue|core|active|deep|long,1,1,0,100.0,inf,152.0977497326106,0.42518255446172526
+late_continuation|mon_tue|core|active|mild|long,2,2,0,100.0,inf,47.509082823651354,0.10262378298613939
+late_continuation|fri|core|active|deep|long,1,1,0,100.0,inf,29.829917179647133,0.14423180037876607
+late_continuation|mon_tue|core|active|deep|short,2,1,1,50.0,1.0438599633705696,4.851542015402089,-0.003319502812925229
+late_continuation|fri|late|active|deep|short,3,2,1,66.66666666666666,0.7802943814820552,-169.5077332911534,-0.04850489424390755
+late_continuation|mon_tue|late|active|deep|long,1,0,1,0.0,0.0,-299.05620454393556,-1.786880885366996
+late_continuation|fri|late|active|mild|short,2,1,1,50.0,0.08875631169578861,-485.9226551028871,-0.5809504667750252
+late_continuation|wed_thu|late|active|mild|short,3,1,2,33.33333333333333,0.09631046153572673,-704.1728691869582,-0.875527809357547
+late_continuation|fri|core|active|mild|long,3,1,2,33.33333333333333,0.22108196995292545,-759.02672754947,-0.7755817518959024
+late_continuation|mon_tue|late|active|deep|short,1,0,1,0.0,0.0,-792.1745538887126,-1.0682601136715046
+late_continuation|mon_tue|late|active|mild|short,2,0,2,0.0,0.0,-831.2255524924544,-1.5389442121560637
+late_continuation|wed_thu|late|active|deep|long,3,1,2,33.33333333333333,0.05266628619906748,-831.7691485789185,-0.9864459131367539
+late_continuation|fri|late|active|deep|long,2,0,2,0.0,0.0,-936.1345866376714,-1.4101842053553295
+late_continuation|fri|core|active|deep|short,2,0,2,0.0,0.0,-1350.159008107212,-1.2672528681412762

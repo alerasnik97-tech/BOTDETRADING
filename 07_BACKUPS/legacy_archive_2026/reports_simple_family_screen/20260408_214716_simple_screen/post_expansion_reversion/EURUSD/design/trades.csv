@@ -1,0 +1,2 @@
+pair,direction,entry_time,exit_time,entry_price,exit_price,units,gross_pnl_usd,net_pnl_usd,r_multiple,commission_usd,exit_reason,strategy_family,context_key,setup_tag,context_trades_before,context_win_rate_before,context_expectancy_before
+EURUSD,short,2021-07-21 11:55:00-04:00,2021-07-21 12:05:00-04:00,1.17949,1.1798375538545456,1695000,-589.1037834548885,-669.0849875305576,-1.2430660184789588,79.9812040756691,stop_loss,post_expansion_mean_reversion,,post_expansion_mean_reversion,0,0.0,0.0

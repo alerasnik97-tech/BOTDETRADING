@@ -1,0 +1,3 @@
+pair,direction,entry_time,exit_time,entry_price,exit_price,units,gross_pnl_usd,net_pnl_usd,r_multiple,commission_usd,exit_reason,strategy_family,context_key,setup_tag,context_trades_before,context_win_rate_before,context_expectancy_before
+USDCHF,long,2020-03-25 13:50:00-04:00,2020-03-25 13:55:00-04:00,0.978185,0.978435428661643,1986000,508.13392388798627,428.6939238879862,0.4288916975153123,79.44000000000001,take_profit,post_expansion_mean_reversion,,post_expansion_mean_reversion,0,0.0,0.0
+USDCHF,short,2020-12-17 11:30:00-05:00,2020-12-17 11:35:00-05:00,0.884715,0.8845535435637613,2008000,366.48187281544284,286.1618728154428,0.36645107397624277,80.32000000000001,take_profit,post_expansion_mean_reversion,,post_expansion_mean_reversion,0,0.0,0.0
