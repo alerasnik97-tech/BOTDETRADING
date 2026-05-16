@@ -255,6 +255,9 @@ def validate_signal_risk_contract(signal: dict[str, Any], *, signal_price: float
             raise ValueError("Signal invalida: en short el stop entry debe quedar por debajo del precio de senal.")
         validated["stop_entry_price"] = stop_entry_price
         entry_reference_price = stop_entry_price
+    else:
+        # Market entry
+        entry_reference_price = signal_price
 
     if not getattr(engine_config, "enforce_hard_stop", True):
         return validated
@@ -694,12 +697,23 @@ def run_backtest(
         ts_local = bar_open_local[i]
         session_date = session_dates[i]
 
+        # --- SIGNAL GENERATION ---
+        if not position and not pending_signal and i >= cooldown_until_index:
+            if opened_total_by_date.get(session_date, 0) < engine_config.max_trades_per_day:
+                raw_signal = strategy_module.generate_signal(frame, i, params)
+                if raw_signal:
+                    pending_signal = validate_signal_risk_contract(raw_signal, signal_price=close[i], engine_config=engine_config)
+                    pending_signal["signal_index"] = i
+                    pending_signal["signal_time"] = ts_utc
+                    pending_signal["signal_price"] = close[i]
+
         # --- NEWS FORTRESS: PENDING SIGNAL PROTECTION ---
         if pending_signal is not None and cancel_pending_pre_news:
             if pending_kill_mask[i]:
                  # Si entramos en zona de bloqueo de noticias, matamos cualquier orden pendiente
                  pending_signal = None
 
+        # --- ENTRY PROCESSING (T+1 from Signal) ---
         if pending_signal is not None and i == pending_signal["signal_index"] + 1:
             entry_fill_kind = "stop_entry" if pending_signal.get("entry_mode") == "stop" else "entry"
             entry_slippage_pips = estimate_slippage_pips(bar_open_local[i], range_atr[pending_signal["signal_index"]], engine_config, fill_kind=entry_fill_kind)
@@ -859,8 +873,8 @@ def run_backtest(
                             entry_side=pending_signal["direction"],
                             signal_time=pending_signal["signal_time"],
                             signal_price=pending_signal["signal_price"],
-                            fill_time=ts_utc,
-                            entry_time=ts_utc,
+                            fill_time=ts_local.tz_convert("UTC"),
+                            entry_time=ts_local.tz_convert("UTC"),
                             entry_price=entry_price,
                             sl=sl_trigger,
                             tp=tp_trigger,
@@ -894,7 +908,7 @@ def run_backtest(
             # --- NEWS FORTRESS: ACTIVE POSITION PROTECTION ---
             if forced_exit_pre_news and force_flat_mask[i]:
                 exit_reason = "news_fortress_kill"
-                exit_price_signal = close[i]
+                exit_price_signal = open_[i]
             
             if not exit_reason:
                 if precision_enabled:
@@ -946,8 +960,14 @@ def run_backtest(
                         exit_price_signal = trigger
 
             if not exit_reason and force_close_mask[i]:
-                exit_reason = "timeout"
+                exit_reason = "forced_session_close"
                 exit_price_signal = close[i]
+            
+            if not exit_reason and position.max_hold_bars is not None:
+                bars_held = i - position.entry_bar_index
+                if bars_held >= int(position.max_hold_bars):
+                    exit_reason = "time_exit"
+                    exit_price_signal = close[i]
 
             if exit_reason:
                 exit_slippage_pips = estimate_slippage_pips(bar_open_local[i], range_atr[i], engine_config, fill_kind=exit_reason)
@@ -972,7 +992,7 @@ def run_backtest(
                     "signal_price": position.signal_price,
                     "entry_time": position.entry_time,
                     "entry_price": position.entry_price,
-                    "exit_time": ts_utc,
+                    "exit_time": ts_local.tz_convert("UTC"),
                     "exit_price": exit_price,
                     "exit_reason": exit_reason,
                     "pnl_usd": pnl_usd,
@@ -1001,7 +1021,7 @@ def run_backtest(
                     "exit_signal_price": exit_price_signal,
                     "exit_fill_price": exit_price,
                     "gap_exit_flag": bool(gap_reason),
-                    "gap_exit_type": gap_reason,
+                    "gap_exit_type": gap_reason if gap_reason else "no_gap",
                     "entry_spread_pips": position.entry_spread_pips,
                     "entry_slippage_pips": position.entry_slippage_pips,
                     "exit_slippage_pips": exit_slippage_pips,
@@ -1021,23 +1041,97 @@ def run_backtest(
                     "intrabar_policy_used": position.intrabar_policy_used,
                     "price_source_used": position.price_source_used,
                     "data_source_used": position.data_source_used,
+                    "blocking_rule_used": news_details.iloc[i]["blocking_rule_used"],
+                    "entry_rule_used": news_details.iloc[i]["entry_rule_used"],
+                    "pending_rule_used": news_details.iloc[i]["pending_rule_used"],
+                    "force_flat_rule_used": news_details.iloc[i]["force_flat_rule_used"],
                 })
                 position = None
                 cooldown_until_index = i + 1
 
-        if not position and not pending_signal and i > cooldown_until_index:
-            if opened_total_by_date.get(session_date, 0) < engine_config.max_trades_per_day:
-                raw_signal = strategy_module.generate_signal(frame, i, params)
-                if raw_signal:
-                    try:
-                        pending_signal = validate_signal_risk_contract(raw_signal, signal_price=close[i], engine_config=engine_config)
-                        pending_signal["signal_index"] = i
-                        pending_signal["signal_time"] = ts_utc
-                        pending_signal["signal_price"] = close[i]
-                    except ValueError:
-                        pending_signal = None
-
         equity_points.append({"timestamp": ts_utc, "equity": cash + (0 if not position else 0)}) # Simplificado
+
+    # --- FINAL CLOSE ---
+    if position:
+        last_idx = len(frame) - 1
+        exit_reason = "final_bar_close"
+        exit_price_signal = open_[last_idx]
+        exit_slippage_pips = estimate_slippage_pips(bar_open_local[last_idx], range_atr[last_idx], engine_config, fill_kind=exit_reason)
+        if precision_enabled:
+            exit_price = high_precision_exit_execution_price(pair, position.direction, exit_price_signal, exit_slippage_pips)
+        else:
+            exit_price = exit_execution_price(pair, position.direction, exit_price_signal, position.entry_spread_pips, exit_slippage_pips)
+        
+        pnl_usd = (exit_price - position.entry_price) * position.units * quote_to_usd(pair, exit_price)
+        exit_commission_usd = (engine_config.commission_per_lot_roundturn_usd * position.lots) / 2.0
+        pnl_usd -= exit_commission_usd
+        cash += (position.risk_usd + pnl_usd)
+        pnl_r = pnl_usd / position.risk_usd
+        pip_size = float(PAIR_META[pair]["pip_size"])
+        sl_pips = position.initial_risk_distance / pip_size if pip_size > 0 else np.nan
+        commission_total_usd = position.entry_commission_usd + exit_commission_usd
+        
+        trades.append({
+            "strategy_name": position.strategy_name,
+            "direction": position.direction,
+            "signal_time": position.signal_time,
+            "signal_price": position.signal_price,
+            "entry_time": position.entry_time,
+            "entry_price": position.entry_price,
+            "exit_time": timestamp_utc[last_idx],
+            "exit_price": exit_price,
+            "exit_reason": exit_reason,
+            "pnl_usd": pnl_usd,
+            "pnl_r": pnl_r,
+            "lots": position.lots,
+            "session_date": session_dates[last_idx],
+            "telemetry_version": D5_TELEMETRY_VERSION,
+            "telemetry_behavior_neutral": True,
+            "net_r": pnl_r,
+            "gross_r": None,
+            "gross_r_available": False,
+            "gross_r_reason": "not_available_without_explicit_pre_cost_pnl_source",
+            "sl_pips": sl_pips,
+            "sl_pips_available": True,
+            "risk_pips": sl_pips,
+            "risk_distance_price": position.initial_risk_distance,
+            "initial_risk_distance": position.initial_risk_distance,
+            "risk_usd": position.risk_usd,
+            "stop_price": position.sl,
+            "initial_stop_price": position.sl,
+            "final_stop_price": position.sl,
+            "sl": position.sl,
+            "tp": position.tp,
+            "fill_time": position.fill_time,
+            "fill_price": position.entry_price,
+            "exit_signal_price": exit_price_signal,
+            "exit_fill_price": exit_price,
+            "gap_exit_flag": False,
+            "gap_exit_type": "no_gap",
+            "entry_spread_pips": position.entry_spread_pips,
+            "entry_slippage_pips": position.entry_slippage_pips,
+            "exit_slippage_pips": exit_slippage_pips,
+            "slippage_applied": exit_slippage_pips,
+            "entry_commission_usd": position.entry_commission_usd,
+            "exit_commission_usd": exit_commission_usd,
+            "commission_total_usd": commission_total_usd,
+            "spread_cost_r": None,
+            "slippage_cost_r": None,
+            "commission_cost_r": None,
+            "cost_total_r": None,
+            "cost_breakdown_r_available": False,
+            "cost_breakdown_r_reason": "not_available_without_explicit_pre_cost_pnl_source",
+            "execution_mode_used": position.execution_mode_used,
+            "cost_profile_used": position.cost_profile_used,
+            "entry_cost_regime": position.entry_cost_regime,
+            "intrabar_policy_used": position.intrabar_policy_used,
+            "price_source_used": position.price_source_used,
+            "data_source_used": position.data_source_used,
+            "blocking_rule_used": news_details.iloc[last_idx]["blocking_rule_used"],
+            "entry_rule_used": news_details.iloc[last_idx]["entry_rule_used"],
+            "pending_rule_used": news_details.iloc[last_idx]["pending_rule_used"],
+            "force_flat_rule_used": news_details.iloc[last_idx]["force_flat_rule_used"],
+        })
 
     return BacktestResult(
         strategy_name=strategy_module.NAME,
