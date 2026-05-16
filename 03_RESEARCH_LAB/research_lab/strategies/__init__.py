@@ -64,6 +64,10 @@ from research_lab.strategies import (
     campaign3b_post_news_continuation,
     campaign3b_session_expansion,
     eurusd_c4_ict_align,
+    mr01_anchor_elastic,
+    mr02_vwap_stretch_reversion,
+    tp01_london_ny_momentum_pullback,
+    ve_orb_volatility_expansion,
 )
 
 
@@ -131,4 +135,8 @@ STRATEGY_REGISTRY = {
     campaign3b_post_news_continuation.NAME: campaign3b_post_news_continuation,
     campaign3b_session_expansion.NAME: campaign3b_session_expansion,
     eurusd_c4_ict_align.NAME: eurusd_c4_ict_align,
+    mr01_anchor_elastic.NAME: mr01_anchor_elastic,
+    mr02_vwap_stretch_reversion.NAME: mr02_vwap_stretch_reversion,
+    tp01_london_ny_momentum_pullback.NAME: tp01_london_ny_momentum_pullback,
+    ve_orb_volatility_expansion.NAME: ve_orb_volatility_expansion,
 }
