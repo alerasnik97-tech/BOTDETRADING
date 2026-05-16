@@ -188,7 +188,10 @@ class EngineTests(unittest.TestCase):
         trade = result.trades.iloc[0]
         self.assertEqual(trade["exit_reason"], "take_profit")
         self.assertAlmostEqual(float(trade["entry_price"]), 1.09995, places=5)
-        self.assertAlmostEqual(float(trade["exit_price"]), 1.0987375, places=5)
+        # Expected 1.098725 = Entry(1.09995) - RiskDistance(12.25 pips)
+        # RiskDistance = StopExecution(1.101175) - Entry(1.09995) = 12.25 pips
+        # StopExecution = Trigger(1.1010) + Spread(1.0) + Slippage(0.5 * 1.5 Multiplier) = 1.101175
+        self.assertAlmostEqual(float(trade["exit_price"]), 1.098725, places=5)
 
     def test_trade_count_is_unchanged_by_costs_when_spread_guard_does_not_block(self) -> None:
         frame = make_frame(
