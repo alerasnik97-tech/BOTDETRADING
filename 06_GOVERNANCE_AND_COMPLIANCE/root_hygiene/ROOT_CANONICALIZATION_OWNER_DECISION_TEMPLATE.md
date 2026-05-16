@@ -17,6 +17,14 @@ No implementation is authorized by this document alone.
 | move map | `ROOT_CANONICALIZATION_MOVE_MAP.csv` |
 | recommended option | `OPTION C - Hybrid institutional` |
 
+Formal owner decision:
+
+`APPROVED_OPTION = OPTION_C_HYBRID_INSTITUTIONAL`
+
+Decision rationale:
+
+The owner wants to clean the repository root aggressively while preserving technical exceptions needed to avoid breaking imports, GitHub workflows, tooling, and current dependency workflows.
+
 ## 3. Owner Decisions Required
 
 ### D1 - Canonicalization Option
@@ -42,6 +50,10 @@ Owner decision:
 
 `D2_GITHUB_ROOT_EXCEPTION = YES`
 
+Reason:
+
+`.github` remains in the repository root as a normal technical exception for professional repositories when it contains workflows, actions, or GitHub configuration.
+
 ### D3 - README and Requirements
 
 Choose one:
@@ -58,6 +70,10 @@ Scope:
 - `README.md`: keep root exception.
 - `requirements.txt`: keep root exception.
 - `requirements-vps-optional.txt`: keep root exception.
+
+Reason:
+
+These are standard root files in professional repositories. Do not move them in the current canonicalization path.
 
 ### D4 - `research_lab`
 
@@ -86,6 +102,10 @@ Owner decision:
 
 `D5_ZIP_POLICY = REMOVE_FROM_GIT_KEEP_LOCAL`
 
+Approved action:
+
+`D5_APPROVED_ACTION = REMOVE_FROM_GIT_KEEP_LOCAL_QUARANTINE`
+
 Required local preservation path:
 
 `_LOCAL_QUARANTINE_DO_NOT_COMMIT/root_zip_legacy/000_PARA_CHATGPT.zip`
@@ -94,6 +114,7 @@ Additional owner constraints:
 
 - Do not use ZIP as the primary workflow.
 - Do not permanently delete the local ZIP copy in the canonicalization phase.
+- Do not upload the ZIP again.
 
 ### D6 - Data-Like Root Folders
 
@@ -119,6 +140,10 @@ Blocked until separate data audit:
 - `data_usdjpy_*`
 - any CSV/parquet/data folder
 
+Reason:
+
+Data-like folders require a separate data audit, inventory, hashes, and explicit owner decision before any move.
+
 ### D7 - Legacy Strategy Folders
 
 Applies to:
@@ -139,9 +164,13 @@ Owner decision:
 
 `D7_LEGACY_STRATEGY_FOLDERS = MOVE_TO_03`
 
+Approved action:
+
+`D7_APPROVED_ACTION = APPROVE_MOVE_TO_03_RESEARCH_LAB_LEGACY_STRATEGY_SOURCES`
+
 Implementation constraint:
 
-This approves the destination policy only. It does not authorize strategy execution, backtest execution, or any trading logic change. If any selected legacy strategy folder is classified high-risk in the move map, implementation remains blocked until the separate high-risk phase approved by D8.
+This approves the destination policy only for legacy strategy folders and equivalent strategy folders listed in the move map. It does not authorize strategy execution, backtest execution, production changes, or any trading logic change. If any selected legacy strategy folder is classified high-risk in the move map, implementation remains blocked until a separate high-risk phase is explicitly approved.
 
 ### D8 - Approval To Apply Move Map
 
@@ -154,11 +183,19 @@ Owner decision:
 
 `D8_APPROVE_APPLY_MOVE_MAP = YES_LOW_MEDIUM_RISK_ONLY`
 
+Formal approval:
+
+`D8_APPROVED = YES_CONTROLLED_FUTURE_PHASE_ONLY`
+
 Application boundary:
 
 - Approved now: low-risk and medium-risk move map rows only.
+- Medium-risk rows require path/import checks before and after moving.
 - Blocked now: high-risk move map rows.
 - High-risk rows require a separate future phase and explicit owner approval before implementation.
+- Data-like folders remain blocked.
+- `research_lab` migration remains blocked.
+- validation, holdout, 2025, and 2026 remain out of scope.
 
 ## 4. High-Risk Block
 
@@ -192,7 +229,7 @@ This owner decision does not authorize:
 - raw/tick/parquet mutation,
 - force push,
 - merge to main,
-- deleting tracked files outside the approved move map.
+- deleting tracked files outside the approved move map,
 - applying any high-risk move map row in the low/medium implementation phase.
 
 ## 6. Signature Block
