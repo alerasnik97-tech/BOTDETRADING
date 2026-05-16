@@ -18,6 +18,7 @@ cache/
 .vscode/
 .DS_Store
 Thumbs.db
+_LOCAL_QUARANTINE_DO_NOT_COMMIT/
 
 # --- DATOS PESADOS E INTAKE ---
 data_intake_*/
