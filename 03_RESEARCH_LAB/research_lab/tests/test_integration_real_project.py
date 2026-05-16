@@ -5,8 +5,15 @@ from pathlib import Path
 
 import pandas as pd
 
-from research_lab.config import DEFAULT_DATA_DIRS, DEFAULT_NEWS_FILE, DEFAULT_NEWS_SUMMARY_FILE, DEFAULT_RAW_NEWS_FILE, NewsConfig
-from research_lab.data_loader import load_backtest_data_bundle, load_price_data
+from research_lab.config import (
+    DEFAULT_DATA_DIRS,
+    DEFAULT_HIGH_PRECISION_PREPARED_DIR,
+    DEFAULT_NEWS_FILE,
+    DEFAULT_NEWS_SUMMARY_FILE,
+    DEFAULT_RAW_NEWS_FILE,
+    NewsConfig,
+)
+from research_lab.data_loader import OHLCV_COLUMNS, load_backtest_data_bundle, load_prepared_ohlcv, load_price_data
 from research_lab.news_filter import filter_event_family, load_news_events, load_news_summary
 
 
@@ -30,8 +37,18 @@ class RealProjectIntegrationTests(unittest.TestCase):
         sunday_mask = (frame.index.dayofweek == 6) & ((frame.index.hour * 60 + frame.index.minute) > 17 * 60)
         self.assertGreater(int(sunday_mask.sum()), 0)
 
+    def test_eurusd_prepared_train_m5_contract_and_no_holdout_leakage(self) -> None:
+        self._skip_if_no_prepared_prices()
+        frame = load_prepared_ohlcv("EURUSD", list(DEFAULT_DATA_DIRS), "M5")
+        self.assertEqual(list(frame.columns), OHLCV_COLUMNS)
+        self.assertFalse(bool(frame.index.duplicated().any()))
+        self.assertTrue(frame.index.is_monotonic_increasing)
+        self.assertEqual(int((frame.index.tz_convert("UTC") >= pd.Timestamp("2025-01-01T00:00:00Z")).sum()), 0)
+
     def test_high_precision_bundle_uses_dukascopy_bid_ask_when_requested(self) -> None:
         self._skip_if_no_prepared_prices()
+        required = [DEFAULT_HIGH_PRECISION_PREPARED_DIR / f"EURUSD_M1_{side}.csv" for side in ("BID", "ASK", "MID")]
+        self._skip_if_missing(*required)
         bundle = load_backtest_data_bundle("EURUSD", list(DEFAULT_DATA_DIRS), "2024-10-01", "2024-10-07", "high_precision_mode")
         self.assertEqual(bundle.data_source_used, "dukascopy_m1_bid_ask_full")
         self.assertIsNotNone(bundle.precision_package)

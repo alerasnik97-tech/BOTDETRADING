@@ -8,8 +8,9 @@ from typing import Any
 NY_TZ = "America/New_York"
 DEFAULT_PAIR = "EURUSD"
 DEFAULT_DATA_DIRS = (
-    Path("05_MARKET_DATA_VAULT/eurusd_data/data_free_2020/prepared"),
-    Path("05_MARKET_DATA_VAULT/eurusd_data/data_candidates_2022_2025/prepared"),
+    # Train-only prepared OHLCV generated from local raw tick vault.
+    # Excludes 2025/2026 by construction; see governance lab_readiness manifest.
+    Path("05_MARKET_DATA_VAULT/eurusd_data/prepared_train_2015_2024/prepared"),
 )
 DEFAULT_HIGH_PRECISION_RAW_DIR = Path("05_MARKET_DATA_VAULT/legacy_data/data_precision_raw") / "dukascopy"
 DEFAULT_HIGH_PRECISION_PREPARED_DIR = Path("05_MARKET_DATA_VAULT/legacy_data/data_precision") / "dukascopy"
@@ -26,7 +27,7 @@ DEFAULT_NEWS_V2_UTC_FILE = Path("05_MARKET_DATA_VAULT/data/news_eurusd_v2_utc.cs
 DEFAULT_NEWS_FILE = DEFAULT_NEWS_FILE_OBSOLETE
 DEFAULT_RAW_NEWS_FILE = DEFAULT_RAW_NEWS_FILE_OBSOLETE
 DEFAULT_NEWS_SUMMARY_FILE = DEFAULT_NEWS_FILE_OBSOLETE.with_name(f"{DEFAULT_NEWS_FILE_OBSOLETE.stem}_summary.json")
-DEFAULT_NEWS_ENABLED = True  # ENABLED for research phase
+DEFAULT_NEWS_ENABLED = False  # Fail-closed until news provenance/rebuild phase is approved.
 DEFAULT_NEWS_SOURCE_APPROVED = True  # APPROVED for UTC-based sources
 DEFAULT_RESULTS_DIR = Path("results") / "research_lab_robust"
 VISIBLE_CHATGPT_ARCHIVE = Path("000_PARA_CHATGPT.zip")
