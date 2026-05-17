@@ -113,6 +113,9 @@ def estimate_spread_pips(
     session_bucket = session_cost_bucket(ts_local, engine_config)
     vol_bucket = volatility_cost_bucket(range_atr, engine_config)
 
+    if profile == "conservative":
+        spread *= float(engine_config.conservative_spread_multiplier)
+
     if profile == "stress":
         spread *= float(engine_config.stress_spread_multiplier)
 
@@ -145,6 +148,9 @@ def estimate_slippage_pips(
     profile = resolved_cost_profile(engine_config)
     session_bucket = session_cost_bucket(ts_local, engine_config)
     vol_bucket = volatility_cost_bucket(range_atr, engine_config)
+
+    if profile == "conservative":
+        slippage *= float(engine_config.conservative_slippage_multiplier)
 
     if profile == "stress":
         slippage *= float(engine_config.stress_slippage_multiplier)

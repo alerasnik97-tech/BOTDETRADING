@@ -41,8 +41,8 @@ DEFAULT_INTRABAR_EXIT_PRIORITY = "stop_first"
 DEFAULT_EXECUTION_MODE = "normal_mode"
 DEFAULT_COST_PROFILE = "auto"
 DEFAULT_INTRABAR_POLICY = "auto"
-SUPPORTED_EXECUTION_MODES = ("normal_mode", "conservative_mode", "high_precision_mode")
-SUPPORTED_COST_PROFILES = ("auto", "base", "stress", "precision")
+SUPPORTED_EXECUTION_MODES = ("normal_mode", "conservative_mode", "stress_mode", "high_precision_mode")
+SUPPORTED_COST_PROFILES = ("auto", "base", "conservative", "stress", "precision")
 SUPPORTED_INTRABAR_POLICIES = ("auto", "standard", "conservative")
 DEFAULT_SEED = 42
 DEFAULT_MAX_EVALS_PER_STRATEGY = 8
@@ -209,6 +209,10 @@ class EngineConfig:
     slippage_late_session_multiplier: float = 2.0 # HARDENED: penalizar más fuerte rollover slippage
     slippage_forced_close_multiplier: float = 1.1
     slippage_final_close_multiplier: float = 1.05
+    # conservative tier: harder than base, below the institutional stress ceiling
+    # (stress=1.35/1.60). OWNER_APPROVED_DEFAULTS_REQUIRED — provisional magnitudes.
+    conservative_spread_multiplier: float = 1.20
+    conservative_slippage_multiplier: float = 1.30
     stress_spread_multiplier: float = 1.35
     stress_slippage_multiplier: float = 1.6
     ambiguity_slippage_multiplier: float = 1.5
@@ -297,6 +301,8 @@ def resolved_cost_profile(engine_config: EngineConfig) -> str:
     if engine_config.cost_profile != "auto":
         return engine_config.cost_profile
     if engine_config.execution_mode == "conservative_mode":
+        return "conservative"
+    if engine_config.execution_mode == "stress_mode":
         return "stress"
     if engine_config.execution_mode == "high_precision_mode":
         return "precision"
@@ -317,13 +323,15 @@ def with_execution_mode(engine_config: EngineConfig, execution_mode: str) -> Eng
     intrabar_policy = engine_config.intrabar_policy
     if cost_profile == "auto":
         if normalized == "conservative_mode":
+            cost_profile = "conservative"
+        elif normalized == "stress_mode":
             cost_profile = "stress"
         elif normalized == "high_precision_mode":
             cost_profile = "precision"
         else:
             cost_profile = "base"
     if intrabar_policy == "auto":
-        intrabar_policy = "conservative" if normalized == "conservative_mode" else "standard"
+        intrabar_policy = "conservative" if normalized in ("conservative_mode", "stress_mode") else "standard"
     return replace(
         engine_config,
         execution_mode=normalized,
