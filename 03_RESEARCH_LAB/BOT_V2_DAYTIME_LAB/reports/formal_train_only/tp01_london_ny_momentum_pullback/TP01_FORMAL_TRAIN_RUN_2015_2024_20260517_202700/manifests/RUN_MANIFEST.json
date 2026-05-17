@@ -1,0 +1,34 @@
+{
+  "activity_metrics": {
+    "coverage_ratio": 0.3083,
+    "distinct_months": 37,
+    "distinct_years": 4,
+    "flags": [],
+    "is_degenerate": false,
+    "max_single_month_share": 0.0681,
+    "total_trades": 191
+  },
+  "activity_warnings": [
+    "WARN_DECLARED_TIMEFRAME_DIFFERS_FROM_EFFECTIVE_CADENCE"
+  ],
+  "branch": "research/tp01-formal-train-run-v1-20260517",
+  "commit": "a1643baa615ab7d9416212b1f83a0c4ed30ccf0e",
+  "data_path": "05_MARKET_DATA_VAULT/eurusd_data/prepared_train_2015_2024/prepared",
+  "high_precision_used": false,
+  "holdout_used": false,
+  "max_timestamp": "2024-12-31",
+  "min_timestamp": "2015-01-01",
+  "news_used": false,
+  "optimization_run": false,
+  "profiles_run": [
+    "base",
+    "conservative",
+    "stress"
+  ],
+  "reconciliation_required": true,
+  "run_id": "tp01_london_ny_momentum_pullback_FORMAL",
+  "strategy": "tp01_london_ny_momentum_pullback",
+  "sweep_run": false,
+  "train_only": true,
+  "validation_run": false
+}
