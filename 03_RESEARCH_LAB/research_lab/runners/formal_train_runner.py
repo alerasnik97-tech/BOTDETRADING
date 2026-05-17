@@ -23,11 +23,12 @@ import argparse
 import dataclasses
 from dataclasses import dataclass
 from datetime import date
-from pathlib import PurePosixPath
+from pathlib import Path, PurePosixPath
 from typing import Any
 
 from research_lab.config import (
     EngineConfig,
+    INITIAL_CAPITAL,
     resolved_cost_profile,
     with_execution_mode,
 )
@@ -188,6 +189,133 @@ def heavy_output_dir(run_output_dir: str, profile: str) -> str:
 
 
 # ----------------------------------------------------------------------------
+# Execute-path helpers (heavy deps lazy; reachable ONLY when req.execute is True)
+# ----------------------------------------------------------------------------
+def build_disabled_news_block(frame: Any) -> Any:
+    """Per-bar news mask with news DISABLED: an all-False boolean array of the
+    exact length of ``frame``. No calendar / forex_factory / news IO. The engine
+    consumes it via ``np.asarray(news_block, dtype=bool)`` indexed per bar, so an
+    all-False array means *no bar is news-blocked*; ``news_filter_used`` must also
+    be False so the engine takes its no-news branch (verified engine.py:687-696)."""
+    import numpy as np  # lazy: keep module import numpy-free / side-effect-free
+    return np.zeros(len(frame), dtype=bool)
+
+
+def get_initial_capital(engine_config: EngineConfig) -> float:
+    """Canonical starting capital. The engine seeds its equity curve at
+    ``config.INITIAL_CAPITAL`` (engine.py:684 ``equity_points[0] = INITIAL_CAPITAL``);
+    ``EngineConfig`` exposes no per-run capital field, so this module constant is
+    the single source of truth (no magic literal invented here)."""
+    return float(INITIAL_CAPITAL)
+
+
+def _is_placeholder(value: Any) -> bool:
+    return str(value).strip().lower() in {
+        "", "(unset)", "(caller-supplied)", "none", "null",
+    }
+
+
+def get_git_identity(repo_root: str | None = None) -> tuple[str, str]:
+    """Resolve the REAL ``(branch, commit)``. Never returns a placeholder.
+
+    Fail-closed: if the commit cannot be resolved the run is aborted with
+    ``RunnerSafetyError`` rather than sealing with unknown provenance. No
+    ``shell=True``; bounded timeout; Git is never modified.
+    """
+    import subprocess  # lazy stdlib; no heavy import, no side effects on import
+    root = str(repo_root) if repo_root else str(Path(__file__).resolve().parents[3])
+
+    def _git(*args: str) -> str:
+        try:
+            cp = subprocess.run(
+                ["git", "-C", root, *args],
+                capture_output=True, text=True, timeout=15,
+            )
+        except (OSError, subprocess.SubprocessError) as exc:
+            raise RunnerSafetyError(f"git identity unavailable: {exc}") from exc
+        if cp.returncode != 0:
+            raise RunnerSafetyError(
+                f"git identity unavailable: git {' '.join(args)} rc={cp.returncode}")
+        return cp.stdout.strip()
+
+    commit = _git("rev-parse", "HEAD")
+    if len(commit) < 7 or any(c not in "0123456789abcdef" for c in commit.lower()):
+        raise RunnerSafetyError("git identity unavailable: invalid commit")
+    branch = _git("rev-parse", "--abbrev-ref", "HEAD")
+    if not branch or branch == "HEAD":
+        branch = f"DETACHED@{commit[:12]}"  # real provenance, never a placeholder
+    if _is_placeholder(branch) or _is_placeholder(commit):
+        raise RunnerSafetyError("git identity unavailable: placeholder rejected")
+    return branch, commit
+
+
+def _require_real_identity(branch: Any, commit: Any) -> None:
+    if _is_placeholder(branch) or _is_placeholder(commit):
+        raise RunnerSafetyError("RUN_MANIFEST refuses placeholder branch/commit")
+
+
+def write_json(path: Any, payload: Any) -> str:
+    """Write JSON (UTF-8, indent=2, sorted, ``str``-coerced); creates parent dirs."""
+    import json  # lazy stdlib
+    p = Path(str(path).replace("\\", "/"))
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(
+        json.dumps(payload, indent=2, sort_keys=True, default=str),
+        encoding="utf-8",
+    )
+    return str(p)
+
+
+def write_dataframe_csv(path: Any, df: Any, *, index: bool = False) -> str:
+    """Write a DataFrame to CSV; creates parent dirs. ZIP targets are refused."""
+    p = Path(str(path).replace("\\", "/"))
+    if p.suffix.lower() == ".zip":
+        raise RunnerSafetyError("ZIP output is forbidden")
+    p.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(p, index=index)
+    return str(p)
+
+
+def write_run_artifacts(
+    req: FormalRunRequest,
+    manifest: dict[str, Any],
+    per_profile: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    """Persist the formal dossier UNDER the validated ``req.output_dir`` ONLY.
+
+    Invoked solely after preflight + execution + reconciliation + seal gate have
+    all passed. Heavy artifacts (trades / equity) are routed under
+    ``local_outputs_do_not_commit/<profile>``. The output dir is re-validated here
+    (defence-in-depth): no root / data-vault / production / incubation / scratch /
+    ZIP write is possible.
+    """
+    validate_output_dir(req.output_dir)
+    out = Path(str(req.output_dir).replace("\\", "/"))
+    written: dict[str, Any] = {
+        "manifest": None, "configs": {}, "summaries": {}, "tables": {}, "heavy": {},
+    }
+    written["manifest"] = write_json(out / "manifests" / "RUN_MANIFEST.json", manifest)
+    for name, blob in per_profile.items():
+        written["configs"][name] = write_json(
+            out / "configs" / f"{name}_ENGINE_CONFIG.json",
+            dataclasses.asdict(blob["config"]),
+        )
+        written["summaries"][name] = write_json(
+            out / "profile_reports" / name / "summary.json", blob["summary"],
+        )
+        mo = write_dataframe_csv(
+            out / "profile_reports" / name / "tables" / "monthly.csv", blob["monthly"])
+        yo = write_dataframe_csv(
+            out / "profile_reports" / name / "tables" / "yearly.csv", blob["yearly"])
+        written["tables"][name] = {"monthly": mo, "yearly": yo}
+        heavy = Path(heavy_output_dir(req.output_dir, name).replace("\\", "/"))
+        tr = write_dataframe_csv(heavy / "trades.csv", blob["trades"])
+        eq = write_dataframe_csv(heavy / "equity_curve.csv", blob["equity"])
+        written["heavy"][name] = {"trades": tr, "equity_curve": eq}
+    return written
+
+
+# ----------------------------------------------------------------------------
 # Manifest + reconciliation gate
 # ----------------------------------------------------------------------------
 def build_run_manifest(
@@ -237,6 +365,7 @@ def reconcile_profile_outputs(profile: str, **kwargs: Any) -> dict[str, Any]:
 def seal_run_only_if_reconciled(
     reconciliations: list[dict[str, Any]],
     manifest: dict[str, Any] | None,
+    profiles: dict[str, dict[str, Any]] | None = None,
 ) -> None:
     if manifest is None:
         raise ReconciliationGateError("refusing to seal: no RUN_MANIFEST")
@@ -245,6 +374,10 @@ def seal_run_only_if_reconciled(
     bad: set[str] = set()
     for rec in reconciliations:
         for v in rec.get("violations", []):
+            bad.add(v["code"])
+    # W3: cost-profile reconciliation (mislabel / duplicate) is part of the gate.
+    if profiles is not None:
+        for v in mr.reconcile_all(profiles=profiles):
             bad.add(v["code"])
     if bad:
         raise ReconciliationGateError(f"refusing to seal: violations [{', '.join(sorted(bad))}]")
@@ -259,16 +392,18 @@ def preflight(req: FormalRunRequest, base_config: EngineConfig | None = None) ->
     validate_output_dir(req.output_dir)
     configs = build_cost_profile_configs(base_config or EngineConfig(pair="EURUSD"))
     validate_cost_profile_configs(configs)
+    branch, commit = get_git_identity()  # W2: real provenance, fail-closed
     manifest = build_run_manifest(
         run_id="PREFLIGHT",
-        branch="(unset)",
-        commit="(unset)",
+        branch=branch,
+        commit=commit,
         strategy_name=req.strategy_name,
         data_path=req.data_path,
         min_timestamp=req.start_date,
         max_timestamp=req.end_date,
         profiles_run=[name for name, _, _ in PROFILE_PLAN],
     )
+    _require_real_identity(manifest["branch"], manifest["commit"])
     return {
         "mode": "dry_run",
         "executed": False,
@@ -289,10 +424,12 @@ def run_single_strategy_formal_train_only(
     req: FormalRunRequest,
     base_config: EngineConfig | None = None,
 ) -> dict[str, Any]:
-    """Dry-run by default. Executes a backtest ONLY when `req.execute is True`.
+    """Dry-run by default. Executes a backtest ONLY when ``req.execute is True``.
 
     The execute branch lazy-imports heavy layers so importing this module stays
-    side-effect-free; the contract test-suite never invokes it with execute=True.
+    side-effect-free. The contract suite drives ``execute=True`` exclusively with
+    fakes/monkeypatch (no real backtest, no real market data); a real execution is
+    only ever launched by an explicit, separately-audited operator phase.
     """
     plan = preflight(req, base_config)
     if not req.execute:
@@ -306,44 +443,93 @@ def run_single_strategy_formal_train_only(
     from research_lab.engine import run_backtest  # lazy
     from research_lab.report import summarize_result  # lazy
 
-    configs = build_cost_profile_configs(base_config or EngineConfig(pair="EURUSD"))
+    base_cfg = base_config or EngineConfig(pair="EURUSD")
+    configs = build_cost_profile_configs(base_cfg)
     validate_cost_profile_configs(configs)
     strategy_module = STRATEGY_REGISTRY[req.strategy_name]
+
+    branch, commit = get_git_identity()  # W2: real provenance, fail-closed
+
+    # B3: the loader signature is `data_dirs: list[Path]`, not `tuple[str]`.
     bundle = load_backtest_data_bundle(
-        configs["base"].pair, (req.data_path,), req.start_date, req.end_date,
+        configs["base"].pair, [Path(req.data_path)], req.start_date, req.end_date,
         "normal_mode", target_timeframe="M1",
     )
+    news_block = build_disabled_news_block(bundle.frame)  # B1: news disabled
+    initial_capital = get_initial_capital(base_cfg)        # B2: canonical capital
+
     manifest = build_run_manifest(
         run_id=f"{req.strategy_name}_FORMAL",
-        branch="(caller-supplied)",
-        commit="(caller-supplied)",
+        branch=branch,
+        commit=commit,
         strategy_name=req.strategy_name,
         data_path=req.data_path,
         min_timestamp=req.start_date,
         max_timestamp=req.end_date,
         profiles_run=[n for n, _, _ in PROFILE_PLAN],
     )
+    _require_real_identity(manifest["branch"], manifest["commit"])
+
+    profiles_meta: dict[str, dict[str, Any]] = {}
+    per_profile: dict[str, dict[str, Any]] = {}
     recs: list[dict[str, Any]] = []
     for name, cfg in configs.items():
+        # B1: run_backtest requires positional `news_block` + `news_filter_used`
+        # (engine.py:597-609); both are passed, news permanently disabled here.
         result = run_backtest(
-            strategy_module=strategy_module, frame=bundle.frame,
-            params=strategy_module.DEFAULT_PARAMS, engine_config=cfg,
+            strategy_module=strategy_module,
+            frame=bundle.frame,
+            params=strategy_module.DEFAULT_PARAMS,
+            engine_config=cfg,
+            news_block=news_block,
+            news_filter_used=False,
         )
-        summary, trades_exp, _m, _y, equity_exp = summarize_result(
-            result.strategy_name, result.trades, result.equity_curve, result.params, False,
+        # B2: summarize_result requires `initial_capital` + `selected_score`
+        # (report.py:281-293); the real 5th positional is `news_filter_used`.
+        summary, trades_exp, monthly_exp, yearly_exp, equity_exp = summarize_result(
+            result.strategy_name,
+            result.trades,
+            result.equity_curve,
+            result.params,
+            False,            # news_filter_used (real 5th positional)
+            initial_capital,  # B2
+            None,             # selected_score (B2)
         )
+        profiles_meta[name] = {
+            "cost_profile": resolved_cost_profile(cfg),
+            "execution_mode": cfg.execution_mode,
+        }
+        per_profile[name] = {
+            "config": cfg,
+            "summary": summary,
+            "trades": trades_exp,
+            "equity": equity_exp,
+            "monthly": monthly_exp,
+            "yearly": yearly_exp,
+        }
+        eq = equity_exp["equity"]
         recs.append(reconcile_profile_outputs(
             name,
             trades=trades_exp.to_dict("records"),
-            equity_series=list(equity_exp["equity"]),
-            starting_equity=float(equity_exp["equity"].iloc[0]),
+            equity_series=list(eq),
+            starting_equity=float(eq.iloc[0]) if len(eq) else initial_capital,
             profit_factor=float(summary["profit_factor"]),
             expectancy_r=float(summary["expectancy_r"]),
             total_return_pct=float(summary["total_return_pct"]),
             reported_max_drawdown_pct=float(summary["max_drawdown_pct"]),
         ))
-    seal_run_only_if_reconciled(recs, manifest)
-    return {"mode": "executed", "executed": True, "manifest": manifest, "reconciliations": recs}
+    # Gate: per-profile reconciliation + W3 cost-profile reconciliation.
+    seal_run_only_if_reconciled(recs, manifest, profiles=profiles_meta)
+    # B4: persist the formal dossier ONLY after the seal gate has passed.
+    artifacts = write_run_artifacts(req, manifest, per_profile)
+    return {
+        "mode": "executed",
+        "executed": True,
+        "manifest": manifest,
+        "reconciliations": recs,
+        "profiles_meta": profiles_meta,
+        "artifacts": artifacts,
+    }
 
 
 # ----------------------------------------------------------------------------
