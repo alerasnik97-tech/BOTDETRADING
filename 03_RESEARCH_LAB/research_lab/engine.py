@@ -345,6 +345,18 @@ def execution_to_trigger_price(pair: str, direction: str, execution_price_value:
     return execution_price_value - spread_price - slip_price
 
 
+def directional_pnl_usd(
+    direction: str,
+    entry_price: float,
+    exit_price: float,
+    units: float,
+    quote_to_usd_rate: float,
+) -> float:
+    # units is unsigned (risk_usd / abs(stop_distance)); a short profits when price falls.
+    direction_sign = 1.0 if direction == "long" else -1.0
+    return direction_sign * (exit_price - entry_price) * units * quote_to_usd_rate
+
+
 def build_fixed_rr_target(
     pair: str,
     direction: str,
@@ -980,10 +992,11 @@ def run_backtest(
                 else:
                     exit_price = exit_execution_price(pair, position.direction, exit_price_signal, position.entry_spread_pips, exit_slippage_pips)
                 
-                pnl_usd = (exit_price - position.entry_price) * position.units * quote_to_usd(pair, exit_price)
+                pnl_usd = directional_pnl_usd(position.direction, position.entry_price, exit_price, position.units, quote_to_usd(pair, exit_price))
                 exit_commission_usd = (engine_config.commission_per_lot_roundturn_usd * position.lots) / 2.0
                 pnl_usd -= exit_commission_usd
-                cash += (position.risk_usd + pnl_usd)
+                # risk_usd is never reserved from cash at entry, so only realized pnl is applied here.
+                cash += pnl_usd
                 pnl_r = pnl_usd / position.risk_usd
                 pip_size = float(PAIR_META[pair]["pip_size"])
                 sl_pips = position.initial_risk_distance / pip_size if pip_size > 0 else np.nan
@@ -1067,10 +1080,11 @@ def run_backtest(
         else:
             exit_price = exit_execution_price(pair, position.direction, exit_price_signal, position.entry_spread_pips, exit_slippage_pips)
         
-        pnl_usd = (exit_price - position.entry_price) * position.units * quote_to_usd(pair, exit_price)
+        pnl_usd = directional_pnl_usd(position.direction, position.entry_price, exit_price, position.units, quote_to_usd(pair, exit_price))
         exit_commission_usd = (engine_config.commission_per_lot_roundturn_usd * position.lots) / 2.0
         pnl_usd -= exit_commission_usd
-        cash += (position.risk_usd + pnl_usd)
+        # risk_usd is never reserved from cash at entry, so only realized pnl is applied here.
+        cash += pnl_usd
         pnl_r = pnl_usd / position.risk_usd
         pip_size = float(PAIR_META[pair]["pip_size"])
         sl_pips = position.initial_risk_distance / pip_size if pip_size > 0 else np.nan
