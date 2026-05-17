@@ -1,0 +1,22 @@
+{
+  "branch": "research/tp01-official-runner-regeneration-v2-20260517",
+  "commit": "c1dd15872d448165539aacdf81f9b6912018a313",
+  "data_path": "05_MARKET_DATA_VAULT/eurusd_data/prepared_train_2015_2024/prepared",
+  "high_precision_used": false,
+  "holdout_used": false,
+  "max_timestamp": "2024-12-31",
+  "min_timestamp": "2015-01-01",
+  "news_used": false,
+  "optimization_run": false,
+  "profiles_run": [
+    "base",
+    "conservative",
+    "stress"
+  ],
+  "reconciliation_required": true,
+  "run_id": "tp01_london_ny_momentum_pullback_FORMAL",
+  "strategy": "tp01_london_ny_momentum_pullback",
+  "sweep_run": false,
+  "train_only": true,
+  "validation_run": false
+}

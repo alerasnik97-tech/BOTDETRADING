@@ -65,7 +65,7 @@ def reconcile_equity(
 ) -> list[dict[str, str]]:
     """Equity / drawdown / total-return must derive from the ledger."""
     violations: list[dict[str, str]] = []
-    sum_pnl = sum(float(t["pnl_usd"]) for t in trades)
+    sum_pnl = sum(float(t["pnl_usd"]) - float(t.get("entry_commission_usd", 0.0)) for t in trades)
     additive_end = starting_equity + sum_pnl
 
     if equity_series:
