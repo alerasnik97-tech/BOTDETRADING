@@ -1,0 +1,22 @@
+{
+  "branch": "research/mr01-official-runner-run-20260517",
+  "commit": "8aa811832b43b16047496917ddabb670f2640e6f",
+  "data_path": "05_MARKET_DATA_VAULT/eurusd_data/prepared_train_2015_2024/prepared",
+  "high_precision_used": false,
+  "holdout_used": false,
+  "max_timestamp": "2024-12-31",
+  "min_timestamp": "2015-01-01",
+  "news_used": false,
+  "optimization_run": false,
+  "profiles_run": [
+    "base",
+    "conservative",
+    "stress"
+  ],
+  "reconciliation_required": true,
+  "run_id": "mr01_anchor_elastic_FORMAL",
+  "strategy": "mr01_anchor_elastic",
+  "sweep_run": false,
+  "train_only": true,
+  "validation_run": false
+}
