@@ -29,6 +29,7 @@ import pandas as pd
 from research_lab.config import EngineConfig, NY_TZ
 from research_lab.engine import run_backtest
 from research_lab.strategies import ve_orb_volatility_expansion as veorb
+from research_lab.strategies import tp01_london_ny_momentum_pullback as tp01
 
 
 # ---------------------------------------------------------------------------
@@ -286,6 +287,18 @@ class AntiLookaheadHarnessTests(unittest.TestCase):
         self.assertTrue(idx, "fixture produced no in-window indices to test")
         leaks = lookahead_leak_indices(veorb, frame, params, idx)
         self.assertEqual(leaks, [], f"VE-ORB lookahead detected at indices {leaks}")
+
+    def test_tp01_is_causal_under_future_poisoning(self):
+        """Optimized strategy TP-01 must be invariant when rows > i are poisoned."""
+        frame = synthetic_m5_days(4)
+        params = dict(tp01.DEFAULT_PARAMS)
+        idx = [
+            i for i in range(250, len(frame) - 2)
+            if 420 <= (frame.index[i].hour * 60 + frame.index[i].minute) < 1020
+        ][:40]
+        self.assertTrue(idx, "fixture produced no in-window indices to test")
+        leaks = lookahead_leak_indices(tp01, frame, params, idx)
+        self.assertEqual(leaks, [], f"TP-01 lookahead detected at indices {leaks}")
 
 
 if __name__ == "__main__":

@@ -24,7 +24,7 @@ import dataclasses
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path, PurePosixPath
-from typing import Any
+from typing import Any, Iterable
 
 from research_lab.config import (
     EngineConfig,
@@ -315,6 +315,59 @@ def write_run_artifacts(
     return written
 
 
+def assess_activity(trade_timestamps: Iterable[Any], period_start: str, period_end: str,
+                    *, min_coverage_ratio: float = 0.05,
+                    max_single_month_share: float = 0.90) -> dict[str, Any]:
+    """Classify a strategy's activity over a declared period."""
+    import pandas as pd  # lazy
+    start = pd.Timestamp(period_start)
+    end = pd.Timestamp(period_end)
+    period_months = max(1, (end.year - start.year) * 12 + (end.month - start.month) + 1)
+    period_years = max(1, end.year - start.year + 1)
+
+    ts = pd.to_datetime(pd.Series(list(trade_timestamps)), errors="coerce").dropna()
+    total = int(ts.shape[0])
+
+    if total == 0:
+        return {
+            "total_trades": 0, "distinct_years": 0, "distinct_months": 0,
+            "coverage_ratio": 0.0, "max_single_month_share": 0.0,
+            "zero_activity": True, "single_year_only": False,
+            "extreme_concentration": False, "is_degenerate": True,
+            "flags": ["zero_activity"],
+        }
+
+    years = ts.dt.year
+    ym = ts.dt.year * 12 + ts.dt.month
+    distinct_years = int(years.nunique())
+    distinct_months = int(ym.nunique())
+    coverage_ratio = distinct_months / period_months
+    top_month_share = float(ym.value_counts(normalize=True).iloc[0])
+
+    single_year_only = distinct_years == 1 and period_years > 1
+    low_coverage = coverage_ratio < min_coverage_ratio
+    extreme_concentration = top_month_share >= max_single_month_share
+
+    flags: list[str] = []
+    if single_year_only:
+        flags.append("single_year_only")
+    if low_coverage:
+        flags.append("low_coverage")
+    if extreme_concentration:
+        flags.append("extreme_concentration")
+
+    return {
+        "total_trades": total, "distinct_years": distinct_years,
+        "distinct_months": distinct_months,
+        "coverage_ratio": round(coverage_ratio, 4),
+        "max_single_month_share": round(top_month_share, 4),
+        "zero_activity": False, "single_year_only": single_year_only,
+        "extreme_concentration": extreme_concentration,
+        "is_degenerate": bool(flags),
+        "flags": flags,
+    }
+
+
 # ----------------------------------------------------------------------------
 # Manifest + reconciliation gate
 # ----------------------------------------------------------------------------
@@ -350,6 +403,8 @@ def build_run_manifest(
         "high_precision_used": False,
         "reconciliation_required": True,
         "train_only": True,
+        "activity_warnings": [],
+        "activity_metrics": {},
     }
 
 
@@ -381,6 +436,27 @@ def seal_run_only_if_reconciled(
             bad.add(v["code"])
     if bad:
         raise ReconciliationGateError(f"refusing to seal: violations [{', '.join(sorted(bad))}]")
+
+
+def _infer_effective_cadence_minutes(index: Any) -> int | None:
+    """Infer the median difference in minutes between index bars, safely."""
+    import pandas as pd  # lazy
+    if len(index) < 2:
+        return None
+    if not isinstance(index, pd.DatetimeIndex):
+        return None
+    try:
+        diffs = pd.Series(index).diff().dropna()
+        total_seconds = diffs.dt.total_seconds()
+        # Filter out large gaps (e.g. weekends) to find the intraday cadence
+        # Weekends/overnights are > 1 hour (3600 seconds)
+        intraday = total_seconds[total_seconds <= 3600]
+        if intraday.empty:
+            intraday = total_seconds
+        median_sec = float(intraday.median())
+        return int(round(median_sec / 60.0))
+    except Exception:
+        return None
 
 
 # ----------------------------------------------------------------------------
@@ -458,6 +534,12 @@ def run_single_strategy_formal_train_only(
     news_block = build_disabled_news_block(bundle.frame)  # B1: news disabled
     initial_capital = get_initial_capital(base_cfg)        # B2: canonical capital
 
+    # Inquire about timeframe discrepancy C10
+    effective_cadence = _infer_effective_cadence_minutes(bundle.frame.index)
+    effective_timeframe_str = f"M{effective_cadence}" if effective_cadence is not None else "M1"
+    declared_timeframe = "M1"
+    timeframe_discrepancy = (effective_timeframe_str != declared_timeframe)
+
     manifest = build_run_manifest(
         run_id=f"{req.strategy_name}_FORMAL",
         branch=branch,
@@ -494,6 +576,7 @@ def run_single_strategy_formal_train_only(
             False,            # news_filter_used (real 5th positional)
             initial_capital,  # B2
             None,             # selected_score (B2)
+            timeframe=effective_timeframe_str,
         )
         profiles_meta[name] = {
             "cost_profile": resolved_cost_profile(cfg),
@@ -518,6 +601,46 @@ def run_single_strategy_formal_train_only(
             total_return_pct=float(summary["total_return_pct"]),
             reported_max_drawdown_pct=float(summary["max_drawdown_pct"]),
         ))
+    # Run activity sentinel check on base trades
+    base_trades = per_profile["base"]["trades"]
+    trade_ts = base_trades["entry_time_ny"].dropna().tolist() if "entry_time_ny" in base_trades.columns else []
+    period_years = max(1, _parse_iso(req.end_date).year - _parse_iso(req.start_date).year + 1)
+    activity = assess_activity(trade_ts, req.start_date, req.end_date)
+    
+    activity_warnings = []
+    if timeframe_discrepancy:
+        activity_warnings.append("WARN_DECLARED_TIMEFRAME_DIFFERS_FROM_EFFECTIVE_CADENCE")
+    if activity.get("zero_activity"):
+        activity_warnings.append("WARN_ZERO_TRADES")
+    if activity.get("total_trades", 0) > 0 and activity.get("total_trades", 0) < 30:
+        activity_warnings.append("WARN_LOW_SAMPLE_SIZE")
+    if activity.get("single_year_only"):
+        activity_warnings.append("WARN_SINGLE_ACTIVE_YEAR")
+    if activity.get("extreme_concentration"):
+        activity_warnings.append("WARN_EXTREME_TEMPORAL_CONCENTRATION")
+    if activity.get("coverage_ratio", 1.0) < 0.05 and activity.get("total_trades", 0) > 0:
+        activity_warnings.append("WARN_LONG_ZERO_TRADE_PERIOD")
+    if activity.get("total_trades", 0) > 0 and (activity.get("total_trades", 0) / period_years) < 6.0:
+        activity_warnings.append("WARN_LOW_FREQUENCY_EDGE_NOT_EVALUABLE")
+
+    if activity_warnings:
+        print("\n" + "="*80)
+        print("ACTIVITY SENTINEL WARNINGS:")
+        for w in activity_warnings:
+            print(f"  - {w}")
+        print("="*80 + "\n")
+
+    manifest["activity_warnings"] = activity_warnings
+    manifest["activity_metrics"] = {
+        "total_trades": activity["total_trades"],
+        "distinct_years": activity["distinct_years"],
+        "distinct_months": activity["distinct_months"],
+        "coverage_ratio": activity["coverage_ratio"],
+        "max_single_month_share": activity["max_single_month_share"],
+        "is_degenerate": activity["is_degenerate"],
+        "flags": activity["flags"],
+    }
+
     # Gate: per-profile reconciliation + W3 cost-profile reconciliation.
     seal_run_only_if_reconciled(recs, manifest, profiles=profiles_meta)
     # B4: persist the formal dossier ONLY after the seal gate has passed.

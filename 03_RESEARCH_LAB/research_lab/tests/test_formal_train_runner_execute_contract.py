@@ -106,10 +106,10 @@ def fake_runtime(*, summary=None, registry_name="tp01_london_ny_momentum_pullbac
     rep = types.ModuleType("research_lab.report")
 
     def summarize_result(strategy_name, trades, equity_curve, params,
-                         news_filter_used, initial_capital, selected_score):  # real REQUIRED sig
+                         news_filter_used, initial_capital, selected_score, **kwargs):  # real REQUIRED sig
         capture["summarize_calls"].append({
             "initial_capital": initial_capital, "selected_score": selected_score,
-            "news_filter_used": news_filter_used})
+            "news_filter_used": news_filter_used, "timeframe": kwargs.get("timeframe")})
         assert news_filter_used is False
         assert selected_score is None
         return (dict(eff_summary), _clean_trades_df(),
@@ -283,6 +283,18 @@ class T_ExecutePathFakes(unittest.TestCase):
         }
         R.seal_run_only_if_reconciled(good_rec, manifest, profiles=clean)  # must not raise
 
+    def test_08_b_manifest_has_activity_warnings_and_metrics(self):
+        with tempfile.TemporaryDirectory() as td, _fake_git():
+            out = str(Path(td) / RUN_SUFFIX)
+            with fake_runtime():
+                res = R.run_single_strategy_formal_train_only(_req(out))
+            m = res["manifest"]
+            self.assertIn("activity_warnings", m)
+            self.assertIn("activity_metrics", m)
+            self.assertIn("WARN_ZERO_TRADES", m["activity_warnings"])
+            self.assertEqual(m["activity_metrics"]["total_trades"], 0)
+            self.assertTrue(m["activity_metrics"]["is_degenerate"])
+
     def test_09_no_real_market_data_loaded(self):
         with tempfile.TemporaryDirectory() as td, _fake_git():
             out = str(Path(td) / RUN_SUFFIX)
@@ -306,6 +318,24 @@ class T_ExecutePathFakes(unittest.TestCase):
             self.assertEqual(cap["run_calls"], [])
             self.assertEqual(cap["summarize_calls"], [])
             self.assertEqual(cap["loader_calls"], [])
+
+    def test_10_b_timeframe_discrepancy_c10_detection(self):
+        with tempfile.TemporaryDirectory() as td, _fake_git():
+            out = str(Path(td) / RUN_SUFFIX)
+            idx = pd.date_range("2024-01-02 08:00:00", periods=10, freq="5min", tz="America/New_York")
+            frame_m5 = pd.DataFrame({"open": [1.0] * 10}, index=idx)
+            with fake_runtime() as cap:
+                import research_lab.data_loader as dl
+                orig_load = dl.load_backtest_data_bundle
+                def load_mock(*args, **kwargs):
+                    res_ns = orig_load(*args, **kwargs)
+                    res_ns.frame = frame_m5
+                    return res_ns
+                dl.load_backtest_data_bundle = load_mock
+                res = R.run_single_strategy_formal_train_only(_req(out))
+            m = res["manifest"]
+            self.assertIn("WARN_DECLARED_TIMEFRAME_DIFFERS_FROM_EFFECTIVE_CADENCE", m["activity_warnings"])
+            self.assertEqual(cap["summarize_calls"][0]["timeframe"], "M5")
 
     def test_11_git_identity_unavailable_fails_closed(self):
         with tempfile.TemporaryDirectory() as td:
