@@ -1,0 +1,40 @@
+{
+  "strategy_name": "tp01_london_ny_momentum_pullback",
+  "total_trades": 191,
+  "avg_trades_per_month": 1.5916666666666666,
+  "win_rate": 47.64397905759162,
+  "breakeven_rate": 0.0,
+  "profit_factor": 0.8963989973230085,
+  "expectancy_r": -0.068397215894715,
+  "total_return_pct": 135.71051000547044,
+  "max_drawdown_pct": 1.3233384600868732,
+  "negative_months": 21,
+  "negative_years": 3,
+  "positive_years": 1,
+  "years_positive": 1,
+  "parameter_set_used": {
+    "entry_start": "08:00",
+    "entry_end": "12:00",
+    "ema_period": 20,
+    "atr_period": 14,
+    "atr_percentile_lookback": 200,
+    "atr_percentile": 50.0,
+    "momentum_bars": 5,
+    "momentum_atr_mult": 1.5,
+    "pullback_tolerance_atr": 0.25,
+    "stop_atr_buffer": 0.35,
+    "target_rr": 2.0,
+    "session_name": "all_day"
+  },
+  "insufficient_sample": false,
+  "sample_penalty_applied": false,
+  "selected_score": 0.0,
+  "news_filter_used": false,
+  "costs_used": {
+    "execution_mode": "normal_mode",
+    "cost_profile": "base"
+  },
+  "timeframe": "M1",
+  "schedule_used": {},
+  "break_even_setting": null
+}

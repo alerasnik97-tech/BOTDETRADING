@@ -1,0 +1,52 @@
+{
+  "run_id": "TP01_FORMAL_RERUN_20260516_212500",
+  "datetime": "2026-05-16T21:32:04.678947",
+  "authorized_scope": "EURUSD_TP01_FORMAL_TRAIN_ONLY_2015_2024",
+  "data_path": [
+    "05_MARKET_DATA_VAULT\\eurusd_data\\prepared_train_2015_2024\\prepared"
+  ],
+  "data_range": [
+    "2015-01-01",
+    "2024-12-31"
+  ],
+  "target_timeframe": "M1",
+  "strategies_run": [
+    "tp01_london_ny_momentum_pullback"
+  ],
+  "holdout_used": false,
+  "optimization_run": false,
+  "cost_profiles_run": [
+    "base",
+    "conservative",
+    "stress"
+  ],
+  "results": [
+    {
+      "profile": "base",
+      "trades": 191,
+      "pf": 0.8963989973230085,
+      "expectancy": -0.068397215894715,
+      "win_rate": 47.64397905759162,
+      "max_dd_pct": 1.3233384600868732,
+      "total_return_pct": 135.71051000547044
+    },
+    {
+      "profile": "conservative",
+      "trades": 191,
+      "pf": 0.8850167350442101,
+      "expectancy": -0.0718811175135023,
+      "win_rate": 47.64397905759162,
+      "max_dd_pct": 1.3050774050619676,
+      "total_return_pct": 135.40540683776973
+    },
+    {
+      "profile": "stress",
+      "trades": 191,
+      "pf": 0.8850167350442101,
+      "expectancy": -0.0718811175135023,
+      "win_rate": 47.64397905759162,
+      "max_dd_pct": 1.3050774050619676,
+      "total_return_pct": 135.40540683776973
+    }
+  ]
+}

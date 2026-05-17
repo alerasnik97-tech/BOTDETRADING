@@ -1,0 +1,22 @@
+Metric,Value
+Total Trades,191
+Win Rate (%),47.64397905759162
+Breakeven Rate (%),0.0
+Profit Factor,0.8963989973230085
+Expectancy (R),-0.068397215894715
+Total (R),-13.063868235890563
+Max Winning Streak,4
+Max Losing Streak,5
+Average Win (R),1.154458704913616
+Average Loss (R),-1.1811961038302963
+Payoff Ratio,0.9773641321453921
+Long Trades Count,97
+Short Trades Count,94
+Average Trades Per Day,0.061454311454311454
+Days with 0 Trades,2931
+Days with 1 Trades,163
+Days with 2 Trades,14
+Days with 3 Trades,0
+Days with >3 Trades (Violations),0
+Hourly Distribution (NY),"8h:41, 9h:42, 10h:50, 11h:58"
+Day of Week Distribution,"Friday:31, Monday:45, Thursday:38, Tuesday:43, Wednesday:34"
