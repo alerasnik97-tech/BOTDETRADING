@@ -1,0 +1,2 @@
+pair,year,trades,wins,losses,breakevens,win_rate,total_pnl_r,total_pnl_usd,avg_pnl_r,max_drawdown_pct,profit_factor
+EURUSD,2015,15,7,8,0,46.666666666666664,0.4087133328302943,176.5834871205467,0.02724755552201962,1.2545746875022978,1.0450107231486905

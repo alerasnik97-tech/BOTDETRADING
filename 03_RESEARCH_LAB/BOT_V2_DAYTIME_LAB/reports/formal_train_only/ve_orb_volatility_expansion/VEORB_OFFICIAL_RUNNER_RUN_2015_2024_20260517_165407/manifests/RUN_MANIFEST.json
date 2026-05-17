@@ -1,0 +1,22 @@
+{
+  "branch": "research/veorb-official-runner-run-20260517",
+  "commit": "11ea9d1b68d022d8bfb76f7db75bf2214e43ee30",
+  "data_path": "05_MARKET_DATA_VAULT/eurusd_data/prepared_train_2015_2024/prepared",
+  "high_precision_used": false,
+  "holdout_used": false,
+  "max_timestamp": "2024-12-31",
+  "min_timestamp": "2015-01-01",
+  "news_used": false,
+  "optimization_run": false,
+  "profiles_run": [
+    "base",
+    "conservative",
+    "stress"
+  ],
+  "reconciliation_required": true,
+  "run_id": "ve_orb_volatility_expansion_FORMAL",
+  "strategy": "ve_orb_volatility_expansion",
+  "sweep_run": false,
+  "train_only": true,
+  "validation_run": false
+}
