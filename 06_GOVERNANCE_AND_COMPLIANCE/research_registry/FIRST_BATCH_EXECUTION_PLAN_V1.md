@@ -23,6 +23,40 @@ graph TD
 
 ---
 
+## 1A. Owner Gate And No-Execution Clarification (Post-Extreme-Audit Patch)
+
+This section reconciles audit warning **W-04**. The phase diagram above lists
+sequential phases; it does NOT, by itself, authorize progression between them.
+The following overrides any reading of the diagram as an automatic pipeline:
+
+-   Passing the skeleton and contract/timezone tests does NOT authorize a
+    micro-run.
+-   Passing the skeleton and contract/timezone tests does NOT authorize a
+    backtest or formal train.
+-   Passing an external read-only audit does NOT authorize any execution.
+-   Between Phase 2 (tests) and Phase 3 (micro-run preflight) there is a
+    mandatory owner gate plus an external audit gate. Phase 3 is never
+    reached automatically by green tests.
+-   An owner decision MAY commission a design-only micro-run protocol. That
+    is a document, not a run.
+-   Any design-only micro-run protocol must itself be externally audited
+    (read-only) before anything further.
+-   Execution requires a separate, explicit owner approval and a separate
+    execution prompt, distinct from the design approval.
+-   A micro-run must not use holdout, validation, 2025/2026, or the
+    market-data vault; only synthetic or small, controlled, owner-approved
+    data is permissible if and when separately authorized.
+-   A micro-run output-policy gate must be defined and externally reviewed
+    before any execution (allowed outputs, storage location, what is
+    committed, what is git-ignored, prevention of accidental
+    trades/equity/ZIP staging).
+-   Pre-existing repository warnings W-01 (dirty tree) and W-02 (tracked
+    output debt) must be reconciled or explicitly quarantined with a
+    documented rationale before any micro-run execution.
+-   This section authorizes nothing. It only records the gates.
+
+---
+
 ## 2. Safe Parallelization Plan
 To maintain absolute security and coordinate multiple agent actions safely without file collisions or git conflicts, the following multi-agent task routing matrix is established:
 
@@ -45,7 +79,7 @@ matrix
 ---
 
 ## 3. Minimum Test Suite Requirements
-Before any strategy is permitted to run a full backtest, the following unit tests must pass with 100% green status:
+Before any strategy is permitted to run a full backtest (which itself requires the owner and audit gates in Section 1A), the following unit tests must all pass (fully green):
 1.  `test_strategy_contract_[id].py`: Verifies that the strategy logic does not access future prices, out-of-bounds indicators, or out-of-schedule variables.
 2.  `test_strategy_tz_[id].py`: Confirms correct timezone conversion, daylight saving transitions, and weekend gap handling.
 3.  `test_strategy_fills_[id].py`: Checks order filling at bid/ask spreads, commission deductions, and stop-loss slippage markups.
@@ -53,5 +87,5 @@ Before any strategy is permitted to run a full backtest, the following unit test
 ---
 
 ## 4. Immediate Tasks
-1.  **Stop:** The laboratory is currently locked. NO code writing or backtests are authorized under this planning phase.
-2.  **Next step:** The owner must review this execution plan and the pre-registration dossier, select the first candidate to implement (e.g., `BO01`), and authorize its progression to Phase 1.
+1.  **Stop:** The laboratory remains locked. NO code writing, micro-run, dry-run, backtest, or formal train is authorized under this planning phase.
+2.  **Current state:** BO01 and MR02 skeletons plus unit/contract tests exist and have passed external read-only audits (Sub-Batch 1A blocker patch audit and the extreme end-to-end audit). They are at `IMPLEMENTED_TESTS_AUDITED_OWNER_PROTOCOL_DECISION_PENDING` with no edge, no performance, and no run. The only next step is an owner decision on whether to commission a design-only micro-run protocol (see Section 1A). This step authorizes no execution.

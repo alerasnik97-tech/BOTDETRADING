@@ -18,11 +18,84 @@ This registry does not replace GitHub code repositories or individual dossier re
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | **VEORB** | Volatility Expansion | v1.0 | `REJECTED_REGIME_OBSOLETE` | Volatility expansion breakout of London opening range on M15 bars. | `research/veorb-official-runner-run-20260517` | `937376fd0e0d7433a1018b80e241a0de34173175` | `PASS` | `LOCKED` | `SEALED` | `VEORB_REGENERATED_DOSSIER_EXTERNAL_AUDIT_V1.md` | `VEORB_PRELIMINARY_INTERESTING_NEEDS_AUDIT` | 15 | 1 (2015) | 1.0620 | 1.0308 | 0.0361 | 1.52% | 0.1250 | Low degradation | 100% (2015) | Independent | No optimization, no validation, no holdout | Archive only, watch regimes | May 17, 2026 |
 | **TP01** | Momentum Pullback | v1.0 | `REJECTED_LOW_EDGE_AND_REGIME_OBSOLESCENCE` | Intraday daytime momentum pullback entry on M5. | `audit/tp01-formal-train-run-v1-20260517` | `7f76acf7ac5bda582404ff86c4fcc37a7fd0d159` | `PASS` | `LOCKED` | `SEALED` | `TP01_FORMAL_TRAIN_EXTERNAL_AUDIT_V1.md` | `TP01_OFFICIALLY_REJECTED_LOW_EDGE_AND_REGIME_OBSOLESCENCE` | 191 | 4 (2015-2018) | 0.6312 | 0.5695 | -0.2839 | 27.35% | 1.5917 | High sensitivity | Stable (2015-2017) | Independent | No optimization, no validation, no holdout | Archive only, negative control | May 17, 2026 |
+| **BO01** | London Breakout | v1.0 | `IMPLEMENTED_TESTS_AUDITED_OWNER_PROTOCOL_DECISION_PENDING` | London-session breakout of the Asian range (00:00-06:30 GMT) on M5 bars. | `governance/post-extreme-audit-hygiene-patch-v1-20260517` | `d657e37340aa5a03e7da97662d93e925cef5b1a3` | `NOT_RUN` | `LOCKED` | `SEALED` | `SUBBATCH_1A_BLOCKER_PATCH_EXTERNAL_AUDIT_V1.md`; `EXTREME_NIGHTLY_END_TO_END_AUDIT_V1.md` | `SKELETON_PLUS_TESTS_NO_EDGE_NO_PERFORMANCE` | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | No micro-run, no dry-run, no backtest, no formal train, no validation, no holdout, no 2025/2026, no optimization/sweep, no Sub-Batch 1B, no parallel writers | Owner decision whether to commission a design-only micro-run protocol (no execution) | May 17, 2026 |
+| **MR02** | London Fakeout Reversion | v1.0 | `IMPLEMENTED_TESTS_AUDITED_OWNER_PROTOCOL_DECISION_PENDING` | Mean-reversion fakeout of the Asian range (00:00-06:30 GMT) on M5 with engulfing confirmation. | `governance/post-extreme-audit-hygiene-patch-v1-20260517` | `d657e37340aa5a03e7da97662d93e925cef5b1a3` | `NOT_RUN` | `LOCKED` | `SEALED` | `SUBBATCH_1A_BLOCKER_PATCH_EXTERNAL_AUDIT_V1.md`; `EXTREME_NIGHTLY_END_TO_END_AUDIT_V1.md` | `SKELETON_PLUS_TESTS_NO_EDGE_NO_PERFORMANCE` | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A | No micro-run, no dry-run, no backtest, no formal train, no validation, no holdout, no 2025/2026, no optimization/sweep, no Sub-Batch 1B, no parallel writers | Owner decision whether to commission a design-only micro-run protocol (no execution) | May 17, 2026 |
+
+## 3.1 Pre-Registered Skeleton-Stage Candidates — BO01, MR02
+
+This subsection reconciles audit warning **W-03** (registry previously had no BO01/MR02 rows
+despite skeletons and tests existing, which contravened the Registry Maintenance Protocol §1).
+
+The following holds for **BO01** and **MR02** at the commit recorded above:
+
+- BO01/MR02 do NOT have any demonstrated edge.
+- BO01/MR02 do NOT have any performance result.
+- BO01/MR02 are NOT validated.
+- BO01/MR02 did NOT use validation data.
+- BO01/MR02 did NOT use holdout data.
+- BO01/MR02 did NOT use 2025/2026 data.
+- BO01/MR02 have NO micro-run.
+- BO01/MR02 have NO dry-run.
+- BO01/MR02 have NO backtest.
+- BO01/MR02 have NO formal train.
+- BO01/MR02 are strategy code skeletons plus unit/contract tests only.
+- The Sub-Batch 1A blocker patch passed external read-only audit; the extreme
+  end-to-end audit returned PASS with documented warnings and no blockers.
+
+Per-strategy governance record:
+
+| Field | BO01 | MR02 |
+| :--- | :--- | :--- |
+| strategy_id | BO01 | MR02 |
+| family | London Breakout (`LBC`) | London Fakeout Reversion (`LBF`) |
+| current_state | `IMPLEMENTED_TESTS_AUDITED_OWNER_PROTOCOL_DECISION_PENDING` | `IMPLEMENTED_TESTS_AUDITED_OWNER_PROTOCOL_DECISION_PENDING` |
+| branch | `governance/post-extreme-audit-hygiene-patch-v1-20260517` | same |
+| commit | `d657e37340aa5a03e7da97662d93e925cef5b1a3` | same |
+| evidence_artifact | `SUBBATCH_1A_BLOCKER_PATCH_EXTERNAL_AUDIT_V1.md`; `EXTREME_NIGHTLY_END_TO_END_AUDIT_V1.md` | same |
+| allowed_next_action | Owner decision whether to commission a design-only micro-run protocol | same |
+| forbidden_actions | micro-run, dry-run, backtest, formal train, validation, holdout, 2025/2026, optimization/sweep, Sub-Batch 1B, parallel writers | same |
+| owner_gate_required | Yes | Yes |
+| audit_required_before_execution | Yes — design must be externally audited, then separate owner approval, then a separate external audit before any execution | Yes |
+
+No edge, performance, profitability, champion, demo, real, or FTMO status is
+asserted for BO01 or MR02. Their presence in this registry records lifecycle
+state only, not merit.
+
+## 3.2 TP-01 Lineage Traceability Note
+
+This subsection reconciles audit warning **W-05** (the registry cites a
+different lineage than the metric-fixed regeneration).
+
+- TP-01 is officially rejected. The rejection decision does NOT change.
+- Canonical rejection classification remains
+  `TP01_OFFICIALLY_REJECTED_LOW_EDGE_AND_REGIME_OBSOLESCENCE`.
+- Documented lineages (read-only evidence, not modified here):
+  - Registry row "Latest Commit" cell: `7f76acf7ac5bda582404ff86c4fcc37a7fd0d159`
+    — this hash is also the planning-branch / registry-report commit
+    (`RESEARCH_REGISTRY_AND_FIRST_BATCH_REPORT_V1.md` "Active Commit";
+    `NEXT_PROMPT_FIRST_BATCH_IMPLEMENTATION_SPECS_V1.md`), recorded on
+    branch `audit/tp01-formal-train-run-v1-20260517`.
+  - TP-01 formal-train external audit (`TP01_FORMAL_TRAIN_EXTERNAL_AUDIT_V1.md`)
+    states research branch `research/tp01-formal-train-run-v1-20260517` and
+    audit commit `ba9b81d7442eb744a4e8a158b2a551068f9f0fce`.
+  - Metric-fixed regeneration (`TP01_POST_FIX_RECONCILIATION_REPORT.md`,
+    `TP01_REGENERATED_DOSSIER_EXTERNAL_AUDIT_V3_REPORT.md`): branch
+    `research/tp01-official-runner-regeneration-v2-20260517`, commit
+    `c1dd15872d448165539aacdf81f9b6912018a313`, run
+    `TP01_OFFICIAL_RUNNER_REGEN_2015_2024_20260517_132002`.
+- All three lineages converge on the SAME verdict: negative expectancy and
+  regime obsolescence → permanent rejection. No rescue, no optimization, no
+  validation, no holdout, no 2025/2026.
+- Exact canonical-commit reconciliation across these branches is beyond a
+  markdown hygiene patch and is therefore marked
+  `TRACEABILITY_NOTE_PENDING_OWNER_REVIEW`: a separate read-only lineage
+  audit should formally designate the single canonical commit. This note
+  does not alter the rejection.
 
 ## 4. Registry Maintenance Protocol
 The Strategy Research Registry must be updated immediately upon the completion of any of the following events:
 1.  **Strategy Pre-Registration:** Before writing any code or executing dry-runs, a new entry with status `PRE_REGISTERED` must be added.
-2.  **Tests and Contract Verification:** Once the code is written and targeted preflight unit tests pass, status shifts to `TRAIN_RUN_PENDING`.
+2.  **Tests and Contract Verification:** Once the code is written and the targeted contract/preflight unit tests pass, status shifts to `IMPLEMENTED_TESTS_PENDING` and then, after an external read-only audit of the skeleton/tests, to `IMPLEMENTED_TESTS_AUDITED_OWNER_PROTOCOL_DECISION_PENDING`. Passing tests (and passing the external audit) does NOT shift status to `TRAIN_RUN_PENDING` and does NOT authorize a micro-run, dry-run, backtest, or formal train. Any transition toward a micro-run protocol, a micro-run preflight, or a sealed train backtest requires an explicit owner decision plus the gates defined in `STRATEGY_STATUS_TAXONOMY.md`.
 3.  **Train Run Completion:** After the official runner execution completes and seals, status shifts to `TRAIN_GATE_GREEN_NEEDS_AUDIT` or `TRAIN_GATE_FAILED` based on the reconciliation outcomes.
 4.  **External Audit Verdict:** Upon completion of the formal read-only external audit, the status is updated to `REJECTED_*` or `VALIDATION_APPROVAL_REQUIRED`.
 5.  **Validation/Holdout Completion:** Updates are added after validation or holdout unsealing, strictly under explicit owner authorization.

@@ -34,16 +34,58 @@ This document establishes the official lifecycle states, transition gates, and p
 -   **Meaning:** Strategy code has been checked, waiting to pass the targeted preflight contract unit tests.
 -   **Allowed Actions:** Running `test_engine_strategy_contract.py` on the candidate strategy.
 -   **Forbidden Actions:** Loading full historical data, running actual backtests.
--   **Required Evidence:** Unit test suite passing with 100% green status.
--   **Owner Approval Required:** No.
--   **Next Possible States:** `MICRO_RUN_PENDING`, `RETIRED`.
+-   **Required Evidence:** Unit test suite fully passing (all targeted contract tests green).
+-   **Owner Approval Required:** Yes. Passing the contract tests does NOT authorize a micro-run, dry-run, backtest, or any execution. An explicit owner decision is required before any micro-run protocol design or any micro-run preflight.
+-   **Next Possible States:** `IMPLEMENTED_TESTS_AUDITED_OWNER_PROTOCOL_DECISION_PENDING`, `RETIRED`.
+
+### `IMPLEMENTED_TESTS_AUDITED_OWNER_PROTOCOL_DECISION_PENDING`
+-   **Meaning:** Strategy code skeleton plus unit/contract tests are written AND have passed an external read-only audit. No micro-run, dry-run, backtest, or formal train exists. Awaiting an explicit owner decision on whether to commission a design-only micro-run protocol.
+-   **Allowed Actions:** Read-only review of the skeleton, tests, and audit reports.
+-   **Forbidden Actions:** Micro-run, dry-run, backtest, formal train, validation, holdout, 2025/2026, optimization, sweep, Sub-Batch 1B, parallel writers, any code/test/data change.
+-   **Required Evidence:** External read-only audit report(s) for the skeleton/tests and blocker patch.
+-   **Owner Approval Required:** Yes (mandatory gate). Reaching this state authorizes nothing beyond an owner decision.
+-   **Next Possible States:** `MICRO_RUN_PROTOCOL_DESIGN_PENDING`, `RETIRED`.
+
+### `MICRO_RUN_PROTOCOL_DESIGN_PENDING`
+-   **Meaning:** The owner has explicitly approved commissioning a design-only micro-run protocol document. Designing is not running.
+-   **Allowed Actions:** Authoring the micro-run protocol DESIGN markdown only (single writer).
+-   **Forbidden Actions:** Any execution of any kind; micro-run; dry-run; backtest; formal train; validation; holdout; 2025/2026; optimization; sweep; code/test/data changes.
+-   **Required Evidence:** Owner authorization recorded; design document drafted.
+-   **Owner Approval Required:** Yes (already granted to enter this state).
+-   **Next Possible States:** `MICRO_RUN_PROTOCOL_DESIGN_READY`, `RETIRED`.
+
+### `MICRO_RUN_PROTOCOL_DESIGN_READY`
+-   **Meaning:** The micro-run protocol design document is written and has passed a separate external read-only audit. This state does NOT authorize execution.
+-   **Allowed Actions:** Read-only review of the audited design.
+-   **Forbidden Actions:** Any micro-run/dry-run/backtest execution; validation; holdout; 2025/2026; optimization; sweep.
+-   **Required Evidence:** External read-only audit report of the design document.
+-   **Owner Approval Required:** Yes (a separate, explicit owner approval is required to move toward execution).
+-   **Next Possible States:** `MICRO_RUN_EXECUTION_PENDING`, `RETIRED`.
+
+### `MICRO_RUN_EXECUTION_PENDING`
+-   **Meaning:** All design and approval preconditions are satisfied; a micro-run preflight may be scheduled under a separate execution prompt. Entering this state still does not auto-run anything.
+-   **Allowed Actions:** Preparation of a separate, owner-approved, externally-audited execution prompt only.
+-   **Required Preconditions (ALL mandatory):**
+    1. an externally-audited micro-run protocol design;
+    2. a separate external audit of that design;
+    3. explicit owner approval for execution;
+    4. a clean worktree, or documented quarantine of unrelated pre-existing dirty files (W-01);
+    5. a defined output-policy gate (W-02) specifying allowed outputs, storage location, what is committed, what is git-ignored, and how trades/equity/ZIP are prevented from being staged;
+    6. no holdout;
+    7. no 2025/2026;
+    8. no validation;
+    9. no optimization/sweep.
+-   **Forbidden Actions:** Executing the micro-run before all nine preconditions are met and separately audited.
+-   **Required Evidence:** Owner approval record; design audit; output-policy gate definition; worktree/quarantine confirmation.
+-   **Owner Approval Required:** Yes (mandatory, separate from all prior approvals).
+-   **Next Possible States:** `TRAIN_RUN_PENDING`, `RETIRED`.
 
 ### `MICRO_RUN_PENDING`
--   **Meaning:** Technical checks passed. A 10-day dry-run preflight is authorized to confirm order execution.
--   **Allowed Actions:** Dry-run preflight execution (no `--execute` or limited temporal range).
--   **Forbidden Actions:** Full range (2015-2024) backtests.
--   **Required Evidence:** Dynamic preflight run console log or lightweight reports folder.
--   **Owner Approval Required:** No.
+-   **Meaning:** A micro-run preflight has been separately authorized via the gated path above (`MICRO_RUN_EXECUTION_PENDING`). It confirms order/stop/limit/telemetry plumbing only and proves nothing about edge.
+-   **Allowed Actions:** Dry-run preflight execution strictly within a separately owner-approved, externally-audited protocol (no `--execute`, limited temporal range, synthetic or small controlled owner-approved data only).
+-   **Forbidden Actions:** Full range (2015-2024) backtests; holdout; 2025/2026; validation; optimization; sweep; any inference of edge/performance from the preflight.
+-   **Required Evidence:** Dynamic preflight run console log or lightweight reports folder, plus the satisfied `MICRO_RUN_EXECUTION_PENDING` preconditions.
+-   **Owner Approval Required:** Yes (mandatory; the preflight is never auto-authorized by passing tests or audits).
 -   **Next Possible States:** `TRAIN_RUN_PENDING`, `RETIRED`.
 
 ### `TRAIN_RUN_PENDING`
