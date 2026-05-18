@@ -138,7 +138,7 @@ This is a **PASS**.
 ---
 
 ## 18. Final Institutional Verdict
-This read-only governance audit confirms that the hygiene patch successfully resolves warnings W-01 through W-05 documentarily. Transition paths are now strictly bound to explicit owner gates, and the boundary between protocol design and execution is restricted by documented gates. The strategy specs portfolio execution remains unauthorized pending owner decision.
+This read-only governance audit confirms that the hygiene patch documents W-03/W-04/W-05 as corrected in governance documents and W-01/W-02 as future remediation gates. Transition paths are now strictly bound to explicit owner gates, and the boundary between protocol design and execution is restricted by documented gates. The strategy specs portfolio execution remains unauthorized pending owner decision.
 
 ---
 *End of Audit Report*

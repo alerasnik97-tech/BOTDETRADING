@@ -44,7 +44,7 @@ It is explicitly declared that **W-01 (dirty tree)** and **W-02 (tracked output 
 ---
 
 ## 6. Decision
-This patch is structurally frozen. The only next step is an owner decision on whether to commission a design-only micro-run protocol (no execution).
+This patch leaves execution unauthorized. The only next step is an owner decision on whether to commission a design-only micro-run protocol (no execution).
 
 ---
 *End of Language Fix Report*
