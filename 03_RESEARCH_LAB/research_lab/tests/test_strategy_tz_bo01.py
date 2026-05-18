@@ -1,0 +1,82 @@
+from __future__ import annotations
+
+import importlib
+import unittest
+
+import pandas as pd
+
+
+MODULE_PATH = "research_lab.strategies.BO01Strategy"
+
+
+def _module():
+    return importlib.import_module(MODULE_PATH)
+
+
+def _target_index(frame: pd.DataFrame, date: str, hhmm: str) -> int:
+    target = pd.Timestamp(f"{date} {hhmm}:00", tz="UTC").tz_convert(frame.index.tz)
+    return int(frame.index.get_loc(target))
+
+
+def _bo01_frame(date: str, hhmm: str, *, tz: str = "UTC") -> tuple[pd.DataFrame, int]:
+    index_utc = pd.date_range(pd.Timestamp(f"{date} 00:00:00", tz="UTC"), periods=150, freq="5min")
+    index = index_utc.tz_convert(tz)
+    frame = pd.DataFrame(index=index)
+    frame["open"] = 1.1000
+    frame["high"] = 1.1004
+    frame["low"] = 1.0995
+    frame["close"] = 1.1000
+    frame["volume"] = 1000.0
+    frame["atr14"] = 0.0004
+    frame["ema_m15_200"] = 1.1000
+    i = _target_index(frame, date, hhmm)
+    frame.iloc[i, frame.columns.get_loc("open")] = 1.1001
+    frame.iloc[i, frame.columns.get_loc("high")] = 1.1009
+    frame.iloc[i, frame.columns.get_loc("low")] = 1.1000
+    frame.iloc[i, frame.columns.get_loc("close")] = 1.1008
+    return frame, i
+
+
+class BO01TimezoneTests(unittest.TestCase):
+    def test_gmt_session_accepts_0700_utc(self) -> None:
+        module = _module()
+        frame, i = _bo01_frame("2024-03-12", "07:00")
+        result = module.signal(frame, i, module.default_params())
+        self.assertIsNotNone(result)
+        self.assertEqual(result["direction"], "long")
+
+    def test_dst_march_uses_gmt_not_local_hour(self) -> None:
+        module = _module()
+        frame, i = _bo01_frame("2024-03-12", "07:00", tz="America/New_York")
+        self.assertNotEqual(frame.index[i].hour, 7)
+        result = module.signal(frame, i, module.default_params())
+        self.assertIsNotNone(result)
+        self.assertEqual(result["signal"], 1)
+
+    def test_dst_november_uses_gmt_not_local_hour(self) -> None:
+        module = _module()
+        frame, i = _bo01_frame("2024-11-05", "07:00", tz="America/New_York")
+        self.assertNotEqual(frame.index[i].hour, 7)
+        result = module.signal(frame, i, module.default_params())
+        self.assertIsNotNone(result)
+        self.assertEqual(result["signal"], 1)
+
+    def test_no_signal_before_entry_window(self) -> None:
+        module = _module()
+        frame, i = _bo01_frame("2024-03-12", "06:55")
+        self.assertIsNone(module.signal(frame, i, module.default_params()))
+
+    def test_no_signal_after_entry_window(self) -> None:
+        module = _module()
+        frame, i = _bo01_frame("2024-03-12", "10:05")
+        self.assertIsNone(module.signal(frame, i, module.default_params()))
+
+    def test_no_signal_inside_window_without_objective_breakout(self) -> None:
+        module = _module()
+        frame, i = _bo01_frame("2024-03-12", "07:30")
+        frame.iloc[i, frame.columns.get_loc("close")] = 1.1001
+        self.assertIsNone(module.signal(frame, i, module.default_params()))
+
+
+if __name__ == "__main__":
+    unittest.main()
