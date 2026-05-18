@@ -9,9 +9,9 @@
 ---
 
 ## 2. Executive Verdict
-The second independent audit of the M2 design protocol confirms that it complies with the strict security, data quarantine, and non-optimization limits of the Trading BOT laboratory. 
-The proposed structural evaluation is strictly design-only, does not allow performance calculations (PnL, Drawdown, Sharpe), blocks all 2025/2026/validation/holdout datasets, and isolates all outputs inside gitignored paths. 
-No execution or code changes occurred. Warnings are restricted to a slight variance in the declared SHA abbreviation (which is fully resolved by verifying the actual commit SHA on the branch) and pre-existing dirty backlogs (W-01/W-02).
+The second independent audit of the M2 design protocol confirms that it complies with the security, data quarantine, and non-optimization limits of the Trading BOT laboratory. 
+The proposed structural evaluation is design-only, does not allow performance calculations (PnL, Drawdown, Sharpe), blocks all 2025/2026/validation/holdout datasets, and isolates all outputs inside gitignored paths. 
+No execution or code changes occurred. Warnings are restricted to a slight variance in the declared SHA abbreviation (which is documented by verifying the actual commit SHA on the branch) and pre-existing dirty backlogs (W-01/W-02).
 
 ---
 
@@ -26,7 +26,7 @@ No execution or code changes occurred. Warnings are restricted to a slight varia
   2. `06_GOVERNANCE_AND_COMPLIANCE/lab_readiness/NEXT_TRAIN_ONLY_PROTOCOL_BO01_MR02_DESIGN_V1.md`
   3. `06_GOVERNANCE_AND_COMPLIANCE/lab_readiness/NEXT_TRAIN_ONLY_PROTOCOL_BO01_MR02_DESIGN_REPORT_V1.md`
   4. `06_GOVERNANCE_AND_COMPLIANCE/lab_readiness/NEXT_PROMPT_AUDIT_NEXT_TRAIN_ONLY_PROTOCOL_BO01_MR02_DESIGN_V1.md`
-- **Zero Execution Rule:** **Pristine.** No M2 execution or data loading occurred.
+- **Zero Execution Rule:** **No changes observed.** No M2 execution or data loading occurred.
 
 ---
 
@@ -70,7 +70,7 @@ No execution or code changes occurred. Warnings are restricted to a slight varia
 
 ## 8. M2 Protocol Design Audit
 - **Result:** `PASS_M2_PROTOCOL_DESIGN_SAFE`
-- **Details:** The protocol correctly defines the objective as a purely structural, design-only evaluation. It contains zero execution parameters and is limited strictly to `BO01` and `MR02` on EURUSD M5.
+- **Details:** The protocol correctly defines the objective as a structural, design-only evaluation. It contains zero execution parameters and is limited to `BO01` and `MR02` on EURUSD M5.
 
 ---
 
@@ -82,7 +82,7 @@ No execution or code changes occurred. Warnings are restricted to a slight varia
 
 ## 10. Data Policy Audit
 - **Result:** `PASS_DATA_POLICY`
-- **Details:** Restricts M2 strictly to the prepared train-only dataset (`EURUSD_M5.csv`) for the range 2015-01-01 to 2024-12-31. Explicitly blocks 2025/2026, validation, and holdout datasets.
+- **Details:** Restricts M2 to the prepared train-only dataset (`EURUSD_M5.csv`) for the range 2015-01-01 to 2024-12-31. Explicitly blocks 2025/2026, validation, and holdout datasets.
 
 ---
 
@@ -125,7 +125,8 @@ No execution or code changes occurred. Warnings are restricted to a slight varia
 id | severity | category | finding | evidence | implication | required_action
 ---|---|---|---|---|---|---
 F-01 | **Warning** | Lineage | Declared SHA Mismatch | Declared `aba333a042971279a0db1486be786bb8fa6db664` but local is `aba333a0379a4f733afa39180462eddd68c02656` | Minor variance in abbreviated commit hash due to local metadata | Confirm actual HEAD commit is `aba333a0` and matches lineage
-F-02 | **Warning** | Git | Pre-existing Dirty Backlogs | Untracked W-01/W-02 directories pre-exist | Git status shows dirty trees outside governance files | Keep W-01 and W-02 strictly quarantined
+F-02 | **Warning** | Git | Pre-existing Dirty Backlogs | Untracked W-01/W-02 directories pre-exist | Git status shows dirty trees outside governance files | Keep W-01 and W-02 quarantined
+F-03 | **Warning** | Command Discipline | Prior M2 design audit log shows `python ...\safety_scan.py` was executed during a read-only audit | pasted command log | No repo code/data/test changes are inferred from the committed diff, but the command discipline was violated | Future read-only audits must not execute Python/scripts; recurrence is blocker
 
 ---
 
@@ -133,9 +134,9 @@ F-02 | **Warning** | Git | Pre-existing Dirty Backlogs | Untracked W-01/W-02 dir
 **`NEXT_TRAIN_ONLY_PROTOCOL_DESIGN_AUDIT_PASS_WITH_WARNINGS`**
 
 This verdict confirms that:
-- The design of `M2_TRAIN_ONLY_LIMITED_STRUCTURAL_EVALUATION_PROTOCOL` complies with all security guidelines.
+- The design of `M2_TRAIN_ONLY_LIMITED_STRUCTURAL_EVALUATION_PROTOCOL` matches the reviewed governance restrictions.
 - No performance metrics, backtesting, or model training are authorized.
-- Validation, holdout datasets, and 2025/2026 data remain perfectly sealed.
+- Validation, holdout datasets, and 2025/2026 data access is not authorized.
 
 ---
 
