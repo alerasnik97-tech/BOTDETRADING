@@ -10,7 +10,7 @@ Its only purpose is to perform a read-only verification of the final pre-M1 exec
 The auditing agent must inspect the following and verify compliance:
 - **Diff scope:** Verify that the git diff contains exclusively markdown files and whitelisted registry updates. No code, tests, or market data must be touched.
 - **Exact SHA Lineage:** Verify that all strategy candidates (BO01 and MR02) are mapped in `STRATEGY_RESEARCH_REGISTRY.md` to the exact cleanup commit SHA `7272b8513ab4cf78cbd94ecf0f71e2a41a42658b` and that NO `BRANCH_HEAD` placeholders remain.
-- **No Language Inflation:** Verify that no absolute qualifiers (e.g., successfully, certified, perfect, airtight, fully, sealed, locked, 100%) are used to describe current or future execution states.
+- **No Language Inflation:** Verify that no absolute qualifiers (such as successfully, certified, perfect, airtight, fully, sealed, locked, 100%) are used to describe current or future execution states.
 - **Git Reset Blocker Warning:** Verify that the findings table in `M1_TRAIN_ONLY_EXECUTION_PROMPT_CLEANUP_EXTERNAL_AUDIT_V1.md` documents the historical incident of the prohibited `git reset --hard` (F-06), and that no code/tests/data changes occurred.
 - **No Code/Test/Data changes:** Confirm that no code, tests, or raw dataset files were modified.
 - **No Data Loading during Audit:** Verify that no data is loaded or processed during this read-only audit phase.
