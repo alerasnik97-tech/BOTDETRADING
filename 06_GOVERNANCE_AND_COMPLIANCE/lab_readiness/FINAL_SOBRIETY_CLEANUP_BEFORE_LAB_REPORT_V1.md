@@ -1,12 +1,12 @@
 # FINAL SOBRIETY CLEANUP BEFORE LAB REPORT V1
 
 ## 1. Status
-**`FINAL_SOBRIETY_CLEANUP_READY_FOR_OWNER_DECISION`**
+**`FINAL_SOBRIETY_CLEANUP_REVISED_FOR_OWNER_DECISION`**
 
 ---
 
 ## 2. Executive Verdict
-This independent external review has evaluated the final sobriety cleanup performed under branch `audit/final-sobriety-cleanup-before-lab-v1-20260517`. The audit confirms that all overconfident, absolute, or celebratorio adjectives have been removed from the operational reports and handoffs. The language is now strictly limited to tentative, risk-aware, and quantitative formulations. The future implementation prompt V2 remains locked as a candidate and is ready for owner decision.
+This independent external review has evaluated the final sobriety cleanup performed under branch `audit/final-sobriety-cleanup-before-lab-v1-20260517`. The audit records that reviewed overconfident, absolute, or celebratorio adjectives were revised in the operational reports and handoffs. The language is now framed with tentative, risk-aware, and quantitative formulations. The future implementation prompt V2 remains a candidate pending explicit owner approval.
 
 ---
 
@@ -21,12 +21,12 @@ This independent external review has evaluated the final sobriety cleanup perfor
 ---
 
 ## 4. Language Cleanup
-All qualitative or absolute claims have been revised. The repository documentation has been successfully sanitized of speculative terms, ensuring a professional, compliant, and quant-grade presentation.
+Reviewed qualitative or absolute claims have been revised. The repository documentation now uses more neutral operational wording for the reviewed speculative terms.
 
 ---
 
 ## 5. V2 Prompt Safety Check
-The V2 prompt is confirmed to be the only candidate template for Phase 2. It restricts all future implementation tasks to strategy skeletons and targeted unit/contract tests for Sub-Batch 1A. It enforces strict timezone GMT gates, bans parallel writers, and prevents any accidental dynamic executions or backtests.
+The V2 prompt is listed as the only candidate template for Phase 2 pending explicit owner approval. It frames future implementation tasks around strategy skeletons and targeted unit/contract tests for Sub-Batch 1A only if the owner approves that exact next step. It documents timezone GMT gates, no parallel writers, and language intended to reduce the risk of unauthorized dynamic executions or backtests.
 
 ---
 
@@ -41,7 +41,7 @@ The V2 prompt is confirmed to be the only candidate template for Phase 2. It res
 ---
 
 ## 7. Decision
-**The specs portfolio and readiness reports are accepted as structurally frozen and ready for owner review. V2 is approved as the unique candidate prompt pending explicit owner approval. V1 is deprecated.**
+**The specs portfolio and readiness reports are listed as not authorized for changes except owner-approved next step. V2 remains a candidate prompt pending explicit owner approval. V1 is deprecated.**
 
 ---
 
@@ -51,7 +51,7 @@ The V2 prompt is confirmed to be the only candidate template for Phase 2. It res
 ---
 
 ## 9. Final Verdict
-This sobriety patch has completed the final revision of all active governance reports. By purging all subjective and celebratorio qualifiers, the readiness dossier has been brought into absolute alignment with institutional compliance. All documented gates are in place and functioning. The entire laboratory is structurally frozen, and is ready for the owner's explicit decision.
+The reviewed documentation is acceptable for owner decision only. No laboratory implementation, tests, micro-run, backtest, validation, holdout, or 2025/2026 access is authorized until the owner explicitly approves the exact next step.
 
 ---
 *End of Sobriety Cleanup Report*
