@@ -17,12 +17,13 @@ This is a governance-read-only template designed to present options to the owner
 The owner must select exactly one of the following options in their next prompt:
 
 ### Option A: Approve execution of audited M1 train-only prompt
-Selecting this option authorizes the next agent to execute the audited M1 train-only prompt (M1A metadata preflight and M1B tiny controlled execution slice).
+Selecting this option authorizes the next agent to execute the audited M1 train-only prompt (M1A metadata preflight and M1B tiny controlled execution slice) ONLY after the formal read-only external audit of the final pre-M1 execution governance patch has passed.
 The owner must provide the exact, autonomous activation phrase at the top level of their prompt:
 
 `“APRUEBO EJECUTAR M1 TRAIN-ONLY BO01/MR02, SOLO M1A METADATA PREFLIGHT Y M1B TINY CONTROLLED EXECUTION, SIN VALIDATION, SIN HOLDOUT, SIN 2025/2026, SIN BACKTEST, SIN TRAIN FORMAL Y SIN OPTIMIZATION/SWEEP.”`
 
-*Implication:* The next agent will execute the M1A preflight, load the tiny contiguous train-only M1B slice, check timezone and fail-closed pathways, generate the output logs, and write the final manifest and execution reports. No backtest or parameter sweeps will occur.
+*Implication:* The next agent will execute the M1A preflight, load the tiny contiguous train-only M1B slice, check timezone and fail-closed pathways, generate the output logs, and write the final manifest and execution reports. No backtest or parameter sweeps will occur. If the required target runner is missing or has not been audited, the execution will abort with:
+`BLOCKED_M1_RUNNER_NOT_AUDITED_OR_NOT_FOUND`
 
 ### Option B: Request minor patch
 The owner may request modifications to the audit report, findings table, or gitignore guards before proceeding.
