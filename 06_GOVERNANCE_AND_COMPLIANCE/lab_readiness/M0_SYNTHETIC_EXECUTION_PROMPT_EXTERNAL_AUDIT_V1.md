@@ -10,6 +10,26 @@ consider the already-drafted M0 synthetic-only execution prompt.
 
 ---
 
+## 1A. Hardening Addendum (post-audit, non-superseding history)
+This original audit detected warnings W-A, W-B, W-C, W-D, and W-E. The historical
+audit status above is preserved unchanged and is not retroactively altered: the
+warnings were genuinely open at the time of this audit.
+
+A subsequent documentation-only hardening patch addressing W-A through W-E was
+applied on branch `research/m0-synthetic-execution-prompt-hardening-v1-20260518`.
+That patch has NOT yet been externally audited. Therefore:
+- These findings remain on record and are not deleted.
+- The warnings are NOT declared resolved within this original report.
+- Until the hardening patch is itself externally audited read-only, the
+  owner-use decision should be considered pending hardening if maximum
+  discipline is prioritized.
+- Reference: `M0_SYNTHETIC_EXECUTION_PROMPT_HARDENING_PATCH_REPORT_V1.md` and
+  `NEXT_PROMPT_AUDIT_M0_SYNTHETIC_EXECUTION_PROMPT_HARDENING_V1.md`.
+
+This addendum changes no finding, severity, decision, or status below.
+
+---
+
 ## 2. Executive Verdict
 The cleanup commit `e245965` is documentation-only and within authorized scope.
 The registry lineage was corrected from the stale commit `0743ad83` to the

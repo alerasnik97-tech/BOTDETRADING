@@ -23,9 +23,22 @@ M0 synthetic-only execution prompt draft.
 - W-01 (dirty tree) and W-02 (output debt) remain intact as future execution
   gates and were not touched.
 
+### 1A. Post-Audit Update
+A documentation-only hardening patch addressing W-A through W-E has since been
+applied on branch `research/m0-synthetic-execution-prompt-hardening-v1-20260518`.
+That patch has NOT yet been externally audited. W-A and W-B are considered
+material hardening warnings.
+
 ---
 
 ## 2. Owner Options
+
+> Recommendation (maximum discipline): **Option B before Option A.** Because W-A
+> (activation-gate anti-ambiguity) and W-B (expansion lock) are material, the
+> safest process is to externally audit the hardening patch read-only first, and
+> only then make the execution decision. Option A remains permitted under the
+> existing audit status, but it is not the preferred path if the owner wants the
+> strictest sequence. This document selects nothing on the owner's behalf.
 
 ### Option A — Approve execution of the already-audited prompt
 The owner may, in a separate future prompt, authorize execution of
@@ -38,11 +51,13 @@ The owner may, in a separate future prompt, authorize execution of
 - The phrase appearing inside this document or the audited prompt does NOT count
   as activation. Selecting Option A here does NOT start execution.
 
-### Option B — Request a minor hardening patch first
-Apply a docs-only patch addressing W-A and W-B (and optionally W-C/W-D/W-E) to
-the future execution prompt, then re-audit read-only before any owner-use
-decision. Recommended if the owner wants the activation gate and forbidden scope
-to be explicitly anti-ambiguous before considering execution.
+### Option B — Externally audit the applied hardening patch first (recommended)
+The docs-only patch addressing W-A through W-E has already been applied on
+`research/m0-synthetic-execution-prompt-hardening-v1-20260518`. Under Option B,
+the owner authorizes a separate read-only external audit of that patch (see
+`NEXT_PROMPT_AUDIT_M0_SYNTHETIC_EXECUTION_PROMPT_HARDENING_V1.md`) before any
+owner-use / execution decision. This is the preferred path for maximum
+discipline; it still authorizes no execution.
 
 ### Option C — Do not advance
 Hold at the current state. No execution, no patch, no further action.

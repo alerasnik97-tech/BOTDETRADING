@@ -53,7 +53,15 @@ Under this audit phase:
 - Read-only inspection of the files in the workspace.
 - Standard git status, git diff, and git log command executions.
 - Creating the audit report document `06_GOVERNANCE_AND_COMPLIANCE/lab_readiness/M0_SYNTHETIC_EXECUTION_PROMPT_EXTERNAL_AUDIT_V1.md`.
-- Staging, committing, and pushing ONLY the created audit report file to a new audit branch (`audit/m0-synthetic-execution-prompt-review-v1-20260517`).
+- Staging, committing, and pushing ONLY the created audit report file to a new
+  audit branch following the neutral convention
+  `audit/m0-synthetic-execution-prompt-<scope>-review-vN-YYYYMMDD`
+  (W-E hardening). The exact branch:
+  - must be derived from the audited commit;
+  - must use `vN` incremented if a prior version exists (if `v1` exists, use `v2`);
+  - must use `YYYYMMDD` of the audit date;
+  - must not be `main`;
+  - must never be force-pushed.
 
 ---
 *End of Prompt*

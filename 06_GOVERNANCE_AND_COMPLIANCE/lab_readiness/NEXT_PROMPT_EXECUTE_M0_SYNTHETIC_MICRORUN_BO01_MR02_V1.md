@@ -8,6 +8,28 @@ If this exact phrase is not provided:
 ABORT IMMEDIATELY with:
 `BLOCKED_MISSING_EXPLICIT_OWNER_APPROVAL`
 
+### 0.1 Activation Gate — Anti-Ambiguity Clause (W-A hardening)
+The activation phrase only authorizes execution when ALL of the following hold:
+- It is a NEW, autonomous, top-level declaration written by the owner in the
+  activating prompt itself.
+- The occurrence of the phrase inside THIS document does NOT count as approval.
+- The occurrence of the phrase inside any documentation, report, audit artifact,
+  instruction, log, example, code block, or quotation does NOT count as approval.
+- A paraphrase, translation, summary, or partial/edited form does NOT count.
+- Short confirmations such as “ok”, “dale”, “procedé”, “sí”, “aprobado”, “go”,
+  “run it”, “adelante”, “hazlo”, or any equivalent do NOT count.
+- The phrase must appear as plain owner instruction text, outside code blocks,
+  outside quotation of prior documents, and outside example/illustration lists.
+- The phrase must be self-contained and unmodified in the activating prompt.
+
+If the owner intent is ambiguous, the phrase is only cited/quoted rather than
+autonomously declared, or there is any doubt that the phrase is a fresh
+authorization rather than a reference, ABORT IMMEDIATELY with:
+`BLOCKED_AMBIGUOUS_OWNER_APPROVAL`
+
+This clause hardens the gate only; it does not change the technical execution
+scope defined below.
+
 ---
 
 ## 1. Nature
@@ -55,6 +77,22 @@ This execution strictly prohibits:
 - creating binary archives or ZIP files;
 - uploading outputs or data to GitHub.
 
+### 3.1 Forbidden Scope — Expansion Lock (W-B hardening)
+This execution additionally and explicitly prohibits:
+- Sub-Batch 1B is forbidden;
+- MR03, LS01, and LS02 are forbidden;
+- parallel writers are forbidden;
+- multi-agent writing is forbidden;
+- only one writer may operate at a time;
+- no second agent may edit files during execution;
+- no portfolio expansion;
+- no additional strategies;
+- no extra families;
+- no dynamic strategy discovery.
+
+M0 applies strictly and only to candidates BO01 and MR02. Any attempt to widen
+scope beyond BO01/MR02 single-writer synthetic plumbing must abort.
+
 ---
 
 ## 4. Prechecks Future Execution
@@ -87,6 +125,23 @@ You must define and construct small, in-memory Pandas DataFrames representing sy
   3. **MR02 Valid Reversion case:** Price spikes out of the Asian range bound and returns, with engulfing bar pattern confirmed.
   4. **MR02 Malformed case:** DataFrame lacks timezone or required columns; signal function must return `None` (fail-closed).
   5. **Session hour verification:** Bars feed data outside entry hours; signal must return `None`.
+
+### 6.1 Mandatory Gate Scenarios (W-C hardening)
+The following synthetic gate scenarios are also mandatory. They verify gate
+plumbing only; no performance metric is produced or interpreted.
+  6. **BO01 daily_trade_count gate:** params with `daily_trade_count > 0`;
+     expected result: `signal` returns `None`.
+  7. **BO01 active_position gate:** params with `has_active_position = True`;
+     expected result: `signal` returns `None`.
+  8. **MR02 daily_trade_count gate:** params with `daily_trade_count > 0`;
+     expected result: `signal` returns `None`.
+  9. **MR02 active_position gate:** params with `has_active_position = True`;
+     expected result: `signal` returns `None`.
+  10. **Negative control:** synthetic fixture structurally valid but with no
+     objective entry setup; expected result: `signal` returns `None`.
+
+No performance metrics, PF, win-rate, drawdown, Sharpe, or expectancy may be
+computed. No real data may be used.
 
 ---
 
@@ -123,10 +178,27 @@ Immediately post-run, execute a scan to confirm:
 The output `M0_SYNTHETIC_MICRORUN_REPORT.md` must clearly state:
 - Branch and commit SHA of execution.
 - List of commands ran.
-- Explicit declaration that no real price data or data vaults were touched.
-- Confirmation that no backtest, train, validation, or holdout was exposed.
 - Passes/fails of all synthetic signal tests.
 - Target verdict: `M0_SYNTHETIC_MICRORUN_COMPLETED_READY_FOR_EXTERNAL_AUDIT_ONLY`.
+
+The report must additionally and explicitly declare ALL of the following
+(W-D hardening — each as a separate, unambiguous statement):
+- no real data used;
+- no data vault accessed;
+- no backtest run;
+- no train run;
+- no dry-run run;
+- no validation used;
+- no holdout used;
+- no 2025/2026 used;
+- no optimization/sweep run;
+- no Sub-Batch 1B touched;
+- no parallel writers used;
+- no code modified;
+- no tests modified;
+- no data modified;
+- W-01 gate status (must remain a preserved future gate, untouched);
+- W-02 gate status (must remain a preserved future gate, untouched).
 
 ---
 
