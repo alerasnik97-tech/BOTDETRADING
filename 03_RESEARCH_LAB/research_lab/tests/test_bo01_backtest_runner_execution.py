@@ -283,6 +283,54 @@ class TestBO01BacktestRunnerExecution(unittest.TestCase):
         self.assertEqual(res["gross_R"], 2.0)
         self.assertEqual(res["net_R"], 1.97)
 
+    def test_non_dict_signal_fails_closed_without_crashing(self):
+        """Verify that a completely malformed non-dictionary signal fails closed safely without runner crash."""
+        MockBO01Strategy.signals_by_index = {
+            2: ["this", "is", "not", "a", "dictionary"]
+        }
+        res = runner.run_bo01_backtest_on_frame(MockBO01Strategy, self.df)
+        self.assertEqual(res["trade_count"], 0)
+        self.assertEqual(res["invalid_signal_count"], 1)
+
+    def test_skipped_active_position_counter_increments(self):
+        """Verify that candles passed while holding a position increment skipped_signals_active_position."""
+        MockBO01Strategy.signals_by_index = {
+            2: {
+                "signal": 1,
+                "direction": "long",
+                "stop_price": 1.1100,
+                "target_rr": 2.0
+            }
+        }
+        # First trade entry is open at index 3. It will remain active until end of frame (index 19) because stop/target never hit.
+        # 20 candles total. Entry at 3. The exit occurs at index 19 (at the end).
+        # Inside the loop:
+        # Index 0, 1, 2: active_trade is None (3 bars)
+        # Index 2: Signal evaluated and triggers entry for 3.
+        # Index 3: Entry happens, index loop evaluates active_trade which is not None!
+        # From index 3 to 19, active_trade remains active. Loop skips signal evaluation at index 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19.
+        # Total skipped index bars = 17 bars (indices 3 to 19 inclusive).
+        res = runner.run_bo01_backtest_on_frame(MockBO01Strategy, self.df)
+        self.assertEqual(res["trade_count"], 1)
+        self.assertEqual(res["skipped_signals_active_position"], 17)
+
+    def test_commission_r_uses_standard_eurusd_pip_value_assumption(self):
+        """Verify standard lot EURUSD USD-to-R commission scaling equations."""
+        costs = {
+            "spread": 0.0,
+            "slippage": 0.0,
+            "commission": 7.0  # $7 USD per lot round-turn
+        }
+        # entry = 1.1000, stop = 1.0990 => distance = 10 pips (pip_size = 0.0001)
+        # expected commission R = 7.0 / (10 pips * $10 USD/pip) = 0.07 R
+        cost_r = runner.compute_cost_r(
+            entry_price=1.1000,
+            stop_price=1.0990,
+            cost_profile=costs,
+            pip_size=0.0001
+        )
+        self.assertAlmostEqual(cost_r, 0.07)
+
     def test_no_real_data_access(self):
         """Self-testing that the test setup does not load external data files."""
         self.assertEqual(len(self.df), 20)

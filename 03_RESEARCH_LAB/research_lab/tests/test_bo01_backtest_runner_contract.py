@@ -88,13 +88,30 @@ class TestBO01BacktestRunnerContract(unittest.TestCase):
         df_2025 = pd.DataFrame({"open": [1.1, 1.2], "high": [1.3, 1.4], "low": [1.0, 1.1], "close": [1.2, 1.3]}, index=idx_2025)
         res = runner.validate_backtest_frame(df_2025)
         self.assertFalse(res["ok"])
-        self.assertIn("Unauthorized date detected: 2025", "".join(res["errors"]))
+        self.assertIn("Unauthorized date detected inside index: 2025/2026", "".join(res["errors"]))
 
         idx_2026 = pd.date_range("2026-06-01 08:00:00", periods=2, freq="5min", tz="UTC")
         df_2026 = pd.DataFrame({"open": [1.1, 1.2], "high": [1.3, 1.4], "low": [1.0, 1.1], "close": [1.2, 1.3]}, index=idx_2026)
         res = runner.validate_backtest_frame(df_2026)
         self.assertFalse(res["ok"])
-        self.assertIn("Unauthorized date detected: 2026", "".join(res["errors"]))
+        self.assertIn("Unauthorized date detected inside index: 2025/2026", "".join(res["errors"]))
+
+    def test_validate_backtest_frame_blocks_internal_2025_2026_dates(self):
+        """Verify frame validation blocks internal 2025/2026 dates despite valid endpoints."""
+        idx = pd.DatetimeIndex([
+            pd.Timestamp("2015-01-05 08:00:00", tz="UTC"),
+            pd.Timestamp("2025-01-05 08:05:00", tz="UTC"),
+            pd.Timestamp("2026-01-05 08:10:00", tz="UTC")
+        ])
+        df = pd.DataFrame({
+            "open": [1.1, 1.2, 1.3],
+            "high": [1.3, 1.4, 1.5],
+            "low": [1.0, 1.1, 1.2],
+            "close": [1.2, 1.3, 1.4]
+        }, index=idx)
+        res = runner.validate_backtest_frame(df)
+        self.assertFalse(res["ok"])
+        self.assertIn("Unauthorized date detected inside index: 2025/2026", "".join(res["errors"]))
 
     def test_validate_backtest_frame_unauthorized_partitions(self):
         """Verify frame validation blocks access to validation and holdout splits."""

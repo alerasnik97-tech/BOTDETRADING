@@ -74,10 +74,9 @@ def validate_backtest_frame(frame: pd.DataFrame) -> dict[str, Any]:
             res["max_timestamp"] = str(max_ts)
 
             # Block future dates (2025/2026)
-            for ts in (min_ts, max_ts):
-                if ts.year in (2025, 2026):
-                    res["ok"] = False
-                    res["errors"].append(f"Unauthorized date detected: {ts.year}. Access to 2025/2026 is strictly blocked.")
+            if (frame.index.year.isin([2025, 2026])).any():
+                res["ok"] = False
+                res["errors"].append("Unauthorized date detected inside index: 2025/2026. Access to 2025/2026 is strictly blocked.")
 
     # Check for NaNs in critical columns
     if res["ok"]:
@@ -146,16 +145,27 @@ def validate_signal_contract(signal: dict[str, Any]) -> dict[str, Any]:
     return res
 
 
+# Standard FX metric constants for EURUSD
+STANDARD_FX_PIP_VALUE_USD_PER_LOT = 10.0
+DEFAULT_PIP_SIZE = 0.0001
+
 def compute_cost_r(
     entry_price: float,
     stop_price: float,
     cost_profile: dict[str, Any],
-    pip_size: float = 0.0001
+    pip_size: float = DEFAULT_PIP_SIZE
 ) -> float:
     """
     Computes total friction costs (spread, slippage, commission) in terms of R-multiples.
     1R is defined as the distance between the entry price and the stop-loss price.
-    For EURUSD standard sizing, 1 Lot has a pip value of $10.
+    
+    This function converts USD round-turn commissions to R-multiples using the standard FX lot 
+    pip value metric. Specifically:
+      - For EURUSD, 1 Standard Lot (100,000 units) has a fixed pip value of $10 USD.
+      - Commission R-multiple = USD_Commission / (Stop_Distance_Pips * Pip_Value_USD_per_Lot)
+    
+    This conversion assumes a standard lot size and represents structural leverage scaling, 
+    not real account balances or compound risk sizing models.
     """
     stop_dist = abs(entry_price - stop_price)
     if stop_dist <= 1e-8:
@@ -169,10 +179,8 @@ def compute_cost_r(
     spread_slippage_r = (spread_pips + slippage_pips) / stop_dist_pips
 
     # Commissions (defined in USD per standard lot round-turn)
-    # Commission R conversion: USD_commission / (Stop_Distance_Pips * Pip_Value)
-    # Assuming standard Lot sizing where 1 pip = $10.
     commission_usd = float(cost_profile.get("commission", 0.0))
-    commission_r = commission_usd / (stop_dist_pips * 10.0) if stop_dist_pips > 0 else 0.0
+    commission_r = commission_usd / (stop_dist_pips * STANDARD_FX_PIP_VALUE_USD_PER_LOT) if stop_dist_pips > 0 else 0.0
 
     return spread_slippage_r + commission_r
 
@@ -341,6 +349,7 @@ def run_bo01_backtest_on_frame(
         if active_trade is not None:
             # We are holding a position; skip processing strategy signals until closed
             # In row-by-row backtesting, we skip past the exit index of the active trade
+            skipped_active_pos += 1
             exit_info = active_trade["exit_info"]
             if idx == exit_info["exit_idx"]:
                 # The position closed on this candle
@@ -360,7 +369,7 @@ def run_bo01_backtest_on_frame(
             # Validate signal contract
             try:
                 validate_signal_contract(sig)
-            except ValueError:
+            except (ValueError, TypeError):
                 invalid_sig_count += 1
                 idx += 1
                 continue
