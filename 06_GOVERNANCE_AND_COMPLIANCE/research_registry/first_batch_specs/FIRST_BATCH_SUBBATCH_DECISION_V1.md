@@ -7,7 +7,7 @@
 ---
 
 ## 1. Selected Routing Recommendation
-To maximize laboratory safety, prevent concurrent file collisions, and ensure 100% focused unit testing rigor, the Quant Architect Committee has decided to split the first batch of 5 pre-registered strategy candidates into two sequential sub-batches:
+To maximize laboratory safety, prevent concurrent file collisions, and ensure focused unit testing rigor, the Quant Architect Committee has decided to split the first batch of 5 pre-registered strategy candidates into two sequential sub-batches:
 
 ```mermaid
 graph TD
@@ -42,7 +42,7 @@ graph TD
 ---
 
 ## 4. Required Progression Rules
-*   **Sub-Batch 1A** must be fully implemented, pass all unit tests, run micro-preflights, and complete its sealed training backtests before **Sub-Batch 1B** is authorized to begin Phase 1 specifications translation.
+*   Sub-Batch 1A must complete implementation/tests, implementation audit, micro-run approval, train-only owner approval, and post-run audit before Sub-Batch 1B implementation begins.
 
 ---
 *End of Decision (GOV-DEC-SUBBATCH-V1-20260517)*

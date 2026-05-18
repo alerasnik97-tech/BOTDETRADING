@@ -76,4 +76,4 @@ This document establishes the official test designs and targeted unit/contract t
 
 ## 3. Succinct Execution Guide
 *   **Step 1:** Once the owner approves the technical specifications and decides the sub-batch, targeted test scripts will be created inside `03_RESEARCH_LAB/research_lab/tests/`.
-*   **Step 2:** Test scripts must run synchronously and return 100% green exit code 0 status before any micro-run preflight is authorized.
+*   **Step 2:** Test scripts must run synchronously and return green exit code 0 status before any micro-run preflight is authorized.

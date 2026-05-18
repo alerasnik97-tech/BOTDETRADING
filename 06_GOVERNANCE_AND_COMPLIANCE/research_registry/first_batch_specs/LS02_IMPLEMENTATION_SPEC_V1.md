@@ -1,7 +1,7 @@
 # LS02 IMPLEMENTATION SPEC V1
 
 ## 1. Purpose
-This document provides the formal, mathematical, and fully programable technical specifications for the systematic strategy candidate `LS02`. It provides the exact design criteria necessary for future execution, verification, and testing.
+This document provides the formal, mathematical, and programable technical specifications for the systematic strategy candidate `LS02`. It provides the exact design criteria necessary for future execution, verification, and testing.
 
 ## 2. Hypothesis
 Multi-session liquidity sweeps (H4 peaks/troughs) offer highly stable, low-frequency reversals completely uncorrelated to the main trend portfolios.
@@ -13,7 +13,7 @@ H4 timeframe peaks and troughs represent highly robust and visible levels of ove
 Strong multi-day linear trends that bypass key levels without pulling back, leading to extended drawdown.
 
 ## 5. Session NY
-The strategy monitors H4 peaks/troughs and triggers trades strictly during London and NY sessions (07:00 - 19:00 GMT). No trades can be triggered after 19:00 GMT.
+The template heading is Session NY, and the strategy triggers trades strictly during London and NY sessions (07:00 - 19:00 GMT). No trades can be triggered after 19:00 GMT.
 
 ## 6. Data Requirements
 *   Historical price data: EURUSD M15 and H4 bars.
@@ -108,7 +108,7 @@ The strategy will be placed on the watchlist if:
 *   Total trades are between 15 and 30.
 
 ## 27. Advance Rules
-The strategy will be approved for validation if:
+The strategy will be eligible to request validation approval, subject to owner gate, if:
 *   Base PF $\ge 1.30$, stress PF $\ge 1.10$, and expectancy $\ge 0.25$ R.
 
 ## 28. Known Risks

@@ -1,7 +1,7 @@
 # LS01 IMPLEMENTATION SPEC V1
 
 ## 1. Purpose
-This document provides the formal, mathematical, and fully programable technical specifications for the systematic strategy candidate `LS01`. It provides the exact design criteria necessary for future execution, verification, and testing.
+This document provides the formal, mathematical, and programable technical specifications for the systematic strategy candidate `LS01`. It provides the exact design criteria necessary for future execution, verification, and testing.
 
 ## 2. Hypothesis
 The prior day's high or low acts as a major liquidity magnet. Sweeping these levels without immediate continuation triggers powerful reversals back to range center.
@@ -13,7 +13,7 @@ Daily highs and lows accumulate high concentrations of resting sell and buy stop
 Strong, trend campaigns where daily high or low levels are shattered with significant expansion and high volume continuation.
 
 ## 5. Session NY
-The strategy monitors daily high/low levels and triggers trades strictly during London and NY sessions (07:00 - 19:00 GMT). No trades can be triggered after 19:00 GMT.
+The template heading is Session NY, and the strategy triggers trades strictly during London and NY sessions (07:00 - 19:00 GMT). No trades can be triggered after 19:00 GMT.
 
 ## 6. Data Requirements
 *   Historical price data: EURUSD M15 and Daily bars.
@@ -109,7 +109,7 @@ The strategy will be placed on the watchlist if:
 *   Total trades are between 15 and 30.
 
 ## 27. Advance Rules
-The strategy will be approved for validation if:
+The strategy will be eligible to request validation approval, subject to owner gate, if:
 *   Base PF $\ge 1.30$, stress PF $\ge 1.10$, and expectancy $\ge 0.25$ R.
 
 ## 28. Known Risks

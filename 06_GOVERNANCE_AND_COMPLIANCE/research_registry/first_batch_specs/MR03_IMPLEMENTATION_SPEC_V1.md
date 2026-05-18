@@ -1,7 +1,7 @@
 # MR03 IMPLEMENTATION SPEC V1
 
 ## 1. Purpose
-This document provides the formal, mathematical, and fully programable technical specifications for the systematic strategy candidate `MR03`. It provides the exact design criteria necessary for future execution, verification, and testing.
+This document provides the formal, mathematical, and programable technical specifications for the systematic strategy candidate `MR03`. It provides the exact design criteria necessary for future execution, verification, and testing.
 
 ## 2. Hypothesis
 Intraday morning sweeps on NY open exhaust their volatility once retail stop-losses are fully consumed.
@@ -13,7 +13,7 @@ At the US market open (13:30 GMT), a surge of orders drives rapid directional mo
 Strong, news-driven momentum trends that drift linearly for several hours without pulling back.
 
 ## 5. Session NY
-The strategy monitors the pre-market US session and triggers trades strictly during the early New York session (14:30 - 17:30 GMT). No trades can be triggered after 17:30 GMT.
+The template heading is Session NY, and the strategy is tailored for the New York session: it monitors the pre-market US session and triggers trades strictly during the early New York session (14:30 - 17:30 GMT). No trades can be triggered after 17:30 GMT.
 
 ## 6. Data Requirements
 *   Historical price data: EURUSD M5 and M15 bars.
@@ -109,7 +109,7 @@ The strategy will be placed on the watchlist if:
 *   Total trades are between 15 and 30.
 
 ## 27. Advance Rules
-The strategy will be approved for validation if:
+The strategy will be eligible to request validation approval, subject to owner gate, if:
 *   Base PF $\ge 1.30$, stress PF $\ge 1.10$, and expectancy $\ge 0.25$ R.
 
 ## 28. Known Risks
