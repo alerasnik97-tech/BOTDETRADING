@@ -1,7 +1,11 @@
-# NEXT PROMPT: OWNER APPROVES SUB-BATCH 1A SKELETONS & TARGETED TESTS V1
+# DEPRECATED — DO NOT USE
 
-**Document Reference:** GOV-PRM-1A-APPROVE-V1-20260517  
-**Status:** FUTURE CANDIDATE — USE ONLY AFTER EXPLICIT OWNER APPROVAL  
+This prompt is superseded by V2. It must not be used because it lacks full precheck, branch verification, process checks, staging whitelist, safety scan, and audit-grade handoff requirements.
+
+# NEXT PROMPT: OWNER APPROVES SUB-BATCH 1A SKELETONS & TARGETED TESTS V1 (DEPRECATED)
+
+**Document Reference:** GOV-PRM-1A-APPROVE-V1-20260517 (DEPRECATED)  
+**Status:** DEPRECATED / DO NOT USE  
 **Date:** May 17, 2026  
 
 ---
@@ -50,7 +54,7 @@ You must implement Sub-Batch 1A through the following rigorous progression:
     4.  **Limits bounds:** Daily trade counts are strictly capped.
 
 ### Step 3: Run Test Suite
-*   Run the test suite and confirm **100% green status (exit code 0)**.
+*   Run the test suite and confirm **green status (exit code 0)**.
 
 ### Step 4: STOP & Handoff
 *   Once the Sub-Batch 1A strategy skeletons are written and the targeted tests pass cleanly, **STOP**.

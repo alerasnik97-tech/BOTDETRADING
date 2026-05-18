@@ -6,7 +6,7 @@
 ---
 
 ## 2. Executive Verdict
-This independent external audit has evaluated the final documentation and prompt cleanup performed under commit `3445ba6c80539acdebfd4c7658cca2e1f2f91ee8`. The results demonstrate a complete success in isolating the repository from premature code creation or dynamic execution. The overconfident legacy prompt V1 has been safely deprecated, and candidate prompt V2 has been hardened to restrict all future tasks to skeletons and unit tests. Strategy specifications, sub-batch decisions, and the test plan are fully standardized and prepared for owner review.
+This independent external audit has evaluated the final documentation and prompt cleanup performed under commit `3445ba6c80539acdebfd4c7658cca2e1f2f91ee8`. The results demonstrate a review completed with no blocking finding in isolating the repository from premature code creation or dynamic execution. The overconfident legacy prompt V1 has been marked as deprecated and not authorized, and candidate prompt V2 has been hardened to restrict all future tasks to skeletons and unit tests. Strategy specifications, sub-batch decisions, and the test plan are documented for owner review.
 
 ---
 
@@ -54,7 +54,7 @@ The git commit `3445ba6c` was analyzed via `git show --stat`. Only four markdown
 ---
 
 ## 6. V1 Deprecation Audit
-File `NEXT_PROMPT_..._V1.md` has been successfully prepended with a clear warning: `# DEPRECATED — DO NOT USE` on line 1, and explicitly states on line 3 that it is superseded by V2. It is completely locked out from any future execution, resulting in a **PASS** on deprecation.
+File `NEXT_PROMPT_..._V1.md` has been successfully prepended with a clear warning: `# DEPRECATED — DO NOT USE` on line 1, and explicitly states on line 3 that it is superseded by V2. It is marked as deprecated and not authorized, resulting in a **PASS** on deprecation.
 
 ---
 
@@ -64,16 +64,16 @@ File `NEXT_PROMPT_..._V2.md` is designated strictly as a `CANDIDATE PROMPT V2` p
 ---
 
 ## 8. Final Cleanup Report Audit
-The `FIRST_BATCH_SPECS_FINAL_CLEANUP_REPORT_V1.md` file has been verified. The tone is completely objective and professional. Overconfident claims ("100% correct", "perfecto") are strictly documented as removed items and are not used operationally. It clearly presents remaining restrictions and limits next steps to owner review only. This is a **PASS**.
+The `FIRST_BATCH_SPECS_FINAL_CLEANUP_REPORT_V1.md` file has been verified. The tone is objective and professional. Overconfident claims ("100% correct", "perfecto") are strictly documented as removed items and are not used operationally. It clearly presents remaining restrictions and limits next steps to owner review only. This is a **PASS**.
 
 ---
 
 ## 9. Strategy Specs Audit
 Specifications for `BO01`, `MR02`, `MR03`, `LS01`, and `LS02` were audited file-by-file. Each strategy features:
-1.  A completely objective market hypothesis and invalidation logic.
-2.  Strict session hours defined exclusively in GMT to prevent DST label shifts.
-3.  Precise entry/exit formulas with strict capital limits (0.5% per trade) and maximum trade limits (1 trade per day).
-4.  Dynamic timezone shift verification rules and lookahead prevention rules.
+1.  A market hypothesis and invalidation logic objective enough for owner review.
+2.  Session hours defined in GMT to prevent DST label shifts.
+3.  Entry/exit formulas with strict capital limits (0.5% per trade) and maximum trade limits (1 trade per day).
+4.  Timezone shift verification rules and lookahead prevention rules.
 5.  A clear statement that implementation code cannot be written without explicit owner approval.
 All specs achieve a **PASS**.
 
@@ -90,7 +90,7 @@ The `FIRST_BATCH_SUBBATCH_DECISION_V1.md` establishes a clear logical route: spl
 ---
 
 ## 12. Safety Scan Classification
-A deep keyword scan returned 27 safety hits. All hits represent either deprecation warnings inside V1, negative declarations inside V2 ("NO backtest"), or historical references to removed terms. Zero blockers found.
+A deep keyword scan returned safety hits. All hits represent either deprecation warnings inside V1, negative declarations inside V2 ("NO backtest"), or historical references to removed terms. Zero blockers found.
 
 ---
 
@@ -130,7 +130,7 @@ Files tracked under git were audited. No zip archives, secrets, or temporary log
 ---
 
 ## 18. Final Institutional Verdict
-This independent audit has audited the final specs cleanup branch and verified the absolute safety of the first batch specs and candidate prompts. By successfully deprecating the aggressive V1 prompt and stripping all unquantifiable vocabulary, the laboratory state has been brought into perfect alignment with institutional compliance. The entire strategy specs portfolio is structurally frozen and fully prepared for owner review.
+This independent audit has audited the final specs cleanup branch and verified that documented controls are in place. By successfully deprecating the legacy prompt V1 and stripping all unquantifiable vocabulary, the laboratory state has been aligned with current governance controls. The entire strategy specs portfolio is structurally frozen and ready for owner review only.
 
 ---
 *End of Audit Report*
