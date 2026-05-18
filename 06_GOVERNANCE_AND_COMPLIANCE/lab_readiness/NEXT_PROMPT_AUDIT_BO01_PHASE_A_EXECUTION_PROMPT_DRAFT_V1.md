@@ -100,6 +100,31 @@ PASOS DE VERIFICACIÓN REQUERIDOS
 7. **Static Safety Scan**:
    - Escanear los markdowns en busca de palabras infladas o prohibidas.
 
+8. **H-02 Flow Hardening Check (obligatorio)**:
+   - ¿El prompt deja Phase A dividida explícitamente en Phase A-0 y Phase A-1?
+   - ¿Phase A-0 NO carga datos, NO lee CSV real, NO ejecuta Python, NO ejecuta backtest?
+   - ¿Phase A-0 solo genera el script (`PHASE_A_EXECUTION_SCRIPT_DRAFT.py`) sin ejecutarlo?
+   - ¿El script debe auditarse (auditoría dedicada read-only) antes de ejecutarse?
+   - ¿Phase A-1 recalcula y verifica el hash SHA256 del script auditado antes de correr,
+     abortando con `BLOCKED_SCRIPT_HASH_MISMATCH` si no coincide?
+   - ¿Se prohíbe explícitamente la ejecución directa de Phase A desde el prompt anterior
+     sin pasar por Phase A-0 + auditoría del script + Phase A-1?
+   - ¿Se prohíbe cerrar H-02 por simple owner acceptance, exigiendo control técnico
+     auditable (script existente + auditado + hash verificado)?
+   - ¿Cualquier modificación del script después de la auditoría invalida la ejecución
+     y obliga a re-auditar?
+
+9. **H-01 Pre-Phase-B Registration Check (obligatorio)**:
+   - ¿H-01 (`ema_m15_200` / `atr14` causal data-prep) queda formalmente pre-registrado
+     como blocker mandatorio pre-Phase-B?
+   - ¿Queda explícito que H-01 NO bloquea la fontanería de Phase A pero SÍ bloquea
+     Phase B y cualquier interpretación de edge/rentabilidad?
+   - ¿Se enumeran los chequeos de causalidad mínimos (resample, merge_asof, forward-fill,
+     closed/label, barras M15 cerradas, sin `shift(-1)`, sin rolling centrado, sin uso
+     de High/Low/Close futuros)?
+   - ¿El owner decision prompt fue actualizado para retirar la opción de aceptar H-02
+     por criterio subjetivo?
+
 ============================================================
 FORMATO DE REPORTING DE AUDITORÍA
 ============================================================

@@ -26,13 +26,95 @@ No aceptar:
 2. EXECUTION OBJECTIVE
 ============================================================
 
-El objetivo único es ejecutar Phase A (Plumbing Smoke Backtest) del primer backtest controlado de la estrategia BO01 utilizando datos reales de mercado de la partición train-only.
+Phase A NO es una ejecución directa. Por endurecimiento del riesgo HIGH H-02
+(el loader / data-proof / script de ejecución todavía no estaba auditado), Phase A
+queda dividida obligatoriamente en dos pasos separados por una auditoría:
 
-Límites de Seguridad Metodológica:
-- **Prueba de Fontanería (Plumbing)**: Phase A tiene como único fin verificar la carga real de archivos, el cumplimiento de las assertions del cargador de datos, el cálculo de las fricciones multi-perfil, la generación de logs de ejecución y que el runner opere sin provocar excepciones en el flujo de control.
+- **Phase A-0 (generación de script)**: generar el script exacto de ejecución/
+  data-proof. NO carga datos, NO lee CSV real, NO lee M5/M15, NO ejecuta backtest,
+  NO calcula métricas, NO genera trades/equity. Solo escribe el script.
+- **Auditoría Phase A-0 (read-only)**: auditar destructivamente ese script.
+- **Phase A-1 (ejecución)**: ejecutar el script auditado SIN modificaciones, solo
+  después de que la auditoría del script pase y solo con autorización explícita
+  posterior del owner.
+
+Límites de Seguridad Metodológica (aplican a A-0 y A-1):
+- **Prueba de Fontanería (Plumbing)**: el fin último de Phase A-1 es verificar la
+  carga real de archivos, el cumplimiento de las assertions del cargador de datos,
+  el cálculo de las fricciones multi-perfil, la generación de logs de ejecución y
+  que el runner opere sin provocar excepciones en el flujo de control.
 - **Sin Conclusiones Cualitativas**: No se extraerán conclusiones acerca de ventajas estadísticas o rentabilidad.
 - **Sin Optimización**: Se prohíbe realizar búsquedas de parámetros, sweeps o model selection.
 - **Sin Contaminación**: Queda prohibido el acceso a particiones de validation, holdout o cualquier fecha perteneciente a los años 2025 y 2026.
+- **H-02**: no se cierra por aceptación subjetiva del owner; se cierra convirtiéndolo
+  en un control técnico auditable (script existente + auditado + hash verificado).
+
+============================================================
+2-BIS. PHASE A SPLIT — H-02 HARDENING (OBLIGATORIO)
+============================================================
+
+### PHASE A-0 — EXECUTION SCRIPT / DATA-PROOF SCRIPT GENERATION ONLY
+
+Objetivo de Phase A-0:
+- crear el script exacto que luego ejecutará Phase A-1;
+- NO ejecutar el script;
+- NO importar pandas para leer CSV ni abrir ningún archivo de datos;
+- NO cargar datos; NO leer M5/M15; NO leer contenido de 05_MARKET_DATA_VAULT;
+- NO calcular métricas; NO generar trades/equity; NO producir resultados;
+- solo escribir el archivo de script en la ubicación local gitignored indicada abajo.
+
+El script futuro debe contener, como mínimo, lógica (todavía NO ejecutada) para:
+
+1. Verificar path autorizado.
+2. Calcular SHA256 de M5.
+3. Calcular SHA256 de M15 si se usa.
+4. Verificar ruta train-only (`prepared_train_2015_2024/`).
+5. Verificar metadata/split si existe.
+6. Verificar timestamp min/max.
+7. Verificar selected window (`2015-01-05` a `2015-01-09`).
+8. Verificar no 2025/2026 en todo el índice.
+9. Verificar no validation/holdout.
+10. Verificar unknown partition = false.
+11. Verificar columnas OHLC.
+12. Verificar UTC.
+13. Verificar monotonic increasing.
+14. Verificar duplicated timestamps = 0.
+15. Verificar cadencia M5.
+16. Verificar cadencia M15 si aplica.
+17. Verificar NaNs críticos.
+18. Importar el runner auditado.
+19. Verificar `runner_audit_commit` = `5bdb4bed1f829eb7e8bfe65dc30a6e2f49657d89`.
+20. Ejecutar BO01 con los tres cost profiles SOLO en Phase A-1.
+21. Generar los outputs obligatorios SOLO en Phase A-1.
+
+### PHASE A-0 OUTPUTS
+
+Salida local gitignored (NO commitear):
+`03_RESEARCH_LAB/research_lab/local_outputs_do_not_commit/bo01_phase_a_execution_script_drafts/<RUN_ID>/`
+
+Archivos locales obligatorios de Phase A-0:
+- `PHASE_A_EXECUTION_SCRIPT_DRAFT.py` (script, NO ejecutado)
+- `SCRIPT_DRAFT_MANIFEST.json` (incluye SHA256 del propio script draft)
+- `SCRIPT_DRAFT_REPORT.md`
+- `NEXT_PROMPT_AUDIT_PHASE_A_EXECUTION_SCRIPT_DRAFT_V1.md`
+
+Documentos de gobernanza commiteables de Phase A-0:
+- `06_GOVERNANCE_AND_COMPLIANCE/lab_readiness/BO01_PHASE_A_EXECUTION_SCRIPT_DRAFT_REPORT_V1.md`
+- `06_GOVERNANCE_AND_COMPLIANCE/lab_readiness/NEXT_PROMPT_AUDIT_BO01_PHASE_A_EXECUTION_SCRIPT_DRAFT_V1.md`
+
+### GATING ENTRE A-0 Y A-1 (NO NEGOCIABLE)
+
+- PHASE A-0 SUCCESS DOES NOT AUTHORIZE EXECUTION.
+- Phase A-0 solo genera el script.
+- La auditoría de Phase A-0 revisa el script de forma read-only.
+- Phase A-1 ejecuta el script solo si la auditoría del script pasa.
+- Cualquier modificación al script después de la auditoría invalida la ejecución
+  y obliga a re-auditar.
+- Phase A-1 debe recalcular y verificar el hash SHA256 del script auditado contra
+  el hash registrado en el reporte de auditoría del script ANTES de correr; si no
+  coincide, abortar con `BLOCKED_SCRIPT_HASH_MISMATCH`.
+- No se permite ejecución directa de Phase A desde este prompt sin pasar por
+  Phase A-0 + auditoría del script + Phase A-1.
 
 ============================================================
 3. BASE BRANCH
@@ -215,7 +297,8 @@ El proceso de simulación abortará de manera inmediata y segura en los siguient
 
 El handoff final de esta fase debe estructurarse exactamente de la siguiente manera:
 
-1. STATUS: (SUCCESS_PHASE_A_PLUMBING / ABORTED)
+1. STATUS: (SUCCESS_PHASE_A0_SCRIPT_GENERATED / SUCCESS_PHASE_A1_PLUMBING / ABORTED)
+   - phase: (A0 / A1)
 2. BRANCH:
    - base:
    - execution_branch:
@@ -250,6 +333,13 @@ El handoff final de esta fase debe estructurarse exactamente de la siguiente man
    - entry_policy: ENTRY_NEXT_CANDLE_OPEN
    - same_bar_policy: STOP_FIRST
    - runner_modified: NO
+5-BIS. SCRIPT_AUDIT (obligatorio en Phase A-1):
+   - phase_a0_script_path:
+   - audited_script_sha256:
+   - recomputed_script_sha256:
+   - script_hash_match: (YES / NO)
+   - script_audit_passed: (YES / NO)
+   - script_modified_after_audit: NO
 6. RESULTS_BY_COST_PROFILE:
    - base:
    - conservative:
@@ -277,4 +367,32 @@ El handoff final de esta fase debe estructurarse exactamente de la siguiente man
 15. SUCCESS CRITERIA
 ============================================================
 
-El éxito de Phase A significa únicamente que la fontanería del backtesting (dataloader, assertions, perfiles de fricción y guardado local) funciona sin errores operacionales sobre una muestra acotada de datos reales de entrenamiento. No valida la rentabilidad ni autoriza la transición automática a Phase B.
+El éxito de Phase A-1 significa únicamente que la fontanería del backtesting (dataloader, assertions, perfiles de fricción y guardado local) funciona sin errores operacionales sobre una muestra acotada de datos reales de entrenamiento. No valida la rentabilidad ni autoriza la transición automática a Phase B. El éxito de Phase A-0 significa únicamente que el script fue generado y queda pendiente de auditoría; no autoriza ninguna ejecución.
+
+============================================================
+16. H-01 — MANDATORY PRE-PHASE-B AUDIT (BLOCKER PARA PHASE B)
+============================================================
+
+H-01 NO bloquea la fontanería de Phase A (A-0 ni A-1): Phase A no extrae conclusiones
+cualitativas. H-01 SÍ bloquea Phase B y cualquier interpretación de edge/rentabilidad.
+
+Antes de cualquier Phase B, antes de interpretar edge, y antes de ampliar la ventana a
+`2015-01-01` / `2015-03-31` con conclusiones de comportamiento, debe ejecutarse una
+auditoría read-only específica de causalidad de data-prep que verifique, como mínimo:
+
+- construcción causal de `ema_m15_200`;
+- construcción causal de `atr14`;
+- alineación M15 → M5;
+- reglas de resample;
+- `merge_asof` / forward-fill;
+- políticas closed/label de las barras;
+- que la EMA de M15 use únicamente barras M15 ya cerradas;
+- que el ATR use únicamente la barra M5 actual/previa ya cerrada;
+- alineación de timezone;
+- ausencia de fuga de barras futuras;
+- ausencia de rolling centrado;
+- ausencia de `shift(-1)`;
+- ausencia de uso accidental de High/Low/Close futuros.
+
+Estado de H-01: PRE-REGISTRADO COMO BLOCKER PRE-PHASE-B. No se considera resuelto por
+esta tarea; queda formalmente pendiente de su propia auditoría read-only dedicada.
