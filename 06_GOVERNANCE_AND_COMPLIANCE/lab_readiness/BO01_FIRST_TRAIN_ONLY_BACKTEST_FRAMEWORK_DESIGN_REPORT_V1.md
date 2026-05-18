@@ -3,7 +3,7 @@
 ## 1. Status
 **`BO01_FIRST_TRAIN_ONLY_BACKTEST_FRAMEWORK_DESIGN_READY_FOR_EXTERNAL_AUDIT`**
 
-The technical specification and design of the first controlled, train-only backtesting framework for candidate strategy `BO01` has been successfully completed and documented.
+The technical specification and design of the first controlled, train-only backtesting framework for candidate strategy `BO01` has been documented.
 
 ---
 
@@ -15,8 +15,8 @@ This is a strictly document-based design phase:
 - **No Data Loading**: No CSV datasets were loaded or read.
 - **No Backtesting**: Zero trade simulations or PnL calculations were performed.
 - **No Training**: No parameter optimization or sweeps were executed.
-- **No Partition Intrusion**: Validation and holdout data remain strictly locked.
-- **No Future Dates**: Years 2025 and 2026 remain completely sealed.
+- **No Partition Intrusion**: Validation and holdout data are not authorized for access.
+- **No Future Dates**: Years 2025 and 2026 are not authorized for access.
 
 ---
 
@@ -24,14 +24,14 @@ This is a strictly document-based design phase:
 The design incorporates the physical evidence produced in the prior M2 evaluation phase:
 - **Previous Phase Status**: `M2_TRAIN_ONLY_STRUCTURAL_RETRY_EXECUTION_AUDIT_PASS_WITH_WARNINGS`
 - **Candidate Signal Densities (Jan 1 to Mar 31, 2015)**:
-  - **Strategy `BO01`**: `638` contract-valid signals generated across 41 trading days. This operational density provides a highly reliable base for testing simulation mechanics.
+  - **Strategy `BO01`**: `638` contract-valid signals generated across 41 trading days. This operational density is sufficient for design rationale and testing simulation mechanics.
   - **Strategy `MR02`**: `5` signals across 3 trading days. This extremely low density makes it unsuitable for a primary backtesting framework at this stage. It remains in strict observation status.
 - **No Prior Performance**: No profitability metrics or equity curves have been computed to date.
 
 ---
 
 ## 4. Design Summary
-The technical framework design defines robust operational bounds to guarantee backtest realism and prevent overfitting:
+The technical framework design defines bounded operational rules to ensure backtest realism and prevent overfitting:
 - **Execution Model**:
   - Candle-by-candle row-stepping in UTC with strict chronological order.
   - Max 1 trade active at any time.
@@ -50,7 +50,7 @@ The technical framework design defines robust operational bounds to guarantee ba
 ---
 
 ## 5. Decision
-The framework design is complete, secure, and complies fully with the quant laboratory governance rules. It is **ready for an external read-only audit** of the BO01 first train-only backtesting framework design.
+The framework design complies with the quant laboratory governance rules within the reviewed scope. It is **ready for an external read-only audit** of the BO01 first train-only backtesting framework design.
 
 ---
 

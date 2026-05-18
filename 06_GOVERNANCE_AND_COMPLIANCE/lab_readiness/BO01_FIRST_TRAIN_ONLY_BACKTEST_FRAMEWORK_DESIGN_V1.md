@@ -42,7 +42,12 @@ To prevent lookahead bias and ensure programmatic realism, the future backtest e
 4. **Daily Trade Limit**: A maximum of **one trade per day** is allowed.
    - If multiple valid signals occur within the same session, the engine must execute **strictly on the first valid signal** and ignore all subsequent signals for that day.
    - If a position is carried over from a previous day, new signals must be completely ignored until the position is closed.
-5. **Entry Execution**: Execution occurs at the opening price of the next candle ($t+1$) following a valid signal trigger at $t$, or at the specific breakout price contract boundary, provided it occurs within the session. A single execution entry policy must be hardcoded and documented.
+5. **Entry Execution**: Strictly hardcoded under the **`ENTRY_NEXT_CANDLE_OPEN`** execution policy.
+   - A valid BO01 signal is evaluated strictly at the close of candle $t$.
+   - If there is no open position and no trade has been executed yet on that calendar day, the entry is filled at the exact `Open` price of the next candle $t+1$.
+   - This next-candle-open fill is the **only** authorized entry policy for the first train-only backtesting phase.
+   - **Alternative entries (breakout prices, contract boundaries, or any intrabar time-division resolutions) are strictly prohibited.**
+   - *Technical Justification*: The `ENTRY_NEXT_CANDLE_OPEN` model is causal, deterministic, and 100% reproducible. It avoids the need for sub-candle/tick-level resolution within M5 bars (preventing ambiguous intrabar TP/SL vs breakout-entry ordering) and provides the highest degree of reliability for the initial plumbing verification. Future breakout-price models, if desired, must be designed under a completely separate, independent governance protocol.
 6. **Stop Loss (SL)**: Defined dynamically by the strategy signal contract at index $t$.
 7. **Take Profit (TP)**: Defined by the static target risk-reward ratio (`target_rr`), with no dynamic calculation.
 8. **Same-Bar Resolution Policy**: If the candle High reaches the TP and the candle Low reaches the SL within the exact same M5 bar:
@@ -104,13 +109,19 @@ The future backtest execution is authorized to compute strictly objective, R-mul
 
 ## 8. Abort Conditions
 The future backtest execution must be immediately terminated (fail-closed) if any of the following anomalies are detected:
-1. **Data Leakage**: Attempting to read validation or holdout splits, or encountering any date from `2025` or `2026` in the loaded dataset.
+1. **Data Leakage**: Attempting to read validation or holdout splits, or encountering any date from `2025` or `2026` in the loaded dataset, or utilizing a data source whose train-only status cannot be mathematically proven.
 2. **Missing Dependency**: Absence of the verified `prepared_train_2015_2024` M5 or M15 CSV files under the `05_MARKET_DATA_VAULT`.
 3. **Lineage Modification**: Attempting to modify strategy files (`BO01Strategy.py`) or the structural runner code to "improve" backtest results.
-4. **Execution Ambiguity**: Encountering multiple signals on the same day without a clear first-signal selection rule, or a same-bar SL/TP without stop-first resolution.
+4. **Execution Ambiguity**: 
+   - Encountering multiple signals on the same day without a clear first-signal selection rule.
+   - Same-bar SL/TP without stop-first conservative resolution.
+   - Any attempt to execute entries at breakout boundaries, at prices other than the next-candle-open ($t+1$), or using any alternative/intrabar entry policy model.
 5. **Cost Omission**: Calculating net performance without applying the full fee/slippage/spread cost profiles.
-6. **Lookahead Leak**: Attempting to use future close/high/low bounds of a candle to resolve entry/exits in past timestamps.
-7. **Optimization Attempt**: Incorporating any loop or grid search intended to evaluate multiple parameter variations.
+6. **Lookahead Leak**: 
+   - Attempting to use future close/high/low bounds of a candle to resolve entry/exits in past timestamps.
+   - Attempting to execute an entry without a valid candle $t+1$ available, or when $t+1$ falls outside the permitted boundaries of the train dataset.
+7. **Optimization Attempt**: Incorporating any loop or grid search intended to evaluate multiple parameter variations or selecting entry models based on retrospective performance results.
+8. **Output Violation**: Attempting to stage or commit local backtesting output files (e.g. trade logs, equity curves) to GitHub.
 
 ---
 
