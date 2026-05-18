@@ -178,8 +178,6 @@ def run_structural_counts(
             counts["none_count"] += 1
             continue
             
-        counts["valid_signal_count"] += 1
-        
         # Verify signal structure meets minimum contract
         try:
             if not isinstance(sig, dict):
@@ -190,6 +188,7 @@ def run_structural_counts(
                 raise ValueError("Signal result 'direction' must be 'long' or 'short'")
             
             # The signal structure is contract-valid
+            counts["valid_signal_count"] += 1
             counts["contract_valid_count"] += 1
             
             # Record temporal statistics

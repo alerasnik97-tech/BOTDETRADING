@@ -29,6 +29,19 @@ class FakeStrategyBO01:
         return None
 
 
+class MalformedStrategyBO01:
+    ID = "BO01"
+    
+    @staticmethod
+    def default_params() -> dict[str, Any]:
+        return {}
+        
+    @staticmethod
+    def signal(frame: pd.DataFrame, i: int, params: dict[str, Any]) -> dict[str, Any] | None:
+        # Devuelve dict malformado (falta 'signal')
+        return {"direction": "long"}
+
+
 class TestM2StructuralRunnerContract(unittest.TestCase):
     
     def setUp(self) -> None:
@@ -128,6 +141,18 @@ class TestM2StructuralRunnerContract(unittest.TestCase):
         self.assertEqual(summary["status"], "COMPLETED")
         self.assertEqual(summary["runner_id"], m2_structural_runner.RUNNER_ID)
         self.assertIn("BO01", summary["results"])
+
+    def test_malformed_signal_is_fail_closed_not_valid(self) -> None:
+        counts = m2_structural_runner.run_structural_counts(MalformedStrategyBO01, self.frame)
+        self.assertGreater(counts["signal_call_count"], 0)
+        self.assertEqual(counts["valid_signal_count"], 0)
+        self.assertEqual(counts["contract_valid_count"], 0)
+        self.assertGreater(counts["exception_count"], 0)
+        self.assertEqual(counts["fail_closed_count"], counts["exception_count"])
+        
+    def test_valid_signal_count_equals_contract_valid_count_for_valid_signals(self) -> None:
+        counts = m2_structural_runner.run_structural_counts(FakeStrategyBO01, self.frame)
+        self.assertEqual(counts["valid_signal_count"], counts["contract_valid_count"])
 
 
 if __name__ == "__main__":

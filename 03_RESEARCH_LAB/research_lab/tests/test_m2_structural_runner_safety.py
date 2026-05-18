@@ -26,9 +26,8 @@ class TestM2StructuralRunnerSafety(unittest.TestCase):
     def test_no_forbidden_active_logic_terms(self) -> None:
         # Verify that the runner file does not contain active logic referencing performance terms
         # (It can contain them only as part of the negative declaration list FORBIDDEN_PERFORMANCE_TERMS)
-        runner_path = m2_structural_runner.__file__
-        with open(runner_path, "r", encoding="utf-8") as f:
-            content = f.read()
+        import inspect
+        content = inspect.getsource(m2_structural_runner)
             
         # We can check that the words like 'pnl', 'winrate', 'drawdown' do not occur outside the negative list.
         # This is proven by static checks, but let's confirm the list itself exists and matches the forbidden terms.
@@ -36,6 +35,10 @@ class TestM2StructuralRunnerSafety(unittest.TestCase):
         self.assertIn("pnl", m2_structural_runner.FORBIDDEN_PERFORMANCE_TERMS)
         self.assertIn("winrate", m2_structural_runner.FORBIDDEN_PERFORMANCE_TERMS)
         self.assertIn("drawdown", m2_structural_runner.FORBIDDEN_PERFORMANCE_TERMS)
+        
+        # Verify prohibited operations are completely absent from the source code
+        for pattern in ("read_csv", "to_csv", "05_MARKET_DATA_VAULT", "EURUSD_M5"):
+            self.assertNotIn(pattern, content, f"Runner contains forbidden pattern: {pattern}")
         
     def test_no_filesystem_writing(self) -> None:
         # Run evaluation and verify no files are written to disk
