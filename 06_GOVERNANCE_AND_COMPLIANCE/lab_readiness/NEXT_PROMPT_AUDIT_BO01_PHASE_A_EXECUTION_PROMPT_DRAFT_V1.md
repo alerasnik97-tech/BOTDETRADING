@@ -51,7 +51,7 @@ research/bo01-phase-a-execution-prompt-design-v1-20260518
 
 Commit a auditar:
 
-[Insertar commit SHA del diseño del prompt]
+4e8ddc61b2c2e3f446ef682554432ed9cd4cc741
 
 Archivos autorizados para inspección:
 
@@ -60,6 +60,9 @@ Archivos autorizados para inspección:
 
 2.
 06_GOVERNANCE_AND_COMPLIANCE/lab_readiness/BO01_PHASE_A_EXECUTION_PROMPT_DESIGN_REPORT_V1.md
+
+3.
+06_GOVERNANCE_AND_COMPLIANCE/lab_readiness/NEXT_PROMPT_AUDIT_BO01_PHASE_A_EXECUTION_PROMPT_DRAFT_V1.md
 
 NO tocar ningún archivo. La auditoría debe ser 100% READ-ONLY.
 
