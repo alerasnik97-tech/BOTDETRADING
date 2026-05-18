@@ -1,7 +1,7 @@
 # NEXT PROMPT — AUDIT M0 SYNTHETIC EXECUTION PROMPT V1
 
 ## 0. Nature Of This Document
-This is a governance-locked template. It does NOT authorize any code execution, micro-runs, dry-runs, backtests, validation unsealings, or parameter sweeps. It is designed strictly for a future external read-only audit of the M0 synthetic execution prompt draft.
+This is a governance-read-only template. It does NOT authorize any code execution, micro-runs, dry-runs, backtests, validation unsealings, or parameter sweeps. It is designed strictly for a future external read-only audit of the M0 synthetic execution prompt draft.
 
 ---
 
@@ -26,9 +26,9 @@ You must audit the following items:
 1.  **Git Diff Integrity:** Verify that only the authorized markdown files under `06_GOVERNANCE_AND_COMPLIANCE/` were modified or created. Confirm that no code scripts, test scripts, raw price data, or root outputs entered the commit.
 2.  **Prompt Completeness:** Inspect `NEXT_PROMPT_EXECUTE_M0_SYNTHETIC_MICRORUN_BO01_MR02_V1.md` and confirm that it defines all required sections (Activation Gate demanding the exact owner phrase, Nature, Allowed Scope, Forbidden Scope, Future Prechecks, Future Branching, Synthetic Fixture Policy, Output Policy, Future Script Policy, Safety Scan, Future Report, Future Git Policy, and Final Format).
 3.  **Synthetic-Only Restrictions:** Verify that the execution prompt strictly restricts execution to temporary in-memory synthetic bar fixtures. Confirm that no file input or disc reading is permitted.
-4.  **No Data Vault / Real Data:** Confirm that any access to `05_MARKET_DATA_VAULT` or real market datasets is heavily prohibited.
-5.  **No Validation/Holdout/2025/2026:** Confirm that validation, holdout, and 2025/2026 datasets are completely sealed.
-6.  **No Backtest / Train:** Confirm that backtests, train runs, and standard runner scripts are completely blocked.
+4.  **No Data Vault / Real Data:** Confirm that any access to `05_MARKET_DATA_VAULT` or real market datasets is prohibited.
+5.  **No Validation/Holdout/2025/2026:** Confirm that validation, holdout, and 2025/2026 datasets are not authorized.
+6.  **No Backtest / Train:** Confirm that backtests, train runs, and standard runner scripts are restricted by documented gates.
 7.  **No Optimization / Sweep:** Confirm that optimization, parameter sweep, grid search, and walk-forward sweeps are prohibited.
 8.  **Output and .gitignore Gate:** Verify that all output paths are quarantined under `local_outputs_do_not_commit/` and that the .gitignore gate is active.
 9.  **W-01/W-02 Gates:** Confirm that the audit prompt strictly preserves W-01 (dirty tree) and W-02 (output debt) as future execution gates, with no physical file modifications in this phase.

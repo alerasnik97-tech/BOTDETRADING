@@ -32,7 +32,7 @@
 ---
 
 ## 4. Draft Prompt Summary
-The created prompt (`NEXT_PROMPT_EXECUTE_M0_SYNTHETIC_MICRORUN_BO01_MR02_V1.md`) establishes a secure, owner-gated framework for a potential future execution phase.
+The created prompt (`NEXT_PROMPT_EXECUTE_M0_SYNTHETIC_MICRORUN_BO01_MR02_V1.md`) establishes a controlled, owner-gated framework for a potential future execution phase.
 - **Synthetic-only:** Restrained to in-memory generated M5 bar fixtures. No access to the data vault or real historical data.
 - **Gated:** Requires the exact owner phrase to unlock.
 - **Scope limit:** Restricted strictly to signal calls and fail-closed testing. No backtesting, training, validation, holdout, or optimization sweeps are permitted.
