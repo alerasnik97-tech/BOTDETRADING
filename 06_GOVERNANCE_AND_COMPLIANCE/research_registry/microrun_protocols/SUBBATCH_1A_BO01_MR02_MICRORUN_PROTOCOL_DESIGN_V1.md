@@ -1,17 +1,17 @@
 # SUBBATCH 1A BO01/MR02 MICRO-RUN PROTOCOL DESIGN V1
 
 ## 1. Status
-**`MICRO_RUN_PROTOCOL_DESIGN_READY_FOR_EXTERNAL_AUDIT`**
+**`MICRO_RUN_PROTOCOL_DESIGN_READY_FOR_EXTERNAL_AUDIT_ONLY`**
 
 ---
 
 ## 2. Nature Of This Document
-This is a design-only document. It does NOT authorize any code execution, micro-runs, dry-runs, backtests, validation unsealings, or parameter sweeps. No commands are executed during this phase. No micro-run, dry-run, backtest, train, validation, holdout, or 2025/2026 data is authorized or exposed. No optimization or parameter sweep is authorized.
+This is a design-only planning document. It does NOT authorize any code execution, micro-runs, dry-runs, backtests, validation unsealings, or parameter sweeps. No commands are executed during this phase. No micro-run, dry-run, backtest, train, validation, holdout, or 2025/2026 data is authorized or exposed. No optimization or parameter sweep is authorized.
 
 ---
 
 ## 3. Purpose
-This protocol defines how a future, minimal, safe, and controlled micro-run execution would be conducted solely to verify:
+This protocol defines how a future protocol outline would be conducted solely to verify:
 - import wiring of strategy candidates;
 - signal function call path;
 - fail-closed behavior on invalid fixtures;
@@ -21,7 +21,7 @@ This protocol defines how a future, minimal, safe, and controlled micro-run exec
 - lack of runner or engine mutation;
 - lack of strategy registry mutation during execution.
 
-**This protocol cannot prove edge, profitability, robustness, or readiness for real/demo/FTMO.** It is strictly a technical verification plumbing design.
+**This protocol cannot prove edge, profitability, robustness, or readiness for real/demo/FTMO.** It is strictly a technical verification plumbing design-only planning document.
 
 ---
 
@@ -31,14 +31,14 @@ This protocol defines how a future, minimal, safe, and controlled micro-run exec
 
 ### Current State
 - Existing files are limited to strategy skeletons and targeted unit/contract tests.
-- Blocker patch has been externally audited.
+- Blocker patch has passed external read-only audit.
 - No performance or edge exists or is asserted.
 - No dynamic execution has been initiated.
 
 ---
 
 ## 5. Preconditions Before Any Future Execution
-Before any future micro-run execution is scheduled, all of the following hard gates must be met:
+Before any future micro-run execution is scheduled, all of the following documented gates must be met:
 1. This design protocol must pass external read-only audit.
 2. Owner must explicitly approve future execution with a separate exact phrase.
 3. Worktree must be clean or W-01 dirty files must be quarantined with documented rationale.
@@ -101,16 +101,18 @@ If later approved, the future micro-run execution may test ONLY:
 The following command templates are drafts only. **DO NOT RUN ANY COMMANDS IN THIS PHASE.**
 
 Every command is marked as:
-`DRAFT_DO_NOT_RUN — for future owner-approved execution only.`
+`DRAFT_DO_NOT_RUN — NON-EXECUTABLE TEMPLATE ONLY`
+
+This is a non-executable placeholder. It must not be copied into a terminal unless a future separate owner-approved execution prompt explicitly authorizes it.
 
 ### Draft Commands:
-1. `DRAFT_DO_NOT_RUN` — Check git status:
+1. `DRAFT_DO_NOT_RUN — NON-EXECUTABLE TEMPLATE ONLY` — Check git status:
    `git status --short`
-2. `DRAFT_DO_NOT_RUN` — Verify active Python processes:
+2. `DRAFT_DO_NOT_RUN — NON-EXECUTABLE TEMPLATE ONLY` — Verify active Python processes:
    `Get-Process python -ErrorAction SilentlyContinue`
-3. `DRAFT_DO_NOT_RUN` — Run targeted contract tests (plumbing verification):
+3. `DRAFT_DO_NOT_RUN — NON-EXECUTABLE TEMPLATE ONLY` — Run targeted contract tests (plumbing verification):
    `pytest 03_RESEARCH_LAB/research_lab/tests/test_strategy_contract_bo01.py`
-4. `DRAFT_DO_NOT_RUN` — Synthetic plumbing dry-run (no --execute, no data vault):
+4. `DRAFT_DO_NOT_RUN — NON-EXECUTABLE TEMPLATE ONLY` — Synthetic plumbing dry-run (no --execute, no data vault):
    `python -m research_lab.runners.synthetic_plumbing_runner --strategy BO01 --synthetic-only`
 
 ### Forbidden Commands:

@@ -1,12 +1,12 @@
 # MICRORUN PROTOCOL DESIGN REPORT V1
 
 ## 1. Status
-**`MICRO_RUN_PROTOCOL_DESIGN_READY_FOR_EXTERNAL_AUDIT`**
+**`MICRO_RUN_PROTOCOL_DESIGN_READY_FOR_EXTERNAL_AUDIT_ONLY`**
 
 ---
 
 ## 2. Executive Summary
-This document summarizes the quantitative and architectural design of the future micro-run protocol for strategy candidates **BO01** and **MR02** (Sub-Batch 1A). The design has been established strictly as a dry-run/plumbing planning template. It asserts no strategy edge, profitability, parameter optimization, or readiness for demo, real, or FTMO accounts. The objective is to outline a future mechanism to verify candidate signal call paths and fail-closed behaviors under complete isolation.
+This document summarizes the quantitative and architectural design of the future micro-run protocol for strategy candidates **BO01** and **MR02** (Sub-Batch 1A). The design has been established strictly as a design-only planning document. It asserts no strategy edge, profitability, parameter optimization, or readiness for demo, real, or FTMO accounts. The objective is to outline a future protocol outline to verify candidate signal call paths and fail-closed behaviors under documented controls.
 
 ---
 
@@ -37,18 +37,18 @@ This document summarizes the quantitative and architectural design of the future
 ---
 
 ## 5. Protocol Summary
-The created protocol (`SUBBATCH_1A_BO01_MR02_MICRORUN_PROTOCOL_DESIGN_V1.md`) establishes a rigid technical plan for future verification of candidate strategy structures under:
+The created protocol (`SUBBATCH_1A_BO01_MR02_MICRORUN_PROTOCOL_DESIGN_V1.md`) establishes a technical plan for future verification of candidate strategy structures under:
 - **Phase M0:** Synthetic-only controlled bar fixtures to verify wiring, scheduling schedules, and signal processing.
 - **Phase M1 (Optional):** Highly restricted, train-only (2015-2024) data slices with zero performance tracking.
 - **Abort gates:** Strict immediate termination triggers if any validation, holdout, 2025/2026, or optimization is detected, or if outputs breach the quarantine directory.
-- **Command Drafts:** All future execution commands are kept in draft templates prefixed with `DRAFT_DO_NOT_RUN` to prevent accidental execution.
+- **Command Drafts:** All future execution commands are kept in draft templates prefixed with `DRAFT_DO_NOT_RUN — NON-EXECUTABLE TEMPLATE ONLY` to prevent accidental execution.
 
 ---
 
 ## 6. W-01/W-02 Handling
 - **W-01 (dirty tree):** Untouched. Pre-existing untracked files in the research intake directory were not modified.
 - **W-02 (tracked output debt):** Untouched. Tracked outputs were not modified or deleted.
-- **Remediation gates:** Both W-01 and W-02 are explicitly registered in the taxonomy as hard gates blocking any dynamic execution until formally resolved or quarantined under a separate audited plan.
+- **Remediation gates:** Both W-01 and W-02 are explicitly registered in the taxonomy as future gates blocking any dynamic execution until formally resolved or quarantined under a separate audited plan.
 
 ---
 
@@ -56,19 +56,19 @@ The created protocol (`SUBBATCH_1A_BO01_MR02_MICRORUN_PROTOCOL_DESIGN_V1.md`) es
 The Strategy Research Registry (`STRATEGY_RESEARCH_REGISTRY.md`) was updated surgically.
 - **BO01 / MR02 status:** Changed from `IMPLEMENTED_TESTS_AUDITED_OWNER_PROTOCOL_DECISION_PENDING` to `MICRO_RUN_PROTOCOL_DESIGN_PENDING`.
 - **Allowed next action:** Restrained to `External read-only audit of micro-run protocol design (design only; no execution...)`.
-- **Lineage updated:** Points correctly to design branch `research/microrun-protocol-design-v1-20260517` and commit `9d9ab4e83f8a2449597d4477410aa991f11a7ac8`.
+- **Lineage updated:** Points correctly to design branch `research/microrun-protocol-design-v1-20260517` and commit `32c9f310dd2c274aa0cd753d107972d3d070af26`.
 
 ---
 
 ## 8. Safety Scan
-A thorough static safety scan was executed across all new and modified markdown files.
+A static safety scan was executed across all new and modified markdown files.
 - **Blockers:** `0`
 - **Allowed Hits:** `26` *(All hits represent negative declarations (`NEGATIVE_DECLARATION_OK`), draft templates (`DRAFT_DO_NOT_RUN_OK`), or lifecycle terms (`GOVERNANCE_TERM_OK`))*
 
 ---
 
 ## 9. Decision
-**Micro-run protocol design is ready for external read-only audit. No dynamic backtests, dry-runs, micro-runs, or train runs are authorized. The laboratory remains locked, and execution remains unauthorized.**
+**Micro-run protocol design is ready for external read-only audit only. No dynamic backtests, dry-runs, micro-runs, or train runs are authorized. The laboratory remains locked, and execution remains unauthorized.**
 
 ---
 

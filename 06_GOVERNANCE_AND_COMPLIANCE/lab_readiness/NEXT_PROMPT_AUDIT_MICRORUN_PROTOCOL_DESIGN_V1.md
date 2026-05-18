@@ -6,7 +6,7 @@ This is a governance-locked template. It does NOT authorize any code execution, 
 ---
 
 ## 1. Context
-The design-only micro-run protocol for strategy candidates **BO01** and **MR02** (Sub-Batch 1A) has been drafted on branch `research/microrun-protocol-design-v1-20260517`. The candidates are currently registered at `MICRO_RUN_PROTOCOL_DESIGN_PENDING` status. No execution exists. The next step is a read-only audit of this protocol design.
+The design-only micro-run protocol for strategy candidates **BO01** and **MR02** (Sub-Batch 1A) has been drafted on branch `research/microrun-protocol-design-v1-20260517` (remediated under `research/microrun-protocol-design-cleanup-v1-20260517`). The candidates are currently registered at `MICRO_RUN_PROTOCOL_DESIGN_PENDING` status. No execution exists. The next step is a read-only audit of this protocol design.
 
 ---
 
@@ -24,10 +24,11 @@ If there are any active Python backtests, validation unsealings, optimization sw
 ## 3. Audit Scope
 You must audit the following items:
 1.  **Git Diff Integrity:** Verify that only the authorized markdown files under `06_GOVERNANCE_AND_COMPLIANCE/` were modified or created. Confirm that no code scripts, test scripts, raw price data, or root outputs entered the commit.
-2.  **Protocol Completeness:** Inspect `SUBBATCH_1A_BO01_MR02_MICRORUN_PROTOCOL_DESIGN_V1.md` and confirm that it defines all mandatory sections (Nature of Document, Preconditions, Data Policy, Command Drafts prefixed as DRAFT_DO_NOT_RUN, Output Path quarantine, and Abort conditions).
-3.  **Registry Matching:** Verify that `STRATEGY_RESEARCH_REGISTRY.md` correctly shows BO01 and MR02 at `MICRO_RUN_PROTOCOL_DESIGN_PENDING` status with the correct branch name and commit SHA.
+2.  **Protocol Completeness:** Inspect `SUBBATCH_1A_BO01_MR02_MICRORUN_PROTOCOL_DESIGN_V1.md` and confirm that it defines all required sections (Nature of Document, Preconditions, Data Policy, Command Drafts prefixed as DRAFT_DO_NOT_RUN — NON-EXECUTABLE TEMPLATE ONLY, Output Path quarantine, and Abort conditions).
+3.  **Registry Matching:** Verify that `STRATEGY_RESEARCH_REGISTRY.md` shows BO01 and MR02 at `MICRO_RUN_PROTOCOL_DESIGN_PENDING` status pointing to branch `research/microrun-protocol-design-v1-20260517` (or its cleanup branch) and corrected commit lineage `32c9f310dd2c274aa0cd753d107972d3d070af26` (or its cleanup commit).
 4.  **W-01/W-02 Gates:** Confirm that the protocol strictly preserves W-01 (dirty tree) and W-02 (output debt) as future execution gates, with no physical file modifications in this phase.
 5.  **Adjective Sobriety:** Verify that no absolute or qualitative terms (e.g., "perfect", "guaranteed", "fully resolved", "complete auditability") exist in the new files.
+6.  **Draft Commands:** Confirm that all command templates are marked as draft templates (`DRAFT_DO_NOT_RUN — NON-EXECUTABLE TEMPLATE ONLY`) and include the explicit warning against copying them into a terminal.
 
 ---
 
