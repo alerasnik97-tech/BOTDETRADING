@@ -1,6 +1,6 @@
 # NEXT PROMPT — OWNER DECIDES M2 AFTER SANITY AUDIT V1
 
-This prompt is to be executed in **OWNER DECISION MODE**. No execution, data loading, or code changes are permitted. The owner must choose the next course of action following the successful corrective design audit.
+This prompt is to be executed in **OWNER DECISION MODE**. No execution, data loading, or code changes are permitted. The owner must choose the next course of action following the completed corrective design audit.
 
 ---
 
@@ -15,11 +15,13 @@ This prompt is to be executed in **OWNER DECISION MODE**. No execution, data loa
 ## 2. Decision Matrix for the Owner
 The owner must select exactly **one** of the following options:
 
-### Option A: Draft and Execute M2 Conservative Protocol Prompt
-Authorize the team to draft the exact prompt for the M2 Conservative Train-Only Structural Evaluation and prepare for execution.
+### Option A: Draft M2 Conservative execution prompt for later audit
+Authorize the team to draft the exact prompt for the M2 Conservative Train-Only Structural Evaluation for later audit.
 - *Strict Bounds:* 3-month window (`2015-01-01` to `2015-03-31`), strictly no performance metrics (PnL, Sharpe, WR), strictly train-only, no validation/holdout, no 2025/2026.
 - *Runner Requirement:* If no audited runner is found or provided, the execution must immediately abort as `BLOCKED_M2_RUNNER_NOT_AUDITED_OR_NOT_FOUND`.
-- *Execution:* A separate, explicit owner activation gate phrase will be required to execute.
+- *Execution Limits:* This option ONLY authorizes drafting the prompt. It does NOT authorize executing M2, does NOT authorize data loading now, and does NOT authorize any backtest or train now.
+- *Activation Phrase:* Future execution is strictly prohibited under this phase and requires a separate, explicit owner activation gate phrase in a future turn.
+- *Abort Policy:* If no audited runner exists or is found in the repository, any future execution must abort.
 
 ### Option B: Patch Remaining Warnings First
 Instruct the team to address any residual warnings or administrative points from the design audit.
