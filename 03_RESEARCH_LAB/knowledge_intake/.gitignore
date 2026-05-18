@@ -1,4 +1,11 @@
 # Local knowledge-intake guard.
-# Heavy/copied source documents in this folder stay local and untracked.
+# Ignore everything by default
 *
+# Allow directories to be traversed
+!*/
+# Allow gitignore and lightweight files
 !.gitignore
+!*.md
+!*.csv
+!**/*.md
+!**/*.csv
