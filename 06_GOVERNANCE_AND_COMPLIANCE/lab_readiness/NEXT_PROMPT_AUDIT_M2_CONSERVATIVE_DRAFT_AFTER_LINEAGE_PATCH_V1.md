@@ -1,4 +1,4 @@
-# NEXT PROMPT — AUDIT M2 CONSERVATIVE EXECUTION PROMPT DRAFT V1
+# NEXT PROMPT — AUDIT M2 CONSERVATIVE DRAFT AFTER LINEAGE PATCH V1
 
 This prompt is to be executed in **READ-ONLY AUDIT MODE**.
 Under blocker penalty, the following are strictly **PROHIBITED** during this audit:
@@ -15,36 +15,27 @@ Under blocker penalty, the following are strictly **PROHIBITED** during this aud
 ---
 
 ## 1. Audit Objective
-Verify the integrity, compliance, and language of the drafted M2 Conservative Train-Only Structural Evaluation prompt and the sanity corrections applied.
+Verify the correct lineage tracing, physical SHA verification, and administrative bounds of the drafted M2 Conservative Train-Only Structural Evaluation prompt.
 
 ---
 
 ## 2. Verification Checklist
 
-### 2.1 SHA and Lineage verification
-- Confirm that the base branch is `audit/m2-design-audit-sane-review-v1-20260518`.
-- Confirm that the draft branch is `research/draft-m2-conservative-structural-execution-prompt-v1-20260518`.
-- Verify the physical local HEAD SHA is `e83f5c5a53268e8095bb8f22a79d7fa0934362c4`.
-- Verify that the incorrect handoff SHA `e83f5c5ae04d5570220fb079b940989f64bfbb8e` is explicitly declared as incorrect and clarified in the files.
+### 2.1 SHA and Lineage Verification
+- Verify that **no** occurrences of the incorrect SHA prefix `e83f5a5a` remain in the draft files.
+- Confirm that the physical base sanity HEAD SHA is documented as `e83f5c5a53268e8095bb8f22a79d7fa0934362c4`.
+- Confirm that the incorrect handoff SHA `e83f5c5ae04d5570220fb079b940989f64bfbb8e` remains only as a historical reference to the prior turn's bad data.
+- Confirm the merge lineage: base is `audit/m2-design-audit-sane-review-v1-20260518`, draft branch is `research/draft-m2-conservative-structural-execution-prompt-v1-20260518`, and current patch branch is `research/fix-m2-conservative-draft-lineage-v1-20260518`.
 - Verify the M2 Design real SHA is `aba333a0379a4f733afa39180462eddd68c02656` and the M1 Audit verified SHA is `10f2caf8507c135c59a66505b3ee36d19ed301ba`.
 
-### 2.2 Language Neutralization
-- Confirm that absolute, superlative, or hyper-optimistic claims (such as "fully sane", "validated", "completely untouched", "perfectly", "successfully", "100%", "sealed", "certified") are eliminated from revised and newly created files.
-- Verify that all remaining occurrences of "strictly" are only used for negative prohibitions.
-
-### 2.3 Owner Prompt Ambiguity Fix
-- Confirm that in `NEXT_PROMPT_OWNER_DECIDES_M2_AFTER_SANITY_AUDIT_V1.md`, Option A has been corrected from "Draft and Execute" to "Draft M2 Conservative execution prompt for later audit".
-- Verify that it clarifies that no immediate execution is enabled under that phase.
-
-### 2.4 Future M2 Execution Prompt Compliance
+### 2.2 Future M2 Execution Prompt Compliance
 Check `NEXT_PROMPT_EXECUTE_M2_CONSERVATIVE_TRAIN_ONLY_BO01_MR02_V1.md` for:
 - **Activation Gate:** The exact required future autonomous phrase is present:
   “APRUEBO EJECUTAR M2 CONSERVATIVE TRAIN-ONLY STRUCTURAL EVALUATION BO01/MR02, SOLO MÉTRICAS ESTRUCTURALES, SIN VALIDATION, SIN HOLDOUT, SIN 2025/2026, SIN BACKTEST, SIN TRAIN FORMAL Y SIN OPTIMIZATION/SWEEP.”
-- **Data Policy:** The target is strictly `EURUSD_PREPARED_TRAIN_2015_2024_M5` within the window `2015-01-01` to `2015-03-31` (UTC). Hard blocks exist for validation, holdout, 2025, and 2026 partitions.
+- **Data Policy:** Target dataset is strictly `EURUSD_PREPARED_TRAIN_2015_2024_M5` within the window `2015-01-01` to `2015-03-31` (UTC). Validation, holdout, 2025, and 2026 partitions are blocked.
 - **Runner Policy:** Checks for audited runner pre-existence before execution; prohibits runner or core code modifications. Prohibits non-gitignored temporary scripts.
 - **Allowed Metrics:** Prohibits performance/profitability metrics (PnL, winrate, drawdown, Profit Factor, Sharpe/Sortino, expectancy). Permits only structural/robustness/fail-closed counts.
 - **Output Policy:** Designated gitignored local path only, with clear allowed and forbidden outputs.
-- **Abort Conditions:** Clear conditions to immediately halt if any violation, worktree instability, or code mutation occurs.
 - **No Owner-less Path:** Prohibits executing without the exact standalone phrase.
 
 ---
@@ -59,5 +50,5 @@ The auditor is permitted to use **ONLY** read-only text commands:
 
 ## 4. Final Audit Decision
 The auditor must report a final safety status:
-- **STATUS = PASS:** If all checks comply, lineage is tracked, language is neutral, and the execution draft is fully compliant.
+- **STATUS = PASS:** If all checks comply, lineage is corrected to match physical HEAD, no incorrect SHA remains, language is neutral, and the execution draft is fully compliant.
 - **STATUS = BLOCKER:** If any python script execution is allowed, any performance metrics are permitted, or any execution is possible without the exact activation gate phrase.

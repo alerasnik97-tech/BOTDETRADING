@@ -21,11 +21,11 @@ This report and the associated files are **MARKDOWN-ONLY**.
 ## 3. Lineage and Traceability
 - **Base Branch:** `audit/m2-design-audit-sane-review-v1-20260518`
 - **Draft Branch:** `research/draft-m2-conservative-structural-execution-prompt-v1-20260518`
-- **Local HEAD SHA (Real Verified):** `e83f5a5a53268e8095bb8f22a79d7fa0934362c4`
-- **Remote HEAD SHA (Real Verified):** `e83f5a5a53268e8095bb8f22a79d7fa0934362c4`
+- **Local HEAD SHA (Real Verified):** `e83f5c5a53268e8095bb8f22a79d7fa0934362c4`
+- **Remote HEAD SHA (Real Verified):** `e83f5c5a53268e8095bb8f22a79d7fa0934362c4`
 - **M2 Design Branch real SHA:** `aba333a0379a4f733afa39180462eddd68c02656`
 - **M1 Audit verified SHA:** `10f2caf8507c135c59a66505b3ee36d19ed301ba`
-- **Handoff Discrepancy Clarified:** The previous turn's handoff declared HEAD as `e83f5c5ae04d5570220fb079b940989f64bfbb8e`. This has been physically verified as incorrect/non-verifiable. The correct physical SHA of the base branch HEAD is `e83f5a5a53268e8095bb8f22a79d7fa0934362c4`.
+- **Handoff Discrepancy Clarified:** The previous turn's handoff declared HEAD as `e83f5c5ae04d5570220fb079b940989f64bfbb8e`. This has been physically verified as incorrect/non-verifiable. The correct physical SHA of the base branch HEAD is `e83f5c5a53268e8095bb8f22a79d7fa0934362c4`.
 
 ---
 
