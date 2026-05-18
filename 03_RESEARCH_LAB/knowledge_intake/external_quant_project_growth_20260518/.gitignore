@@ -1,0 +1,7 @@
+# Local-only copied external quant knowledge documents.
+# Do not commit PDFs/binary/source documents from this intake without explicit owner approval.
+INVESTIGACION_QUANT_GENERAL/**
+!INVESTIGACION_QUANT_GENERAL_INDEX.md
+!INVESTIGACION_QUANT_GENERAL_INGESTION_REPORT.md
+!INVESTIGACION_QUANT_GENERAL_MANIFEST.csv
+!.gitignore
