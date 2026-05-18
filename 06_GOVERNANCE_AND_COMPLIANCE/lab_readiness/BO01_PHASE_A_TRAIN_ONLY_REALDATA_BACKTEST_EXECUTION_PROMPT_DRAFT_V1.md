@@ -97,9 +97,9 @@ Se debe verificar de forma estática que:
 2. El runner es importable y su identificador interno es exactamente `BO01_BACKTEST_RUNNER_SYNTHETIC_V1`.
 3. Las políticas estructurales activas son `ENTRY_NEXT_CANDLE_OPEN` y `STOP_FIRST`.
 4. Los límites de posición son: un máximo de `1` trade activo y un máximo de `1` trade por día calendario.
-5. No se ha modificado una sola línea de código en el runner ni en los scripts de estrategia en comparación con el commit base.
+5. El runner coincide exactamente con el warning-patch audit commit: `5bdb4bed1f829eb7e8bfe65dc30a6e2f49657d89`. No se permite modificar `bo01_backtest_runner.py` ni las clases de estrategia durante Phase A.
 
-Si se detectan cambios de código no autorizados en el motor o en las clases de estrategia, abortar inmediatamente.
+Si se detectan cambios de código no autorizados en el motor o en las clases de estrategia respecto a dicho commit de auditoría, abortar inmediatamente.
 
 ============================================================
 7. EXECUTION RULES
@@ -150,7 +150,7 @@ Todos los archivos locales generados por la corrida de simulación se ubicarán 
 
 Esta ruta de salida local debe estar completamente excluida en la configuración de Git local y bajo ningún concepto se commiteará a GitHub.
 
-Archivos locales obligatorios a generar en el directorio de salida local:
+Archivos locales obligatorios SIEMPRE a generar en el directorio de salida local:
 1. `BO01_TRAIN_ONLY_REALDATA_BACKTEST_REPORT.md` (resumen local de ejecución)
 2. `output_manifest.json` (hashes de los archivos locales generados)
 3. `command_log.txt` (registro de comandos ejecutados en consola)
@@ -160,7 +160,9 @@ Archivos locales obligatorios a generar en el directorio de salida local:
 7. `equity_R.csv` (curva de R acumulada cronológica)
 8. `monthly_summary.csv` (agrupamiento de resultados mensuales)
 9. `cost_profile_summary.csv` (resumen comparativo de los tres perfiles de costo)
-10. `temporary_execution_script.py` (script de ejecución temporal de la simulación)
+
+Archivo local opcional:
+10. `temporary_execution_script.py` (solo obligatorio si se opta por utilizar un script de ejecución temporal para automatizar la simulación. En caso de no usarse, `output_manifest.json` debe registrar la propiedad `temporary_execution_script_used: false`).
 
 ============================================================
 10. GOVERNANCE DOCUMENTATION
@@ -224,7 +226,8 @@ El handoff final de esta fase debe estructurarse exactamente de la siguiente man
    - data_modified: NO
    - data_loaded: YES
    - real_data_backtest_run: YES
-   - train_run: YES
+   - train_only_backtest_run: YES *(Nota: "train-only" describe la partición de datos usada, no un proceso de entrenamiento formal ni machine learning training).*
+   - formal_train_run: NO
    - validation_run: NO
    - holdout_used: NO
    - 2025_2026_used: NO
@@ -243,6 +246,7 @@ El handoff final de esta fase debe estructurarse exactamente de la siguiente man
    - critical_nans: 0
 5. RUNNER:
    - runner_id: BO01_BACKTEST_RUNNER_SYNTHETIC_V1
+   - runner_audit_commit: 5bdb4bed1f829eb7e8bfe65dc30a6e2f49657d89
    - entry_policy: ENTRY_NEXT_CANDLE_OPEN
    - same_bar_policy: STOP_FIRST
    - runner_modified: NO

@@ -83,6 +83,7 @@ PASOS DE VERIFICACIÓN REQUERIDOS
 
 4. **Runner & Execution Audit**:
    - ¿Se fija el motor a la versión auditada de `bo01_backtest_runner.py`?
+   - ¿El borrador vincula explícitamente el runner audit commit `5bdb4bed1f829eb7e8bfe65dc30a6e2f49657d89`?
    - ¿El borrador especifica las políticas `ENTRY_NEXT_CANDLE_OPEN` y `STOP_FIRST` sin ambigüedades?
    - ¿Se limita estrictamente a un máximo de 1 trade activo y 1 por día?
 
@@ -92,6 +93,8 @@ PASOS DE VERIFICACIÓN REQUERIDOS
 6. **Output & Safety Audit**:
    - ¿Los outputs de ejecución están restringidos a carpetas locales gitignored?
    - ¿Se exigen los 9 archivos locales obligatorios de control (logs de datos, comandos, contadores de diagnóstico, trades detailed y friction summaries)?
+   - ¿Se aclara que `temporary_execution_script.py` es opcional (solo obligatorio si se usa script temporal)?
+   - ¿Se reemplaza el ambiguo `train_run: YES` por `formal_train_run: NO` y `train_only_backtest_run: YES` en el handoff?
    - ¿Las abort conditions son completas e inmediatas?
 
 7. **Static Safety Scan**:

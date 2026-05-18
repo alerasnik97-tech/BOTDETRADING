@@ -2,7 +2,7 @@
 
 ## 1. Status
 
-**BO01_PHASE_A_EXECUTION_PROMPT_DRAFT_READY_FOR_EXTERNAL_AUDIT**
+**BO01_PHASE_A_EXECUTION_PROMPT_WARNING_PATCH_READY_FOR_EXTERNAL_AUDIT**
 
 ---
 
@@ -28,7 +28,7 @@
 
 ## 4. Decision
 
-**Ready for external read-only audit of the execution prompt draft.**
+**Ready for external read-only audit of the warning-patched execution prompt draft.**
 
 ---
 
