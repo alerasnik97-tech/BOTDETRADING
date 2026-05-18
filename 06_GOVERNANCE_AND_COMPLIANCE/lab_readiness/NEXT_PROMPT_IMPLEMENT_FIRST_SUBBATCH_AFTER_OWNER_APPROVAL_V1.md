@@ -1,7 +1,11 @@
-# NEXT PROMPT: IMPLEMENT SUB-BATCH 1A SKELETONS & TESTS
+# DEPRECATED — DO NOT USE
 
-**Document Reference:** GOV-PRM-1A-IMPLEMENT-V1-20260517  
-**Status:** COMPLIANT  
+This prompt is superseded by V2. It must not be used because it assumes owner approval and authorizes premature micro-run/dry-run activity.
+
+# NEXT PROMPT: IMPLEMENT SUB-BATCH 1A SKELETONS & TESTS (DEPRECATED)
+
+**Document Reference:** GOV-PRM-1A-IMPLEMENT-V1-20260517 (DEPRECATED)  
+**Status:** DEPRECATED / DO NOT USE  
 **Date:** May 17, 2026  
 
 ---

@@ -1,4 +1,4 @@
-# AUDITED PROMPT V2: IMPLEMENT SUB-BATCH 1A SKELETONS & TARGETED TESTS
+# CANDIDATE PROMPT V2: IMPLEMENT SUB-BATCH 1A SKELETONS & TARGETED TESTS (PENDING EXPLICIT OWNER APPROVAL)
 
 **Document Reference:** GOV-PRM-1A-IMPLEMENT-V2-20260517  
 **Status:** COMPLIANT  
@@ -55,4 +55,4 @@ Your final report must present:
 4.  **NEXT STEP PROMPT:** Draft a future separated prompt for the external audit of strategy implementation and tests.
 
 ---
-*End of Audited Prompt V2*
+*End of Candidate Prompt V2*
