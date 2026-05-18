@@ -108,6 +108,13 @@ PASOS DE VERIFICACIÓN REQUERIDOS
    - Cualquier modificación del script post-auditoría invalida la ejecución.
    - Prohibida la ejecución directa de Phase A sin A-0 + auditoría + A-1.
 
+3-BIS. **Activation Gate vs Flow Split Check**:
+   - ¿La frase de Phase A-0 autoriza únicamente generación de script sin datos?
+   - ¿La frase de Phase A-1 autoriza ejecución solo después de script auditado y hash verificado?
+   - ¿Está prohibido usar la frase Phase A-1 antes de tener script + auditoría aprobada + SHA256?
+   - ¿Ya no existe una frase única que diga “ejecutar Phase A” como si A-0/A-1 fueran una sola fase?
+   - Si existe una frase única ambigua, clasificar como `BLOCKER_ACTIVATION_GATE_NOT_RESCOPED`.
+
 4. **H-02 No-Subjective-Acceptance Check**:
    - El owner decision prompt retira la opción de cerrar H-02 por aceptación subjetiva.
    - H-02 queda como control técnico auditable (script existente + auditado + hash).

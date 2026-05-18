@@ -24,7 +24,7 @@ decision options following
 
 ## The owner chooses exactly ONE of the following
 
-### Option B — Patch the warnings first (recommended)
+### Option B — Patch the warnings first (mandatory before Phase A-0)
 Apply, in a normal research/governance branch (markdown-only, no code/data/Python), a
 small follow-up micro-patch that:
 - splits the Section 1 activation gate into (i) a Phase A-0 phrase that authorizes only
@@ -38,6 +38,15 @@ small follow-up micro-patch that:
   (F-04).
 Then a short read-only review of that micro-patch. This closes the HIGH warning before
 any owner activation phrase exists.
+
+Before Phase A-0, the required sequence is:
+1. close F-01/F-02/F-03/F-04;
+2. run an external read-only audit of this warning micro-patch;
+3. only after that, decide whether to generate the Phase A-0 script draft.
+
+Do not emit any old activation phrase. Do not execute direct Phase A. Do not use the
+Phase A-1 phrase until the Phase A-0 script exists, the script audit has passed, and the
+audited SHA256 has been verified. H-01 remains pending before Phase B.
 
 ### Option A — Owner decision to generate the Phase A-0 script draft
 Authorize generating the Phase A-0 execution/data-proof script draft **without executing
@@ -59,10 +68,11 @@ complementary to B/A/C, not a substitute.
 ## Recommended sequence
 
 1. Option B (close F-01/F-02/F-03/F-04 via a markdown-only micro-patch + short review).
-2. Option A (owner-gated Phase A-0 script generation, no data, no execution).
-3. Dedicated read-only audit of the generated Phase A-0 script.
-4. Only then, a separate later owner phrase for Phase A-1 (hash-verified execution).
-5. Option D (H-01 data-prep causality audit) before any Phase B or window widening.
+2. External read-only audit of the warning micro-patch.
+3. Option A (owner-gated Phase A-0 script generation, no data, no execution).
+4. Dedicated read-only audit of the generated Phase A-0 script.
+5. Only then, a separate later owner phrase for Phase A-1 (hash-verified execution).
+6. Option D (H-01 data-prep causality audit) before any Phase B or window widening.
 
 ## Hard constraints carried forward (unchanged)
 
@@ -74,3 +84,4 @@ complementary to B/A/C, not a substitute.
 - No modification of the audited runner or strategy classes (preserves the W-01 pin).
 - No `git add .`; explicit per-file staging only; no history-rewriting git operations.
 - This document authorizes none of the above — the owner does, with an explicit phrase.
+- No old single "AUTORIZO EJECUTAR PHASE A" activation phrase may be used.

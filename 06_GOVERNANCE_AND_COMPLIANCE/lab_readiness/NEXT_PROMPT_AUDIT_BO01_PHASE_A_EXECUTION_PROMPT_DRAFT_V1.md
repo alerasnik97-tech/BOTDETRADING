@@ -114,6 +114,13 @@ PASOS DE VERIFICACIÓN REQUERIDOS
    - ¿Cualquier modificación del script después de la auditoría invalida la ejecución
      y obliga a re-auditar?
 
+8-BIS. **Activation Gate vs Flow Split Check (obligatorio)**:
+   - ¿La frase de Phase A-0 autoriza únicamente generación de script sin datos?
+   - ¿La frase de Phase A-1 autoriza ejecución solo después de script auditado y hash verificado?
+   - ¿Está prohibido usar la frase Phase A-1 antes de tener script + auditoría aprobada + SHA256?
+   - ¿Ya no existe una frase única que diga “ejecutar Phase A” como si A-0/A-1 fueran una sola fase?
+   - Si existe una frase única ambigua, clasificar como `BLOCKER_ACTIVATION_GATE_NOT_RESCOPED`.
+
 9. **H-01 Pre-Phase-B Registration Check (obligatorio)**:
    - ¿H-01 (`ema_m15_200` / `atr14` causal data-prep) queda formalmente pre-registrado
      como blocker mandatorio pre-Phase-B?

@@ -6,11 +6,47 @@ Actuá como Senior Python Engineer, Quant Research Infrastructure Engineer, FX S
 1. ACTIVATION GATE
 ============================================================
 
-La frase exacta del owner debe aparecer como declaración autónoma:
+Para la fase invocada, la frase exacta del owner debe aparecer como declaración autónoma:
 
-“AUTORIZO EJECUTAR PHASE A BO01 TRAIN-ONLY REAL-DATA BACKTEST, VENTANA 2015-01-05 A 2015-01-09, SOLO TRAIN-ONLY, SIN VALIDATION, SIN HOLDOUT, SIN 2025/2026, SIN OPTIMIZATION/SWEEP, SIN DEMO/REAL/FTMO Y SIN EDGE CLAIMS.”
+Ya NO existe una frase única que autorice "ejecutar Phase A" como si A-0 y A-1
+fueran una sola fase. Las autorizaciones futuras quedan separadas así:
 
-Si no aparece exactamente como declaración autónoma:
+PHASE A-0 ACTIVATION GATE:
+
+“AUTORIZO GENERAR EL SCRIPT PHASE A-0 BO01 TRAIN-ONLY REAL-DATA DATA-PROOF/BACKTEST EXECUTION DRAFT, SIN EJECUTAR EL SCRIPT, SIN CARGAR DATOS, SIN LEER CSV REAL, SIN BACKTEST, SIN TRAIN, SIN VALIDATION, SIN HOLDOUT, SIN 2025/2026 Y SIN OPTIMIZATION/SWEEP.”
+
+Efecto autorizado:
+- solo generar script draft;
+- no ejecutarlo;
+- no cargar datos;
+- no leer CSV;
+- no calcular métricas;
+- no producir trades/equity.
+
+PHASE A-1 ACTIVATION GATE:
+
+“AUTORIZO EJECUTAR PHASE A-1 BO01 TRAIN-ONLY REAL-DATA BACKTEST USANDO EXCLUSIVAMENTE EL SCRIPT PHASE A-0 YA AUDITADO Y HASH-VERIFICADO, VENTANA 2015-01-05 A 2015-01-09, SIN VALIDATION, SIN HOLDOUT, SIN 2025/2026, SIN OPTIMIZATION/SWEEP, SIN DEMO/REAL/FTMO Y SIN EDGE CLAIMS.”
+
+Efecto autorizado:
+- solo ejecutar script ya auditado;
+- verificar SHA256 antes de correr;
+- abortar si el hash difiere;
+- no permitir cambios al script;
+- no ejecutar si la auditoría del script no pasó.
+
+Está prohibido usar la frase Phase A-1 antes de que exista:
+1. script Phase A-0;
+2. auditoría del script aprobada;
+3. hash SHA256 auditado;
+4. verificación de hash previa a ejecución.
+
+Si cualquiera falta:
+
+ABORTAR con:
+
+BLOCKED_PHASE_A1_PREREQUISITES_MISSING
+
+Si la frase requerida para la fase invocada no aparece exactamente como declaración autónoma:
 
 ABORTAR con:
 
@@ -120,24 +156,42 @@ Documentos de gobernanza commiteables de Phase A-0:
 3. BASE BRANCH
 ============================================================
 
-La ejecución debe partir exactamente desde:
+La ejecución debe partir exactamente desde ramas separadas por fase:
 
-Branch base:
-audit/bo01-first-train-only-realdata-backtest-protocol-design-v1-20260518
+PHASE A-0 BASE:
 
-Commit base:
-d9c730d6a0547fb9338aa7fde1eb1fcaac07d5dc
+`audit/bo01-phase-a-h02-warning-micro-patch-v1-20260518`
+o la rama auditada equivalente del micro-patch si la auditoría posterior usa otro nombre.
 
-Se creará una rama futura exclusiva de ejecución:
+PHASE A-0 FUTURE BRANCH:
 
-`research/bo01-phase-a-train-only-realdata-backtest-execution-v1-20260518`
+`research/bo01-phase-a0-execution-script-draft-v1-20260518`
 
 Si esta rama ya existe local o remotamente, usar:
-`research/bo01-phase-a-train-only-realdata-backtest-execution-v2-20260518`
+`research/bo01-phase-a0-execution-script-draft-v2-20260518`
+
+PHASE A-1 BASE:
+
+`audit/bo01-phase-a0-execution-script-draft-v1-20260518`
+o el branch auditado real del script draft.
+
+PHASE A-1 FUTURE BRANCH:
+
+`research/bo01-phase-a1-train-only-realdata-backtest-execution-v1-20260518`
+
+Si esta rama ya existe local o remotamente, usar:
+`research/bo01-phase-a1-train-only-realdata-backtest-execution-v2-20260518`
+
+Regla:
+
+Phase A-1 no puede basarse directamente en el draft H-02 ni en el prompt anterior.
+Debe basarse en una auditoría aprobada del script Phase A-0.
 
 ============================================================
 4. AUTHORIZED DATA
 ============================================================
+
+PHASE A-1 MECHANICS ONLY — NOT APPLICABLE TO PHASE A-0 EXECUTION
 
 Rutas de archivos de datos dentro de `05_MARKET_DATA_VAULT/`:
 
@@ -158,6 +212,12 @@ Ventana de ejecución acotada:
 5. DATA PROOF GATE
 ============================================================
 
+PHASE A-1 MECHANICS ONLY — NOT APPLICABLE TO PHASE A-0 EXECUTION
+
+Esta Data Proof Gate es la lógica obligatoria que el script Phase A-0 debe
+implementar y que la auditoría del script debe verificar. Solo se ejecuta
+durante Phase A-1, después de auditoría aprobada y verificación SHA256.
+
 Antes de iniciar el bucle de backtest, el cargador de datos de la simulación debe evaluar de manera programática y reportar en los logs el cumplimiento de las siguientes condiciones estructurales:
 
 1. **Ubicación Física**: Confirmar la existencia de los archivos CSV exclusivamente en las rutas autorizadas de `prepared_train_2015_2024/`.
@@ -174,6 +234,8 @@ Si cualquiera de estas validaciones falla, se debe abortar la simulación inmedi
 6. RUNNER GATE
 ============================================================
 
+PHASE A-1 MECHANICS ONLY — NOT APPLICABLE TO PHASE A-0 EXECUTION
+
 Se debe verificar de forma estática que:
 1. El archivo de ejecución es `03_RESEARCH_LAB/research_lab/runners/bo01_backtest_runner.py`.
 2. El runner es importable y su identificador interno es exactamente `BO01_BACKTEST_RUNNER_SYNTHETIC_V1`.
@@ -187,6 +249,8 @@ Si se detectan cambios de código no autorizados en el motor o en las clases de 
 7. EXECUTION RULES
 ============================================================
 
+PHASE A-1 MECHANICS ONLY — NOT APPLICABLE TO PHASE A-0 EXECUTION
+
 Durante el recorrido cronológico de la ventana de Phase A:
 1. Las señales generadas en el cierre de la vela $t$ se ejecutan exclusivamente en la apertura de la vela $t+1$ (`ENTRY_NEXT_CANDLE_OPEN`).
 2. Se prohíben entradas intrabar, breakout o basadas en precios simulados intermedios.
@@ -197,6 +261,8 @@ Durante el recorrido cronológico de la ventana de Phase A:
 ============================================================
 8. COST PROFILES
 ============================================================
+
+PHASE A-1 MECHANICS ONLY — NOT APPLICABLE TO PHASE A-0 EXECUTION
 
 Se deben evaluar y reportar de manera simultánea los siguientes tres perfiles de costo fijos sobre la muestra de operaciones:
 
@@ -224,6 +290,8 @@ Se prohíbe realizar selección heurística de perfiles; los tres deben calcular
 9. OUTPUT POLICY
 ============================================================
 
+PHASE A-1 MECHANICS ONLY — NOT APPLICABLE TO PHASE A-0 EXECUTION
+
 Todos los archivos locales generados por la corrida de simulación se ubicarán en:
 `03_RESEARCH_LAB/research_lab/local_outputs_do_not_commit/bo01_first_train_only_realdata_backtest/<RUN_ID>/`
 
@@ -250,6 +318,8 @@ Archivo local opcional:
 10. GOVERNANCE DOCUMENTATION
 ============================================================
 
+PHASE A-1 MECHANICS ONLY — NOT APPLICABLE TO PHASE A-0 EXECUTION
+
 Los únicos archivos que se deben agregar y commitear al repositorio Git al finalizar esta fase son:
 
 1. `06_GOVERNANCE_AND_COMPLIANCE/lab_readiness/BO01_PHASE_A_TRAIN_ONLY_REALDATA_BACKTEST_EXECUTION_REPORT_V1.md`
@@ -260,6 +330,8 @@ Queda estrictamente prohibido commitear CSVs con datos de mercado, carpetas loca
 ============================================================
 11. METRICS POLICY
 ============================================================
+
+PHASE A-1 MECHANICS ONLY — NOT APPLICABLE TO PHASE A-0 EXECUTION
 
 Las métricas calculadas y reportadas en el informe de gobernanza se limitarán a:
 - Cantidad de operaciones (`trade_count`).
@@ -276,11 +348,15 @@ Estas métricas sirven únicamente para validar el comportamiento del motor de s
 12. SAFETY SCAN
 ============================================================
 
+PHASE A-1 MECHANICS ONLY — NOT APPLICABLE TO PHASE A-0 EXECUTION
+
 Al finalizar la simulación, se ejecutará un escaneo ripgrep (`rg`) en busca de palabras prohibidas o indicios de contaminación en los archivos de salida y en los reportes de gobernanza. Se clasificará cualquier hallazgo y se detendrá el proceso si se detectan fugas de datos o términos inflados de rentabilidad.
 
 ============================================================
 13. ABORT CONDITIONS
 ============================================================
+
+PHASE A-1 MECHANICS ONLY — NOT APPLICABLE TO PHASE A-0 EXECUTION
 
 El proceso de simulación abortará de manera inmediata y segura en los siguientes casos:
 1. **Desviación de Rama**: Si la rama de trabajo no coincide con la rama de ejecución autorizada.
