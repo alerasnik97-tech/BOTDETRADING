@@ -1,0 +1,4 @@
+# Local external strategy-intake guard.
+# Heavy/copied source documents in this folder stay local and untracked.
+*
+!.gitignore
