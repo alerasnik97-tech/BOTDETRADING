@@ -1,12 +1,12 @@
 # NEXT PROMPT — OWNER DECIDES M0 SYNTHETIC-ONLY MICRORUN EXECUTION V1
 
 ## 0. Nature Of This Document
-This is a governance-locked decision template. It does NOT authorize any code execution, micro-runs, dry-runs, backtests, validation unsealings, or parameter sweeps. It is designed strictly to present three options to the owner regarding a future execution plan.
+This is a governance-read-only decision template. It does NOT authorize any code execution, micro-runs, dry-runs, backtests, validation unsealings, or parameter sweeps. It is designed strictly to present three options to the owner regarding a future execution plan.
 
 ---
 
 ## 1. Context
-The design-only micro-run protocol cleanup for strategy candidates **BO01** and **MR02** (Sub-Batch 1A) has successfully passed external read-only audit on branch `audit/microrun-protocol-design-cleanup-review-v1-20260517` under commit `271f77d29e59150512ee42cab0c50863f9867956` (review branch HEAD: will be recorded in next session's checkout). The next step is a formal owner decision gate.
+The design-only micro-run protocol cleanup for strategy candidates **BO01** and **MR02** (Sub-Batch 1A) has passed external read-only audit on branch `audit/microrun-protocol-design-cleanup-review-v1-20260517` under commit `271f77d29e59150512ee42cab0c50863f9867956` (review branch HEAD: will be recorded in next session's checkout). The next step is a formal owner decision gate.
 
 ---
 
@@ -27,7 +27,7 @@ The owner must explicitly select and approve ONE of the following paths:
 ### OPTION A: Commission a future M0 synthetic-only execution prompt
 *   **What this does:** Authorizes the writing of a separate, highly controlled future execution prompt template only.
 *   **Safety warning:** Selection of Option A does NOT execute any code, micro-run, dry-run, backtest, or parameter sweep. It only authorizes the writing of the prompt.
-*   **Preconditions:** Execution remains locked until that future prompt is separately generated, audited, and owner-approved. W-01 (dirty tree) and W-02 (output debt) must remain as strict gates before any execution can be initiated.
+*   **Preconditions:** Execution remains unauthorized until that future prompt is separately generated, audited, and owner-approved. W-01 (dirty tree) and W-02 (output debt) must remain as strict gates before any execution can be initiated.
 
 ### OPTION B: Request a minor documentation patch
 *   **What this does:** Rejects the current audit report due to minor wording or traceability concerns, requiring a documentary patch before a decision can be made.

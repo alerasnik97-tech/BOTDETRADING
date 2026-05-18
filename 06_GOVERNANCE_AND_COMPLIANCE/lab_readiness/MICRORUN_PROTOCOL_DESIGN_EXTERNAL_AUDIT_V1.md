@@ -1,12 +1,12 @@
 # MICRORUN PROTOCOL DESIGN EXTERNAL AUDIT V1
 
 ## 1. Audit Status
-**`MICRORUN_PROTOCOL_DESIGN_AUDIT_PASS_READY_FOR_OWNER_EXECUTION_DECISION`**
+**`MICRORUN_PROTOCOL_DESIGN_AUDIT_PASS_READY_FOR_OWNER_DECISION_ON_WHETHER_TO_DRAFT_A_FUTURE_M0_SYNTHETIC_ONLY_EXECUTION_PROMPT`**
 
 ---
 
 ## 2. Executive Verdict
-This independent external read-only audit has evaluated the design-only cleanup of the micro-run protocol for strategy candidates **BO01** and **MR02** (Sub-Batch 1A) on branch `research/microrun-protocol-design-cleanup-v1-20260517`. The audit confirms that documented controls are fully in place. The protocol operates strictly in design-only mode; execution remains unauthorized, and no backtests, train runs, dry-runs, or optimization sweeps were initiated. All future execution gates, including pre-existing warnings W-01 and W-02, remain intact. 
+This independent external read-only audit has evaluated the design-only cleanup of the micro-run protocol for strategy candidates **BO01** and **MR02** (Sub-Batch 1A) on branch `research/microrun-protocol-design-cleanup-v1-20260517`. The audit confirms that documented controls are documented. The protocol operates strictly in design-only mode; execution remains unauthorized, and no backtests, train runs, dry-runs, or optimization sweeps were initiated. All future execution gates, including pre-existing warnings W-01 and W-02, remain intact. 
 
 ---
 
@@ -47,7 +47,7 @@ This independent external read-only audit has evaluated the design-only cleanup 
 
 ## 6. Registry Lineage Audit
 - **Verdict:** `PASS_REGISTRY_LINEAGE_CORRECT`
-- **Details:** Strategy status tables for candidates BO01 and MR02 were verified in `STRATEGY_RESEARCH_REGISTRY.md`. Status cells were properly shifted to `MICRO_RUN_PROTOCOL_DESIGN_PENDING`. Lineage trace references are successfully matched to branch `research/microrun-protocol-design-v1-20260517` and the corrected parent commit `32c9f310dd2c274aa0cd753d107972d3d070af26`.
+- **Details:** Strategy status tables for candidates BO01 and MR02 were verified in `STRATEGY_RESEARCH_REGISTRY.md`. Status cells were properly shifted to `MICRO_RUN_PROTOCOL_DESIGN_PENDING`. Lineage trace references are matched to branch `research/microrun-protocol-design-v1-20260517` and the corrected parent commit `32c9f310dd2c274aa0cd753d107972d3d070af26`.
 
 ---
 
@@ -71,7 +71,7 @@ This independent external read-only audit has evaluated the design-only cleanup 
 
 ## 10. Output Policy Audit
 - **Verdict:** `PASS`
-- **Details:** Future outputs are routed exclusively to a subfolder of `local_outputs_do_not_commit/` which is ignored in `.gitignore`. Accidental staging of trades, equity curves, or ZIP archives is completely blocked.
+- **Details:** Future outputs are routed exclusively to a subfolder of `local_outputs_do_not_commit/` which is ignored in `.gitignore`. Accidental staging of trades, equity curves, or ZIP archives is restricted by documented gates.
 
 ---
 
@@ -83,7 +83,7 @@ This independent external read-only audit has evaluated the design-only cleanup 
 
 ## 12. Report / Future Prompt Audit
 - **Verdict:** `PASS`
-- **Details:** The cleanup report (`MICRORUN_PROTOCOL_DESIGN_CLEANUP_REPORT_V1.md`) and design report (`MICRORUN_PROTOCOL_DESIGN_REPORT_V1.md`) avoid qualitative or non-sober adjectives. The future read-only audit prompt is locked and limited to verifying lineages and drafts.
+- **Details:** The cleanup report (`MICRORUN_PROTOCOL_DESIGN_CLEANUP_REPORT_V1.md`) and design report (`MICRORUN_PROTOCOL_DESIGN_REPORT_V1.md`) avoid qualitative or non-sober adjectives. The future read-only audit prompt execution remains unauthorized and limited to verifying lineages and drafts.
 
 ---
 
@@ -112,7 +112,7 @@ This independent external read-only audit has evaluated the design-only cleanup 
 ---
 
 ## 16. Decision
-**The micro-run protocol design cleanup is ready for owner execution decision. There are zero blockers. Pre-existing warnings W-01 and W-02 are correctly preserved as future gates. This audit does NOT authorize any micro-run, dry-run, backtest, train, validation, holdout (2025/2026), or parameter sweeps. Execution remains unauthorized.**
+**The micro-run protocol design cleanup is ready for owner decision on whether to draft a future M0 synthetic-only execution prompt. There are zero blockers. Pre-existing warnings W-01 and W-02 are correctly preserved as future gates. This audit does NOT authorize any micro-run, dry-run, backtest, train, validation, holdout (2025/2026), or parameter sweeps. The laboratory execution remains unauthorized.**
 
 ---
 
@@ -132,4 +132,4 @@ This independent external read-only audit has evaluated the design-only cleanup 
 ---
 
 ## 19. Final Institutional Verdict
-The Sub-Batch 1A micro-run protocol design and its cleanup dossier comply fully with our institutional standards. All parent commits match perfectly, future commands are securely marked as non-executable draft placeholders, and no code or data has been modified. The laboratory remains locked, and execution is unauthorized. The next stage is released exclusively to the owner for an execution prompt decision.
+The Sub-Batch 1A micro-run protocol design and its cleanup dossier are acceptable for owner decision with our institutional standards. All parent commits match as documented, future commands are securely marked as non-executable draft placeholders, and no code or data has been modified. The laboratory execution remains unauthorized. The next stage is released exclusively to the owner for an execution-prompt drafting decision.
