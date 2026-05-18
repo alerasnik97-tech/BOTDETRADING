@@ -50,5 +50,5 @@ The auditor is permitted to use **ONLY** read-only text commands:
 
 ## 4. Final Audit Decision
 The auditor must report a final safety status:
-- **STATUS = PASS:** If all checks comply, lineage is corrected to match physical HEAD, no incorrect SHA remains, language is neutral, and the execution draft is fully compliant.
+- **STATUS = PASS:** If all checks comply, lineage is corrected to match physical HEAD, no incorrect SHA remains, language is neutral, and the execution draft is compliant with the reviewed restrictions.
 - **STATUS = BLOCKER:** If any python script execution is allowed, any performance metrics are permitted, or any execution is possible without the exact activation gate phrase.
