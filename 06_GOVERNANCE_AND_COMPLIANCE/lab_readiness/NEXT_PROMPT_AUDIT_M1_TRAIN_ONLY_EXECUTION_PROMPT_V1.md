@@ -2,20 +2,21 @@
 
 ## 0. Nature Of This Document
 This is a future external read-only audit prompt. It authorizes no dynamic execution, no strategy calls, and no data loading.
-Its only purpose is to perform a rigorous read-only verification of the drafted M1 execution prompt and its compliance with the laboratory's safety guidelines.
+Its only purpose is to perform a read-only verification of the drafted M1 execution prompt and its compliance with the laboratory's safety guidelines.
 
 ---
 
 ## 1. Required Scope
-Audit read-only:
+The auditing agent must inspect the following and verify compliance:
 - **Diff scope:** Verify that the git diff contains exclusively markdown files and whitelisted registry updates. No code, tests, or market data must be touched.
-- **Activation Gate:** Confirm that the drafted prompt (`NEXT_PROMPT_EXECUTE_M1_TRAIN_ONLY_BO01_MR02_V1.md`) requires the exact autonomous owner approval phrase.
-- **Sub-phase definitions:** Confirm that M1A is strictly restricted to metadata preflight and M1B to a tiny contiguous controlled slice.
-- **Data Policy:** Confirm that the target dataset is `EURUSD_PREPARED_TRAIN_2015_2024_M5` and that any 2025/2026 data immediately triggers an execution abort.
-- **Strict Prohibitions:** Verify that standard backtests, training runners, validation/holdout sets, parallel writers, and optimization sweeps are strictly banned.
-- **Output Policy:** Verify that allowed outputs are directed only to ignored directories under `local_outputs_do_not_commit/` and that standard files (`trades.csv`, `equity_curve.csv`, ZIPs) are prohibited.
-- **Manifest Schema:** Verify that a complete, hardened manifest schema with individual file hashes and true/false verification flags is declared.
-- **W-01 / W-02 Gates:** Verify that pre-existing backlog W-01 and W-02 remain active gates and are not affected.
+- **Exact SHA Lineage:** Verify that all strategy candidates (BO01 and MR02) are mapped in the registry to the exact design commit SHA `1f69e2b0c5a49a0b97fe4ff2ac317e0547951ad8` and that NO `BRANCH_HEAD` placeholders remain.
+- **No Wording Inflation:** Verify that no absolute or hyper-positive qualitative qualifiers (e.g., "100%", "fully", "successfully", "certified", "locked", "strictly and absolutely", "perfectly", "sealed") are used to describe current or future execution states.
+- **Runner Policy:** Verify that the runner policy strictly prohibits the creation of new runner files inside production/incubation directories or the modification of core code. If a runner is used, it must be verified as audited, or the execution aborts with `BLOCKED_M1_RUNNER_NOT_AUDITED_OR_NOT_FOUND`.
+- **No Code Creation:** Verify that the prompt authorizes no dynamic code creation during future execution, unless it is a temporary script in the ignored local directory.
+- **No Data Loading during Audit:** Verify that no data is loaded or processed during this read-only audit phase.
+- **W-01 / W-02:** Verify that pre-existing backlog W-01 and W-02 remain active gates and are not affected.
+- **Broad Gitignore Warning:** Verify that the broad `.gitignore` warnings are documented and understood.
+- **No Owner-less Execution Path:** Confirm that the drafted prompt (`NEXT_PROMPT_EXECUTE_M1_TRAIN_ONLY_BO01_MR02_V1.md`) requires the exact autonomous owner approval phrase before any action.
 
 ---
 

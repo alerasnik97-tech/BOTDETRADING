@@ -17,7 +17,7 @@ The required exact approval phrase is:
 
 ## 1. Nature Of This Prompt
 This prompt authorizes the controlled execution of:
-- **M1A:** Metadata and data availability preflight only (no strategy execution, no price calculations, no performance metrics).
+- **M1A:** Metadata and data availability preflight only (can read row count, min/max timestamp, column names, and source file hash, but CANNOT calculate returns, volatility, ATR, price range, spread stats, PnL, signal stats, or performance metrics).
 - **M1B:** A tiny, train-only controlled execution slice to verify the real-data plumbing of strategies BO01 and MR02.
 
 > [!WARNING]
@@ -35,7 +35,7 @@ This prompt authorizes the controlled execution of:
 - Read the minimum and maximum timestamps of the dataset.
 - Read and verify the column names list.
 - Read and verify the train-only partition label inside the dataset.
-- **Strictly Prohibited:** Strategy instantiation, strategy execution, signal calculations, or price statistics.
+- **Strictly Prohibited:** Strategy instantiation, strategy execution, signal calculations, price statistics, returns, volatility, price range, ATR, or spread statistics.
 
 ### M1B — Tiny Controlled Execution
 - Load a tiny, contiguous, pre-declared train-only date slice.
@@ -54,28 +54,37 @@ This prompt authorizes the controlled execution of:
 
 ---
 
-## 3. Prohibited Scope
-The following actions are strictly and absolutely prohibited:
-- **NO Validation partition access.**
-- **NO Holdout partition access.**
-- **NO 2025 data access.**
-- **NO 2026 data access.**
+## 3. Runner Policy
+- **No Runner Creation:** The executing agent cannot create a new runner script inside core production or incubation directories.
+- **No Runner Modification:** The executing agent cannot modify any existing core runner, engine, data loader, or factory files.
+- **Runner Verification:** The executing agent must verify if the target runner `research_lab.runners.m1_controlled_runner` (or its designated namespace) exists and is audited. If the runner script does not exist or is not audited, the execution must **ABORT** with:
+  `BLOCKED_M1_RUNNER_NOT_AUDITED_OR_NOT_FOUND`
+- **Future Alternative:** Under explicit permission defined in the audited execution prompt, a temporary execution script may be run under ignored directories (`local_outputs_do_not_commit`), but no core repository code can be modified.
+
+---
+
+## 4. Prohibited Scope
+The following actions are prohibited:
+- **NO Validation partition access** (validation is not authorized).
+- **NO Holdout partition access** (holdout is not authorized).
+- **NO 2025 data access** (not authorized).
+- **NO 2026 data access** (not authorized).
 - **NO Backtesting.**
 - **NO Formal training runner.**
 - **NO Optimization or parameter sweeps.**
 - **NO Grid search or walk-forward verification.**
-- **NO Performance metrics calculation** (strictly no Profit Factor, Win Rate, Drawdown, Sharpe Ratio, Expectancy, or PnL).
+- **NO Performance metrics calculation** (prohibited to calculate Profit Factor, Win Rate, Drawdown, Sharpe Ratio, Expectancy, or PnL).
 - **NO Creation of `trades.csv` or `equity_curve.csv`.**
 - **NO Sub-Batch 1B or other candidates (e.g., MR03, LS01, LS02).**
 - **NO Portfolio expansion or parallel execution writers.**
 - **NO Code modifications** (no changes to `BO01Strategy.py`, `MR02Strategy.py`, tests, engine, runner, data loader, or factory).
 - **NO Data Vault writes or mutations.**
 - **NO ZIP creation.**
-- **NO Output committing to GitHub** (local outputs must remain 100% ignored).
+- **NO Output committing to GitHub** (local outputs must remain verified as ignored).
 
 ---
 
-## 4. Pre-Execution Safety Checks
+## 5. Pre-Execution Safety Checks
 Before executing any script, the executing agent must verify:
 1. **Branch check:** The current branch must be `research/m1-train-only-bo01-mr02-v1-YYYYMMDD` (replaces YYYYMMDD with the current local date).
 2. **Worktree check:** No staged files exist. Worktree stability snapshots A and B match under a 60-second observation window.
@@ -89,14 +98,14 @@ Before executing any script, the executing agent must verify:
 
 ---
 
-## 5. Branch Strategy
-- **Branch:** `research/m1-train-only-bo01-mr02-v1-YYYYMMDD` (created from `research/draft-m1-train-only-execution-prompt-v1-20260518` at commit `BRANCH_HEAD`).
-- **Push policy:** Force-push to this branch is strictly prohibited.
+## 6. Branch Strategy
+- **Branch:** `research/m1-train-only-bo01-mr02-v1-YYYYMMDD` (created from `research/draft-m1-train-only-execution-prompt-cleanup-v1-20260518` at commit `1f69e2b0c5a49a0b97fe4ff2ac317e0547951ad8`).
+- **Push policy:** Force-push to this branch is prohibited.
 - **Main lock:** No direct push, merge, or rebase to `main` is allowed.
 
 ---
 
-## 6. Data Policy
+## 7. Data Policy
 - The market data source must be read-only.
 - **Target source ID:** `EURUSD_PREPARED_TRAIN_2015_2024_M5`
 - The executing agent must verify the actual canonical filename in the system and document its size and location.
@@ -107,7 +116,7 @@ Before executing any script, the executing agent must verify:
 
 ---
 
-## 7. M1A Metadata Preflight Execution
+## 8. M1A Metadata Preflight Execution
 The agent must execute a read-only metadata verification script to print:
 - Complete file/path location of the dataset.
 - Dataset size in bytes and SHA-256 hash.
@@ -115,11 +124,11 @@ The agent must execute a read-only metadata verification script to print:
 - Exact minimum and maximum timestamps.
 - Complete list of column names.
 - Explicit validation that the data belongs strictly to the train partition.
-- **Check:** No strategy is instantiated, and no price statistics or signals are computed.
+- **Check:** No strategy is instantiated, and no returns, volatility, ATR, price range, spread stats, PnL, signal stats, or performance metrics are computed.
 
 ---
 
-## 8. M1B Tiny Controlled Execution Setup
+## 9. M1B Tiny Controlled Execution Setup
 The agent must pre-declare the exact tiny slice before executing the call path:
 - **Pre-declared slice:** (e.g., `2015-01-05 00:00:00` to `2015-01-07 23:59:59`, or a similar 3-day window containing a London session).
 - **Max length:** Bounded to the minimum required bars for parameter warm-up and one Asian range evaluation.
@@ -138,7 +147,7 @@ The agent must pre-declare the exact tiny slice before executing the call path:
 
 ---
 
-## 9. Hardened Manifest Schema
+## 10. Hardened Manifest Schema
 The execution must output a detailed manifest containing:
 - `run_id` (UUID format).
 - `phase` (`M1_TRAIN_ONLY_PLUMBING_VERIFICATION`).
@@ -166,19 +175,6 @@ The execution must output a detailed manifest containing:
 - `data_access_log_sha256`.
 - `no_secrets_detected: true`.
 - `no_forbidden_outputs_detected: true`.
-
----
-
-## 10. Output Policy
-- **Target output root:**
-  `03_RESEARCH_LAB/research_lab/local_outputs_do_not_commit/m1_train_only_bo01_mr02/<RUN_ID>/`
-- The executing agent must verify this path is 100% ignored.
-- **Allowed output files:**
-  - `M1_TRAIN_ONLY_MICRORUN_REPORT.md` (local copy of structural results).
-  - `output_manifest.json` (hardened manifest).
-  - `command_log.txt` (exact command history).
-  - `data_access_log.txt` (features read and feature contract checks).
-- **Prohibited:** Any `trades.csv`, `equity_curve.csv`, ZIPs, or root files. None of the local output files can be staged or committed.
 
 ---
 
