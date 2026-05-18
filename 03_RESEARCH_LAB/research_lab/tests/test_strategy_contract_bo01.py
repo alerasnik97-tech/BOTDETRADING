@@ -22,6 +22,20 @@ def _target_index(frame: pd.DataFrame, date: str, hhmm: str) -> int:
     return int(frame.index.get_loc(target))
 
 
+def _utc_stamp(frame: pd.DataFrame, date: str, hhmm: str) -> pd.Timestamp:
+    return pd.Timestamp(f"{date} {hhmm}:00", tz="UTC").tz_convert(frame.index.tz)
+
+
+def _replace_utc_timestamp(frame: pd.DataFrame, date: str, old_hhmm: str, new_hhmm: str) -> pd.DataFrame:
+    modified = frame.copy()
+    old_stamp = _utc_stamp(modified, date, old_hhmm)
+    new_stamp = _utc_stamp(modified, date, new_hhmm)
+    index_values = list(modified.index)
+    index_values[index_values.index(old_stamp)] = new_stamp
+    modified.index = pd.DatetimeIndex(index_values)
+    return modified
+
+
 def _bo01_frame(date: str = "2024-03-12", *, hhmm: str = "07:00", tz: str = "UTC",
                 direction: str = "long") -> tuple[pd.DataFrame, int]:
     index_utc = pd.date_range(pd.Timestamp(f"{date} 00:00:00", tz="UTC"), periods=145, freq="5min")
@@ -82,6 +96,35 @@ class BO01ContractTests(unittest.TestCase):
                 result = module.signal(frame, i, module.default_params())
         self.assertEqual(result["signal"], 1)
         self.assertEqual(result["direction"], "long")
+        _assert_signal_contract(self, result)
+
+    def test_missing_asian_endpoint_0630_fails_closed(self) -> None:
+        module = _module()
+        frame, i = _bo01_frame()
+        frame = _replace_utc_timestamp(frame, "2024-03-12", "06:30", "06:29")
+        self.assertIsNone(module.signal(frame, i, module.default_params()))
+
+    def test_duplicate_asian_timestamp_replacing_missing_bar_fails_closed(self) -> None:
+        module = _module()
+        frame, i = _bo01_frame()
+        frame = _replace_utc_timestamp(frame, "2024-03-12", "06:25", "06:20")
+        self.assertIsNone(module.signal(frame, i, module.default_params()))
+
+    def test_wrong_asian_cadence_fails_closed(self) -> None:
+        module = _module()
+        frame, i = _bo01_frame()
+        frame = _replace_utc_timestamp(frame, "2024-03-12", "00:05", "00:07")
+        self.assertIsNone(module.signal(frame, i, module.default_params()))
+
+    def test_short_side_eligible_signal_contract(self) -> None:
+        module = _module()
+        frame, i = _bo01_frame(direction="short")
+        result = module.signal(frame, i, module.default_params())
+        self.assertIsNotNone(result)
+        self.assertEqual(result["signal"], -1)
+        self.assertEqual(result["direction"], "short")
+        self.assertEqual(result["target_rr"], 2.0)
+        self.assertGreater(result["stop_price"], float(frame["close"].iat[i]))
         _assert_signal_contract(self, result)
 
     def test_small_frame_fails_closed(self) -> None:

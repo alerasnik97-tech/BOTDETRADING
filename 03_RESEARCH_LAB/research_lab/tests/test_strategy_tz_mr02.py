@@ -18,6 +18,16 @@ def _target_index(frame: pd.DataFrame, date: str, hhmm: str) -> int:
     return int(frame.index.get_loc(target))
 
 
+def _replace_utc_timestamp(frame: pd.DataFrame, date: str, old_hhmm: str, new_hhmm: str) -> pd.DataFrame:
+    modified = frame.copy()
+    old_stamp = pd.Timestamp(f"{date} {old_hhmm}:00", tz="UTC").tz_convert(modified.index.tz)
+    new_stamp = pd.Timestamp(f"{date} {new_hhmm}:00", tz="UTC").tz_convert(modified.index.tz)
+    index_values = list(modified.index)
+    index_values[index_values.index(old_stamp)] = new_stamp
+    modified.index = pd.DatetimeIndex(index_values)
+    return modified
+
+
 def _mr02_frame(date: str, hhmm: str, *, tz: str = "UTC", active: bool = True) -> tuple[pd.DataFrame, int]:
     index_utc = pd.date_range(pd.Timestamp(f"{date} 00:00:00", tz="UTC"), periods=160, freq="5min")
     index = index_utc.tz_convert(tz)
@@ -68,6 +78,12 @@ class MR02TimezoneTests(unittest.TestCase):
     def test_no_signal_before_entry_window(self) -> None:
         module = _module()
         frame, i = _mr02_frame("2024-03-12", "06:55")
+        self.assertIsNone(module.signal(frame, i, module.default_params()))
+
+    def test_no_signal_when_asian_endpoint_0630_missing(self) -> None:
+        module = _module()
+        frame, i = _mr02_frame("2024-03-12", "07:10")
+        frame = _replace_utc_timestamp(frame, "2024-03-12", "06:30", "06:29")
         self.assertIsNone(module.signal(frame, i, module.default_params()))
 
     def test_no_signal_after_entry_window(self) -> None:

@@ -63,6 +63,13 @@ def _utc_minute(ts: pd.Timestamp) -> int | None:
     return stamp.hour * 60 + stamp.minute
 
 
+def _expected_asian_timestamps_utc(trade_date: object, start: int, end: int) -> list[pd.Timestamp]:
+    if start < 0 or end < start or (end - start) % 5 != 0:
+        return []
+    session_start = pd.Timestamp(trade_date).tz_localize("UTC")
+    return [session_start + pd.Timedelta(minutes=minute) for minute in range(start, end + 1, 5)]
+
+
 def _all_finite(values: list[float]) -> bool:
     return all(np.isfinite(value) for value in values)
 
@@ -100,18 +107,25 @@ def _asian_range(frame: pd.DataFrame, i: int, params: dict[str, Any]) -> tuple[f
         return None
     start = _minute(str(params["asian_start"]))
     end = _minute(str(params["asian_end"]))
+    expected = _expected_asian_timestamps_utc(ts.date(), start, end)
+    if len(expected) != ASIAN_MIN_BARS:
+        return None
+    expected_set = set(expected)
     rows = frame.iloc[:i]
-    selected: list[int] = []
+    selected: dict[pd.Timestamp, int] = {}
     for idx, value in enumerate(rows.index):
         stamp = _utc_ts(value)
         if stamp is None:
             return None
         minute = stamp.hour * 60 + stamp.minute
         if stamp.date() == ts.date() and start <= minute <= end:
-            selected.append(idx)
-    if len(selected) < ASIAN_MIN_BARS:
+            if stamp not in expected_set or stamp in selected:
+                return None
+            selected[stamp] = idx
+    if set(selected) != expected_set:
         return None
-    window = rows.iloc[selected]
+    ordered_positions = [selected[stamp] for stamp in expected]
+    window = rows.iloc[ordered_positions]
     if window[["high", "low"]].isna().any().any():
         return None
     high = float(window["high"].max())
