@@ -6,9 +6,9 @@ This is a governance-locked template. It does NOT authorize any code execution, 
 ---
 
 ## 1. Context
-The post-extreme-audit governance hygiene patch has passed external read-only audit. All five warnings (W-01 dirty tree plan, W-02 output debt plan, W-03 missing BO01/MR02 rows, W-04 owner-less micro-run paths, W-05 TP01 lineage note) have been fully resolved. 
+The post-extreme-audit governance hygiene patch has passed external read-only audit. All five warnings (W-03/W-04/W-05 corrected in governance documents; W-01/W-02 documented as future remediation gates) have been addressed for owner-decision purposes. W-01/W-02 are documented as remediation plans, not physically cleaned.
 
-The strategy candidates **BO01** and **MR02** are currently at `IMPLEMENTED_TESTS_AUDITED_OWNER_PROTOCOL_DECISION_PENDING` status. No execution exists. The next step under the hardened taxonomy is an owner decision on whether to commission a **design-only micro-run protocol** (which is a document, not a dynamic run).
+The strategy candidates **BO01** and **MR02** are currently at `IMPLEMENTED_TESTS_AUDITED_OWNER_PROTOCOL_DECISION_PENDING` status. No execution exists. The next step under the taxonomy is an owner decision on whether to commission a **design-only micro-run protocol** (which is a document, not a dynamic run).
 
 ---
 
@@ -36,7 +36,7 @@ You must present the owner with these exact three options and wait for an explic
 *   **Target branch:** `governance/additional-patch-v1-20260517`
 
 ### OPTION C: Do Not Advance / Lock Laboratory
-*   **What this authorizes:** Archiving the current branch state. The laboratory remains locked indefinitely under a frozen status.
+*   **What this authorizes:** Archiving the current branch state. The laboratory execution remains unauthorized under a frozen status.
 
 ---
 
